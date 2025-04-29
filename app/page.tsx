@@ -1,0 +1,459 @@
+"use client"
+
+import { lazy, Suspense, useState, useEffect } from "react"
+import { motion } from "framer-motion"
+import { ArrowRight, Check, ChevronRight, Clock, MapPin, Shield, Sparkles, Truck } from "lucide-react"
+import Image from "next/image"
+
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Navbar } from "@/components/navbar"
+import { LazyLoadSection } from "@/components/lazy-section"
+import { OptimizedImage } from "@/components/optimized-image"
+import { IntroAnimation } from "@/components/intro-animation"
+import { Footer } from "@/components/footer"
+import { LanguageWrapper } from "@/components/language-wrapper"
+import { VideoBackground } from "@/components/video-background"
+import { CarSizeSelector } from "@/components/car-size-selector"
+import { PricingPackageCard } from "@/components/pricing-package-card"
+import { AdditionalServicesTable } from "@/components/additional-services-table"
+import { packages } from "@/lib/pricing-data"
+import { MobileServiceBanner } from "@/components/mobile-service-banner"
+
+// Lazy load components that are not needed immediately
+const ReviewCarousel = lazy(() =>
+  import("@/components/review-carousel").then((mod) => ({ default: mod.ReviewCarousel })),
+)
+
+export default function Home() {
+  const [showIntro, setShowIntro] = useState(true)
+
+  // Hide intro animation after it completes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowIntro(false)
+    }, 4300) // Slightly longer than animation to ensure smooth transition
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Scroll to section function
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  return (
+    <LanguageWrapper>
+      {(t) => (
+        <div className="flex min-h-screen flex-col bg-background text-foreground">
+          {/* Intro Animation */}
+          {showIntro && <IntroAnimation />}
+
+          <Navbar />
+
+          {/* Hero Section */}
+          <section className="relative h-screen w-full overflow-hidden">
+            {/* Video Background */}
+            <VideoBackground />
+
+            <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="mb-6"
+              >
+                <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+                  <span className="text-gradient">
+                    {t.hero.title} <br className="hidden sm:block" />
+                    {t.hero.titleHighlight}
+                  </span>
+                </h1>
+                <p className="mx-auto max-w-2xl text-lg text-zinc-300 sm:text-xl">{t.hero.subtitle}</p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+              >
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </motion.div>
+            </div>
+            <div className="absolute bottom-8 left-0 right-0 z-10 flex justify-center">
+              <motion.div
+                initial={{ opacity: 0, y: 0 }}
+                animate={{
+                  opacity: 1,
+                  y: [0, -10, 0],
+                }}
+                transition={{
+                  delay: 1,
+                  duration: 2,
+                  y: {
+                    duration: 1.5,
+                    repeat: Number.POSITIVE_INFINITY,
+                    repeatType: "reverse",
+                    ease: "easeInOut",
+                  },
+                }}
+                onClick={() => scrollToSection("how-it-works")}
+                className="flex items-center gap-2 text-zinc-400 hover:text-primary transition-colors cursor-pointer"
+                role="button"
+                aria-label="Scroll to how it works section"
+              >
+                <span>{t.common.scrollToExplore}</span>
+                <ChevronRight className="h-4 w-4 rotate-90" />
+              </motion.div>
+            </div>
+          </section>
+
+          {/* How It Works Section */}
+          <section id="how-it-works" className="py-24">
+            <div className="container mx-auto px-4">
+              <LazyLoadSection>
+                <div className="mb-16 text-center">
+                  <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
+                    {t.howItWorks.title}
+                  </h2>
+                  <div className="h-1 w-24 mx-auto bg-primary"></div>
+                  <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.howItWorks.subtitle}</p>
+                </div>
+              </LazyLoadSection>
+
+              <div className="relative grid gap-12 md:grid-cols-3">
+                {/* Connecting lines between cards (visible on md screens and up) */}
+                <div className="absolute top-1/2 left-0 right-0 hidden md:block">
+                  <div className="h-1 w-full bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20"></div>
+                </div>
+
+                {/* Step 1 */}
+                <LazyLoadSection delay={0.2}>
+                  <div className="relative h-full">
+                    {/* Step number */}
+                    <div className="absolute -top-8 -left-4 z-10 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-3xl font-bold text-black shadow-lg">
+                      1
+                    </div>
+
+                    <div className="flex h-full flex-col items-center text-center bg-background/95 p-8 pt-12 rounded-md relative z-0 opacity-100 border border-border/50">
+                      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <Clock className="h-10 w-10" aria-hidden="true" />
+                      </div>
+                      <h3 className="mb-3 text-xl font-bold">{t.howItWorks.step1Title}</h3>
+                      <p className="text-zinc-400">
+                        {t.howItWorks.step1Description}
+                      </p>
+                    </div>
+                  </div>
+                </LazyLoadSection>
+
+                {/* Step 2 */}
+                <LazyLoadSection delay={0.4}>
+                  <div className="relative h-full">
+                    {/* Step number */}
+                    <div className="absolute -top-8 -left-4 z-10 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-3xl font-bold text-black shadow-lg">
+                      2
+                    </div>
+
+                    <div className="flex h-full flex-col items-center text-center bg-background/95 p-8 pt-12 rounded-md relative z-0 border border-border/50">
+                      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <MapPin className="h-10 w-10" aria-hidden="true" />
+                      </div>
+                      <h3 className="mb-3 text-xl font-bold">{t.howItWorks.step2Title}</h3>
+                      <p className="text-zinc-400">
+                        {t.howItWorks.step2Description}
+                      </p>
+                    </div>
+                  </div>
+                </LazyLoadSection>
+
+                {/* Step 3 */}
+                <LazyLoadSection delay={0.6}>
+                  <div className="relative h-full">
+                    {/* Step number */}
+                    <div className="absolute -top-8 -left-4 z-10 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-3xl font-bold text-black shadow-lg">
+                      3
+                    </div>
+
+                    <div className="flex h-full flex-col items-center text-center bg-background/95 p-8 pt-12 rounded-md relative z-0 border border-border/50">
+                      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <Truck className="h-10 w-10" aria-hidden="true" />
+                      </div>
+                      <h3 className="mb-3 text-xl font-bold">{t.howItWorks.step3Title}</h3>
+                      <p className="text-zinc-400">
+                        {t.howItWorks.step3Description}
+                      </p>
+                    </div>
+                  </div>
+                </LazyLoadSection>
+              </div>
+
+              <LazyLoadSection delay={0.8}>
+                <div className="mt-16 flex justify-center">
+                  <Button
+                    size="lg"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90"
+                    onClick={() => scrollToSection("booking")}
+                  >
+                    {t.howItWorks.bookAppointment} <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+              </LazyLoadSection>
+            </div>
+          </section>
+
+          {/* Mobile Service Banner */}
+          <MobileServiceBanner />
+
+          {/* About Us Section */}
+          <section id="about" className="relative overflow-hidden py-24">
+            <div className="container relative z-10 mx-auto px-4">
+              <div className="grid gap-12 md:grid-cols-2 md:items-center">
+                <LazyLoadSection>
+                  <div className="mb-6">
+                    <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">{t.about.title}</h2>
+                    <div className="h-1 w-24 bg-primary"></div>
+                  </div>
+                  <div className="space-y-6 text-zinc-300">
+                    <p>{t.about.paragraph1}</p>
+                    <p>{t.about.paragraph2}</p>
+                    <p>{t.about.paragraph3}</p>
+                    <div className="flex flex-wrap gap-6 pt-4">
+                      <div className="flex items-center gap-2">
+                        <Shield className="h-5 w-5 text-primary" aria-hidden="true" />
+                        <span>{t.about.fullyInsured}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="h-5 w-5 text-primary" aria-hidden="true" />
+                        <span>{t.about.premiumProducts}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="h-5 w-5 text-primary" aria-hidden="true" />
+                        <span>{t.about.certifiedDetailers}</span>
+                      </div>
+                    </div>
+                  </div>
+                </LazyLoadSection>
+
+                <LazyLoadSection delay={0.3}>
+                  <div className="relative mx-auto aspect-square max-w-md overflow-hidden rounded-md">
+                    <div className="absolute inset-0 z-10 bg-gradient-to-tr from-background via-transparent to-background/80"></div>
+                    <div className="absolute left-0 top-0 z-0 h-full w-full bg-primary/5 backdrop-blur-sm"></div>
+                    <div className="relative z-0 flex h-full items-center justify-center p-6">
+                      <OptimizedImage
+                        src="/images/luxury-car.png"
+                        alt="Luxury Car"
+                        width={600}
+                        height={400}
+                        className="object-contain"
+                        priority
+                        sizes="(max-width: 768px) 100vw, 600px"
+                        quality={90}
+                      />
+                    </div>
+                  </div>
+                </LazyLoadSection>
+              </div>
+            </div>
+
+            {/* Decorative elements */}
+            <div className="section-divider"></div>
+            <div className="absolute -left-20 top-1/4 h-64 w-64 rounded-full bg-primary/5 blur-3xl"></div>
+            <div className="absolute -right-20 bottom-1/4 h-64 w-64 rounded-full bg-primary/5 blur-3xl"></div>
+          </section>
+
+          {/* Services Section */}
+          <section id="services" className="py-24 relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background"></div>
+            <div className="container mx-auto px-4 relative z-10">
+              <LazyLoadSection>
+                <div className="mb-16 text-center">
+                  <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">{t.services.title}</h2>
+                  <div className="h-1 w-24 mx-auto bg-primary"></div>
+                  <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.services.subtitle}</p>
+                  <CarSizeSelector />
+                </div>
+              </LazyLoadSection>
+
+              <div className="grid gap-8 md:grid-cols-3">
+                <LazyLoadSection delay={0.2}>
+                  <PricingPackageCard packageData={packages.essential} />
+                </LazyLoadSection>
+
+                <LazyLoadSection delay={0.4}>
+                  <PricingPackageCard packageData={packages.premium} />
+                </LazyLoadSection>
+
+                <LazyLoadSection delay={0.6}>
+                  <PricingPackageCard packageData={packages.ultimate} />
+                </LazyLoadSection>
+              </div>
+            </div>
+          </section>
+
+          {/* Additional Services Section */}
+          <section id="additional-services" className="py-24">
+            <div className="container mx-auto px-4">
+              <LazyLoadSection>
+                <div className="mb-16 text-center">
+                  <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
+                    {t.additionalServices.title}
+                  </h2>
+                  <div className="h-1 w-24 mx-auto bg-primary"></div>
+                  <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.additionalServices.subtitle}</p>
+                  <CarSizeSelector />
+                </div>
+              </LazyLoadSection>
+
+              <LazyLoadSection delay={0.2}>
+                <AdditionalServicesTable />
+                <p className="mt-6 text-sm text-zinc-400 text-center">{t.additionalServices.note}</p>
+              </LazyLoadSection>
+            </div>
+          </section>
+
+          {/* What to Expect Section */}
+          <section id="what-to-expect" className="py-24">
+            <div className="container mx-auto px-4">
+              <LazyLoadSection>
+                <div className="mb-16 text-center">
+                  <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
+                    {t.whatToExpect.title}
+                  </h2>
+                  <div className="h-1 w-24 mx-auto bg-primary"></div>
+                  <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.whatToExpect.subtitle}</p>
+                </div>
+              </LazyLoadSection>
+
+              <div className="grid gap-8 md:grid-cols-2">
+                <LazyLoadSection delay={0.2}>
+                  <div className="group relative overflow-hidden rounded-lg h-80">
+                    {/* Background image with zoom effect */}
+                    <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-110">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 z-10"></div>
+                      <Image
+                        src="/stvrta.jpg"
+                        alt="Professional Consultation"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                    {/* Content */}
+                    <div className="absolute inset-0 z-20 flex flex-col justify-end p-6">
+                      <h3 className="text-xl font-bold text-primary mb-2">{t.whatToExpect.consultation.title}</h3>
+                      <p className="text-zinc-200">{t.whatToExpect.consultation.description}</p>
+                    </div>
+                  </div>
+                </LazyLoadSection>
+
+                <LazyLoadSection delay={0.3}>
+                  <div className="group relative overflow-hidden rounded-lg h-80">
+                    {/* Background image with zoom effect */}
+                    <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-110">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 z-10"></div>
+                      <Image
+                        src="/druha.jpg"
+                        alt="Meticulous Attention to Detail"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                    {/* Content */}
+                    <div className="absolute inset-0 z-20 flex flex-col justify-end p-6">
+                      <h3 className="text-xl font-bold text-primary mb-2">{t.whatToExpect.attention.title}</h3>
+                      <p className="text-zinc-200">{t.whatToExpect.attention.description}</p>
+                    </div>
+                  </div>
+                </LazyLoadSection>
+
+                <LazyLoadSection delay={0.4}>
+                  <div className="group relative overflow-hidden rounded-lg h-80">
+                    {/* Background image with zoom effect */}
+                    <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-110">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 z-10"></div>
+                      <Image
+                        src="/jedna.jpg"
+                        alt="Premium Products & Equipment"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                    {/* Content */}
+                    <div className="absolute inset-0 z-20 flex flex-col justify-end p-6">
+                      <h3 className="text-xl font-bold text-primary mb-2">{t.whatToExpect.products.title}</h3>
+                      <p className="text-zinc-200">{t.whatToExpect.products.description}</p>
+                    </div>
+                  </div>
+                </LazyLoadSection>
+
+                <LazyLoadSection delay={0.5}>
+                  <div className="group relative overflow-hidden rounded-lg h-80">
+                    {/* Background image with zoom effect */}
+                    <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-110">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 z-10"></div>
+                      <Image
+                        src="/tretia.jpg"
+                        alt="Convenience & Flexibility"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                    {/* Content */}
+                    <div className="absolute inset-0 z-20 flex flex-col justify-end p-6">
+                      <h3 className="text-xl font-bold text-primary mb-2">{t.whatToExpect.convenience.title}</h3>
+                      <p className="text-zinc-200">{t.whatToExpect.convenience.description}</p>
+                    </div>
+                  </div>
+                </LazyLoadSection>
+              </div>
+            </div>
+          </section>
+
+          {/* Reviews Section */}
+          <section id="reviews" className="py-24 relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background"></div>
+            <div className="container mx-auto px-4 relative z-10">
+              <LazyLoadSection>
+                <div className="mb-16 text-center">
+                  <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">{t.reviews.title}</h2>
+                  <div className="h-1 w-24 mx-auto bg-primary"></div>
+                  <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.reviews.subtitle}</p>
+                </div>
+              </LazyLoadSection>
+
+              <LazyLoadSection delay={0.2}>
+                <Suspense fallback={<div className="h-64 flex items-center justify-center">Loading reviews...</div>}>
+                  <ReviewCarousel />
+                </Suspense>
+              </LazyLoadSection>
+            </div>
+          </section>
+
+          {/* Booking CTA Section */}
+          <section id="booking" className="py-24">
+            <div className="container mx-auto px-4">
+              <LazyLoadSection>
+                <div className="mx-auto max-w-3xl glass-card p-8 text-center shadow-2xl sm:p-12 rounded-md">
+                  <h2 className="mb-6 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">{t.booking.title}</h2>
+                  <p className="mb-8 text-zinc-400">{t.booking.description}</p>
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                    {t.booking.bookAppointment} <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+              </LazyLoadSection>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <Footer />
+        </div>
+      )}
+    </LanguageWrapper>
+  )
+}

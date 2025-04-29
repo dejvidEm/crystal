@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 13% 8%;
+    --foreground: 210 20% 98%;
+    --card: 220 13% 10%;
+    --card-foreground: 210 20% 98%;
+    --popover: 220 13% 10%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 38 92% 50%;
+    --primary-foreground: 220 13% 8%;
+    --secondary: 220 13% 18%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 220 13% 15%;
+    --muted-foreground: 215 16% 70%;
+    --accent: 220 13% 15%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 18%;
+    --input: 220 13% 18%;
+    --ring: 38 92% 50%;
+    --radius: 0.25rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-gradient {
+  @apply bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent;
+}
+
+.hero-overlay {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.glass-card {
+  @apply bg-black/30 backdrop-blur-md border border-white/10;
+}
+
+.section-divider {
+  @apply w-full h-px bg-gradient-to-r from-transparent via-primary to-transparent my-16;
+}
