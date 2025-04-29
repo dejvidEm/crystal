@@ -202,4 +202,14 @@ export const sk = {
   languageSwitcher: {
     changeLanguage: "Zmeniť jazyk",
   },
+  gallery: {
+    title: "Galéria zákazníkov",
+    subtitle: "Prezrite si naše portfólio prémiovej detailingovej práce na vozidlách zákazníkov",
+    luxurySedanTitle: "Transformácia luxusného sedanu",
+    suvInteriorTitle: "Prémiový interiér SUV",
+    sportsCarTitle: "Excelentný keramický povlak",
+    exoticCarTitle: "Dokonalosť exotického auta",
+    classicCarTitle: "Obnovená klasická krása",
+    paintCorrectionTitle: "Bezchybná korekcia laku",
+  },
 }

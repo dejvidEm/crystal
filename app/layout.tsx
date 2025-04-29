@@ -5,6 +5,7 @@ import type { Metadata } from "next"
 import { PageTransitions } from "@/components/page-transitions"
 import { LanguageProvider } from "@/lib/i18n/language-context"
 import { LanguageTransition } from "@/components/language-transition"
+import { CookieConsent } from "@/components/cookie-consent"
 
 // Optimize font loading
 const inter = Inter({
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LanguageProvider>
           <LanguageTransition />
           <PageTransitions>{children}</PageTransitions>
+          <CookieConsent />
         </LanguageProvider>
       </body>
     </html>

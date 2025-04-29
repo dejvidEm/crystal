@@ -19,6 +19,7 @@ import { PricingPackageCard } from "@/components/pricing-package-card"
 import { AdditionalServicesTable } from "@/components/additional-services-table"
 import { packages } from "@/lib/pricing-data"
 import { MobileServiceBanner } from "@/components/mobile-service-banner"
+import { CustomerGallery } from "@/components/customer-gallery"
 
 // Lazy load components that are not needed immediately
 const ReviewCarousel = lazy(() =>
@@ -414,6 +415,29 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+          {/* Customer Gallery Section - Temporarily Commented Out
+          <section id="gallery" className="py-24 relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background"></div>
+            <div className="container mx-auto px-4 relative z-10">
+              <LazyLoadSection>
+                <div className="mb-16 text-center">
+                  <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
+                    {t.gallery?.title || "Customer Showcase"}
+                  </h2>
+                  <div className="h-1 w-24 mx-auto bg-primary"></div>
+                  <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
+                    {t.gallery?.subtitle || "Explore our portfolio of premium detailing work on customer vehicles"}
+                  </p>
+                </div>
+              </LazyLoadSection>
+
+              <LazyLoadSection delay={0.2}>
+                <CustomerGallery />
+              </LazyLoadSection>
+            </div>
+          </section>
+          */}
 
           {/* Reviews Section */}
           <section id="reviews" className="py-24 relative">

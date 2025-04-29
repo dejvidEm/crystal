@@ -200,4 +200,14 @@ export const en = {
     suv: "SUV/Crossover",
     van: "Van/Truck",
   },
+  gallery: {
+    title: "Customer Showcase",
+    subtitle: "Explore our portfolio of premium detailing work on customer vehicles",
+    luxurySedanTitle: "Luxury Sedan Transformation",
+    suvInteriorTitle: "Premium SUV Interior",
+    sportsCarTitle: "Ceramic Coating Excellence",
+    exoticCarTitle: "Exotic Car Perfection",
+    classicCarTitle: "Classic Beauty Restored",
+    paintCorrectionTitle: "Flawless Paint Correction",
+  },
 }
