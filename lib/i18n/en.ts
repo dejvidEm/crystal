@@ -56,9 +56,9 @@ export const en = {
     title: "Our Premium Packages",
     subtitle: "Choose from our carefully crafted detailing packages designed to restore and protect your vehicle",
     essential: {
-      title: "Essential",
-      subtitle: "Perfect for regular maintenance",
-      price: "€99",
+      title: "Základný balík",
+      subtitle: "Ideálny pre pravidelnú údržbu",
+      price: "€69",
       features: [
         "Exterior hand wash",
         "Wheel and tire cleaning",
@@ -69,9 +69,9 @@ export const en = {
       selectPackage: "Select Package",
     },
     premium: {
-      title: "Premium",
-      subtitle: "Complete interior and exterior care",
-      price: "€179",
+      title: "Štandardný balík",
+      subtitle: "Kompletná starostlivosť o interiér",
+      price: "€89",
       mostPopular: "Most Popular",
       features: [
         "Everything in Essential package",
@@ -84,9 +84,9 @@ export const en = {
       selectPackage: "Select Package",
     },
     ultimate: {
-      title: "Ultimate",
-      subtitle: "The complete luxury experience",
-      price: "€299",
+      title: "Prémiový balík",
+      subtitle: "Kompletný luxusný zážitok z interiéru aj exteriéru",
+      price: "€119",
       features: [
         "Everything in Premium package",
         "Two-step paint correction",

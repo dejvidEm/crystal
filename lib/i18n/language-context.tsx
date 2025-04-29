@@ -20,8 +20,8 @@ const translations = {
   sk,
 }
 
-// Default to English translations for server-side rendering
-const defaultLanguage: Language = "en"
+// Default to Slovak translations for server-side rendering
+const defaultLanguage: Language = "sk"
 const defaultTranslations = translations[defaultLanguage]
 
 const LanguageContext = createContext<LanguageContextType>({

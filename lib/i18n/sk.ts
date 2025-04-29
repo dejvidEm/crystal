@@ -57,9 +57,9 @@ export const sk = {
     subtitle:
       "Vyberte si z našich starostlivo vytvorených detailingových balíkov navrhnutých na obnovu a ochranu vášho vozidla",
     essential: {
-      title: "Základný",
+      title: "Základný balík",
       subtitle: "Ideálny pre pravidelnú údržbu",
-      price: "€99",
+      price: "€69",
       features: [
         "Ručné umývanie exteriéru",
         "Čistenie kolies a pneumatík",
@@ -70,9 +70,9 @@ export const sk = {
       selectPackage: "Vybrať balík",
     },
     premium: {
-      title: "Prémiový",
-      subtitle: "Kompletná starostlivosť o interiér a exteriér",
-      price: "€179",
+      title: "Štandardný balík",
+      subtitle: "Kompletná starostlivosť o interiér",
+      price: "€89",
       mostPopular: "Najpopulárnejší",
       features: [
         "Všetko v Základnom balíku",
@@ -85,16 +85,16 @@ export const sk = {
       selectPackage: "Vybrať balík",
     },
     ultimate: {
-      title: "Ultimátny",
-      subtitle: "Kompletný luxusný zážitok",
-      price: "€299",
+      title: "Prémiový balík",
+      subtitle: "Kompletný luxusný zážitok z interiéru aj exteriéru",
+      price: "€119",
       features: [
         "Všetko v Prémiovom balíku",
         "Dvojkroková korekcia laku",
         "Aplikácia keramickej ochrany",
         "Detailing motorového priestoru",
-        "Renovácia svetlometov",
         "Prémiové ošetrenie interiéru",
+        "dezinfekcia ozónom"
       ],
       selectPackage: "Vybrať balík",
     },

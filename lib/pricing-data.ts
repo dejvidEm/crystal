@@ -25,12 +25,12 @@ export type AdditionalServiceData = {
 
 export const packages: Record<string, PackageData> = {
   essential: {
-    title: "Essential",
-    subtitle: "Perfect for regular maintenance",
+    title: "Základný balík",
+    subtitle: "Ideálny pre pravidelnú údržbu",
     price: {
-      small: "€99",
-      suv: "€129",
-      van: "€159",
+      small: "€69",
+      suv: "€79",
+      van: "€89",
     },
     features: [
       "Exterior hand wash",
@@ -41,12 +41,12 @@ export const packages: Record<string, PackageData> = {
     ],
   },
   premium: {
-    title: "Premium",
-    subtitle: "Complete interior and exterior care",
+    title: "Štandardný balík",
+    subtitle: "Kompletná starostlivosť o interiér",
     price: {
-      small: "€179",
-      suv: "€219",
-      van: "€259",
+      small: "€89",
+      suv: "€99",
+      van: "€99",
     },
     mostPopular: true,
     features: [
@@ -59,12 +59,12 @@ export const packages: Record<string, PackageData> = {
     ],
   },
   ultimate: {
-    title: "Ultimate",
-    subtitle: "The complete luxury experience",
+    title: "Prémiový balík",
+    subtitle: "Kompletný luxusný zážitok z interiéru aj exteriéru",
     price: {
-      small: "€299",
-      suv: "€359",
-      van: "€419",
+      small: "€119",
+      suv: "€129",
+      van: "€139",
     },
     features: [
       "Everything in Premium package",

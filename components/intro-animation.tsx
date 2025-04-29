@@ -41,7 +41,7 @@ export function IntroAnimation() {
           className="mb-8 relative h-32 w-32 md:h-40 md:w-40"
         >
           <Image
-            src="/images/logo.png"
+            src="/images/luxury_logo.png"
             alt="Crystal Detailing Logo"
             fill
             className="object-contain"
