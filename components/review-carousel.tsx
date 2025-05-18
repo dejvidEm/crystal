@@ -79,7 +79,7 @@ const getReviews = (language: "en" | "sk") => {
         avatar: "/placeholder.svg?height=80&width=80",
         rating: 5,
         review:
-          "Ako zaneprázdnená profesionálka nemám čas voziť svoje auto do detailingovej dielne. Mobilná služba LuxDetail je dokonalá - prišli ku mne domov a odviedli úžasnú prácu, zatiaľ čo som pracovala na diaľku.",
+          "Ako zaneprázdnená profesionálka nemám čas voziť svoje auto do detailingovej dielne. Mobilná služba Crystal detailing je dokonalá - prišli ku mne domov a odviedli úžasnú prácu, zatiaľ čo som pracovala na diaľku.",
         location: "Košice",
         car: "Mercedes-Benz E-Class",
       },
@@ -109,7 +109,7 @@ const getReviews = (language: "en" | "sk") => {
         avatar: "/placeholder.svg?height=80&width=80",
         rating: 5,
         review:
-          "Spočiatku som bol skeptický voči mobilnému detailingu, ale LuxDetail úplne zmenil môj názor. Výsledky sú vynikajúce a keramický povlak uľahčil údržbu.",
+          "Spočiatku som bol skeptický voči mobilnému detailingu, ale Crystal úplne zmenil môj názor. Výsledky sú vynikajúce a keramický povlak uľahčil údržbu.",
         location: "Banská Bystrica",
         car: "Porsche 911",
       },

@@ -105,8 +105,7 @@ export default function Home() {
                 role="button"
                 aria-label="Scroll to how it works section"
               >
-                <span>{t.common.scrollToExplore}</span>
-                <ChevronRight className="h-4 w-4 rotate-90" />
+                <ChevronRight className="h-10 w-10 rotate-90" />
               </motion.div>
             </div>
           </section>
@@ -222,15 +221,15 @@ export default function Home() {
                     <p>{t.about.paragraph2}</p>
                     <p>{t.about.paragraph3}</p>
                     <div className="flex flex-wrap gap-6 pt-4">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 bg-primary/50 p-2 rounded-tl-2xl rounded-br-2xl">
                         <Shield className="h-5 w-5 text-primary" aria-hidden="true" />
                         <span>{t.about.fullyInsured}</span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 bg-primary/50 p-2 rounded-tl-2xl rounded-br-2xl">
                         <Sparkles className="h-5 w-5 text-primary" aria-hidden="true" />
                         <span>{t.about.premiumProducts}</span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 bg-primary/50 p-2 rounded-tl-2xl rounded-br-2xl">
                         <Check className="h-5 w-5 text-primary" aria-hidden="true" />
                         <span>{t.about.certifiedDetailers}</span>
                       </div>
@@ -239,18 +238,16 @@ export default function Home() {
                 </LazyLoadSection>
 
                 <LazyLoadSection delay={0.3}>
-                  <div className="relative mx-auto aspect-square max-w-md overflow-hidden rounded-md">
-                    <div className="absolute inset-0 z-10 bg-gradient-to-tr from-background via-transparent to-background/80"></div>
-                    <div className="absolute left-0 top-0 z-0 h-full w-full bg-primary/5 backdrop-blur-sm"></div>
-                    <div className="relative z-0 flex h-full items-center justify-center p-6">
+                  <div className="relative mx-auto overflow-hidden">
+                    <div className="relative z-0 flex h-full items-center justify-center p-8">
                       <OptimizedImage
-                        src="/images/luxury-car.png"
+                        src="/images/porsche.jpg"
                         alt="Luxury Car"
-                        width={600}
-                        height={400}
-                        className="object-contain"
+                        width={700}
+                        height={500}
+                        className="object-contain rounded-tl-3xl rounded-br-3xl"
                         priority
-                        sizes="(max-width: 768px) 100vw, 600px"
+                        sizes="(max-width: 768px) 120vw, 700px"
                         quality={90}
                       />
                     </div>

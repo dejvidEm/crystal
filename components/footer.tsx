@@ -29,10 +29,6 @@ export function Footer() {
                     <Facebook size={20} />
                     <span className="sr-only">Facebook</span>
                   </Link>
-                  <Link href="#" className="text-zinc-400 hover:text-primary transition-colors">
-                    <Twitter size={20} />
-                    <span className="sr-only">Twitter</span>
-                  </Link>
                 </div>
               </div>
 
@@ -41,11 +37,11 @@ export function Footer() {
                 <div className="space-y-3">
                   <div className="flex items-center">
                     <Phone size={18} className="text-primary mr-2" />
-                    <span className="text-zinc-300">+421 XXX XXX XXX</span>
+                    <span className="text-zinc-300">+421 918 722 720</span>
                   </div>
                   <div className="flex items-center">
                     <Mail size={18} className="text-primary mr-2" />
-                    <span className="text-zinc-300">info@crystaldetailing.sk</span>
+                    <span className="text-zinc-300">crystalbratislava@gmail.com</span>
                   </div>
                 </div>
               </div>
