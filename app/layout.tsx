@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: "Prvá mobilná služba detailingu luxusných áut na Slovensku, ktorá príde k vám.",
     url: "https://crystaldetailing.sk",
     siteName: "Crystal Detailing",
-    locale: "en_US",
+    locale: "sk_SK",
     type: "website",
   },
   robots: {
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+    <html lang="sk" suppressHydrationWarning className="scroll-smooth">
       <body className={`${inter.className} antialiased`}>
         <LanguageProvider>
           <LanguageTransition />
