@@ -15,14 +15,14 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Crystal Detailing | Premium Mobile Car Detailing in Slovakia",
+  title: "Crystal Detailing | Prémiový mobilný detailing v Bratislave",
   description:
-    "Slovakia's first luxury mobile car detailing service that comes to your location. Professional detailing for high-end vehicles throughout Bratislava and surrounding areas.",
-  keywords: "car detailing, mobile detailing, luxury car care, Bratislava, Slovakia, ceramic coating, paint correction",
+    "Prvá mobilná služba detailingu luxusných áut na Slovensku, ktorá príde k vám. Profesionálny detailing pre luxusné vozidlá v celej Bratislave a okolí.",
+  keywords: "detailing auta, mobilný detailing, luxusná starostlivosť o auto, Bratislava, Slovensko, keramický náter, korekcia laku",
   authors: [{ name: "Crystal Detailing" }],
   openGraph: {
-    title: "Crystal Detailing | Premium Mobile Car Detailing in Slovakia",
-    description: "Slovakia's first luxury mobile car detailing service that comes to your location.",
+    title: "Crystal Detailing | Prémiový mobilný detailing v Bratislave",
+    description: "Prvá mobilná služba detailingu luxusných áut na Slovensku, ktorá príde k vám.",
     url: "https://crystaldetailing.sk",
     siteName: "Crystal Detailing",
     locale: "en_US",
