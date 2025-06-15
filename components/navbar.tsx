@@ -130,36 +130,45 @@ export function Navbar() {
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
-                      id="mobile-menu"
-                      initial={{ opacity: 0, x: "100%" }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: "100%" }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="fixed inset-0 z-10 bg-black/95 backdrop-blur-md lg:hidden"
+                    id="mobile-menu"
+                    initial={{ opacity: 0, x: "100%" }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: "100%" }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="fixed top-0 left-0 w-full h-screen z-50 bg-black backdrop-blur-md lg:hidden"
+                  >
+                    {/* X Button */}
+                    <button
+                      onClick={() => setIsOpen(false)}
+                      className="absolute top-6 right-6 text-white z-50"
+                      aria-label="Close menu"
                     >
-                      <div className="flex flex-col items-center justify-center h-full">
-                        <nav className="flex flex-col items-center space-y-8" aria-label="Mobile navigation">
-                          {navItems.map((item) => (
-                            <Link
-                              key={item.name}
-                              href={item.href}
-                              className="text-xl uppercase tracking-widest text-zinc-200 hover:text-primary transition-colors"
-                              onClick={handleLinkClick}
-                            >
-                              {item.name}
-                            </Link>
-                          ))}
-                          <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="mt-8 px-8 py-3 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest"
+                      <X className="h-6 w-6 text-primary" />
+                    </button>
+                  
+                    <div className="flex flex-col items-center justify-center h-full">
+                      <nav className="flex flex-col items-center space-y-8" aria-label="Mobile navigation">
+                        {navItems.map((item) => (
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            className="text-xl uppercase tracking-widest text-zinc-200 hover:text-primary transition-colors"
                             onClick={handleLinkClick}
                           >
-                            {t.common.bookNow}
-                          </motion.button>
-                        </nav>
-                      </div>
-                    </motion.div>
+                            {item.name}
+                          </Link>
+                        ))}
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="mt-8 px-8 py-3 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest"
+                          onClick={handleLinkClick}
+                        >
+                          {t.common.bookNow}
+                        </motion.button>
+                      </nav>
+                    </div>
+                  </motion.div>
                   )}
                 </AnimatePresence>
               </div>
