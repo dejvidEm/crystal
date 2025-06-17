@@ -463,9 +463,11 @@ export default function Home() {
                 <div className="mx-auto max-w-3xl glass-card p-8 text-center shadow-2xl sm:p-12 rounded-md">
                   <h2 className="mb-6 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">{t.booking.title}</h2>
                   <p className="mb-8 text-zinc-400">{t.booking.description}</p>
+                  <a target="_blank" href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                     {t.booking.bookAppointment} <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
+                  </a>
                 </div>
               </LazyLoadSection>
             </div>

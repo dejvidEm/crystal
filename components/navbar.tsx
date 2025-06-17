@@ -103,6 +103,7 @@ export function Navbar() {
                   <LanguageSwitcher variant="minimal" />
 
                   {/* Book Now Button */}
+                  <a href="#contact">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -110,6 +111,7 @@ export function Navbar() {
                   >
                     {t.common.bookNow}
                   </motion.button>
+                  </a>
                 </div>
 
                 {/* Mobile Menu Button and Language Switcher */}
