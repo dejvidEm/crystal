@@ -57,44 +57,43 @@ export const sk = {
     subtitle:
       "Vyberte si z našich starostlivo vytvorených detailingových balíkov navrhnutých na obnovu a ochranu vášho vozidla",
     essential: {
-      title: "Základný balík",
-      subtitle: "Ideálny pre pravidelnú údržbu",
-      price: "€69",
+      title: "Balík interiér",
+      subtitle: "Ideálny pre pravidelnú údržbu interiéru",
+      price: "€79",
       features: [
         "Ručné umývanie exteriéru",
-        "Čistenie kolies a pneumatík",
+        "Čistenie displejov a povrchov",
         "Vysávanie a odprašovanie interiéru",
+        "Čistenie batožinového priestoru",
         "Utieranie palubnej dosky a konzoly",
+        "Ošetrenie sedačiek / impregnácia",
         "Čistenie okien",
       ],
       selectPackage: "Vybrať balík",
     },
     premium: {
-      title: "Štandardný balík",
-      subtitle: "Kompletná starostlivosť o interiér",
+      title: "Balík exteriér",
+      subtitle: "Kompletná starostlivosť o exteriér",
       price: "€89",
       mostPopular: "Najpopulárnejší",
       features: [
-        "Všetko v Základnom balíku",
-        "Ošetrenie clay barom",
-        "Jednokroková korekcia laku",
-        "Aplikácia syntetického vosku",
-        "Ošetrenie kože",
-        "Hĺbkové čistenie interiéru",
+        "Kompletné čistenie exteriéru vozidla",
+        "Aplikácia bio vosku",
+        "Čistenie diskov",
+        "Kompletné čistenie skiel",
+        "Odstránenie hmyzu",
+        "Oživenie plastov a lesklých častí"
       ],
       selectPackage: "Vybrať balík",
     },
     ultimate: {
-      title: "Prémiový balík",
+      title: "Kompletný balík",
       subtitle: "Kompletný luxusný zážitok z interiéru aj exteriéru",
-      price: "€119",
+      price: "€149",
       features: [
-        "Všetko v Prémiovom balíku",
-        "Dvojkroková korekcia laku",
-        "Aplikácia keramickej ochrany",
-        "Detailing motorového priestoru",
-        "Prémiové ošetrenie interiéru",
-        "dezinfekcia ozónom"
+        "Všetko v balíku interiér",
+        "Všetko v balíku exteriér",
+        "Impregnácia interiéru"
       ],
       selectPackage: "Vybrať balík",
     },
@@ -115,7 +114,7 @@ export const sk = {
       {
         name: "Hĺbkové čistenie sedadiel",
         description: "Profesionálna extrakcia a hĺbkové čistenie všetkých sedadiel a čalúnenia",
-        price: "€60",
+        price: "€35",
       },
       {
         name: "Ozónové čistenie",
@@ -126,12 +125,6 @@ export const sk = {
         name: "Renovácia svetlometov",
         description: "Obnovenie zakalených, zažltnutých svetlometov do krištáľovo čistého stavu",
         price: "€40",
-      },
-      {
-        name: "Ochranná fólia laku",
-        description:
-          "Aplikácia priehľadnej fólie na ochranu exponovaných častí pred odlietajúcimi kamienkami a škrabancami",
-        price: "€120+",
       },
       {
         name: "Ošetrenie kože",
