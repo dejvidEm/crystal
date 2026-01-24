@@ -1,16 +1,16 @@
 "use client"
 
-import { lazy, Suspense, useState, useEffect } from "react"
+import { lazy, Suspense } from "react"
 import { motion } from "framer-motion"
-import { ArrowRight, Check, ChevronRight, Clock, MapPin, Shield, Sparkles, Truck } from "lucide-react"
+import { ArrowRight, Check, ChevronRight, Clock, MapPin, Shield, Sparkles, Truck, Calculator } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Navbar } from "@/components/navbar"
 import { LazyLoadSection } from "@/components/lazy-section"
 import { OptimizedImage } from "@/components/optimized-image"
-import { IntroAnimation } from "@/components/intro-animation"
 import { Footer } from "@/components/footer"
 import { LanguageWrapper } from "@/components/language-wrapper"
 import { VideoBackground } from "@/components/video-background"
@@ -20,6 +20,8 @@ import { AdditionalServicesTable } from "@/components/additional-services-table"
 import { packages } from "@/lib/pricing-data"
 import { MobileServiceBanner } from "@/components/mobile-service-banner"
 import { CustomerGallery } from "@/components/customer-gallery"
+import { FloatingCalcButton } from "@/components/floating-calc-button"
+import { ServiceStructuredData } from "@/components/structured-data"
 
 // Lazy load components that are not needed immediately
 const ReviewCarousel = lazy(() =>
@@ -27,17 +29,6 @@ const ReviewCarousel = lazy(() =>
 )
 
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(true)
-
-  // Hide intro animation after it completes
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowIntro(false)
-    }, 4300) // Slightly longer than animation to ensure smooth transition
-
-    return () => clearTimeout(timer)
-  }, [])
-
   // Scroll to section function
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
@@ -47,8 +38,22 @@ export default function Home() {
     <LanguageWrapper>
       {(t) => (
         <div className="flex min-h-screen flex-col bg-background text-foreground">
-          {/* Intro Animation */}
-          {showIntro && <IntroAnimation />}
+          {/* Structured Data for Services */}
+          <ServiceStructuredData
+            serviceType="Mobilný detailing áut"
+            description="Prémiové mobilné detailingové služby pre luxusné vozidlá v Bratislave a okolí. Kompletná starostlivosť o exteriér a interiér vozidla."
+            areas={["Bratislava", "Pezinok", "Senec", "Chorvátsky Grob"]}
+          />
+          <ServiceStructuredData
+            serviceType="Tepovanie áut"
+            description="Profesionálne hĺbkové čistenie a tepovanie textilných a kožených sedadiel. Odstránenie zápachov a znečistenia."
+            areas={["Bratislava", "Pezinok", "Senec", "Chorvátsky Grob"]}
+          />
+          <ServiceStructuredData
+            serviceType="Keramická ochrana"
+            description="Aplikácia keramických povlakov na ochranu laku vozidla. Dlhodobá ochrana pred škodlivými vplyvmi."
+            areas={["Bratislava", "Pezinok", "Senec", "Chorvátsky Grob"]}
+          />
 
           <Navbar />
 
@@ -77,10 +82,21 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
+                className="flex flex-col sm:flex-row gap-4 items-center justify-center"
               >
                 <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                   {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
+                <Link href="/calc">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-primary text-primary hover:bg-primary/10"
+                  >
+                    <Calculator className="mr-2 h-4 w-4" />
+                    {t.common.getQuote || "Get Quote"}
+                  </Button>
+                </Link>
               </motion.div>
             </div>
             <div className="absolute bottom-8 left-0 right-0 z-10 flex justify-center">
@@ -137,7 +153,7 @@ export default function Home() {
                       1
                     </div>
 
-                    <div className="flex h-full flex-col items-center text-center bg-background/95 p-8 pt-12 rounded-md relative z-0 opacity-100 border border-border/50">
+                    <div className="flex h-full flex-col items-center text-center bg-background p-8 pt-12 rounded-md relative z-0 opacity-100 border border-border/50">
                       <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
                         <Clock className="h-10 w-10" aria-hidden="true" />
                       </div>
@@ -157,7 +173,7 @@ export default function Home() {
                       2
                     </div>
 
-                    <div className="flex h-full flex-col items-center text-center bg-background/95 p-8 pt-12 rounded-md relative z-0 border border-border/50">
+                    <div className="flex h-full flex-col items-center text-center bg-background p-8 pt-12 rounded-md relative z-0 border border-border/50">
                       <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
                         <MapPin className="h-10 w-10" aria-hidden="true" />
                       </div>
@@ -177,7 +193,7 @@ export default function Home() {
                       3
                     </div>
 
-                    <div className="flex h-full flex-col items-center text-center bg-background/95 p-8 pt-12 rounded-md relative z-0 border border-border/50">
+                    <div className="flex h-full flex-col items-center text-center bg-background p-8 pt-12 rounded-md relative z-0 border border-border/50">
                       <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
                         <Truck className="h-10 w-10" aria-hidden="true" />
                       </div>
@@ -242,7 +258,7 @@ export default function Home() {
                     <div className="relative z-0 flex h-full items-center justify-center p-8">
                       <OptimizedImage
                         src="/images/porsche.jpg"
-                        alt="Luxury Car"
+                        alt="Luxusné vozidlo po prémiovom mobilnom detailingovom ošetrení v Bratislave"
                         width={700}
                         height={500}
                         className="object-contain rounded-tl-3xl rounded-br-3xl"
@@ -333,7 +349,7 @@ export default function Home() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 z-10"></div>
                       <Image
                         src="/stvrta.jpg"
-                        alt="Professional Consultation"
+                        alt="Profesionálna konzultácia mobilného detailingu v Bratislave"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -354,7 +370,7 @@ export default function Home() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 z-10"></div>
                       <Image
                         src="/druha.jpg"
-                        alt="Meticulous Attention to Detail"
+                        alt="Dôsledná pozornosť detailom pri mobilnom detailingovom ošetrení"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -375,7 +391,7 @@ export default function Home() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 z-10"></div>
                       <Image
                         src="/jedna.jpg"
-                        alt="Premium Products & Equipment"
+                        alt="Prémiové produkty a vybavenie pre mobilný detailing"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -396,7 +412,7 @@ export default function Home() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 z-10"></div>
                       <Image
                         src="/tretia.jpg"
-                        alt="Convenience & Flexibility"
+                        alt="Pohodlie a flexibilita mobilného detailingu v Bratislave"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -475,6 +491,9 @@ export default function Home() {
 
           {/* Footer */}
           <Footer />
+
+          {/* Floating Calculator Button (Mobile Only) */}
+          <FloatingCalcButton />
         </div>
       )}
     </LanguageWrapper>

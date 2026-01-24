@@ -32,7 +32,7 @@ export function MobileServiceBanner() {
         <div className="relative h-full w-full">
           <Image
             src="/images/van-with-logo.png"
-            alt="LuxDetail Mobile Detailing Van"
+            alt="Mobilná detailingová jednotka Crystal Detailing v Bratislave"
             fill
             className="object-cover"
             style={{ objectPosition: "60% center" }}

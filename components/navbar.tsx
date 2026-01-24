@@ -2,12 +2,15 @@
 
 import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { LanguageWrapper } from "@/components/language-wrapper"
 
 export function Navbar() {
+  const pathname = usePathname()
+  const isCalcPage = pathname === "/calc"
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -45,12 +48,23 @@ export function Navbar() {
   return (
     <LanguageWrapper>
       {(t) => {
+        // Check if we're on the homepage
+        const isHomePage = pathname === "/"
+        
+        // Helper function to get the correct href for anchor links
+        const getHref = (anchor: string) => {
+          if (anchor === "/lokality") return "/lokality"
+          if (isHomePage) return anchor
+          return `/${anchor.startsWith("#") ? anchor.slice(1) : anchor}`
+        }
+
         const navItems = [
-          { name: t.nav.home, href: "#" },
-          { name: t.nav.services, href: "#services" },
-          { name: t.nav.howItWorks, href: "#how-it-works" },
-          { name: t.nav.reviews, href: "#reviews" },
-          { name: t.nav.contact, href: "#contact" },
+          { name: t.nav.home, href: isHomePage ? "#" : "/" },
+          { name: t.nav.services, href: isHomePage ? "#services" : "/#services" },
+          { name: t.nav.howItWorks, href: isHomePage ? "#how-it-works" : "/#how-it-works" },
+          { name: "Lokality", href: "/lokality" },
+          { name: t.nav.reviews, href: isHomePage ? "#reviews" : "/#reviews" },
+          { name: t.nav.contact, href: isHomePage ? "#contact" : "/#contact" },
         ]
 
         return (
@@ -76,26 +90,28 @@ export function Navbar() {
                   </motion.div>
                 </Link>
 
-                {/* Desktop Navigation */}
-                <nav className="hidden lg:flex items-center" aria-label="Main navigation">
-                  <div className="flex items-center space-x-2">
-                    {navItems.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="relative px-5 py-2 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:text-primary group"
-                        onClick={handleLinkClick}
-                      >
-                        {item.name}
-                        <motion.span
-                          className="absolute bottom-0 left-0 w-0 h-px bg-primary group-hover:w-full transition-all duration-300"
-                          initial={{ width: 0 }}
-                          whileHover={{ width: "100%" }}
-                        />
-                      </Link>
-                    ))}
-                  </div>
-                </nav>
+                {/* Desktop Navigation - Hidden on calc page */}
+                {!isCalcPage && (
+                  <nav className="hidden lg:flex items-center" aria-label="Main navigation">
+                    <div className="flex items-center space-x-2">
+                      {navItems.map((item) => (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          className="relative px-5 py-2 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:text-primary group"
+                          onClick={handleLinkClick}
+                        >
+                          {item.name}
+                          <motion.span
+                            className="absolute bottom-0 left-0 w-0 h-px bg-primary group-hover:w-full transition-all duration-300"
+                            initial={{ width: 0 }}
+                            whileHover={{ width: "100%" }}
+                          />
+                        </Link>
+                      ))}
+                    </div>
+                  </nav>
+                )}
 
                 {/* Desktop Actions */}
                 <div className="hidden lg:flex items-center space-x-4">
@@ -103,30 +119,50 @@ export function Navbar() {
                   <LanguageSwitcher variant="minimal" />
 
                   {/* Book Now Button */}
-                  <a href="#contact">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-6 py-2 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest text-sm"
-                  >
-                    {t.common.bookNow}
-                  </motion.button>
-                  </a>
+                  {isCalcPage ? (
+                    <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="px-6 py-2 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest text-sm"
+                      >
+                        {t.common.bookNow}
+                      </motion.button>
+                    </a>
+                  ) : (
+                    <Link href={pathname === "/" ? "#contact" : "/#contact"}>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="px-6 py-2 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest text-sm"
+                      >
+                        {t.common.bookNow}
+                      </motion.button>
+                    </Link>
+                  )}
                 </div>
 
-                {/* Mobile Menu Button and Language Switcher */}
-                <div className="lg:hidden flex items-center space-x-2 z-20">
-                  <LanguageSwitcher variant="icon" />
-                  <button
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="text-white focus:outline-none"
-                    aria-label={isOpen ? "Close menu" : "Open menu"}
-                    aria-expanded={isOpen}
-                    aria-controls="mobile-menu"
-                  >
-                    {isOpen ? <X className="h-6 w-6 text-primary" /> : <Menu className="h-6 w-6" />}
-                  </button>
-                </div>
+                {/* Mobile Menu Button and Language Switcher - Hidden on calc page */}
+                {!isCalcPage && (
+                  <div className="lg:hidden flex items-center space-x-2 z-20">
+                    <LanguageSwitcher variant="icon" />
+                    <button
+                      onClick={() => setIsOpen(!isOpen)}
+                      className="text-white focus:outline-none"
+                      aria-label={isOpen ? "Close menu" : "Open menu"}
+                      aria-expanded={isOpen}
+                      aria-controls="mobile-menu"
+                    >
+                      {isOpen ? <X className="h-6 w-6 text-primary" /> : <Menu className="h-6 w-6" />}
+                    </button>
+                  </div>
+                )}
+                {/* Mobile Language Switcher only on calc page */}
+                {isCalcPage && (
+                  <div className="lg:hidden flex items-center space-x-2 z-20">
+                    <LanguageSwitcher variant="icon" />
+                  </div>
+                )}
 
                 {/* Mobile Menu */}
                 <AnimatePresence>
@@ -160,14 +196,16 @@ export function Navbar() {
                             {item.name}
                           </Link>
                         ))}
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="mt-8 px-8 py-3 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest"
-                          onClick={handleLinkClick}
-                        >
-                          {t.common.bookNow}
-                        </motion.button>
+                        <Link href={pathname === "/" ? "#contact" : "/#contact"}>
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="mt-8 px-8 py-3 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest"
+                            onClick={handleLinkClick}
+                          >
+                            {t.common.bookNow}
+                          </motion.button>
+                        </Link>
                       </nav>
                     </div>
                   </motion.div>

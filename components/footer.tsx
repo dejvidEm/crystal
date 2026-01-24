@@ -58,6 +58,12 @@ export function Footer() {
                   <Link href="#reviews" className="text-zinc-400 hover:text-primary transition-colors">
                     {t.nav.reviews}
                   </Link>
+                  <Link href="/lokality" className="text-zinc-400 hover:text-primary transition-colors">
+                    Lokality
+                  </Link>
+                  <Link href="/calc" className="text-zinc-400 hover:text-primary transition-colors">
+                    Cenová kalkulačka
+                  </Link>
                 </div>
               </div>
             </div>
