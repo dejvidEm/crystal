@@ -215,6 +215,7 @@ export const sk = {
     next: "Ďalej",
     calculating: "Počítanie...",
     almostDone: "Už ste skoro hotoví (zostávajú 2 kroky)",
+    mostPopular: "Populárne",
     step1Title: "Aký typ vozidla máte?",
     vehicleSmall: "Malé",
     vehicleSmallDesc: "Hatchback / Sedan",

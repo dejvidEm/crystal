@@ -2,7 +2,7 @@
 
 import { lazy, Suspense } from "react"
 import { motion } from "framer-motion"
-import { ArrowRight, Check, ChevronRight, Clock, MapPin, Shield, Sparkles, Truck, Calculator } from "lucide-react"
+import { ArrowRight, BadgeCheck, Check, ChevronRight, Clock, MapPin, Shield, Sparkles, Truck, Calculator } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -69,6 +69,17 @@ export default function Home() {
                 transition={{ duration: 0.8 }}
                 className="mb-6"
               >
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="mb-6"
+                >
+                  <span className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/30 px-4 py-2 text-sm font-semibold text-primary backdrop-blur-sm">
+                    <BadgeCheck className="h-4 w-4 text-yellow-400" />
+                    Prvý v Bratislave
+                  </span>
+                </motion.div>
                 <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
                   <span className="text-gradient">
                     {t.hero.title} <br className="hidden sm:block" />
@@ -84,9 +95,11 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.7 }}
                 className="flex flex-col sm:flex-row gap-4 items-center justify-center"
               >
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                    {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </a>
                 <Link href="/calc">
                   <Button
                     size="lg"
@@ -479,10 +492,10 @@ export default function Home() {
                 <div className="mx-auto max-w-3xl glass-card p-8 text-center shadow-2xl sm:p-12 rounded-md">
                   <h2 className="mb-6 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">{t.booking.title}</h2>
                   <p className="mb-8 text-zinc-400">{t.booking.description}</p>
-                  <a target="_blank" href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                    {t.booking.bookAppointment} <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
+                  <a target="_blank" href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" rel="noopener noreferrer">
+                    <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                      {t.booking.bookAppointment} <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
                   </a>
                 </div>
               </LazyLoadSection>

@@ -228,6 +228,7 @@ export default function CalculatorPage() {
                               selected={data.vehicleType === "small"}
                               mostPopular={false}
                               name="vehicleType"
+                              t={t}
                             />
                             <StepCard
                               value="medium"
@@ -236,6 +237,7 @@ export default function CalculatorPage() {
                               selected={data.vehicleType === "medium"}
                               mostPopular={true}
                               name="vehicleType"
+                              t={t}
                             />
                             <StepCard
                               value="large"
@@ -244,6 +246,7 @@ export default function CalculatorPage() {
                               selected={data.vehicleType === "large"}
                               mostPopular={false}
                               name="vehicleType"
+                              t={t}
                             />
                           </div>
                         </RadioGroup>
@@ -274,6 +277,7 @@ export default function CalculatorPage() {
                               selected={data.condition === "normal"}
                               mostPopular={true}
                               name="condition"
+                              t={t}
                             />
                             <StepCard
                               value="dirty"
@@ -282,6 +286,7 @@ export default function CalculatorPage() {
                               selected={data.condition === "dirty"}
                               mostPopular={false}
                               name="condition"
+                              t={t}
                             />
                             <StepCard
                               value="extreme"
@@ -290,6 +295,7 @@ export default function CalculatorPage() {
                               selected={data.condition === "extreme"}
                               mostPopular={false}
                               name="condition"
+                              t={t}
                             />
                           </div>
                         </RadioGroup>
@@ -320,6 +326,7 @@ export default function CalculatorPage() {
                               selected={data.mainService === "exterior"}
                               mostPopular={false}
                               name="mainService"
+                              t={t}
                             />
                             <StepCard
                               value="interior"
@@ -328,6 +335,7 @@ export default function CalculatorPage() {
                               selected={data.mainService === "interior"}
                               mostPopular={false}
                               name="mainService"
+                              t={t}
                             />
                             <StepCard
                               value="exterior_interior"
@@ -336,6 +344,7 @@ export default function CalculatorPage() {
                               selected={data.mainService === "exterior_interior"}
                               mostPopular={true}
                               name="mainService"
+                              t={t}
                             />
                             <StepCard
                               value="seats_only"
@@ -344,6 +353,7 @@ export default function CalculatorPage() {
                               selected={data.mainService === "seats_only"}
                               mostPopular={false}
                               name="mainService"
+                              t={t}
                             />
                           </div>
                         </RadioGroup>
@@ -485,6 +495,7 @@ export default function CalculatorPage() {
                                   selected={data.parkingType === "private"}
                                   mostPopular={true}
                                   name="parkingType"
+                                  t={t}
                                 />
                                 <StepCard
                                   value="public"
@@ -493,6 +504,7 @@ export default function CalculatorPage() {
                                   selected={data.parkingType === "public"}
                                   mostPopular={false}
                                   name="parkingType"
+                                  t={t}
                                 />
                               </div>
                             </RadioGroup>
@@ -577,6 +589,7 @@ function StepCard({
   selected,
   mostPopular,
   name,
+  t,
 }: {
   value: string
   label: string
@@ -584,6 +597,7 @@ function StepCard({
   selected: boolean
   mostPopular: boolean
   name?: string
+  t?: any
 }) {
   return (
     <div className="relative">
@@ -599,7 +613,7 @@ function StepCard({
           <RadioGroupItem value={value} id={`${name}-${value}`} className="mt-1" />
           {mostPopular && (
             <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-medium text-primary-foreground">
-              Most Popular
+              {t?.calculator?.mostPopular || "Most Popular"}
             </span>
           )}
         </div>

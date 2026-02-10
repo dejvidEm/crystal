@@ -61,17 +61,6 @@ function ResultCardContent({ priceRange, timeRange, data, t }: ResultCardProps &
   }
 
   const handleBookClick = () => {
-    // Build booking URL with prefilled data
-    const params = new URLSearchParams()
-    if (data.vehicleType) params.set("vehicle", data.vehicleType)
-    if (data.condition) params.set("condition", data.condition)
-    if (data.mainService) params.set("service", data.mainService)
-    if (data.addons.length > 0) params.set("addons", data.addons.join(","))
-    if (data.cityOrZip) params.set("location", data.cityOrZip)
-    if (data.parkingType) params.set("parking", data.parkingType)
-    params.set("price", `${priceRange.min}-${priceRange.max}`)
-    params.set("time", `${timeRange.min}-${timeRange.max}`)
-
     // Track event if analytics exist
     if (typeof window !== "undefined" && (window as any).gtag) {
       ;(window as any).gtag("event", "booking_clicked", {
@@ -83,8 +72,8 @@ function ResultCardContent({ priceRange, timeRange, data, t }: ResultCardProps &
     // Get current language from localStorage or default to 'sk'
     const lang = typeof window !== "undefined" ? (localStorage.getItem("language") || "sk") : "sk"
     
-    // Redirect to booking page with current language
-    window.location.href = `https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=${lang}&${params.toString()}`
+    // Redirect to booking page
+    window.open(`https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=${lang}`, "_blank")
   }
 
   const handleContactClick = () => {

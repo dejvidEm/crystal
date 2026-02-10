@@ -119,27 +119,15 @@ export function Navbar() {
                   <LanguageSwitcher variant="minimal" />
 
                   {/* Book Now Button */}
-                  {isCalcPage ? (
-                    <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk">
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="px-6 py-2 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest text-sm"
-                      >
-                        {t.common.bookNow}
-                      </motion.button>
-                    </a>
-                  ) : (
-                    <Link href={pathname === "/" ? "#contact" : "/#contact"}>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="px-6 py-2 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest text-sm"
-                      >
-                        {t.common.bookNow}
-                      </motion.button>
-                    </Link>
-                  )}
+                  <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" target="_blank" rel="noopener noreferrer">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="px-6 py-2 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest text-sm"
+                    >
+                      {t.common.bookNow}
+                    </motion.button>
+                  </a>
                 </div>
 
                 {/* Mobile Menu Button and Language Switcher - Hidden on calc page */}
@@ -196,16 +184,15 @@ export function Navbar() {
                             {item.name}
                           </Link>
                         ))}
-                        <Link href={pathname === "/" ? "#contact" : "/#contact"}>
+                        <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" target="_blank" rel="noopener noreferrer" onClick={handleLinkClick}>
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className="mt-8 px-8 py-3 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest"
-                            onClick={handleLinkClick}
                           >
                             {t.common.bookNow}
                           </motion.button>
-                        </Link>
+                        </a>
                       </nav>
                     </div>
                   </motion.div>

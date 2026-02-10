@@ -69,8 +69,11 @@ export function Footer() {
             </div>
 
             <div className="border-t border-zinc-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="text-sm text-zinc-500">
-                © {currentYear} Crystal Detailing. {t.footer.allRightsReserved}
+              <div className="text-sm text-zinc-500 text-center md:text-left">
+                <div>© {currentYear} Crystal Detailing. {t.footer.allRightsReserved}</div>
+                <div className="mt-2 text-xs text-zinc-600">
+                  INVEST M, s.r.o. | IČO: 36685984 | DIČ: 2022258535
+                </div>
               </div>
               <div className="flex flex-wrap justify-center gap-6 text-sm text-zinc-400">
                 <Link href="#" className="hover:text-primary">
