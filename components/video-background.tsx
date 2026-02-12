@@ -11,22 +11,42 @@ export function VideoBackground() {
     const video = videoRef.current
     if (!video) return
 
-    const handleCanPlay = () => {
+    // Use loadedmetadata event - fires when metadata is loaded (much faster than canplay)
+    // This allows the video to start playing without downloading the full file
+    const handleLoadedMetadata = () => {
       setIsLoaded(true)
+      // Attempt to play - browser will stream the video as needed
       video.play().catch((error) => {
         console.error("Error playing video:", error)
+        // If play fails, still show the video (might be autoplay policy)
+        setIsLoaded(true)
       })
     }
 
-    video.addEventListener("canplay", handleCanPlay)
+    // Also listen for canplay as fallback
+    const handleCanPlay = () => {
+      setIsLoaded(true)
+    }
+
+    // Check if metadata is already loaded
+    if (video.readyState >= 1) {
+      setIsLoaded(true)
+      video.play().catch(() => {})
+    } else {
+      video.addEventListener("loadedmetadata", handleLoadedMetadata)
+      video.addEventListener("canplay", handleCanPlay)
+    }
 
     return () => {
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata)
       video.removeEventListener("canplay", handleCanPlay)
     }
   }, [])
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
+      {/* Show background immediately - don't wait for video */}
+      <div className="absolute inset-0 bg-black"></div>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
@@ -40,7 +60,7 @@ export function VideoBackground() {
           loop
           playsInline
           className="absolute inset-0 h-full w-full object-cover"
-          preload="auto"
+          preload="metadata"
           disablePictureInPicture
           disableRemotePlayback
         >
