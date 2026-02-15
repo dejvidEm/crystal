@@ -7,6 +7,7 @@ import { LanguageProvider } from "@/lib/i18n/language-context"
 import { LanguageTransition } from "@/components/language-transition"
 import { CookieConsent } from "@/components/cookie-consent"
 import { LocalBusinessStructuredData } from "@/components/structured-data"
+import { Analytics } from "@vercel/analytics/next"
 
 // Optimize font loading
 const inter = Inter({
@@ -96,6 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <PageTransitions>{children}</PageTransitions>
           <CookieConsent />
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   )
