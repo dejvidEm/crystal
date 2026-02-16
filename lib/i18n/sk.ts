@@ -256,6 +256,8 @@ export const sk = {
     addonPlasticsDesc: "+10 € / +20 min",
     addonSeats: "Tepovanie sedadiel",
     addonSeatsDesc: "+30 € / +60 min",
+    addonHeadlights: "Renovácia svetlometov",
+    addonHeadlightsDesc: "+45 € / +30 min",
     step5Title: "Kam máme prísť?",
     cityLabel: "Mesto alebo PSČ",
     cityPlaceholder: "Bratislava, 81101...",

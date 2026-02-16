@@ -1,7 +1,7 @@
 export type VehicleType = "small" | "medium" | "large"
 export type Condition = "normal" | "dirty" | "extreme"
 export type MainService = "exterior" | "interior" | "exterior_interior" | "seats_only"
-export type Addon = "wax" | "ozone" | "plastics" | "seats"
+export type Addon = "wax" | "ozone" | "plastics" | "seats" | "headlights"
 export type ParkingType = "private" | "public"
 
 export interface CalculatorData {
@@ -80,6 +80,7 @@ const ADDON_PRICES: Record<Addon, number> = {
   ozone: 15,
   plastics: 10,
   seats: 30,
+  headlights: 45,
 }
 
 const ADDON_TIMES: Record<Addon, number> = {
@@ -87,6 +88,7 @@ const ADDON_TIMES: Record<Addon, number> = {
   ozone: 20,
   plastics: 20,
   seats: 60,
+  headlights: 30,
 }
 
 // Parking time addition
@@ -113,8 +115,12 @@ export function calculatePrice(data: CalculatorData): PriceRange {
   const totalPrice = basePrice + addonPrice
 
   // Apply ±10% range
-  const min = Math.round(totalPrice * 0.9)
-  const max = Math.round(totalPrice * 1.1)
+  let min = Math.round(totalPrice * 0.9)
+  let max = Math.round(totalPrice * 1.1)
+
+  // Lower prices by 20€ (reduced from 50€ to make prices higher)
+  min = Math.max(0, min - 20)
+  max = Math.max(0, max - 20)
 
   return { min, max }
 }

@@ -409,6 +409,13 @@ export default function CalculatorPage() {
                             checked={data.addons.includes("seats")}
                             onToggle={() => handleAddonToggle("seats")}
                           />
+                          <AddonCard
+                            id="headlights"
+                            label={t.calculator?.addonHeadlights || "Renovácia svetlometov"}
+                            description={t.calculator?.addonHeadlightsDesc || "+45 € / +30 min"}
+                            checked={data.addons.includes("headlights")}
+                            onToggle={() => handleAddonToggle("headlights")}
+                          />
                         </div>
                       </CardContent>
                     </Card>
@@ -449,6 +456,13 @@ export default function CalculatorPage() {
                             description={t.calculator?.addonPlasticsDesc || "+10 € / +20 min"}
                             checked={data.addons.includes("plastics")}
                             onToggle={() => handleAddonToggle("plastics")}
+                          />
+                          <AddonCard
+                            id="headlights"
+                            label={t.calculator?.addonHeadlights || "Renovácia svetlometov"}
+                            description={t.calculator?.addonHeadlightsDesc || "+45 € / +30 min"}
+                            checked={data.addons.includes("headlights")}
+                            onToggle={() => handleAddonToggle("headlights")}
                           />
                         </div>
                       </CardContent>

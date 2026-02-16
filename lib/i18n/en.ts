@@ -255,6 +255,8 @@ export const en = {
     addonPlasticsDesc: "+10 € / +20 min",
     addonSeats: "Seat Shampooing",
     addonSeatsDesc: "+30 € / +60 min",
+    addonHeadlights: "Headlight Restoration",
+    addonHeadlightsDesc: "+45 € / +30 min",
     step5Title: "Where should we come?",
     cityLabel: "City or ZIP code",
     cityPlaceholder: "Bratislava, 81101...",
