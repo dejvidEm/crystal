@@ -139,6 +139,14 @@ export const sk = {
       },
     ],
     note: "Všetky doplnkové služby je možné pridať k akémukoľvek balíku. Ceny sa môžu líšiť v závislosti od veľkosti a stavu vozidla.",
+    new: "Nové",
+  },
+  headlightRenewal: {
+    title: "Renovácia svetlometov",
+    subtitle: "Obnovte krištáľovo čistý vzhľad vašich svetlometov",
+    description: "Naša profesionálna renovácia svetlometov transformuje zakalené a zažltnuté svetlomety späť do ich pôvodného krištáľovo čistého stavu. Používame špecializované techniky a prémiové produkty na obnovenie priehľadnosti a jasu.",
+    beforeAfter: "Pred a po renovácii",
+    bookService: "Rezervovať službu",
   },
   whatToExpect: {
     title: "Čo môžete očakávať",

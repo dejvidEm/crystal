@@ -291,6 +291,76 @@ export default function Home() {
             <div className="absolute -right-20 bottom-1/4 h-64 w-64 rounded-full bg-primary/5 blur-3xl"></div>
           </section>
 
+          {/* Headlight Renewal Section */}
+          <section id="headlight-renewal" className="relative overflow-hidden py-24">
+            <div className="container relative z-10 mx-auto px-4">
+              <LazyLoadSection>
+                <div className="mb-12 text-center">
+                  <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
+                    {t.headlightRenewal?.title || "Renovácia svetlometov"}
+                  </h2>
+                  <div className="h-1 w-24 mx-auto bg-primary"></div>
+                  <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
+                    {t.headlightRenewal?.subtitle || "Obnovte krištáľovo čistý vzhľad vašich svetlometov"}
+                  </p>
+                </div>
+              </LazyLoadSection>
+
+              <div className="grid gap-12 md:grid-cols-2 md:items-center">
+                <LazyLoadSection delay={0.2}>
+                  <div className="space-y-6 text-zinc-300">
+                    <p className="text-lg">
+                      {t.headlightRenewal?.description || "Naša profesionálna renovácia svetlometov transformuje zakalené a zažltnuté svetlomety späť do ich pôvodného krištáľovo čistého stavu. Používame špecializované techniky a prémiové produkty na obnovenie priehľadnosti a jasu."}
+                    </p>
+                    <div className="flex flex-wrap gap-4 pt-4">
+                      <div className="flex items-center gap-2 bg-primary/50 p-3 rounded-tl-2xl rounded-br-2xl">
+                        <Sparkles className="h-5 w-5 text-primary" aria-hidden="true" />
+                        <span>Profesionálne výsledky</span>
+                      </div>
+                      <div className="flex items-center gap-2 bg-primary/50 p-3 rounded-tl-2xl rounded-br-2xl">
+                        <Check className="h-5 w-5 text-primary" aria-hidden="true" />
+                        <span>Mobilná služba</span>
+                      </div>
+                      <div className="flex items-center gap-2 bg-primary/50 p-3 rounded-tl-2xl rounded-br-2xl">
+                        <Shield className="h-5 w-5 text-primary" aria-hidden="true" />
+                        <span>Ochrana proti UV</span>
+                      </div>
+                    </div>
+                    <div className="pt-6">
+                      <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" target="_blank" rel="noopener noreferrer">
+                        <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                          {t.headlightRenewal?.bookService || "Rezervovať službu"} <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </a>
+                    </div>
+                  </div>
+                </LazyLoadSection>
+
+                <LazyLoadSection delay={0.3}>
+                  <div className="relative mx-auto overflow-hidden">
+                    <div className="relative z-0 flex h-full items-center justify-center p-4">
+                      <div className="relative w-full max-w-[350px] md:max-w-[550px] aspect-[3/4]">
+                        <Image
+                          src="/images/headlight-renewal-before-after.png"
+                          alt={t.headlightRenewal?.beforeAfter || "Pred a po renovácii svetlometov"}
+                          fill
+                          className="object-contain rounded-2xl"
+                          sizes="(max-width: 768px) 350px, 550px"
+                          quality={90}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </LazyLoadSection>
+              </div>
+            </div>
+
+            {/* Decorative elements */}
+            <div className="section-divider"></div>
+            <div className="absolute -left-20 top-1/4 h-64 w-64 rounded-full bg-primary/5 blur-3xl"></div>
+            <div className="absolute -right-20 bottom-1/4 h-64 w-64 rounded-full bg-primary/5 blur-3xl"></div>
+          </section>
+
           {/* Services Section */}
           <section id="services" className="py-24 relative">
             <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background"></div>

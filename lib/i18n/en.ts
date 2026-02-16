@@ -133,6 +133,14 @@ export const en = {
       },
     ],
     note: "All additional services can be added to any package. Prices may vary based on vehicle size and condition.",
+    new: "New",
+  },
+  headlightRenewal: {
+    title: "Headlight Renewal",
+    subtitle: "Restore the crystal clear appearance of your headlights",
+    description: "Our professional headlight renewal service transforms cloudy and yellowed headlights back to their original crystal clear condition. We use specialized techniques and premium products to restore clarity and brightness.",
+    beforeAfter: "Before and After",
+    bookService: "Book Service",
   },
   whatToExpect: {
     title: "What to Expect",
