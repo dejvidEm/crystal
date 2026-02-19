@@ -26,22 +26,22 @@ export interface TimeRange {
 // Base prices by vehicle type and service
 const BASE_PRICES: Record<VehicleType, Record<MainService, number>> = {
   small: {
-    exterior: 69,
-    interior: 79,
-    exterior_interior: 119,
-    seats_only: 30,
+    exterior: 59,
+    interior: 69,
+    exterior_interior: 109,
+    seats_only: 20,
   },
   medium: {
-    exterior: 79,
-    interior: 89,
-    exterior_interior: 139,
-    seats_only: 40,
+    exterior: 69,
+    interior: 79,
+    exterior_interior: 129,
+    seats_only: 30,
   },
   large: {
-    exterior: 89,
-    interior: 99,
-    exterior_interior: 159,
-    seats_only: 50,
+    exterior: 79,
+    interior: 89,
+    exterior_interior: 149,
+    seats_only: 40,
   },
 }
 
