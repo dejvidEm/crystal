@@ -118,9 +118,10 @@ export function calculatePrice(data: CalculatorData): PriceRange {
   let min = Math.round(totalPrice * 0.9)
   let max = Math.round(totalPrice * 1.1)
 
-  // Lower prices by 20€ (reduced from 50€ to make prices higher)
-  min = Math.max(0, min - 20)
-  max = Math.max(0, max - 20)
+  // Final price adjustment (makes displayed prices ~12€ lower)
+  const PRICE_OFFSET = 32
+  min = Math.max(0, min - PRICE_OFFSET)
+  max = Math.max(0, max - PRICE_OFFSET)
 
   return { min, max }
 }
