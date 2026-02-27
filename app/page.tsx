@@ -374,7 +374,11 @@ export default function Home() {
                 </div>
               </LazyLoadSection>
 
-              <div className="grid gap-8 md:grid-cols-3">
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                <LazyLoadSection delay={0.1}>
+                  <PricingPackageCard packageData={packages.refresh} />
+                </LazyLoadSection>
+
                 <LazyLoadSection delay={0.2}>
                   <PricingPackageCard packageData={packages.essential} />
                 </LazyLoadSection>

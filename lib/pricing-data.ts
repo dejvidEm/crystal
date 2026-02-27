@@ -24,6 +24,22 @@ export type AdditionalServiceData = {
 }
 
 export const packages: Record<string, PackageData> = {
+  refresh: {
+    title: "Balík Refresh",
+    subtitle: "Najrýchlejší a najlacnejší balík pre čisté vozidlá",
+    price: {
+      small: "€49",
+      suv: "€49",
+      van: "€49",
+    },
+    features: [
+      "Vysávanie interiéru",
+      "Detailing interiéru",
+      "Oživenie plastov",
+      "Čistenie podložiek",
+      "Vôňa do interiéru",
+    ],
+  },
   essential: {
     title: "Balík interiér",
     subtitle: "Ideálny pre pravidelnú údržbu interiéru",
