@@ -76,7 +76,7 @@ export const sk = {
       title: "Balík exteriér",
       subtitle: "Kompletná starostlivosť o exteriér",
       price: "€89",
-      mostPopular: "Najpopulárnejší",
+      mostPopular: "Najobľúbenejší",
       features: [
         "Kompletné čistenie exteriéru vozidla",
         "Aplikácia bio vosku",

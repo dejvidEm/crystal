@@ -32,7 +32,12 @@ export function PricingPackageCard({ packageData, delay = 0 }: PricingPackageCar
         <CardDescription className="text-zinc-400">{packageData.subtitle}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="mb-6 text-3xl font-bold text-white">{packageData.price[carSize]}</div>
+        <div className="mb-6 flex flex-wrap items-baseline gap-2">
+          {packageData.originalPrice && (
+            <span className="text-lg font-medium text-zinc-500 line-through">{packageData.originalPrice}</span>
+          )}
+          <span className="text-3xl font-bold text-white">{packageData.price[carSize]}</span>
+        </div>
         <ul className="space-y-3">
           {packageData.features.map((feature, index) => (
             <li key={index} className="flex items-start">

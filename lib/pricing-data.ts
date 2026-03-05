@@ -9,6 +9,8 @@ export type PackageData = {
     suv: string
     van: string
   }
+  /** Crossed-out price to show next to current price (e.g. "€139") */
+  originalPrice?: string
   features: string[]
   mostPopular?: boolean
 }
@@ -83,6 +85,8 @@ export const packages: Record<string, PackageData> = {
       suv: "€119",
       van: "€119",
     },
+    originalPrice: "€139",
+    mostPopular: true,
     features: [
       "Všetko v balíku interiér",
         "Všetko v balíku exteriér",

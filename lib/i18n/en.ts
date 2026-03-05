@@ -76,7 +76,7 @@ export const en = {
       title: "Exterior Package",
       subtitle: "Complete exterior care",
       price: "€89",
-      mostPopular: "Most Popular",
+      mostPopular: "Popular",
       features: [
         "Full exterior vehicle cleaning",
         "Bio wax application",
