@@ -333,6 +333,45 @@ export default function Home() {
                         </Button>
                       </a>
                     </div>
+                    <Card className="mt-8 glass-card border-0 overflow-hidden w-full max-w-sm">
+                      <CardHeader>
+                        <CardTitle className="text-2xl text-primary">
+                          {t.headlightRenewal?.card?.title || "Renovácia svetlometov"}
+                        </CardTitle>
+                        <CardDescription className="text-zinc-400">
+                          {t.headlightRenewal?.card?.subtitle || "Kompletná úprava oboch svetlometov"}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="mb-6 flex flex-wrap items-baseline gap-2">
+                          <span className="text-3xl font-bold text-white">
+                            {t.headlightRenewal?.card?.price || "70 €"}
+                          </span>
+                          <span className="text-sm text-zinc-400">
+                            {t.headlightRenewal?.card?.priceNote || "za oba svetlomety"}
+                          </span>
+                        </div>
+                        <ul className="space-y-3">
+                          {(t.headlightRenewal?.card?.features || [
+                            "Odstránenie oxidácie a zažltnutia",
+                            "Leštenie svetlometov",
+                            "Nanesenie UV ochrany",
+                          ]).map((feature: string, index: number) => (
+                            <li key={index} className="flex items-start">
+                              <Check className="mr-2 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                              <span className="text-zinc-300">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                      <CardFooter>
+                        <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" target="_blank" rel="noopener noreferrer" className="w-full">
+                          <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                            {t.headlightRenewal?.card?.selectPackage || "Vybrať službu"}
+                          </Button>
+                        </a>
+                      </CardFooter>
+                    </Card>
                   </div>
                 </LazyLoadSection>
 
@@ -353,50 +392,6 @@ export default function Home() {
                   </div>
                 </LazyLoadSection>
               </div>
-
-              <LazyLoadSection delay={0.4}>
-                <div className="mt-12 flex justify-center">
-                  <Card className="glass-card border-0 overflow-hidden w-full max-w-sm">
-                    <CardHeader>
-                      <CardTitle className="text-2xl text-primary">
-                        {t.headlightRenewal?.card?.title || "Renovácia svetlometov"}
-                      </CardTitle>
-                      <CardDescription className="text-zinc-400">
-                        {t.headlightRenewal?.card?.subtitle || "Kompletná úprava oboch svetlometov"}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="mb-6 flex flex-wrap items-baseline gap-2">
-                        <span className="text-3xl font-bold text-white">
-                          {t.headlightRenewal?.card?.price || "70 €"}
-                        </span>
-                        <span className="text-sm text-zinc-400">
-                          {t.headlightRenewal?.card?.priceNote || "za oba svetlomety"}
-                        </span>
-                      </div>
-                      <ul className="space-y-3">
-                        {(t.headlightRenewal?.card?.features || [
-                          "Odstránenie oxidácie a zažltnutia",
-                          "Leštenie svetlometov",
-                          "Nanesenie UV ochrany",
-                        ]).map((feature: string, index: number) => (
-                          <li key={index} className="flex items-start">
-                            <Check className="mr-2 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-                            <span className="text-zinc-300">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                    <CardFooter>
-                      <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" target="_blank" rel="noopener noreferrer" className="w-full">
-                        <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                          {t.headlightRenewal?.card?.selectPackage || "Vybrať službu"}
-                        </Button>
-                      </a>
-                    </CardFooter>
-                  </Card>
-                </div>
-              </LazyLoadSection>
             </div>
 
             {/* Decorative elements */}
