@@ -141,6 +141,18 @@ export const en = {
     description: "Our professional headlight renewal service transforms cloudy and yellowed headlights back to their original crystal clear condition. We use specialized techniques and premium products to restore clarity and brightness.",
     beforeAfter: "Before and After",
     bookService: "Book Service",
+    card: {
+      title: "Headlight Restoration",
+      subtitle: "Full restoration of both headlights",
+      features: [
+        "Removal of oxidation and yellowing",
+        "Headlight polishing",
+        "UV protection coating",
+      ],
+      price: "70 €",
+      priceNote: "for both headlights",
+      selectPackage: "Select Service",
+    },
   },
   whatToExpect: {
     title: "What to Expect",

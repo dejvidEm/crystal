@@ -147,6 +147,18 @@ export const sk = {
     description: "Naša profesionálna renovácia svetlometov transformuje zakalené a zažltnuté svetlomety späť do ich pôvodného krištáľovo čistého stavu. Používame špecializované techniky a prémiové produkty na obnovenie priehľadnosti a jasu.",
     beforeAfter: "Pred a po renovácii",
     bookService: "Rezervovať službu",
+    card: {
+      title: "Renovácia svetlometov",
+      subtitle: "Kompletná úprava oboch svetlometov",
+      features: [
+        "Odstránenie oxidácie a zažltnutia",
+        "Leštenie svetlometov",
+        "Nanesenie UV ochrany",
+      ],
+      price: "70 €",
+      priceNote: "za oba svetlomety",
+      selectPackage: "Vybrať službu",
+    },
   },
   whatToExpect: {
     title: "Čo môžete očakávať",
