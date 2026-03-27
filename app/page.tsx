@@ -573,8 +573,8 @@ export default function Home() {
               </LazyLoadSection>
 
               <LazyLoadSection delay={0.2}>
-                <div className="grid auto-rows-[180px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12">
-                  <div className="group relative overflow-hidden rounded-xl border border-white/10 sm:col-span-2 lg:col-span-7 lg:row-span-2">
+                <div className="grid grid-flow-dense grid-cols-2 auto-rows-[110px] gap-4 sm:grid-cols-4 lg:grid-cols-8">
+                  <div className="group relative col-span-1 row-span-4 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-5">
                     <video
                       autoPlay
                       muted
@@ -587,32 +587,44 @@ export default function Home() {
                     </video>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                     <div className="absolute bottom-4 left-4 right-4">
-                      <p className="text-sm font-medium text-white/90">{t.mediaBento?.labels?.mobileStudio || "Mobilné štúdio v akcii"}</p>
+                      <p className="text-sm font-medium text-white/90">
+                        {t.mediaBento?.labels?.mobileStudio || "Mobilné štúdio v akcii"}
+                      </p>
                     </div>
                   </div>
 
-                  <div className="group relative overflow-hidden rounded-xl border border-white/10 lg:col-span-5 lg:row-span-1">
+                  <div className="group relative col-span-1 row-span-4 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-5">
+                    <Image
+                      src="/stvrta.jpg"
+                      alt="Detailing process close-up"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 1024px) 50vw, 25vw"
+                    />
+                  </div>
+
+                  <div className="group relative col-span-2 row-span-3 overflow-hidden rounded-xl border border-white/10 lg:col-span-4 lg:row-span-3">
                     <Image
                       src="/images/porsche.jpg"
                       alt="Luxury detailing result"
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                   </div>
 
-                  <div className="group relative overflow-hidden rounded-xl border border-white/10 lg:col-span-3 lg:row-span-1">
+                  <div className="group relative col-span-1 row-span-4 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-4">
                     <Image
-                      src="/jedna.jpg"
-                      alt="Premium products and process detail"
+                      src="/druha.jpg"
+                      alt="Detailed interior cleaning result"
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 20vw"
+                      sizes="(max-width: 1024px) 50vw, 25vw"
                     />
                   </div>
 
-                  <div className="group relative overflow-hidden rounded-xl border border-white/10 lg:col-span-4 lg:row-span-1">
+                  <div className="group relative col-span-1 row-span-4 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-4">
                     <video
                       autoPlay
                       muted
@@ -626,13 +638,23 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                   </div>
 
-                  <div className="group relative overflow-hidden rounded-xl border border-white/10 lg:col-span-5 lg:row-span-1">
+                  <div className="group relative col-span-2 row-span-2 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-2">
                     <Image
-                      src="/druha.jpg"
-                      alt="Detailed interior cleaning result"
+                      src="/jedna.jpg"
+                      alt="Premium products and process detail"
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 30vw"
+                      sizes="(max-width: 1024px) 100vw, 25vw"
+                    />
+                  </div>
+
+                  <div className="group relative col-span-2 row-span-2 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-2">
+                    <Image
+                      src="/tretia.jpg"
+                      alt="Mobile detailing service at location"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 1024px) 100vw, 25vw"
                     />
                   </div>
                 </div>
