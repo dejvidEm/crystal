@@ -195,6 +195,13 @@ export const sk = {
         "Naše detailingové služby nielen čistia – ale aj chránia. Od keramických povlakov po ochranné prostriedky na lak, poskytujeme ošetrenia, ktoré predlžujú životnosť a krásu vášho vozidla dlho po našom odchode.",
     },
   },
+  mediaBento: {
+    title: "Výsledky v detailoch",
+    subtitle: "Fotky a videá našej práce v modernom prehľadnom rozložení",
+    labels: {
+      mobileStudio: "Mobilné štúdio v akcii",
+    },
+  },
   reviews: {
     title: "Čo hovoria naši klienti",
     subtitle: "Zistite, prečo nám naši klienti dôverujú so svojimi cenenými vozidlami",

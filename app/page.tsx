@@ -556,6 +556,90 @@ export default function Home() {
             </div>
           </section>
 
+          {/* Media Bento Section */}
+          <section id="media-bento" className="py-24 relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background"></div>
+            <div className="container mx-auto px-4 relative z-10">
+              <LazyLoadSection>
+                <div className="mb-16 text-center">
+                  <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
+                    {t.mediaBento?.title || "Výsledky v detailoch"}
+                  </h2>
+                  <div className="h-1 w-24 mx-auto bg-primary"></div>
+                  <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
+                    {t.mediaBento?.subtitle || "Fotky a videá našej práce v modernom prehľadnom rozložení"}
+                  </p>
+                </div>
+              </LazyLoadSection>
+
+              <LazyLoadSection delay={0.2}>
+                <div className="grid auto-rows-[180px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12">
+                  <div className="group relative overflow-hidden rounded-xl border border-white/10 sm:col-span-2 lg:col-span-7 lg:row-span-2">
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    >
+                      <source src="/two.mp4" type="video/mp4" />
+                    </video>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <p className="text-sm font-medium text-white/90">{t.mediaBento?.labels?.mobileStudio || "Mobilné štúdio v akcii"}</p>
+                    </div>
+                  </div>
+
+                  <div className="group relative overflow-hidden rounded-xl border border-white/10 lg:col-span-5 lg:row-span-1">
+                    <Image
+                      src="/images/porsche.jpg"
+                      alt="Luxury detailing result"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                  </div>
+
+                  <div className="group relative overflow-hidden rounded-xl border border-white/10 lg:col-span-3 lg:row-span-1">
+                    <Image
+                      src="/jedna.jpg"
+                      alt="Premium products and process detail"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 1024px) 100vw, 20vw"
+                    />
+                  </div>
+
+                  <div className="group relative overflow-hidden rounded-xl border border-white/10 lg:col-span-4 lg:row-span-1">
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    >
+                      <source src="/two.mp4" type="video/mp4" />
+                    </video>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                  </div>
+
+                  <div className="group relative overflow-hidden rounded-xl border border-white/10 lg:col-span-5 lg:row-span-1">
+                    <Image
+                      src="/druha.jpg"
+                      alt="Detailed interior cleaning result"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 1024px) 100vw, 30vw"
+                    />
+                  </div>
+                </div>
+              </LazyLoadSection>
+            </div>
+          </section>
+
           {/* Customer Gallery Section - Temporarily Commented Out
           <section id="gallery" className="py-24 relative">
             <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background"></div>

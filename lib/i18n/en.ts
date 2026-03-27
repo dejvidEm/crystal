@@ -189,6 +189,13 @@ export const en = {
         "Our detailing services don't just clean—they protect. From ceramic coatings to paint sealants, we provide treatments that extend the life and beauty of your vehicle long after we leave.",
     },
   },
+  mediaBento: {
+    title: "Results in Detail",
+    subtitle: "Photos and videos of our work in a modern, clean layout",
+    labels: {
+      mobileStudio: "Mobile studio in action",
+    },
+  },
   reviews: {
     title: "What Our Clients Say",
     subtitle: "Discover why our clients trust us with their prized vehicles",
