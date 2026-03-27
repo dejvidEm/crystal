@@ -201,6 +201,42 @@ export const sk = {
     previousReview: "Predchádzajúca recenzia",
     nextReview: "Ďalšia recenzia",
   },
+  faq: {
+    title: "Často kladené otázky",
+    subtitle: "Všetko dôležité o našom mobilnom detailingu na jednom mieste",
+    items: [
+      {
+        question: "Musím byť počas detailingu prítomný?",
+        answer:
+          "Nemusíte. Stačí nám sprístupniť vozidlo a o všetko zvyšné sa postaráme. Po dokončení Vás budeme informovať a vozidlo Vám odovzdáme ako nové.",
+      },
+      {
+        question: "Vzniká pri čistení odpadová voda alebo odpad?",
+        answer:
+          "Nie, pri čistení nevzniká žiadna odpadová voda ani nedochádza k odtoku nečistôt do okolia. Používame bezvodnú technológiu, ktorá je šetrná k životnému prostrediu. Všetky nečistoty a odpad zachytíme a následne si ich odnášame.",
+      },
+      {
+        question: "Je potrebný prístup k elektrine alebo vode?",
+        answer:
+          "Nie, všetko si zabezpečujeme sami. Máme vlastnú nádrž na vodu aj zdroj elektriny, takže vieme pracovať kdekoľvek - na sídlisku, pod kanceláriou, pred fitkom...",
+      },
+      {
+        question: "Kde prebieha mobilný detailing?",
+        answer:
+          "Detailing robíme priamo u Vás doma, v práci alebo kdekoľvek, kde je prístup k autu. Nemusíte nikam chodiť, ani auto nikde presúvať. Šetríte čas aj starosti.",
+      },
+      {
+        question: "Je mobilný detailing bezpečný pre moje auto?",
+        answer:
+          "Áno. Používame profesionálnu autokozmetiku/výrobky a šetrné postupy, ktoré chránia lak aj interiér Vášho vozidla.",
+      },
+      {
+        question: "Čo ak mám auto plné vecí?",
+        answer:
+          "Nemusíte riešiť vôbec nič. Všetky veci z auta vyberieme, po detailingu ich starostlivo vrátime späť na svoje miesto.",
+      },
+    ],
+  },
   booking: {
     title: "Ste pripravení zažiť prémiový mobilný detailing?",
     description:

@@ -195,6 +195,42 @@ export const en = {
     previousReview: "Previous review",
     nextReview: "Next review",
   },
+  faq: {
+    title: "Frequently Asked Questions",
+    subtitle: "Everything important about our mobile detailing in one place",
+    items: [
+      {
+        question: "Do I need to be present during detailing?",
+        answer:
+          "No, you do not. You only need to provide access to the vehicle and we will take care of everything else. After completion, we will inform you and hand the vehicle back to you like new.",
+      },
+      {
+        question: "Is any wastewater or waste produced during cleaning?",
+        answer:
+          "No. Our process does not create wastewater and no dirt is discharged into the surroundings. We use waterless technology that is environmentally friendly. All dirt and waste are captured and then taken away by us.",
+      },
+      {
+        question: "Do you need access to electricity or water?",
+        answer:
+          "No, we provide everything ourselves. We have our own water tank and power source, so we can work anywhere - in residential areas, under your office, in front of a gym, and more.",
+      },
+      {
+        question: "Where does mobile detailing take place?",
+        answer:
+          "We detail your car directly at your home, workplace, or anywhere there is access to the vehicle. You do not need to go anywhere or move your car. You save both time and hassle.",
+      },
+      {
+        question: "Is mobile detailing safe for my car?",
+        answer:
+          "Yes. We use professional car care products and gentle procedures that protect both your paint and your interior.",
+      },
+      {
+        question: "What if my car is full of personal items?",
+        answer:
+          "You do not need to worry about anything. We remove all items from the car and after detailing we carefully put them back in their place.",
+      },
+    ],
+  },
   booking: {
     title: "Ready to Experience Premium Mobile Detailing?",
     description:

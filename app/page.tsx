@@ -22,6 +22,7 @@ import { MobileServiceBanner } from "@/components/mobile-service-banner"
 import { CustomerGallery } from "@/components/customer-gallery"
 import { FloatingCalcButton } from "@/components/floating-calc-button"
 import { ServiceStructuredData } from "@/components/structured-data"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 // Lazy load components that are not needed immediately
 const ReviewCarousel = lazy(() =>
@@ -577,6 +578,41 @@ export default function Home() {
             </div>
           </section>
           */}
+
+          {/* FAQ Section */}
+          <section id="faq" className="py-24 relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background"></div>
+            <div className="container mx-auto px-4 relative z-10">
+              <LazyLoadSection>
+                <div className="mb-16 text-center">
+                  <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
+                    {t.faq?.title || "Často kladené otázky"}
+                  </h2>
+                  <div className="h-1 w-24 mx-auto bg-primary"></div>
+                  <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
+                    {t.faq?.subtitle || "Všetko dôležité o našom mobilnom detailingu na jednom mieste"}
+                  </p>
+                </div>
+              </LazyLoadSection>
+
+              <LazyLoadSection delay={0.2}>
+                <div className="mx-auto w-full max-w-4xl rounded-xl border border-white/10 bg-black/30 p-4 backdrop-blur-md sm:p-6">
+                  <Accordion type="single" collapsible className="w-full">
+                    {(t.faq?.items || []).map((item: { question: string; answer: string }, index: number) => (
+                      <AccordionItem key={index} value={`faq-item-${index}`} className="border-white/10">
+                        <AccordionTrigger className="text-left text-base sm:text-lg text-white hover:no-underline">
+                          {item.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-zinc-300 text-sm sm:text-base leading-relaxed">
+                          {item.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </div>
+              </LazyLoadSection>
+            </div>
+          </section>
 
           {/* Reviews Section */}
           <section id="reviews" className="py-24 relative">
