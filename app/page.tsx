@@ -574,7 +574,7 @@ export default function Home() {
 
               <LazyLoadSection delay={0.2}>
                 <div className="grid grid-flow-dense grid-cols-2 auto-rows-[110px] gap-4 sm:grid-cols-4 lg:grid-cols-8">
-                  <div className="group relative col-span-1 row-span-4 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-5">
+                  <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-5">
                     <video
                       autoPlay
                       muted
@@ -593,7 +593,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="group relative col-span-1 row-span-4 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-5">
+                  <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-5">
                     <Image
                       src="/stvrta.jpg"
                       alt="Detailing process close-up"
@@ -614,7 +614,7 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                   </div>
 
-                  <div className="group relative col-span-1 row-span-4 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-4">
+                  <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-4">
                     <Image
                       src="/druha.jpg"
                       alt="Detailed interior cleaning result"
@@ -624,7 +624,7 @@ export default function Home() {
                     />
                   </div>
 
-                  <div className="group relative col-span-1 row-span-4 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-4">
+                  <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-4">
                     <video
                       autoPlay
                       muted
