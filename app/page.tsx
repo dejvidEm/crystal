@@ -23,6 +23,7 @@ import { CustomerGallery } from "@/components/customer-gallery"
 import { FloatingCalcButton } from "@/components/floating-calc-button"
 import { ServiceStructuredData } from "@/components/structured-data"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { BentoVideo } from "@/components/bento-video"
 
 // Lazy load components that are not needed immediately
 const ReviewCarousel = lazy(() =>
@@ -574,19 +575,16 @@ export default function Home() {
 
               <LazyLoadSection delay={0.2}>
                 <div className="grid grid-flow-dense grid-cols-2 auto-rows-[110px] gap-4 sm:grid-cols-4 lg:grid-cols-8">
+                  {/* Video 1 — portrait */}
                   <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-5">
-                    <video
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    >
-                      <source src="/two.mp4" type="video/mp4" />
-                    </video>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-4 left-4 right-4">
+                    <BentoVideo
+                      src="/bento/video/one.mov"
+                      fallbackImage="/bento/photo/IMG_1814.jpg"
+                      fallbackSizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                    <div className="pointer-events-none absolute bottom-4 left-4 right-4">
                       <p className="text-sm font-medium text-white/90">
                         {t.mediaBento?.labels?.mobileStudio || "Mobilné štúdio v akcii"}
                       </p>
@@ -595,66 +593,68 @@ export default function Home() {
 
                   <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-5">
                     <Image
-                      src="/stvrta.jpg"
-                      alt="Detailing process close-up"
+                      src="/bento/photo/IMG_1813.jpg"
+                      alt=""
                       fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      quality={82}
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 50vw, 25vw"
                     />
                   </div>
 
                   <div className="group relative col-span-2 row-span-3 overflow-hidden rounded-xl border border-white/10 lg:col-span-4 lg:row-span-3">
                     <Image
-                      src="/images/porsche.jpg"
-                      alt="Luxury detailing result"
+                      src="/bento/photo/IMG_1814.jpg"
+                      alt=""
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 1024px) 100vw, 50vw"
+                      quality={82}
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   </div>
 
                   <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-4">
                     <Image
-                      src="/druha.jpg"
-                      alt="Detailed interior cleaning result"
+                      src="/bento/photo/IMG_1815.jpg"
+                      alt=""
                       fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      quality={82}
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 50vw, 25vw"
                     />
                   </div>
 
+                  {/* Video 2 — portrait */}
                   <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-4">
-                    <video
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    >
-                      <source src="/two.mp4" type="video/mp4" />
-                    </video>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                    <BentoVideo
+                      src="/bento/video/two.mov"
+                      fallbackImage="/bento/photo/IMG_1817.jpg"
+                      fallbackSizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                   </div>
 
                   <div className="group relative col-span-2 row-span-2 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-2">
                     <Image
-                      src="/jedna.jpg"
-                      alt="Premium products and process detail"
+                      src="/bento/photo/IMG_1816.jpg"
+                      alt=""
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 1024px) 100vw, 25vw"
+                      quality={82}
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
 
                   <div className="group relative col-span-2 row-span-2 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-2">
                     <Image
-                      src="/tretia.jpg"
-                      alt="Mobile detailing service at location"
+                      src="/bento/photo/IMG_1817.jpg"
+                      alt=""
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 1024px) 100vw, 25vw"
+                      quality={82}
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
                 </div>

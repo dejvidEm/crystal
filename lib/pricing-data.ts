@@ -15,6 +15,8 @@ export type PackageData = {
   mostPopular?: boolean
 }
 
+export type AdditionalServiceIcon = "seats" | "ozone" | "leather"
+
 export type AdditionalServiceData = {
   name: string
   description: string
@@ -23,6 +25,7 @@ export type AdditionalServiceData = {
     suv: string
     van: string
   }
+  icon: AdditionalServiceIcon
 }
 
 export const packages: Record<string, PackageData> = {
@@ -105,6 +108,7 @@ export const additionalServices: AdditionalServiceData[] = [
       suv: "€40",
       van: "€45",
     },
+    icon: "seats",
   },
   {
     name: "Dezinfekcia ozónom",
@@ -114,6 +118,7 @@ export const additionalServices: AdditionalServiceData[] = [
       suv: "€35",
       van: "€45",
     },
+    icon: "ozone",
   },
   {
     name: "Čistenie a impregnácia koženého čalúnenia a sedadiel",
@@ -123,5 +128,6 @@ export const additionalServices: AdditionalServiceData[] = [
       suv: "€45",
       van: "€50",
     },
+    icon: "leather",
   },
 ]

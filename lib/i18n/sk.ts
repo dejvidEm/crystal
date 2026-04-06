@@ -251,6 +251,8 @@ export const sk = {
     bookAppointment: "Rezervovať termín",
   },
   footer: {
+    tagline:
+      "Prvá luxusná mobilná detailingová služba pre autá na Slovensku, ktorá príde priamo k vám.",
     privacyPolicy: "Ochrana osobných údajov",
     termsOfService: "Obchodné podmienky",
     contactUs: "Kontaktujte nás",

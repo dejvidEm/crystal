@@ -7,111 +7,146 @@ import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/i18n/language-context"
 
+type CarouselReview = {
+  id: number
+  avatar: string
+  rating: number
+  review: string
+  car: string
+  location: string
+}
+
 // Reviews data with translations
-const getReviews = (language: "en" | "sk") => {
-  const reviews = {
+const getReviews = (language: "en" | "sk"): CarouselReview[] => {
+  const reviews: Record<"en" | "sk", CarouselReview[]> = {
     en: [
       {
         id: 1,
-        name: "Martin Novák",
         avatar: "/placeholder.svg?height=80&width=80",
         rating: 5,
         review:
-          "Absolutely incredible service! They came to my office and transformed my BMW while I was in meetings. The ceramic coating they applied makes my car look better than when I bought it.",
-        location: "Bratislava",
-        car: "BMW M5",
+          "Maximum satisfaction. Great service and the car looks like new.",
+        car: "Customer review",
+        location: "Bratislava region",
       },
       {
         id: 2,
-        name: "Zuzana Kováčová",
         avatar: "/placeholder.svg?height=80&width=80",
         rating: 5,
         review:
-          "As a busy professional, I don't have time to take my car to a detailing shop. LuxDetail's mobile service is perfect - they came to my home and did an amazing job while I worked remotely.",
-        location: "Košice",
-        car: "Mercedes-Benz E-Class",
+          "Great service for a fair price. The guy arrived, I unlocked the car and he took care of the rest. When I came to check, the car was spotless inside and out. We also had a nice chat. I recommend them.",
+        car: "Customer review",
+        location: "Bratislava region",
       },
       {
         id: 3,
-        name: "Peter Horváth",
         avatar: "/placeholder.svg?height=80&width=80",
         rating: 5,
         review:
-          "I've tried many detailing services before, but none compare to the level of attention and care that LuxDetail provides. Their Ultimate package is worth every euro!",
-        location: "Žilina",
-        car: "Audi RS6",
+          "Extremely professional approach and detailing—they arrived exactly on time as agreed while I was at the gym and fully cleaned the interior like new. The price is fair, comparable to car washes in malls. Top quality, I recommend to everyone.",
+        car: "Customer review",
+        location: "Bratislava region",
       },
       {
         id: 4,
-        name: "Jana Tóthová",
-        avatar: "/placeholder.svg?height=80&width=80",
-        rating: 4,
-        review:
-          "The convenience of having professional detailers come to my apartment complex is unmatched. My Tesla has never looked better, and the team was professional and courteous.",
-        location: "Nitra",
-        car: "Tesla Model 3",
-      },
-      {
-        id: 5,
-        name: "Tomáš Balog",
         avatar: "/placeholder.svg?height=80&width=80",
         rating: 5,
         review:
-          "I was skeptical about mobile detailing at first, but LuxDetail changed my mind completely. The results are outstanding, and the ceramic coating has made maintenance so much easier.",
-        location: "Banská Bystrica",
-        car: "Porsche 911",
+          "Great service—I booked a clean while I was at a lecture at school; I just unlocked the car and after the lecture I came to check and lock it. Everything was perfect—I had no idea my car could look like new. Fully satisfied, I will definitely book again.",
+        car: "Customer review",
+        location: "Bratislava region",
+      },
+      {
+        id: 5,
+        avatar: "/placeholder.svg?height=80&width=80",
+        rating: 5,
+        review:
+          "Absolute satisfaction. I drive my Tesla non-stop and regular hand car washes never get it this clean. I'm still skeptical of detailing companies because of bad experiences (things often get skipped), but the guys from Crystal Detailing didn't miss a thing. Big praise—I loved how simple the whole process was, I could work while they worked and I came back to a clean car :)",
+        car: "Customer review",
+        location: "Bratislava region",
+      },
+      {
+        id: 6,
+        avatar: "/placeholder.svg?height=80&width=80",
+        rating: 5,
+        review:
+          "Brilliant idea—the guys come to you anywhere in the Bratislava region, no hassle, and quickly wash interior and exterior so the car looks like new. Professionalism on point, fair price. I recommend.",
+        car: "Customer review",
+        location: "Bratislava region",
+      },
+      {
+        id: 7,
+        avatar: "/placeholder.svg?height=80&width=80",
+        rating: 5,
+        review:
+          "Professional approach and highly precise work. The interior and exterior look completely like new. Fair price and a friendly vibe from the company owner. The first mobile car detailing in Bratislava. Strongly recommend.",
+        car: "Customer review",
+        location: "Bratislava",
       },
     ],
     sk: [
       {
         id: 1,
-        name: "Martin Novák",
         avatar: "/placeholder.svg?height=80&width=80",
         rating: 5,
         review:
-          "Absolútne neuveriteľná služba! Prišli do mojej kancelárie a transformovali moje BMW, zatiaľ čo som bol na stretnutiach. Keramický povlak, ktorý aplikovali, robí moje auto krajším, než keď som ho kúpil.",
-        location: "Bratislava",
-        car: "BMW M5",
+          "Maximálni spokojnosť. Skvelá služba a auto vyzerá jako nové.",
+        car: "Recenzia zákazníka",
+        location: "Bratislavský kraj",
       },
       {
         id: 2,
-        name: "Zuzana Kováčová",
         avatar: "/placeholder.svg?height=80&width=80",
         rating: 5,
         review:
-          "Ako zaneprázdnená profesionálka nemám čas voziť svoje auto do detailingovej dielne. Mobilná služba Crystal detailing je dokonalá - prišli ku mne domov a odviedli úžasnú prácu, zatiaľ čo som pracovala na diaľku.",
-        location: "Košice",
-        car: "Mercedes-Benz E-Class",
+          "Super služba za adekvátnu cenu. Chalan prišiel, otvoril som auto a o zvyšok sa postaral. Keď som to prišiel skontrolovať, auto bolo umyté do detailu z vonku aj z vnútra. Zároveň sme prehodili aj zopár dobrých slov. Odporúčam.",
+        car: "Recenzia zákazníka",
+        location: "Bratislavský kraj",
       },
       {
         id: 3,
-        name: "Peter Horváth",
         avatar: "/placeholder.svg?height=80&width=80",
         rating: 5,
         review:
-          "Vyskúšal som už mnoho detailingových služieb, ale žiadna sa nevyrovná úrovni pozornosti a starostlivosti, ktorú poskytuje LuxDetail. Ich Ultimátny balík stojí za každé euro!",
-        location: "Žilina",
-        car: "Audi RS6",
+          "Extrémne profesionálny prístup aj detailing, presne na čas ako bolo dohodnuté došli kým som bol vo fitku a vyčistili kompletne interiér ako nový. Cena férová porovnateľná s umyvárkami v nivách alebo eurovei. Extrémna kvalita, odporúčam všetkým.",
+        car: "Recenzia zákazníka",
+        location: "Bratislavský kraj",
       },
       {
         id: 4,
-        name: "Jana Tóthová",
-        avatar: "/placeholder.svg?height=80&width=80",
-        rating: 4,
-        review:
-          "Pohodlie mať profesionálnych detailerov, ktorí prídu do môjho bytového komplexu, je neprekonateľné. Moja Tesla nikdy nevyzerala lepšie a tím bol profesionálny a zdvorilý.",
-        location: "Nitra",
-        car: "Tesla Model 3",
-      },
-      {
-        id: 5,
-        name: "Tomáš Balog",
         avatar: "/placeholder.svg?height=80&width=80",
         rating: 5,
         review:
-          "Spočiatku som bol skeptický voči mobilnému detailingu, ale Crystal úplne zmenil môj názor. Výsledky sú vynikajúce a keramický povlak uľahčil údržbu.",
-        location: "Banská Bystrica",
-        car: "Porsche 911",
+          "Super služba, objednal som si čistenie kým som bol v škole na prednáške, iba som odomkol auto a po prednáške prišiel skontrolovať a zamknúť. Všetko tip top ani som nevedel že moje auto môže vyzerať ako nové. Úplná spokojnosť, určite sa objednám znova.",
+        car: "Recenzia zákazníka",
+        location: "Bratislavský kraj",
+      },
+      {
+        id: 5,
+        avatar: "/placeholder.svg?height=80&width=80",
+        rating: 5,
+        review:
+          "Absolútna spokojnosť. S teslou jazdím nonstop a bežné ručné umyvárky mi nikdy auto takto nevyčistia. Voči detailingovým firmám som stále skeptický kvôli zlým skúsenostiam (často sa niečo vynechá) ale chalpci z crystal detailing nezabudli na nič. Veľká pochvala a veľmi sa mi páčilo že proces bol úplne jednoduchý, mohol som počas toho pracovať a vrátil som sa k čistému autu :)",
+        car: "Recenzia zákazníka",
+        location: "Bratislavský kraj",
+      },
+      {
+        id: 6,
+        avatar: "/placeholder.svg?height=80&width=80",
+        rating: 5,
+        review:
+          "Geniálny nápad, chalani dojdu za vami hocikde v BA kraji, bez problémov rýchlo umyjú interier exterier že auto vyzerá jak nové. Profesionalita na úrovni, cena fér. Odporúčam.",
+        car: "Recenzia zákazníka",
+        location: "Bratislavský kraj",
+      },
+      {
+        id: 7,
+        avatar: "/placeholder.svg?height=80&width=80",
+        rating: 5,
+        review:
+          "Profesionálny prístup a vysoko precízna robota. Interiér a exteriér auta úplne ako nový. Férová cena a priateľská atmosféra od majiteľa firmy. Prvý mobilný auto-detailing v BA. Veľmi odporúčam.",
+        car: "Recenzia zákazníka",
+        location: "Bratislava",
       },
     ],
   }
@@ -196,10 +231,11 @@ export function ReviewCarousel() {
               <div className="relative mb-4 h-24 w-24 overflow-hidden rounded-full border-2 border-primary">
                 <Image
                   src={reviews[currentIndex].avatar || "/placeholder.svg"}
-                  alt={reviews[currentIndex].name}
+                  alt=""
                   fill
                   className="object-cover"
                   sizes="96px"
+                  aria-hidden
                 />
               </div>
               <div className="flex" aria-label={`Rating: ${reviews[currentIndex].rating} out of 5 stars`}>
@@ -217,7 +253,6 @@ export function ReviewCarousel() {
             <div className="flex flex-col text-center md:text-left">
               <p className="mb-6 text-xl italic text-zinc-300">"{reviews[currentIndex].review}"</p>
               <div>
-                <p className="font-semibold text-primary text-lg">{reviews[currentIndex].name}</p>
                 <p className="text-sm text-zinc-400">
                   {reviews[currentIndex].car} • {reviews[currentIndex].location}
                 </p>

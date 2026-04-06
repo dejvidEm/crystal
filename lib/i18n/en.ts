@@ -245,6 +245,7 @@ export const en = {
     bookAppointment: "Book Your Appointment",
   },
   footer: {
+    tagline: "Slovakia's first luxury mobile car detailing service that comes to your location.",
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
     contactUs: "Contact Us",

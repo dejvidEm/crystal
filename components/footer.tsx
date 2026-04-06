@@ -17,9 +17,7 @@ export function Footer() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
               <div>
                 <h3 className="text-xl font-heading mb-4 text-white">Crystal Detailing</h3>
-                <p className="text-zinc-400 mb-6">
-                  Slovakia's first luxury mobile car detailing service that comes to your location.
-                </p>
+                <p className="text-zinc-400 mb-6">{t.footer.tagline}</p>
                 <div className="flex space-x-4">
                   <Link href="#" className="text-zinc-400 hover:text-primary transition-colors">
                     <Instagram size={20} />
