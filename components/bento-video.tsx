@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
@@ -22,14 +22,6 @@ export function BentoVideo({ src, fallbackImage, className, fallbackSizes }: Ben
   const [useFallback, setUseFallback] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-
-  // Avoid an empty tile in browsers that report no QuickTime/MOV support at all.
-  useLayoutEffect(() => {
-    const el = document.createElement("video")
-    if (el.canPlayType("video/quicktime") === "") {
-      setUseFallback(true)
-    }
-  }, [])
 
   useEffect(() => {
     if (useFallback) return
