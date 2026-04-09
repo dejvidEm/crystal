@@ -62,7 +62,7 @@ export const en = {
       subtitle: "Ideal for regular interior maintenance",
       price: "€79",
       features: [
-        "Hand wash exterior",
+        "Hand interior cleaning",
         "Screen and surface cleaning",
         "Interior vacuuming and dusting",
         "Trunk cleaning",

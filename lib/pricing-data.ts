@@ -54,7 +54,7 @@ export const packages: Record<string, PackageData> = {
       van: "€79",
     },
     features: [
-        "Ručné umývanie exteriéru",
+        "Ručné čistenie interiéru",
         "Čistenie displejov a povrchov",
         "Vysávanie a odprašovanie interiéru",
         "Čistenie batožinového priestoru",

@@ -62,7 +62,7 @@ export const sk = {
       subtitle: "Ideálny pre pravidelnú údržbu interiéru",
       price: "€79",
       features: [
-        "Ručné umývanie exteriéru",
+        "Ručné čistenie interiéru",
         "Čistenie displejov a povrchov",
         "Vysávanie a odprašovanie interiéru",
         "Čistenie batožinového priestoru",
