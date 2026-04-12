@@ -46,6 +46,11 @@ export function PricingPackageCard({ packageData, delay = 0 }: PricingPackageCar
             </li>
           ))}
         </ul>
+        {packageData.footerNote && (
+          <p className="mt-6 border-t border-white/10 pt-4 text-sm leading-relaxed text-zinc-400">
+            {packageData.footerNote}
+          </p>
+        )}
       </CardContent>
       <CardFooter>
         <Button

@@ -1,6 +1,8 @@
+import type { PackageKey } from "./pricing-data"
+
 export type VehicleType = "small" | "medium" | "large"
 export type Condition = "normal" | "dirty" | "extreme"
-export type MainService = "exterior" | "interior" | "exterior_interior" | "seats_only"
+export type MainService = PackageKey
 export type Addon = "wax" | "ozone" | "plastics" | "seats" | "headlights"
 export type ParkingType = "private" | "public"
 
@@ -23,47 +25,47 @@ export interface TimeRange {
   max: number // in minutes
 }
 
-// Base prices by vehicle type and service
+// Base prices by vehicle type and package (tuned so estimate range aligns with “from €X” on the site)
 const BASE_PRICES: Record<VehicleType, Record<MainService, number>> = {
   small: {
-    exterior: 59,
-    interior: 69,
-    exterior_interior: 109,
-    seats_only: 20,
+    refresh: 79,
+    essential: 125,
+    premium: 168,
+    ultimate: 90,
   },
   medium: {
-    exterior: 69,
-    interior: 79,
-    exterior_interior: 129,
-    seats_only: 30,
+    refresh: 89,
+    essential: 135,
+    premium: 178,
+    ultimate: 100,
   },
   large: {
-    exterior: 79,
-    interior: 89,
-    exterior_interior: 149,
-    seats_only: 40,
+    refresh: 99,
+    essential: 145,
+    premium: 188,
+    ultimate: 110,
   },
 }
 
-// Base times by vehicle type and service (in minutes)
+// Base times by vehicle type and package (minutes)
 const BASE_TIMES: Record<VehicleType, Record<MainService, number>> = {
   small: {
-    exterior: 90,
-    interior: 120,
-    exterior_interior: 180,
-    seats_only: 60,
+    refresh: 95,
+    essential: 150,
+    premium: 210,
+    ultimate: 125,
   },
   medium: {
-    exterior: 105,
-    interior: 135,
-    exterior_interior: 210,
-    seats_only: 75,
+    refresh: 110,
+    essential: 165,
+    premium: 235,
+    ultimate: 140,
   },
   large: {
-    exterior: 120,
-    interior: 150,
-    exterior_interior: 240,
-    seats_only: 90,
+    refresh: 125,
+    essential: 180,
+    premium: 260,
+    ultimate: 155,
   },
 }
 

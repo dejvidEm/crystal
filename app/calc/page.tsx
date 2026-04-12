@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, Sparkles, Clock, MapPin, ArrowLeft } from "lucide-react"
+import { Check, ChevronLeft, ChevronRight, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -16,11 +16,14 @@ import { LanguageWrapper } from "@/components/language-wrapper"
 import { StickySummary } from "@/components/calc/sticky-summary"
 import { ResultCard } from "@/components/calc/result-card"
 import { CalcBackButton } from "@/components/calc/back-button"
-import { calculatePrice, calculateTime, type CalculatorData } from "@/lib/calc-logic"
+import { calculatePrice, calculateTime, type Addon, type CalculatorData } from "@/lib/calc-logic"
+import { PACKAGE_KEYS, packages, packagesEn, type PackageData, type PackageKey } from "@/lib/pricing-data"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 const TOTAL_STEPS = 5
 
 export default function CalculatorPage() {
+  const { language } = useLanguage()
   const [currentStep, setCurrentStep] = useState(1)
   const [data, setData] = useState<CalculatorData>({
     vehicleType: null,
@@ -73,13 +76,13 @@ export default function CalculatorPage() {
   }
 
   const handleMainServiceChange = (value: string) => {
-    const newMainService = value as "exterior" | "interior" | "exterior_interior" | "seats_only"
-    // Clear seats addon if main service is seats_only
-    if (value === "seats_only") {
+    const newMainService = value as PackageKey
+    // Upholstery package already includes seat shampooing — drop redundant add-on
+    if (value === "ultimate") {
       setData((prev) => ({
         ...prev,
         mainService: newMainService,
-        addons: prev.addons.filter((a) => a !== "seats"),
+        addons: prev.addons.filter((a): a is Addon => a !== "seats"),
       }))
     } else {
       setData({ ...data, mainService: newMainService })
@@ -90,7 +93,7 @@ export default function CalculatorPage() {
     }, 300)
   }
 
-  const handleAddonToggle = (addon: string) => {
+  const handleAddonToggle = (addon: Addon) => {
     setData((prev) => ({
       ...prev,
       addons: prev.addons.includes(addon)
@@ -138,10 +141,6 @@ export default function CalculatorPage() {
     }
   }
 
-  const shouldShowAddons = () => {
-    return data.mainService !== "seats_only"
-  }
-
   const priceRange = calculatePrice(data)
   const timeRange = calculateTime(data)
 
@@ -172,7 +171,7 @@ export default function CalculatorPage() {
           <Navbar />
           
           <div className="container mx-auto px-4 pt-24 pb-8 md:pt-28 md:pb-12">
-            <div className="mx-auto max-w-2xl">
+            <div className="mx-auto max-w-3xl">
               {/* Return to main page button - Mobile only */}
               <div className="mb-6 flex justify-center md:hidden">
                 <CalcBackButton isFixed={false} />
@@ -319,42 +318,19 @@ export default function CalculatorPage() {
                         </h2>
                         <RadioGroup value={data.mainService || ""} onValueChange={handleMainServiceChange}>
                           <div className="grid gap-4 sm:grid-cols-2">
-                            <StepCard
-                              value="exterior"
-                              label={t.calculator?.serviceExterior || "Exterior"}
-                              description={t.calculator?.serviceExteriorDesc || "Outside cleaning & protection"}
-                              selected={data.mainService === "exterior"}
-                              mostPopular={false}
-                              name="mainService"
-                              t={t}
-                            />
-                            <StepCard
-                              value="interior"
-                              label={t.calculator?.serviceInterior || "Interior"}
-                              description={t.calculator?.serviceInteriorDesc || "Inside cleaning & care"}
-                              selected={data.mainService === "interior"}
-                              mostPopular={false}
-                              name="mainService"
-                              t={t}
-                            />
-                            <StepCard
-                              value="exterior_interior"
-                              label={t.calculator?.serviceBoth || "Exterior + Interior"}
-                              description={t.calculator?.serviceBothDesc || "Complete detailing"}
-                              selected={data.mainService === "exterior_interior"}
-                              mostPopular={true}
-                              name="mainService"
-                              t={t}
-                            />
-                            <StepCard
-                              value="seats_only"
-                              label={t.calculator?.serviceSeats || "Seats Only"}
-                              description={t.calculator?.serviceSeatsDesc || "Seat shampooing"}
-                              selected={data.mainService === "seats_only"}
-                              mostPopular={false}
-                              name="mainService"
-                              t={t}
-                            />
+                            {PACKAGE_KEYS.map((key) => {
+                              const pkg = (language === "en" ? packagesEn : packages)[key]
+                              return (
+                                <PackageOptionCard
+                                  key={key}
+                                  value={key}
+                                  packageData={pkg}
+                                  selected={data.mainService === key}
+                                  name="mainService"
+                                  t={t}
+                                />
+                              )
+                            })}
                           </div>
                         </RadioGroup>
                         {currentStep === 3 && (
@@ -367,7 +343,7 @@ export default function CalculatorPage() {
                   </motion.div>
                 )}
 
-                {currentStep === 4 && shouldShowAddons() && (
+                {currentStep === 4 && (
                   <motion.div
                     key="step4"
                     initial={{ opacity: 0, x: 20 }}
@@ -402,61 +378,15 @@ export default function CalculatorPage() {
                             checked={data.addons.includes("plastics")}
                             onToggle={() => handleAddonToggle("plastics")}
                           />
-                          <AddonCard
-                            id="seats"
-                            label={t.calculator?.addonSeats || "Seat Shampooing"}
-                            description={t.calculator?.addonSeatsDesc || "+30 € / +60 min"}
-                            checked={data.addons.includes("seats")}
-                            onToggle={() => handleAddonToggle("seats")}
-                          />
-                          <AddonCard
-                            id="headlights"
-                            label={t.calculator?.addonHeadlights || "Renovácia svetlometov"}
-                            description={t.calculator?.addonHeadlightsDesc || "+45 € / +30 min"}
-                            checked={data.addons.includes("headlights")}
-                            onToggle={() => handleAddonToggle("headlights")}
-                          />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                )}
-
-                {currentStep === 4 && !shouldShowAddons() && (
-                  <motion.div
-                    key="step4-skip"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Card>
-                      <CardContent className="p-6">
-                        <h2 className="mb-6 text-xl font-semibold">
-                          {t.calculator?.step4Title || "Add any extras? (Optional)"}
-                        </h2>
-                        <div className="space-y-4">
-                          <AddonCard
-                            id="wax"
-                            label={t.calculator?.addonWax || "Wax / Sealant"}
-                            description={t.calculator?.addonWaxDesc || "+25 € / +30 min"}
-                            checked={data.addons.includes("wax")}
-                            onToggle={() => handleAddonToggle("wax")}
-                          />
-                          <AddonCard
-                            id="ozone"
-                            label={t.calculator?.addonOzone || "Ozone / Disinfection"}
-                            description={t.calculator?.addonOzoneDesc || "+15 € / +20 min"}
-                            checked={data.addons.includes("ozone")}
-                            onToggle={() => handleAddonToggle("ozone")}
-                          />
-                          <AddonCard
-                            id="plastics"
-                            label={t.calculator?.addonPlastics || "Plastic Restoration"}
-                            description={t.calculator?.addonPlasticsDesc || "+10 € / +20 min"}
-                            checked={data.addons.includes("plastics")}
-                            onToggle={() => handleAddonToggle("plastics")}
-                          />
+                          {data.mainService !== "ultimate" && (
+                            <AddonCard
+                              id="seats"
+                              label={t.calculator?.addonSeats || "Seat Shampooing"}
+                              description={t.calculator?.addonSeatsDesc || "+30 € / +60 min"}
+                              checked={data.addons.includes("seats")}
+                              onToggle={() => handleAddonToggle("seats")}
+                            />
+                          )}
                           <AddonCard
                             id="headlights"
                             label={t.calculator?.addonHeadlights || "Renovácia svetlometov"}
@@ -592,6 +522,56 @@ export default function CalculatorPage() {
         </div>
       )}
     </LanguageWrapper>
+  )
+}
+
+function PackageOptionCard({
+  value,
+  packageData,
+  selected,
+  name,
+  t,
+}: {
+  value: PackageKey
+  packageData: PackageData
+  selected: boolean
+  name?: string
+  t?: { calculator?: { mostPopular?: string } }
+}) {
+  return (
+    <div className="relative">
+      <label
+        htmlFor={`${name}-${value}`}
+        className={`flex cursor-pointer flex-col rounded-lg border-2 p-4 text-left transition-all ${
+          selected ? "border-primary bg-primary/10" : "border-border bg-card hover:border-primary/50"
+        }`}
+      >
+        <div className="mb-3 flex items-start justify-between gap-2">
+          <RadioGroupItem value={value} id={`${name}-${value}`} className="mt-1 shrink-0" />
+          {packageData.mostPopular && (
+            <span className="shrink-0 rounded-full bg-primary px-2 py-0.5 text-xs font-medium text-primary-foreground">
+              {t?.calculator?.mostPopular || "Popular"}
+            </span>
+          )}
+        </div>
+        <div className="font-semibold tracking-tight">{packageData.title}</div>
+        <p className="mt-1 text-sm text-muted-foreground">{packageData.subtitle}</p>
+        <p className="mt-2 text-sm font-semibold text-primary">{packageData.price.small}</p>
+        <ul className="mt-4 space-y-2 border-t border-border pt-4">
+          {packageData.features.map((feature, index) => (
+            <li key={index} className="flex items-start gap-2 text-sm text-foreground/90">
+              <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+        {packageData.footerNote && (
+          <p className="mt-4 border-t border-border pt-3 text-xs leading-relaxed text-muted-foreground">
+            {packageData.footerNote}
+          </p>
+        )}
+      </label>
+    </div>
   )
 }
 

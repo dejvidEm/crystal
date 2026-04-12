@@ -279,6 +279,7 @@ export const en = {
     next: "Next",
     calculating: "Calculating...",
     almostDone: "You're almost done (2 steps left)",
+    mostPopular: "Popular",
     step1Title: "What type of vehicle do you have?",
     vehicleSmall: "Small",
     vehicleSmallDesc: "Hatchback / Sedan",
