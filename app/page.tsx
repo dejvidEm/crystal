@@ -71,17 +71,28 @@ export default function Home() {
                 transition={{ duration: 0.8 }}
                 className="mb-6"
               >
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="mb-6"
-                >
-                  <span className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/30 px-4 py-2 text-sm font-semibold text-primary backdrop-blur-sm">
-                    <BadgeCheck className="h-4 w-4 text-yellow-400" />
-                    Prvý v Bratislave
-                  </span>
-                </motion.div>
+                <div className="mb-6 flex flex-col items-center gap-3">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  >
+                    <span className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/15 px-4 py-2 text-sm font-semibold text-amber-100 backdrop-blur-sm shadow-[0_0_24px_-8px_rgba(251,191,36,0.45)]">
+                      <Sparkles className="h-4 w-4 shrink-0 text-amber-300" aria-hidden />
+                      {t.hero.promoBadge}
+                    </span>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
+                    <span className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/30 px-4 py-2 text-sm font-semibold text-primary backdrop-blur-sm">
+                      <BadgeCheck className="h-4 w-4 text-yellow-400" />
+                      Prvý v Bratislave
+                    </span>
+                  </motion.div>
+                </div>
                 <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
                   <span className="text-gradient">
                     {t.hero.title} <br className="hidden sm:block" />

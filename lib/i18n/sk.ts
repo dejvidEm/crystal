@@ -13,6 +13,7 @@ export const sk = {
     contact: "Kontakt",
   },
   hero: {
+    promoBadge: "Letná akcia −10 % na všetky balíky",
     title: "Prémiové mobilné",
     titleHighlight: "detailingové služby",
     subtitle: "Prvá luxusná mobilná detailingová služba na Slovensku, ktorá príde priamo k vám",

@@ -13,6 +13,7 @@ export const en = {
     contact: "Contact",
   },
   hero: {
+    promoBadge: "Summer sale −10% on all packages",
     title: "Premium Mobile",
     titleHighlight: "Car Detailing",
     subtitle: "Slovakia's first luxury mobile detailing service that comes to your location",
