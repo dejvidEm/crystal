@@ -35,7 +35,7 @@ export function BeforeAfterSlider({
     <div className="w-full">
       <div
         ref={containerRef}
-        className="relative aspect-[16/10] w-full max-h-[min(70vh,820px)] cursor-ew-resize select-none touch-none overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl ring-1 ring-white/5 md:rounded-3xl"
+        className="relative aspect-[3/4] w-full max-w-[min(92vw,560px)] cursor-ew-resize select-none touch-none overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl ring-1 ring-white/5 sm:max-w-xl md:max-w-2xl md:rounded-3xl lg:max-w-[680px]"
         onPointerDown={(e) => {
           updateFromClientX(e.clientX)
           ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
@@ -62,7 +62,7 @@ export function BeforeAfterSlider({
           alt=""
           fill
           className="absolute inset-0 object-cover"
-          sizes="(max-width: 768px) 100vw, min(1200px, 95vw)"
+          sizes="(max-width: 768px) min(92vw, 560px), min(680px, 45vw)"
           priority
           draggable={false}
         />
@@ -72,7 +72,7 @@ export function BeforeAfterSlider({
           alt=""
           fill
           className="absolute inset-0 object-cover"
-          sizes="(max-width: 768px) 100vw, min(1200px, 95vw)"
+          sizes="(max-width: 768px) min(92vw, 560px), min(680px, 45vw)"
           priority
           draggable={false}
           style={{

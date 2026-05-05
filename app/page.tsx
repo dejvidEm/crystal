@@ -162,7 +162,7 @@ export default function Home() {
           <section id="handover-showcase" className="relative w-full overflow-hidden py-16 md:py-28">
             <div className="pointer-events-none absolute inset-0">
               <Image
-                src="/bento/photo/IMG_1817.jpg"
+                src="/images/handover-after.png"
                 alt=""
                 fill
                 className="object-cover opacity-[0.22]"
@@ -193,8 +193,8 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.08 }}
               >
                 <BeforeAfterSlider
-                  beforeSrc="/bento/photo/IMG_1813.jpg"
-                  afterSrc="/bento/photo/IMG_1817.jpg"
+                  beforeSrc="/images/handover-before.png"
+                  afterSrc="/images/handover-after.png"
                   beforeLabel={t.handoverShowcase.beforeLabel}
                   afterLabel={t.handoverShowcase.afterLabel}
                   dragHint={t.handoverShowcase.dragHint}
