@@ -148,7 +148,12 @@ export default function Home() {
                     ease: "easeInOut",
                   },
                 }}
-                onClick={() => scrollToSection("handover-showcase")}
+                onClick={() => {
+                  const mobile =
+                    typeof window !== "undefined" &&
+                    window.matchMedia("(max-width: 767px)").matches
+                  scrollToSection(mobile ? "handover-showcase" : "how-it-works")
+                }}
                 className="flex items-center gap-2 text-zinc-400 hover:text-primary transition-colors cursor-pointer"
                 role="button"
                 aria-label="Scroll to results section"
@@ -159,7 +164,10 @@ export default function Home() {
           </section>
 
           {/* Handover showcase — full-width before / after */}
-          <section id="handover-showcase" className="relative w-full overflow-hidden py-16 md:py-28">
+          <section
+            id="handover-showcase"
+            className="relative w-full overflow-hidden py-16 md:hidden"
+          >
             <div className="pointer-events-none absolute inset-0">
               <Image
                 src="/images/handover-after.png"
