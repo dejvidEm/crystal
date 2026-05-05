@@ -168,7 +168,7 @@ export const packagesEn: Record<PackageKey, PackageData> = {
     footerNote: "For discerning clients who expect maximum cleanliness and care.",
   },
   ultimate: {
-    title: "TEPOVANIE",
+    title: "UPHOLSTERY",
     subtitle: "Professional interior upholstery cleaning",
     price: {
       small: "from €49",
@@ -209,6 +209,40 @@ export const additionalServices: AdditionalServiceData[] = [
   {
     name: "Čistenie a impregnácia koženého čalúnenia a sedadiel",
     description: "Hĺbkové čistenie a impregnácia kožených častí vozidla",
+    price: {
+      small: "€40",
+      suv: "€45",
+      van: "€50",
+    },
+    icon: "leather",
+  },
+]
+
+/** English copy for homepage additional-service cards (same order as `additionalServices`). */
+export const additionalServicesEn: AdditionalServiceData[] = [
+  {
+    name: "Fabric seat shampooing",
+    description: "Professional deep extraction for heavily soiled fabrics",
+    price: {
+      small: "€30",
+      suv: "€40",
+      van: "€45",
+    },
+    icon: "seats",
+  },
+  {
+    name: "Ozone disinfection",
+    description: "Odour removal and disinfection of cabin surfaces",
+    price: {
+      small: "€25",
+      suv: "€35",
+      van: "€45",
+    },
+    icon: "ozone",
+  },
+  {
+    name: "Leather upholstery cleaning & protection",
+    description: "Deep cleaning and protection for leather trim and seats",
     price: {
       small: "€40",
       suv: "€45",

@@ -22,6 +22,12 @@ export const en = {
     availableIn: "Available in",
     andSurrounding: "and surrounding areas",
   },
+  handoverShowcase: {
+    title: "We hand your car back not just clean—but like new",
+    beforeLabel: "Before",
+    afterLabel: "After",
+    dragHint: "Drag or tap the photo to compare",
+  },
   about: {
     title: "About Crystal Detailing",
     paragraph1:

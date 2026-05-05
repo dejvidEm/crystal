@@ -13,17 +13,19 @@ import { LazyLoadSection } from "@/components/lazy-section"
 import { OptimizedImage } from "@/components/optimized-image"
 import { Footer } from "@/components/footer"
 import { LanguageWrapper } from "@/components/language-wrapper"
+import { useLanguage } from "@/lib/i18n/language-context"
 import { VideoBackground } from "@/components/video-background"
 import { CarSizeSelector } from "@/components/car-size-selector"
 import { PricingPackageCard } from "@/components/pricing-package-card"
 import { AdditionalServicesTable } from "@/components/additional-services-table"
-import { packages } from "@/lib/pricing-data"
+import { packages, packagesEn } from "@/lib/pricing-data"
 import { MobileServiceBanner } from "@/components/mobile-service-banner"
 import { CustomerGallery } from "@/components/customer-gallery"
 import { FloatingCalcButton } from "@/components/floating-calc-button"
 import { ServiceStructuredData } from "@/components/structured-data"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { BentoVideo } from "@/components/bento-video"
+import { BeforeAfterSlider } from "@/components/before-after-slider"
 
 // Lazy load components that are not needed immediately
 const ReviewCarousel = lazy(() =>
@@ -31,10 +33,14 @@ const ReviewCarousel = lazy(() =>
 )
 
 export default function Home() {
+  const { language } = useLanguage()
+
   // Scroll to section function
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
   }
+
+  const pkgs = language === "en" ? packagesEn : packages
 
   return (
     <LanguageWrapper>
@@ -142,12 +148,57 @@ export default function Home() {
                     ease: "easeInOut",
                   },
                 }}
-                onClick={() => scrollToSection("how-it-works")}
+                onClick={() => scrollToSection("handover-showcase")}
                 className="flex items-center gap-2 text-zinc-400 hover:text-primary transition-colors cursor-pointer"
                 role="button"
-                aria-label="Scroll to how it works section"
+                aria-label="Scroll to results section"
               >
                 <ChevronRight className="h-10 w-10 rotate-90" />
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Handover showcase — full-width before / after */}
+          <section id="handover-showcase" className="relative w-full overflow-hidden py-16 md:py-28">
+            <div className="pointer-events-none absolute inset-0">
+              <Image
+                src="/bento/photo/IMG_1817.jpg"
+                alt=""
+                fill
+                className="object-cover opacity-[0.22]"
+                sizes="100vw"
+                aria-hidden
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-background via-background/92 to-background" />
+            </div>
+
+            <div className="relative z-10 mx-auto max-w-6xl px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.55 }}
+                className="mb-10 text-center md:mb-14"
+              >
+                <h2 className="text-balance text-3xl font-bold tracking-tight text-gradient sm:text-4xl md:text-5xl">
+                  {t.handoverShowcase.title}
+                </h2>
+                <div className="mx-auto mt-5 h-1 w-24 bg-primary" />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.6, delay: 0.08 }}
+              >
+                <BeforeAfterSlider
+                  beforeSrc="/bento/photo/IMG_1813.jpg"
+                  afterSrc="/bento/photo/IMG_1817.jpg"
+                  beforeLabel={t.handoverShowcase.beforeLabel}
+                  afterLabel={t.handoverShowcase.afterLabel}
+                  dragHint={t.handoverShowcase.dragHint}
+                />
               </motion.div>
             </div>
           </section>
@@ -428,19 +479,19 @@ export default function Home() {
 
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
                 <LazyLoadSection delay={0.1}>
-                  <PricingPackageCard packageData={packages.refresh} />
+                  <PricingPackageCard packageData={pkgs.refresh} />
                 </LazyLoadSection>
 
                 <LazyLoadSection delay={0.2}>
-                  <PricingPackageCard packageData={packages.essential} />
+                  <PricingPackageCard packageData={pkgs.essential} />
                 </LazyLoadSection>
 
                 <LazyLoadSection delay={0.4}>
-                  <PricingPackageCard packageData={packages.premium} />
+                  <PricingPackageCard packageData={pkgs.premium} />
                 </LazyLoadSection>
 
                 <LazyLoadSection delay={0.6}>
-                  <PricingPackageCard packageData={packages.ultimate} />
+                  <PricingPackageCard packageData={pkgs.ultimate} />
                 </LazyLoadSection>
               </div>
             </div>

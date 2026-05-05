@@ -22,6 +22,12 @@ export const sk = {
     availableIn: "Dostupné v",
     andSurrounding: "a okolí",
   },
+  handoverShowcase: {
+    title: "Auto odovzdáme nie čisté, ale nové",
+    beforeLabel: "Pred",
+    afterLabel: "Po",
+    dragHint: "Potiahnite alebo kliknite na fotku pre porovnanie",
+  },
   about: {
     title: "O Crystal Detailing",
     paragraph1:
