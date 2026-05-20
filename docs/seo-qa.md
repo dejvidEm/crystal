@@ -127,7 +127,7 @@
 - [ ] URL: Correct domain
 - [ ] Logo: Valid image URL
 - [ ] Telephone: +421918722720
-- [ ] Email: crystalbratislava@gmail.com
+- [ ] Email: kontakt@crystaldetailing.sk
 - [ ] PriceRange: €€
 - [ ] AreaServed: All target locations listed
 - [ ] OpeningHours: Present (if applicable)

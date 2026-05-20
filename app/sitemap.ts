@@ -12,6 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/pezinok',
     '/senec',
     '/chorvatsky-grob',
+    '/malacky',
+    '/senica',
+    '/skalica',
+    '/trnava',
+    '/galanta',
+    '/dunajska-streda',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),

@@ -39,7 +39,7 @@ export function Footer() {
                   </div>
                   <div className="flex items-center">
                     <Mail size={18} className="text-primary mr-2" />
-                    <span className="text-zinc-300">crystalbratislava@gmail.com</span>
+                    <span className="text-zinc-300">kontakt@crystaldetailing.sk</span>
                   </div>
                 </div>
               </div>

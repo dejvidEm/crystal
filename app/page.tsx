@@ -42,6 +42,19 @@ export default function Home() {
 
   const pkgs = language === "en" ? packagesEn : packages
 
+  const serviceAreas = [
+    "Bratislava",
+    "Pezinok",
+    "Senec",
+    "Chorvátsky Grob",
+    "Malacky",
+    "Senica",
+    "Skalica",
+    "Trnava",
+    "Galanta",
+    "Dunajská Streda",
+  ]
+
   return (
     <LanguageWrapper>
       {(t) => (
@@ -50,17 +63,17 @@ export default function Home() {
           <ServiceStructuredData
             serviceType="Mobilný detailing áut"
             description="Prémiové mobilné detailingové služby pre luxusné vozidlá v Bratislave a okolí. Kompletná starostlivosť o exteriér a interiér vozidla."
-            areas={["Bratislava", "Pezinok", "Senec", "Chorvátsky Grob"]}
+            areas={serviceAreas}
           />
           <ServiceStructuredData
             serviceType="Tepovanie áut"
             description="Profesionálne hĺbkové čistenie a tepovanie textilných a kožených sedadiel. Odstránenie zápachov a znečistenia."
-            areas={["Bratislava", "Pezinok", "Senec", "Chorvátsky Grob"]}
+            areas={serviceAreas}
           />
           <ServiceStructuredData
             serviceType="Keramická ochrana"
             description="Aplikácia keramických povlakov na ochranu laku vozidla. Dlhodobá ochrana pred škodlivými vplyvmi."
-            areas={["Bratislava", "Pezinok", "Senec", "Chorvátsky Grob"]}
+            areas={serviceAreas}
           />
 
           <Navbar />

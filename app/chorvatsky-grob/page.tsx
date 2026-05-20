@@ -74,7 +74,7 @@ export default function ChorvatskyGrobPage() {
                     Zavolať: +421 918 722 720
                   </Button>
                 </a>
-                <a href="mailto:crystalbratislava@gmail.com">
+                <a href="mailto:kontakt@crystaldetailing.sk">
                   <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
                     <Mail className="mr-2 h-5 w-5" />
                     Email

@@ -75,7 +75,7 @@ export function LocalBusinessStructuredData() {
         'https://crystaldetailing.sk/images/porsche.jpg',
       ],
       telephone: '+421918722720',
-      email: 'crystalbratislava@gmail.com',
+      email: 'kontakt@crystaldetailing.sk',
       priceRange: '€€',
       areaServed: [
         {
@@ -94,6 +94,16 @@ export function LocalBusinessStructuredData() {
           '@type': 'City',
           name: 'Chorvátsky Grob',
         },
+        { '@type': 'City', name: 'Malacky' },
+        { '@type': 'City', name: 'Stupava' },
+        { '@type': 'City', name: 'Senica' },
+        { '@type': 'City', name: 'Skalica' },
+        { '@type': 'City', name: 'Holíč' },
+        { '@type': 'City', name: 'Trnava' },
+        { '@type': 'City', name: 'Galanta' },
+        { '@type': 'City', name: 'Sereď' },
+        { '@type': 'City', name: 'Dunajská Streda' },
+        { '@type': 'City', name: 'Veľký Meder' },
       ],
       openingHoursSpecification: [
         {

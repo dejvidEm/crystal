@@ -5,23 +5,38 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
+import { zahorieATrnavaDistricts } from '@/lib/district-pages-data'
 
 export const metadata: Metadata = {
-  title: 'Lokality - Mobilný detailing v Bratislave a okolí',
+  title:
+    'Lokality | Mobilný detailing Bratislava, okresy Malacky, Senica, Skalica, Trnava, Galanta, Dunajská Streda',
   description:
-    'Crystal Detailing poskytuje prémiové mobilné detailingové služby v Bratislave, Pezinoku, Sencu, Chorvátskom Grobe a okolitých oblastiach. Prídeme k vám kamkoľvek.',
+    'Crystal Detailing — mobilný detailing v Bratislave, Pezinoku, Senci, Chorvátskom Grobe a na Záhorí (okres Malacky, Senica, Skalica), v Trnavskom kraji (okres Trnava, Galanta, Dunajská Streda). Prídeme k vám.',
+  keywords: [
+    'mobilný detailing Bratislava',
+    'mobilný detailing okres Malacky',
+    'mobilný detailing Senica',
+    'mobilný detailing Skalica Holíč',
+    'mobilný detailing Trnava',
+    'mobilný detailing Galanta',
+    'mobilný detailing Dunajská Streda',
+    'mobilný detailing Záhorie',
+    'tepovanie áut Trnava',
+    'detailing Západné Slovensko',
+  ],
   alternates: {
     canonical: 'https://crystaldetailing.sk/lokality',
   },
   openGraph: {
-    title: 'Lokality - Mobilný detailing v Bratislave a okolí | Crystal Detailing',
+    title:
+      'Lokality | Mobilný detailing Bratislava, Malacky, Senica, Skalica, Trnava, Galanta, Dunajská Streda | Crystal Detailing',
     description:
-      'Crystal Detailing poskytuje prémiové mobilné detailingové služby v Bratislave, Pezinoku, Sencu, Chorvátskom Grobe a okolitých oblastiach.',
+      'Mobilný detailing na Záhorí a v Trnavskom kraji — okresy Malacky, Senica, Skalica, Trnava, Galanta, Dunajská Streda. Bratislava, Pezinok, Senec, Chorvátsky Grob.',
     url: 'https://crystaldetailing.sk/lokality',
   },
 }
 
-const locations = [
+const coreLocations = [
   {
     name: 'Bratislava',
     slug: '/bratislava',
@@ -62,23 +77,29 @@ export default function LokalityPage() {
         <section className="container mx-auto px-4 py-16">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">
-              Lokality - Kde poskytujeme služby
+              Lokality — kde poskytujeme mobilný detailing
             </h1>
             <p className="text-xl text-zinc-300 mb-4">
-              Crystal Detailing prináša prémiové mobilné detailingové služby priamo k vám v Bratislave a okolitých
-              mestách.
+              Crystal Detailing prináša prémiové mobilné detailingové služby priamo k vám v{' '}
+              <strong className="text-foreground">Bratislave, na Záhorí</strong> (okresy Malacky, Senica, Skalica), v{' '}
+              <strong className="text-foreground">Trnavskom kraji</strong> (okres Trnava, Galanta, Dunajská Streda) a
+              v bezprostrednom okolí Bratislavy — Pezinok, Senec, Chorvátsky Grob.
             </p>
             <p className="text-zinc-400">
-              Naša plne vybavená mobilná jednotka príde na vaše miesto, či už domov alebo do kancelárie. Nemusíte
-              nikam jazdiť – my sa postaráme o všetko.
+              Naša plne vybavená mobilná jednotka príde na vaše miesto — domov, do firmy alebo na parkovisko. Nemusíte
+              nikam jazdiť; na Google a v lokálnom vyhľadávaní nás nájdete pod mobilný detailing v konkrétnych okresoch a
+              mestách uvedených nižšie.
             </p>
           </div>
         </section>
 
-        {/* Locations Grid */}
-        <section className="container mx-auto px-4 py-8">
+        {/* Bratislava region core */}
+        <section className="container mx-auto px-4 py-6">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center text-gradient">
+            Bratislava a bezprostredné okolie
+          </h2>
           <div className="grid gap-8 md:grid-cols-2">
-            {locations.map((location) => (
+            {coreLocations.map((location) => (
               <Card key={location.slug} className="border-border bg-card hover:border-primary/50 transition-colors">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4 mb-4">
@@ -86,7 +107,7 @@ export default function LokalityPage() {
                       <MapPin className="h-6 w-6 text-primary" />
                     </div>
                     <div className="flex-1">
-                      <h2 className="text-2xl font-bold mb-2">{location.name}</h2>
+                      <h3 className="text-2xl font-bold mb-2">{location.name}</h3>
                       <p className="text-zinc-400 mb-4">{location.description}</p>
                       <div className="mb-4">
                         <p className="text-sm font-semibold text-zinc-300 mb-2">Oblasti pokrytia:</p>
@@ -114,16 +135,51 @@ export default function LokalityPage() {
           </div>
         </section>
 
+        {/* District landing pages — SEO */}
+        <section className="container mx-auto px-4 py-16">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center text-gradient">
+            Okresy Záhoria a Trnavského kraja
+          </h2>
+          <p className="text-center text-zinc-400 max-w-2xl mx-auto mb-10">
+            Samostatné stránky pre lokálne SEO — mobilný detailing podľa okresu (Malacky, Senica, Skalica, Trnava,
+            Galanta, Dunajská Streda). Kliknite pre viac informácií a FAQ.
+          </p>
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {zahorieATrnavaDistricts.map((district) => (
+              <Card
+                key={district.path}
+                className="border-border bg-card hover:border-primary/50 transition-colors"
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 bg-primary/10 rounded-lg">
+                      <MapPin className="h-6 w-6 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold mb-2">
+                        {district.h1.replace(/^Mobilný detailing v okrese /, 'Okres ')}
+                      </h3>
+                      <p className="text-zinc-400 text-sm mb-4 line-clamp-4">{district.lead}</p>
+                      <Link href={district.path}>
+                        <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                          Viac informácií <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="container mx-auto px-4 py-16">
           <Card className="border-primary/50 bg-gradient-to-br from-primary/10 to-transparent">
             <CardContent className="p-8 md:p-12 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient">
-                Ste mimo týchto lokalít?
-              </h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient">Ste mimo mapovaných lokalít?</h2>
               <p className="text-zinc-300 mb-6 max-w-2xl mx-auto">
-                Kontaktujte nás a dohodneme sa na možnostiach. Poskytujeme služby aj v ďalších oblastiach okolo
-                Bratislavy.
+                Kontaktujte nás — dohodneme výjazd aj mimo uvedených okresov podľa možností a vzdialenosti.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="tel:+421918722720">
@@ -131,9 +187,9 @@ export default function LokalityPage() {
                     Zavolať: +421 918 722 720
                   </Button>
                 </a>
-                <a href="mailto:crystalbratislava@gmail.com">
+                <a href="mailto:kontakt@crystaldetailing.sk">
                   <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
-                    Email: crystalbratislava@gmail.com
+                    Email: kontakt@crystaldetailing.sk
                   </Button>
                 </a>
               </div>
@@ -164,5 +220,3 @@ export default function LokalityPage() {
     </div>
   )
 }
-
-
