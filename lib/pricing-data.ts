@@ -23,6 +23,52 @@ export type PackageData = {
 
 export type AdditionalServiceIcon = "seats" | "ozone" | "leather"
 
+/** Doplnky v kalkulačke — zhodné s kartami doplnkových služieb na webe */
+export const CALCULATOR_ADDONS = ["seats", "ozone", "leather"] as const
+export type CalculatorAddon = (typeof CALCULATOR_ADDONS)[number]
+
+export function isCalculatorAddon(value: unknown): value is CalculatorAddon {
+  return typeof value === "string" && (CALCULATOR_ADDONS as readonly string[]).includes(value as string)
+}
+
+/** Prvá súvislá hodnota EUR v cenníkovom texte („119 €“, „€35“, …) */
+export function euroAmountFromPriceLabel(label: string): number {
+  const m = String(label).match(/(\d+)/)
+  if (!m) return 0
+  const n = Number.parseInt(m[1], 10)
+  return Number.isFinite(n) ? n : 0
+}
+
+/** Veľkosť vozidla v kalkulačke → kľúč ceny v `additionalServices` */
+export type CalculatorVehicleSize = "small" | "medium" | "large"
+
+/** Čistý čas práce podľa balíka (min), bez doplnkov */
+export const PACKAGE_DURATION_MINUTES: Record<PackageKey, number> = {
+  refresh: 45,
+  essential: 60,
+  premium: 120,
+  ultimate: 45,
+}
+
+/** Čas za každý doplnkový checkbox v kalkulačke */
+export const CALCULATOR_ADDON_DURATION_MINUTES = 20
+
+export function calculatorVehicleToCarSize(v: CalculatorVehicleSize): CarSize {
+  if (v === "small") return "small"
+  if (v === "medium") return "suv"
+  return "van"
+}
+
+/** EUR za doplnok podľa veľkosti vozidla (čiarka z `additionalServices`) */
+export function calculatorAddonPriceEuro(addon: CalculatorAddon, vehicleSize: CalculatorVehicleSize): number {
+  const tier = calculatorVehicleToCarSize(vehicleSize)
+  const row = additionalServices.find((s) => s.icon === addon)
+  if (!row) return 0
+  const raw = row.price[tier]
+  const n = euroAmountFromPriceLabel(String(raw))
+  return Number.isFinite(n) ? n : 0
+}
+
 export type AdditionalServiceData = {
   name: string
   description: string
@@ -39,9 +85,9 @@ export const packages: Record<string, PackageData> = {
     title: "REFRESH",
     subtitle: "Základný balík pre pravidelnú starostlivosť o vozidlo",
     price: {
-      small: "od 39 €",
-      suv: "od 39 €",
-      van: "od 39 €",
+      small: "39 €",
+      suv: "39 €",
+      van: "39 €",
     },
     features: [
       "Ručné umytie interiéru",
@@ -56,9 +102,9 @@ export const packages: Record<string, PackageData> = {
     title: "INTERIÉR",
     subtitle: "Kompletný hĺbkový detailing interiéru vozidla",
     price: {
-      small: "od 79 €",
-      suv: "od 79 €",
-      van: "od 79 €",
+      small: "79 €",
+      suv: "79 €",
+      van: "79 €",
     },
     features: [
       "Všetko v balíku REFRESH",
@@ -75,9 +121,9 @@ export const packages: Record<string, PackageData> = {
     title: "KOMPLET",
     subtitle: "Kompletný detailing interiéru a exteriéru vozidla na profesionálnej úrovni",
     price: {
-      small: "od 119 €",
-      suv: "od 119 €",
-      van: "od 119 €",
+      small: "119 €",
+      suv: "119 €",
+      van: "119 €",
     },
     mostPopular: true,
     features: [
@@ -95,9 +141,9 @@ export const packages: Record<string, PackageData> = {
     title: "TEPOVANIE",
     subtitle: "Profesionálne tepovanie interiéru vozidla",
     price: {
-      small: "od 49 €",
-      suv: "od 49 €",
-      van: "od 49 €",
+      small: "49 €",
+      suv: "49 €",
+      van: "49 €",
     },
     features: [
       "Tepovanie sedačiek",
@@ -110,15 +156,29 @@ export const packages: Record<string, PackageData> = {
   },
 }
 
+function parseEuroFromPriceLabel(label: string): number {
+  return euroAmountFromPriceLabel(label)
+}
+
+/**
+ * Základ balíka v kalkulačke = tá istá suma ako v cenníku (`packages`).
+ * Berieme malú kategóriu (pri týchto balíkoch sú ceny rovnaké pre SUV/van).
+ */
+export function packageBasePriceFromPricelist(key: PackageKey): number {
+  const pkg = packages[key]
+  if (!pkg) return 0
+  return parseEuroFromPriceLabel(pkg.price.small)
+}
+
 /** English copy for calculator / EN locale (keep in sync with `packages`). */
 export const packagesEn: Record<PackageKey, PackageData> = {
   refresh: {
     title: "REFRESH",
     subtitle: "Core package for regular vehicle care",
     price: {
-      small: "from €39",
-      suv: "from €39",
-      van: "from €39",
+      small: "€39",
+      suv: "€39",
+      van: "€39",
     },
     features: [
       "Hand interior wash",
@@ -133,9 +193,9 @@ export const packagesEn: Record<PackageKey, PackageData> = {
     title: "INTERIOR",
     subtitle: "Full deep interior detailing",
     price: {
-      small: "from €79",
-      suv: "from €79",
-      van: "from €79",
+      small: "€79",
+      suv: "€79",
+      van: "€79",
     },
     features: [
       "Everything in the REFRESH package",
@@ -152,9 +212,9 @@ export const packagesEn: Record<PackageKey, PackageData> = {
     title: "COMPLETE",
     subtitle: "Professional full interior and exterior detailing",
     price: {
-      small: "from €119",
-      suv: "from €119",
-      van: "from €119",
+      small: "€119",
+      suv: "€119",
+      van: "€119",
     },
     mostPopular: true,
     features: [
@@ -171,9 +231,9 @@ export const packagesEn: Record<PackageKey, PackageData> = {
     title: "UPHOLSTERY",
     subtitle: "Professional interior upholstery cleaning",
     price: {
-      small: "from €49",
-      suv: "from €49",
-      van: "from €49",
+      small: "€49",
+      suv: "€49",
+      van: "€49",
     },
     features: [
       "Seat shampooing",

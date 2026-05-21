@@ -2,15 +2,15 @@
 
 import Link from "next/link"
 import { LanguageSwitcher } from "@/components/language-switcher"
-import { LanguageWrapper } from "@/components/language-wrapper"
-import { Instagram, Facebook, Twitter, Mail, Phone } from "lucide-react"
+import { useLanguage } from "@/lib/i18n/language-context"
+import { Instagram, Facebook, Mail, Phone } from "lucide-react"
+import { CONTACT_EMAIL, CONTACT_MAILTO } from "@/lib/site-config"
 
 export function Footer() {
+  const { t } = useLanguage()
   const currentYear = new Date().getFullYear()
 
   return (
-    <LanguageWrapper>
-      {(t) => (
         <footer id="contact" className="py-16 relative">
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
           <div className="container mx-auto px-4 relative z-10">
@@ -38,8 +38,14 @@ export function Footer() {
                     <span className="text-zinc-300">+421 918 722 720</span>
                   </div>
                   <div className="flex items-center">
-                    <Mail size={18} className="text-primary mr-2" />
-                    <span className="text-zinc-300">kontakt@crystaldetailing.sk</span>
+                    <Mail size={18} className="text-primary mr-2 shrink-0" aria-hidden />
+                    <a
+                      href={CONTACT_MAILTO}
+                      className="text-zinc-300 hover:text-primary transition-colors break-all text-left"
+                      suppressHydrationWarning
+                    >
+                      {CONTACT_EMAIL}
+                    </a>
                   </div>
                 </div>
               </div>
@@ -85,7 +91,5 @@ export function Footer() {
             </div>
           </div>
         </footer>
-      )}
-    </LanguageWrapper>
   )
 }

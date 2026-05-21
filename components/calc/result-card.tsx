@@ -5,8 +5,10 @@ import { motion } from "framer-motion"
 import { Euro, Clock, MapPin, CheckCircle2, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { PriceRange, TimeRange, CalculatorData } from "@/lib/calc-logic"
-import { LanguageWrapper } from "@/components/language-wrapper"
+import { PriceRange, TimeRange, CalculatorData, getPriceBreakdown } from "@/lib/calc-logic"
+import { useLanguage } from "@/lib/i18n/language-context"
+import { packages, packagesEn } from "@/lib/pricing-data"
+import { LeadInquiryCard } from "@/components/calc/lead-inquiry-card"
 
 interface ResultCardProps {
   priceRange: PriceRange
@@ -15,19 +17,40 @@ interface ResultCardProps {
 }
 
 export function ResultCard({ priceRange, timeRange, data }: ResultCardProps) {
-  return (
-    <LanguageWrapper>
-      {(t) => <ResultCardContent priceRange={priceRange} timeRange={timeRange} data={data} t={t} />}
-    </LanguageWrapper>
-  )
-}
-
-function ResultCardContent({ priceRange, timeRange, data, t }: ResultCardProps & { t: any }) {
+  const { t, language } = useLanguage()
   const [animatedPrice, setAnimatedPrice] = useState(priceRange.min)
+  const breakdown = getPriceBreakdown(data)
+  const packageTitle =
+    data.mainService != null
+      ? (language === "en" ? packagesEn : packages)[data.mainService]?.title
+      : undefined
 
   useEffect(() => {
-    // Animate price count-up
-    const duration = 1000 // 1 second
+    const samePrice = priceRange.min === priceRange.max
+
+    if (samePrice) {
+      const target = priceRange.max
+      const duration = 1000
+      const steps = 30
+      const stepDuration = duration / steps
+      const stepValue = target / steps
+
+      let currentStep = 0
+      const interval = setInterval(() => {
+        currentStep++
+        const newPrice = Math.round(stepValue * currentStep)
+        setAnimatedPrice(Math.min(newPrice, target))
+
+        if (currentStep >= steps) {
+          clearInterval(interval)
+          setAnimatedPrice(target)
+        }
+      }, stepDuration)
+
+      return () => clearInterval(interval)
+    }
+
+    const duration = 1000
     const steps = 30
     const stepDuration = duration / steps
     const priceDiff = priceRange.max - priceRange.min
@@ -78,8 +101,12 @@ function ResultCardContent({ priceRange, timeRange, data, t }: ResultCardProps &
 
   const handleContactClick = () => {
     // WhatsApp contact (you can customize this)
-    const priceText = `${priceRange.min}-${priceRange.max} €`
-    const timeText = `${formatTime(timeRange.min)}-${formatTime(timeRange.max)}`
+    const priceText =
+      priceRange.min === priceRange.max ? `${priceRange.min} €` : `${priceRange.min}-${priceRange.max} €`
+    const timeText =
+      timeRange.min === timeRange.max
+        ? formatTime(timeRange.min)
+        : `${formatTime(timeRange.min)}-${formatTime(timeRange.max)}`
     const messageTemplate = t.calculator?.whatsappMessage || "Hi! I'd like to book a detailing service. Estimated price: {price} €, Estimated time: {time}"
     const message = messageTemplate
       .replace("{price}", priceText)
@@ -112,9 +139,60 @@ function ResultCardContent({ priceRange, timeRange, data, t }: ResultCardProps &
             <span className="text-sm font-medium">{t.calculator?.estimatedPrice || "Estimated Price"}</span>
           </div>
           <div className="text-4xl font-bold text-primary">
-            {animatedPrice}–{priceRange.max} €
+            {priceRange.min === priceRange.max ? `${animatedPrice} €` : `${animatedPrice}–${priceRange.max} €`}
           </div>
         </motion.div>
+
+        {/* Price Breakdown */}
+        {data.mainService && (
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.35 }}
+            className="rounded-lg border border-border bg-card p-4"
+          >
+            <div className="mb-3 text-sm font-semibold text-muted-foreground">
+              {t.calculator?.priceBreakdownTitle || "How the price is calculated"}
+            </div>
+            <ul className="space-y-1.5 text-sm">
+              <li className="flex items-center justify-between">
+                <span>
+                  {(t.calculator?.priceBreakdownPackage || "Package")}
+                  {packageTitle ? ` · ${packageTitle}` : ""}
+                </span>
+                <span className="font-medium">{breakdown.packageEur} €</span>
+              </li>
+              {breakdown.largeVehicleEur > 0 && (
+                <li className="flex items-center justify-between">
+                  <span>
+                    {t.calculator?.priceBreakdownLargeVehicle || "Large vehicle surcharge"}
+                  </span>
+                  <span className="font-medium">+{breakdown.largeVehicleEur} €</span>
+                </li>
+              )}
+              {breakdown.extremeConditionEur > 0 && (
+                <li className="flex items-center justify-between">
+                  <span>
+                    {t.calculator?.priceBreakdownExtremeCondition || "Extreme dirt surcharge"}
+                  </span>
+                  <span className="font-medium">+{breakdown.extremeConditionEur} €</span>
+                </li>
+              )}
+              <li className="mt-2 flex items-center justify-between border-t border-border pt-2 text-base">
+                <span className="font-semibold">
+                  {t.calculator?.priceBreakdownTotal || "Total"}
+                </span>
+                <span className="font-bold text-primary">{breakdown.totalEur} €</span>
+              </li>
+            </ul>
+            {data.addons.length > 0 && (
+              <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                {t.calculator?.priceBreakdownAddonsNote ||
+                  "Add-on services are priced individually on-site."}
+              </p>
+            )}
+          </motion.div>
+        )}
 
         {/* Time Display */}
         <motion.div
@@ -128,7 +206,9 @@ function ResultCardContent({ priceRange, timeRange, data, t }: ResultCardProps &
             <span className="text-sm font-medium">{t.calculator?.estimatedTime || "Estimated Time"}</span>
           </div>
           <div className="text-2xl font-bold">
-            {formatTime(timeRange.min)}–{formatTime(timeRange.max)}
+            {timeRange.min === timeRange.max
+              ? formatTime(timeRange.min)
+              : `${formatTime(timeRange.min)}–${formatTime(timeRange.max)}`}
           </div>
         </motion.div>
 
@@ -191,6 +271,13 @@ function ResultCardContent({ priceRange, timeRange, data, t }: ResultCardProps &
             {t.calculator?.contactUs || "Contact Us / WhatsApp"}
           </Button>
         </motion.div>
+
+        {/* Lead inquiry form */}
+        <LeadInquiryCard
+          data={data}
+          priceEur={priceRange.max}
+          timeMinutes={timeRange.max}
+        />
 
         {/* Optional: Real person signature */}
         <motion.div

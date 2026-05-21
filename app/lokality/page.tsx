@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 import { zahorieATrnavaDistricts } from '@/lib/district-pages-data'
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/site-config'
 
 export const metadata: Metadata = {
   title:
@@ -187,9 +188,9 @@ export default function LokalityPage() {
                     Zavolať: +421 918 722 720
                   </Button>
                 </a>
-                <a href="mailto:kontakt@crystaldetailing.sk">
+                <a href={CONTACT_MAILTO}>
                   <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
-                    Email: kontakt@crystaldetailing.sk
+                    Email: {CONTACT_EMAIL}
                   </Button>
                 </a>
               </div>

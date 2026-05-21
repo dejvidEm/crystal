@@ -6,11 +6,13 @@ import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { LanguageSwitcher } from "@/components/language-switcher"
-import { LanguageWrapper } from "@/components/language-wrapper"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 export function Navbar() {
-  const pathname = usePathname()
+  const pathnameRaw = usePathname()
+  const pathname = pathnameRaw ?? "/"
   const isCalcPage = pathname === "/calc"
+  const { t } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -45,29 +47,18 @@ export function Navbar() {
     }
   }, [isOpen])
 
+  const isHomePage = pathname === "/"
+
+  const navItems = [
+    { name: t.nav.home, href: isHomePage ? "#" : "/" },
+    { name: t.nav.services, href: isHomePage ? "#services" : "/#services" },
+    { name: t.nav.howItWorks, href: isHomePage ? "#how-it-works" : "/#how-it-works" },
+    { name: "Lokality", href: "/lokality" },
+    { name: t.nav.reviews, href: isHomePage ? "#reviews" : "/#reviews" },
+    { name: t.nav.contact, href: isHomePage ? "#contact" : "/#contact" },
+  ]
+
   return (
-    <LanguageWrapper>
-      {(t) => {
-        // Check if we're on the homepage
-        const isHomePage = pathname === "/"
-        
-        // Helper function to get the correct href for anchor links
-        const getHref = (anchor: string) => {
-          if (anchor === "/lokality") return "/lokality"
-          if (isHomePage) return anchor
-          return `/${anchor.startsWith("#") ? anchor.slice(1) : anchor}`
-        }
-
-        const navItems = [
-          { name: t.nav.home, href: isHomePage ? "#" : "/" },
-          { name: t.nav.services, href: isHomePage ? "#services" : "/#services" },
-          { name: t.nav.howItWorks, href: isHomePage ? "#how-it-works" : "/#how-it-works" },
-          { name: "Lokality", href: "/lokality" },
-          { name: t.nav.reviews, href: isHomePage ? "#reviews" : "/#reviews" },
-          { name: t.nav.contact, href: isHomePage ? "#contact" : "/#contact" },
-        ]
-
-        return (
           <header
             className={`fixed top-0 z-50 w-full transition-all duration-500 ${
               scrolled ? "bg-black/80 backdrop-blur-md py-3 shadow-xl" : "bg-transparent py-6"
@@ -201,8 +192,5 @@ export function Navbar() {
               </div>
             </div>
           </header>
-        )
-      }}
-    </LanguageWrapper>
   )
 }

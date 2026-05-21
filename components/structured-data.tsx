@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from 'react'
+import { CONTACT_EMAIL } from '@/lib/site-config'
 
 interface LocalBusinessSchema {
   '@context': string
@@ -75,7 +76,7 @@ export function LocalBusinessStructuredData() {
         'https://crystaldetailing.sk/images/porsche.jpg',
       ],
       telephone: '+421918722720',
-      email: 'kontakt@crystaldetailing.sk',
+      email: CONTACT_EMAIL,
       priceRange: '€€',
       areaServed: [
         {

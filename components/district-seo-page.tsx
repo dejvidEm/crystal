@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { FAQPageStructuredData } from "@/components/structured-data"
 import type { DistrictPageDefinition } from "@/lib/district-pages-data"
+import { CONTACT_MAILTO } from "@/lib/site-config"
 
 export function DistrictSeoPage({ data }: { data: DistrictPageDefinition }) {
   return (
@@ -31,7 +32,7 @@ export function DistrictSeoPage({ data }: { data: DistrictPageDefinition }) {
                     Zavolať: +421 918 722 720
                   </Button>
                 </a>
-                <a href="mailto:kontakt@crystaldetailing.sk">
+                <a href={CONTACT_MAILTO}>
                   <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
                     <Mail className="mr-2 h-5 w-5" />
                     Email

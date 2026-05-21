@@ -11,7 +11,6 @@ interface LanguageContextType {
   language: Language
   setLanguage: (language: Language) => void
   t: Translations
-  isLoaded: boolean
   isChanging: boolean
 }
 
@@ -28,42 +27,33 @@ const LanguageContext = createContext<LanguageContextType>({
   language: defaultLanguage,
   setLanguage: () => {},
   t: defaultTranslations,
-  isLoaded: false,
   isChanging: false,
 })
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(defaultLanguage)
   const [pendingLanguage, setPendingLanguage] = useState<Language | null>(null)
-  const [isLoaded, setIsLoaded] = useState(false)
   const [isChanging, setIsChanging] = useState(false)
 
   useEffect(() => {
-    // Check if we have a stored language preference
     try {
       const storedLanguage = localStorage.getItem("language") as Language | null
       if (storedLanguage && (storedLanguage === "en" || storedLanguage === "sk")) {
         setLanguageState(storedLanguage)
       } else {
-        // Try to detect browser language
         const browserLanguage = navigator.language.split("-")[0]
         if (browserLanguage === "sk") {
           setLanguageState("sk")
         }
       }
     } catch (error) {
-      // Fallback if localStorage is not available
       console.error("Error accessing localStorage:", error)
     }
-
-    setIsLoaded(true)
   }, [])
 
-  // Handle pending language change
   useEffect(() => {
     if (pendingLanguage && isChanging) {
       const timer = setTimeout(() => {
-        // Apply the language change after animation
         setLanguageState(pendingLanguage)
         setPendingLanguage(null)
         setIsChanging(false)
@@ -73,7 +63,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         } catch (error) {
           console.error("Error setting localStorage:", error)
         }
-      }, 1000) // This should be less than the animation duration to ensure smooth transition
+      }, 1000)
 
       return () => clearTimeout(timer)
     }
@@ -86,13 +76,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  // Get translations for the current language
   const t = translations[language]
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t, isLoaded, isChanging }}>
-      {children}
-    </LanguageContext.Provider>
+    <LanguageContext.Provider value={{ language, setLanguage, t, isChanging }}>{children}</LanguageContext.Provider>
   )
 }
 

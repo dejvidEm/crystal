@@ -9,7 +9,8 @@ interface PageTransitionsProps {
 }
 
 export function PageTransitions({ children }: PageTransitionsProps) {
-  const pathname = usePathname()
+  /** SSR / prvý paint musí zhodovať klient — usePathname() občas vracia null pri hydrácii */
+  const pathname = usePathname() ?? "/"
   const [isFirstRender, setIsFirstRender] = useState(true)
 
   useEffect(() => {

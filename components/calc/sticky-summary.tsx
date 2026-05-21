@@ -25,6 +25,14 @@ export function StickySummary({ priceRange, timeRange, onNext, canProceed }: Sti
     return `${hours} h ${mins} min`
   }
 
+  const samePrice = priceRange.min === priceRange.max
+  const sameTime = timeRange.min === timeRange.max
+
+  const priceLabel = samePrice ? `${priceRange.min} €` : `${priceRange.min}–${priceRange.max} €`
+  const timeLabel = sameTime
+    ? formatTime(timeRange.min)
+    : `${formatTime(timeRange.min)}–${formatTime(timeRange.max)}`
+
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}
@@ -37,15 +45,11 @@ export function StickySummary({ priceRange, timeRange, onNext, canProceed }: Sti
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Euro className="h-4 w-4 text-primary" />
-              <span className="text-sm font-semibold">
-                {priceRange.min}–{priceRange.max} €
-              </span>
+              <span className="text-sm font-semibold">{priceLabel}</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-primary" />
-              <span className="text-sm font-semibold">
-                {formatTime(timeRange.min)}–{formatTime(timeRange.max)}
-              </span>
+              <span className="text-sm font-semibold">{timeLabel}</span>
             </div>
           </div>
           <Button

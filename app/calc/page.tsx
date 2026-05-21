@@ -12,18 +12,28 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { LanguageWrapper } from "@/components/language-wrapper"
 import { StickySummary } from "@/components/calc/sticky-summary"
 import { ResultCard } from "@/components/calc/result-card"
 import { CalcBackButton } from "@/components/calc/back-button"
-import { calculatePrice, calculateTime, type Addon, type CalculatorData } from "@/lib/calc-logic"
-import { PACKAGE_KEYS, packages, packagesEn, type PackageData, type PackageKey } from "@/lib/pricing-data"
+import {
+  calculatePrice,
+  calculateTime,
+  type Addon,
+  type CalculatorData,
+} from "@/lib/calc-logic"
+import {
+  PACKAGE_KEYS,
+  packages,
+  packagesEn,
+  type PackageData,
+  type PackageKey,
+} from "@/lib/pricing-data"
 import { useLanguage } from "@/lib/i18n/language-context"
 
 const TOTAL_STEPS = 5
 
 export default function CalculatorPage() {
-  const { language } = useLanguage()
+  const { language, t } = useLanguage()
   const [currentStep, setCurrentStep] = useState(1)
   const [data, setData] = useState<CalculatorData>({
     vehicleType: null,
@@ -60,15 +70,17 @@ export default function CalculatorPage() {
   }
 
   const handleVehicleTypeChange = (value: string) => {
-    setData({ ...data, vehicleType: value as "small" | "medium" | "large" })
-    // Auto-advance to next step
+    setData((prev) => ({
+      ...prev,
+      vehicleType: value as "small" | "medium" | "large",
+    }))
     setTimeout(() => {
       setCurrentStep(2)
     }, 300)
   }
 
   const handleConditionChange = (value: string) => {
-    setData({ ...data, condition: value as "normal" | "dirty" | "extreme" })
+    setData((prev) => ({ ...prev, condition: value as "normal" | "dirty" | "extreme" }))
     // Auto-advance to next step
     setTimeout(() => {
       setCurrentStep(3)
@@ -77,51 +89,46 @@ export default function CalculatorPage() {
 
   const handleMainServiceChange = (value: string) => {
     const newMainService = value as PackageKey
-    // Upholstery package already includes seat shampooing — drop redundant add-on
-    if (value === "ultimate") {
-      setData((prev) => ({
-        ...prev,
-        mainService: newMainService,
-        addons: prev.addons.filter((a): a is Addon => a !== "seats"),
-      }))
-    } else {
-      setData({ ...data, mainService: newMainService })
-    }
-    // Auto-advance to next step
+    setData((prev) => ({ ...prev, mainService: newMainService }))
     setTimeout(() => {
       setCurrentStep(4)
     }, 300)
   }
 
-  const handleAddonToggle = (addon: Addon) => {
+  const handleAddonChecked = (addon: Addon, checked: boolean | "indeterminate") => {
+    const on = checked === true
     setData((prev) => ({
       ...prev,
-      addons: prev.addons.includes(addon)
-        ? prev.addons.filter((a) => a !== addon)
-        : [...prev.addons, addon],
+      addons: on
+        ? prev.addons.includes(addon)
+          ? prev.addons
+          : [...prev.addons, addon]
+        : prev.addons.filter((a) => a !== addon),
     }))
   }
 
   const handleCityChange = (value: string) => {
-    const newData = { ...data, cityOrZip: value }
-    setData(newData)
-    // Auto-advance to result if parking type is also selected and city is filled
-    if (newData.parkingType !== null && value.trim() !== "") {
-      setTimeout(() => {
-        setCurrentStep(TOTAL_STEPS)
-      }, 300)
-    }
+    setData((prev) => {
+      const next = { ...prev, cityOrZip: value }
+      if (next.parkingType !== null && value.trim() !== "") {
+        setTimeout(() => {
+          setCurrentStep(TOTAL_STEPS)
+        }, 300)
+      }
+      return next
+    })
   }
 
   const handleParkingTypeChange = (value: string) => {
-    const newData = { ...data, parkingType: value as "private" | "public" }
-    setData(newData)
-    // Auto-advance to result if city is also filled
-    if (newData.cityOrZip.trim() !== "") {
-      setTimeout(() => {
-        setCurrentStep(TOTAL_STEPS)
-      }, 300)
-    }
+    setData((prev) => {
+      const next = { ...prev, parkingType: value as "private" | "public" }
+      if (next.cityOrZip.trim() !== "") {
+        setTimeout(() => {
+          setCurrentStep(TOTAL_STEPS)
+        }, 300)
+      }
+      return next
+    })
   }
 
   const canProceed = () => {
@@ -152,11 +159,10 @@ export default function CalculatorPage() {
         setIsCalculating(false)
         // Track calculator completed
         if (typeof window !== "undefined" && (window as any).gtag) {
-          const finalPriceRange = calculatePrice(data)
           ;(window as any).gtag("event", "calc_completed", {
             event_category: "calculator",
             event_label: "result_shown",
-            value: finalPriceRange.max,
+            value: calculatePrice(data).min,
           })
         }
       }, 600)
@@ -165,8 +171,6 @@ export default function CalculatorPage() {
   }, [currentStep, data])
 
   return (
-    <LanguageWrapper>
-      {(t) => (
         <div className="flex min-h-screen flex-col bg-background text-foreground">
           <Navbar />
           
@@ -225,7 +229,6 @@ export default function CalculatorPage() {
                               label={t.calculator?.vehicleSmall || "Small"}
                               description={t.calculator?.vehicleSmallDesc || "Hatchback / Sedan"}
                               selected={data.vehicleType === "small"}
-                              mostPopular={false}
                               name="vehicleType"
                               t={t}
                             />
@@ -234,7 +237,6 @@ export default function CalculatorPage() {
                               label={t.calculator?.vehicleMedium || "Medium"}
                               description={t.calculator?.vehicleMediumDesc || "Wagon / Small SUV"}
                               selected={data.vehicleType === "medium"}
-                              mostPopular={true}
                               name="vehicleType"
                               t={t}
                             />
@@ -243,7 +245,6 @@ export default function CalculatorPage() {
                               label={t.calculator?.vehicleLarge || "Large"}
                               description={t.calculator?.vehicleLargeDesc || "Large SUV / Van"}
                               selected={data.vehicleType === "large"}
-                              mostPopular={false}
                               name="vehicleType"
                               t={t}
                             />
@@ -274,7 +275,6 @@ export default function CalculatorPage() {
                               label={t.calculator?.conditionNormal || "Normal"}
                               description={t.calculator?.conditionNormalDesc || "Regular maintenance"}
                               selected={data.condition === "normal"}
-                              mostPopular={true}
                               name="condition"
                               t={t}
                             />
@@ -283,7 +283,6 @@ export default function CalculatorPage() {
                               label={t.calculator?.conditionDirty || "Dirty"}
                               description={t.calculator?.conditionDirtyDesc || "Needs extra attention"}
                               selected={data.condition === "dirty"}
-                              mostPopular={false}
                               name="condition"
                               t={t}
                             />
@@ -292,7 +291,6 @@ export default function CalculatorPage() {
                               label={t.calculator?.conditionExtreme || "Extreme"}
                               description={t.calculator?.conditionExtremeDesc || "Heavy soiling"}
                               selected={data.condition === "extreme"}
-                              mostPopular={false}
                               name="condition"
                               t={t}
                             />
@@ -353,46 +351,56 @@ export default function CalculatorPage() {
                   >
                     <Card>
                       <CardContent className="p-6">
-                        <h2 className="mb-6 text-xl font-semibold">
-                          {t.calculator?.step4Title || "Add any extras? (Optional)"}
+                        <h2 className="mb-2 text-xl font-semibold">
+                          {t.calculator?.step4Title || "Záujem o doplnkové služby? (voliteľné)"}
                         </h2>
+                        <p className="mb-6 text-sm text-muted-foreground">
+                          {t.calculator?.step4Subtitle ||
+                            "Označené služby vám naceníme individuálne pri obhliadke – do uvedenej ceny sa nepripočítavajú."}
+                        </p>
                         <div className="space-y-4">
                           <AddonCard
-                            id="wax"
-                            label={t.calculator?.addonWax || "Wax / Sealant"}
-                            description={t.calculator?.addonWaxDesc || "+25 € / +30 min"}
-                            checked={data.addons.includes("wax")}
-                            onToggle={() => handleAddonToggle("wax")}
+                            id="addon-seats"
+                            label={t.calculator?.addonSeats || "Tepovanie sedačiek"}
+                            description={
+                              t.calculator?.addonSeatsDesc ||
+                              "Hĺbková extrakcia textilných sedačiek."
+                            }
+                            checked={data.addons.includes("seats")}
+                            onCheckedChange={(c) => handleAddonChecked("seats", c)}
                           />
                           <AddonCard
-                            id="ozone"
-                            label={t.calculator?.addonOzone || "Ozone / Disinfection"}
-                            description={t.calculator?.addonOzoneDesc || "+15 € / +20 min"}
-                            checked={data.addons.includes("ozone")}
-                            onToggle={() => handleAddonToggle("ozone")}
+                            id="addon-carpets"
+                            label={t.calculator?.addonCarpets || "Tepovanie koberčekov"}
+                            description={
+                              t.calculator?.addonCarpetsDesc ||
+                              "Tepovanie podlahových kobercov a rohoží."
+                            }
+                            checked={data.addons.includes("carpets")}
+                            onCheckedChange={(c) => handleAddonChecked("carpets", c)}
                           />
                           <AddonCard
-                            id="plastics"
-                            label={t.calculator?.addonPlastics || "Plastic Restoration"}
-                            description={t.calculator?.addonPlasticsDesc || "+10 € / +20 min"}
-                            checked={data.addons.includes("plastics")}
-                            onToggle={() => handleAddonToggle("plastics")}
+                            id="addon-leather"
+                            label={
+                              t.calculator?.addonLeather ||
+                              "Impregnácia kožených sedačiek a častí"
+                            }
+                            description={
+                              t.calculator?.addonLeatherDesc ||
+                              "Čistenie a výživa kožených povrchov v interiéri."
+                            }
+                            checked={data.addons.includes("leather")}
+                            onCheckedChange={(c) => handleAddonChecked("leather", c)}
                           />
-                          {data.mainService !== "ultimate" && (
-                            <AddonCard
-                              id="seats"
-                              label={t.calculator?.addonSeats || "Seat Shampooing"}
-                              description={t.calculator?.addonSeatsDesc || "+30 € / +60 min"}
-                              checked={data.addons.includes("seats")}
-                              onToggle={() => handleAddonToggle("seats")}
-                            />
-                          )}
                           <AddonCard
-                            id="headlights"
+                            id="addon-headlights"
                             label={t.calculator?.addonHeadlights || "Renovácia svetlometov"}
-                            description={t.calculator?.addonHeadlightsDesc || "+45 € / +30 min"}
+                            description={
+                              t.calculator?.addonHeadlightsDesc ||
+                              "Obnova zakalených a zažltnutých svetlometov."
+                            }
                             checked={data.addons.includes("headlights")}
-                            onToggle={() => handleAddonToggle("headlights")}
+                            onCheckedChange={(c) => handleAddonChecked("headlights", c)}
                           />
                         </div>
                       </CardContent>
@@ -437,7 +445,6 @@ export default function CalculatorPage() {
                                   label={t.calculator?.parkingPrivate || "Private"}
                                   description={t.calculator?.parkingPrivateDesc || "House / Company"}
                                   selected={data.parkingType === "private"}
-                                  mostPopular={true}
                                   name="parkingType"
                                   t={t}
                                 />
@@ -446,7 +453,6 @@ export default function CalculatorPage() {
                                   label={t.calculator?.parkingPublic || "Public"}
                                   description={t.calculator?.parkingPublicDesc || "Street / Public parking"}
                                   selected={data.parkingType === "public"}
-                                  mostPopular={false}
                                   name="parkingType"
                                   t={t}
                                 />
@@ -520,8 +526,6 @@ export default function CalculatorPage() {
 
           <Footer />
         </div>
-      )}
-    </LanguageWrapper>
   )
 }
 
@@ -581,7 +585,7 @@ function StepCard({
   label,
   description,
   selected,
-  mostPopular,
+  mostPopular = false,
   name,
   t,
 }: {
@@ -589,7 +593,7 @@ function StepCard({
   label: string
   description: string
   selected: boolean
-  mostPopular: boolean
+  mostPopular?: boolean
   name?: string
   t?: any
 }) {
@@ -624,13 +628,13 @@ function AddonCard({
   label,
   description,
   checked,
-  onToggle,
+  onCheckedChange,
 }: {
   id: string
   label: string
   description: string
   checked: boolean
-  onToggle: () => void
+  onCheckedChange: (checked: boolean | "indeterminate") => void
 }) {
   return (
     <label
@@ -638,7 +642,11 @@ function AddonCard({
         checked ? "border-primary bg-primary/10" : "border-border bg-card hover:border-primary/50"
       }`}
     >
-      <Checkbox id={id} checked={checked} onCheckedChange={onToggle} />
+      <Checkbox
+        id={id}
+        checked={checked}
+        onCheckedChange={(next) => onCheckedChange(next)}
+      />
       <div className="flex-1">
         <div className="font-semibold">{label}</div>
         <div className="text-sm text-muted-foreground">{description}</div>

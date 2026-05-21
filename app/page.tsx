@@ -12,7 +12,6 @@ import { Navbar } from "@/components/navbar"
 import { LazyLoadSection } from "@/components/lazy-section"
 import { OptimizedImage } from "@/components/optimized-image"
 import { Footer } from "@/components/footer"
-import { LanguageWrapper } from "@/components/language-wrapper"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { VideoBackground } from "@/components/video-background"
 import { CarSizeSelector } from "@/components/car-size-selector"
@@ -26,6 +25,7 @@ import { ServiceStructuredData } from "@/components/structured-data"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { BentoVideo } from "@/components/bento-video"
 import { BeforeAfterSlider } from "@/components/before-after-slider"
+import { ContactForm } from "@/components/contact-form"
 
 // Lazy load components that are not needed immediately
 const ReviewCarousel = lazy(() =>
@@ -33,7 +33,7 @@ const ReviewCarousel = lazy(() =>
 )
 
 export default function Home() {
-  const { language } = useLanguage()
+  const { language, t } = useLanguage()
 
   // Scroll to section function
   const scrollToSection = (id: string) => {
@@ -56,8 +56,6 @@ export default function Home() {
   ]
 
   return (
-    <LanguageWrapper>
-      {(t) => (
         <div className="flex min-h-screen flex-col bg-background text-foreground">
           {/* Structured Data for Services */}
           <ServiceStructuredData
@@ -251,7 +249,7 @@ export default function Home() {
                       1
                     </div>
 
-                    <div className="flex h-full flex-col items-center text-center bg-background p-8 pt-12 rounded-md relative z-0 opacity-100 border border-border/50">
+                    <div className="flex h-full flex-col items-center text-center bg-background p-8 pt-12 rounded-md relative z-0 opacity-100 border-4 border-border">
                       <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
                         <Clock className="h-10 w-10" aria-hidden="true" />
                       </div>
@@ -271,7 +269,7 @@ export default function Home() {
                       2
                     </div>
 
-                    <div className="flex h-full flex-col items-center text-center bg-background p-8 pt-12 rounded-md relative z-0 border border-border/50">
+                    <div className="flex h-full flex-col items-center text-center bg-background p-8 pt-12 rounded-md relative z-0 border-4 border-border">
                       <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
                         <MapPin className="h-10 w-10" aria-hidden="true" />
                       </div>
@@ -291,7 +289,7 @@ export default function Home() {
                       3
                     </div>
 
-                    <div className="flex h-full flex-col items-center text-center bg-background p-8 pt-12 rounded-md relative z-0 border border-border/50">
+                    <div className="flex h-full flex-col items-center text-center bg-background p-8 pt-12 rounded-md relative z-0 border-4 border-border">
                       <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
                         <Truck className="h-10 w-10" aria-hidden="true" />
                       </div>
@@ -823,18 +821,28 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Booking CTA Section */}
+          {/* Booking CTA + Contact Form Section */}
           <section id="booking" className="py-24">
             <div className="container mx-auto px-4">
               <LazyLoadSection>
-                <div className="mx-auto max-w-3xl glass-card p-8 text-center shadow-2xl sm:p-12 rounded-md">
-                  <h2 className="mb-6 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">{t.booking.title}</h2>
-                  <p className="mb-8 text-zinc-400">{t.booking.description}</p>
-                  <a target="_blank" href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" rel="noopener noreferrer">
-                    <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                      {t.booking.bookAppointment} <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </a>
+                <div className="mx-auto grid max-w-6xl items-stretch gap-8 lg:grid-cols-2">
+                  <div className="glass-card flex flex-col justify-center rounded-md p-8 text-center shadow-2xl sm:p-12">
+                    <h2 className="mb-6 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
+                      {t.booking.title}
+                    </h2>
+                    <p className="mb-8 text-zinc-400">{t.booking.description}</p>
+                    <a
+                      target="_blank"
+                      href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk"
+                      rel="noopener noreferrer"
+                      className="inline-flex justify-center"
+                    >
+                      <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                        {t.booking.bookAppointment} <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </a>
+                  </div>
+                  <ContactForm />
                 </div>
               </LazyLoadSection>
             </div>
@@ -846,7 +854,5 @@ export default function Home() {
           {/* Floating Calculator Button (Mobile Only) */}
           <FloatingCalcButton />
         </div>
-      )}
-    </LanguageWrapper>
   )
 }
