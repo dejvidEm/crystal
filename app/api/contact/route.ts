@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"
+import { after, NextResponse } from "next/server"
 import { renderKeyValueEmail, sendEmail } from "@/lib/email"
 
 /**
@@ -71,11 +71,16 @@ export async function POST(request: Request) {
 
   console.info("[contact]", contact)
 
-  try {
-    await sendContactNotification(contact)
-  } catch (err) {
-    console.error("[contact] notification failed:", err)
-  }
+  // Resend volanie posúvame za odpoveď, nech používateľ nečaká na sieťový
+  // round-trip k e-mailovej službe. `after()` (Next.js 15) garantuje, že
+  // úloha dobehne v rámci toho istého serverless invocation-u.
+  after(async () => {
+    try {
+      await sendContactNotification(contact)
+    } catch (err) {
+      console.error("[contact] notification failed:", err)
+    }
+  })
 
   return NextResponse.json({ ok: true })
 }

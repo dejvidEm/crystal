@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"
+import { after, NextResponse } from "next/server"
 import { renderKeyValueEmail, sendEmail } from "@/lib/email"
 
 /**
@@ -77,11 +77,16 @@ export async function POST(request: Request) {
 
   console.info("[lead]", lead)
 
-  try {
-    await sendLeadNotification(lead)
-  } catch (err) {
-    console.error("[lead] notification failed:", err)
-  }
+  // Resend volanie môže trvať 1–3 s; nech klient nečaká na sieťový round-trip
+  // a tlačidlo „Odosielam…“ sa neukazoval zbytočne dlho. E-mail dobehne na
+  // pozadí v rovnakom serverless invocation-e vďaka `after()`.
+  after(async () => {
+    try {
+      await sendLeadNotification(lead)
+    } catch (err) {
+      console.error("[lead] notification failed:", err)
+    }
+  })
 
   return NextResponse.json({ ok: true })
 }
