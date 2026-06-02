@@ -3,8 +3,8 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 import { en } from "./en"
 import { sk } from "./sk"
+import { setLanguageCookie, type Language } from "./language-cookie"
 
-type Language = "en" | "sk"
 type Translations = typeof en
 
 interface LanguageContextType {
@@ -19,7 +19,6 @@ const translations = {
   sk,
 }
 
-// Default to Slovak translations for server-side rendering
 const defaultLanguage: Language = "sk"
 const defaultTranslations = translations[defaultLanguage]
 
@@ -30,21 +29,23 @@ const LanguageContext = createContext<LanguageContextType>({
   isChanging: false,
 })
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>(defaultLanguage)
+interface LanguageProviderProps {
+  children: ReactNode
+  /** Jazyk z cookie na serveri — musí zodpovedať prvému klientskemu renderu. */
+  initialLanguage?: Language
+}
+
+export function LanguageProvider({ children, initialLanguage = defaultLanguage }: LanguageProviderProps) {
+  const [language, setLanguageState] = useState<Language>(initialLanguage)
   const [pendingLanguage, setPendingLanguage] = useState<Language | null>(null)
   const [isChanging, setIsChanging] = useState(false)
 
   useEffect(() => {
     try {
-      const storedLanguage = localStorage.getItem("language") as Language | null
-      if (storedLanguage && (storedLanguage === "en" || storedLanguage === "sk")) {
+      const storedLanguage = localStorage.getItem("language")
+      if (storedLanguage === "en" || storedLanguage === "sk") {
         setLanguageState(storedLanguage)
-      } else {
-        const browserLanguage = navigator.language.split("-")[0]
-        if (browserLanguage === "sk") {
-          setLanguageState("sk")
-        }
+        setLanguageCookie(storedLanguage)
       }
     } catch (error) {
       console.error("Error accessing localStorage:", error)
@@ -60,6 +61,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
         try {
           localStorage.setItem("language", pendingLanguage)
+          setLanguageCookie(pendingLanguage)
         } catch (error) {
           console.error("Error setting localStorage:", error)
         }

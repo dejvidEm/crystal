@@ -50,7 +50,7 @@ export function Navbar() {
   const isHomePage = pathname === "/"
 
   const navItems = [
-    { name: t.nav.home, href: isHomePage ? "#" : "/" },
+    { name: t.nav.aboutUs, href: "/o-nas" },
     { name: t.nav.services, href: isHomePage ? "#services" : "/#services" },
     { name: t.nav.howItWorks, href: isHomePage ? "#how-it-works" : "/#how-it-works" },
     { name: "Lokality", href: "/lokality" },
@@ -61,7 +61,7 @@ export function Navbar() {
   return (
           <header
             className={`fixed top-0 z-50 w-full transition-all duration-500 ${
-              scrolled ? "bg-black/80 backdrop-blur-md py-3 shadow-xl" : "bg-transparent py-6"
+              scrolled ? "bg-black/80 backdrop-blur-md py-7 shadow-xl" : "bg-transparent py-11"
             }`}
           >
             <div className="container mx-auto px-6">
@@ -89,7 +89,7 @@ export function Navbar() {
                         <Link
                           key={item.name}
                           href={item.href}
-                          className="relative px-5 py-2 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:text-primary group"
+                          className="relative px-5 py-4 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:text-primary group"
                           onClick={handleLinkClick}
                         >
                           {item.name}
@@ -114,7 +114,7 @@ export function Navbar() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="px-6 py-2 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest text-sm"
+                      className="px-6 py-4 bg-transparent border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 uppercase tracking-widest text-sm"
                     >
                       {t.common.bookNow}
                     </motion.button>

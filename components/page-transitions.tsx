@@ -9,12 +9,12 @@ interface PageTransitionsProps {
 }
 
 export function PageTransitions({ children }: PageTransitionsProps) {
-  /** SSR / prvý paint musí zhodovať klient — usePathname() občas vracia null pri hydrácii */
-  const pathname = usePathname() ?? "/"
+  const pathnameRaw = usePathname()
+  const [isMounted, setIsMounted] = useState(false)
   const [isFirstRender, setIsFirstRender] = useState(true)
 
   useEffect(() => {
-    // Skip animation on first render
+    setIsMounted(true)
     const timer = setTimeout(() => {
       setIsFirstRender(false)
     }, 500)
@@ -22,12 +22,16 @@ export function PageTransitions({ children }: PageTransitionsProps) {
     return () => clearTimeout(timer)
   }, [])
 
-  // For calculator page, skip animation to prevent double loading
+  // Po hydrácii až používame pathname — pri prvom renderi musí byť strom rovnaký ako na serveri
+  if (!isMounted) {
+    return <div style={{ position: "relative" }}>{children}</div>
+  }
+
+  const pathname = pathnameRaw ?? "/"
   const isCalcPage = pathname === "/calc"
 
-  // If it's the calc page, render without animation
   if (isCalcPage) {
-    return <div style={{ position: 'relative' }}>{children}</div>
+    return <div style={{ position: "relative" }}>{children}</div>
   }
 
   return (
@@ -38,7 +42,7 @@ export function PageTransitions({ children }: PageTransitionsProps) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
-        style={{ position: 'relative' }}
+        style={{ position: "relative" }}
       >
         {children}
       </motion.div>

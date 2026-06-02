@@ -6,7 +6,7 @@ export const en = {
     getQuote: "Get Quote",
   },
   nav: {
-    home: "Home",
+    aboutUs: "About Us",
     services: "Services",
     howItWorks: "How It Works",
     reviews: "Reviews",
@@ -39,6 +39,27 @@ export const en = {
     fullyInsured: "Fully Insured",
     premiumProducts: "Premium Products",
     certifiedDetailers: "Certified Detailers",
+  },
+  whyChooseUs: {
+    title: "Why Choose Us",
+    imageAlt: "Crystal Detailing mobile unit ready to come to your location",
+    items: [
+      {
+        title: "We come to you—you don't have to go anywhere",
+        description:
+          "We save you time and hassle. No waiting in line, no driving to a car wash, no planning your day around cleaning the car. We come straight to your home, workplace, or agreed location and take care of everything.",
+      },
+      {
+        title: "Precise work and experience you can rely on",
+        description:
+          "We clean every car thoroughly with attention to detail. Our experience tells us which methods, products, and techniques to use on different interiors, paintwork, and levels of soiling so the result looks clean, fresh, and professional.",
+      },
+      {
+        title: "Your car will feel like new again",
+        description:
+          "This is more than a regular wash. We focus on the overall feel of your car—a clean interior, fresh scent, removed stains, dust, dirt, and neglected details. The result is a car you'll be happy to get back into.",
+      },
+    ],
   },
   howItWorks: {
     title: "How It Works",

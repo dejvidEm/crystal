@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '',
     '/calc',
     '/lokality',
+    '/o-nas',
     '/bratislava',
     '/pezinok',
     '/senec',

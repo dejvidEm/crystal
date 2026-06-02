@@ -2,8 +2,10 @@ import type React from "react"
 import "./globals.css"
 import { Inter } from "next/font/google"
 import type { Metadata } from "next"
+import { cookies } from "next/headers"
 import { PageTransitions } from "@/components/page-transitions"
 import { LanguageProvider } from "@/lib/i18n/language-context"
+import { parseLanguage } from "@/lib/i18n/language-cookie"
 import { LanguageTransition } from "@/components/language-transition"
 import { CookieConsent } from "@/components/cookie-consent"
 import { LocalBusinessStructuredData } from "@/components/structured-data"
@@ -101,12 +103,15 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies()
+  const initialLanguage = parseLanguage(cookieStore.get("language")?.value)
+
   return (
-    <html lang="sk" suppressHydrationWarning className="scroll-smooth">
+    <html lang={initialLanguage === "en" ? "en" : "sk"} suppressHydrationWarning className="scroll-smooth">
       <body className={`${inter.className} antialiased`}>
         <LocalBusinessStructuredData />
-        <LanguageProvider>
+        <LanguageProvider initialLanguage={initialLanguage}>
           <LanguageTransition />
           <PageTransitions>{children}</PageTransitions>
           <CookieConsent />

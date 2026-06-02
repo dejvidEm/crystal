@@ -6,7 +6,7 @@ export const sk = {
     getQuote: "Získať cenovú ponuku",
   },
   nav: {
-    home: "Domov",
+    aboutUs: "O nás",
     services: "Služby",
     howItWorks: "Ako to funguje",
     reviews: "Recenzie",
@@ -39,6 +39,27 @@ export const sk = {
     fullyInsured: "Plne poistené",
     premiumProducts: "Prémiové produkty",
     certifiedDetailers: "Certifikovaní detaileri",
+  },
+  whyChooseUs: {
+    title: "Prečo si vybrať nás",
+    imageAlt: "Mobilná detailingová jednotka Crystal Detailing pripravená prísť k vám",
+    items: [
+      {
+        title: "Prídeme za vami, vy nikam nemusíte",
+        description:
+          "Ušetríme vám čas aj starosti. Nemusíte čakať v rade, voziť auto do umyvárky ani si plánovať deň okolo čistenia auta. My prídeme priamo k vám domov, do práce alebo na dohodnuté miesto a o všetko sa postaráme.",
+      },
+      {
+        title: "Precízna práca a skúsenosti, na ktoré sa môžete spoľahnúť",
+        description:
+          "Každé auto čistíme dôkladne a s dôrazom na detail. Vďaka skúsenostiam vieme, aké postupy, prípravky a techniky použiť na rôzne typy interiérov, lakov a znečistenia, aby výsledok pôsobil čisto, sviežo a profesionálne.",
+      },
+      {
+        title: "Vaše auto bude opäť pôsobiť ako nové",
+        description:
+          "Nejde len o obyčajné umytie. Zameriavame sa na celkový pocit z auta, čistý interiér, svieža vôňa, odstránené škvrny, prach, nečistoty a zanedbané detaily. Výsledkom je auto, do ktorého si znova sadnete s dobrým pocitom.",
+      },
+    ],
   },
   howItWorks: {
     title: "Ako to funguje",
