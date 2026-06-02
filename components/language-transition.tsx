@@ -40,8 +40,8 @@ export function LanguageTransition() {
               className="mb-6 relative h-24 w-24 md:h-32 md:w-32"
             >
               <Image
-                src="/images/logo.png"
-                alt="LuxDetail Logo"
+                src="/images/luxury_logo.png"
+                alt="Crystal Detailing Logo"
                 fill
                 className="object-contain"
                 priority

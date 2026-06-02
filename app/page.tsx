@@ -2,7 +2,7 @@
 
 import { lazy, Suspense } from "react"
 import { motion } from "framer-motion"
-import { ArrowRight, BadgeCheck, Check, ChevronRight, Clock, MapPin, Shield, Sparkles, Truck, Calculator } from "lucide-react"
+import { ArrowRight, Check, ChevronRight, Clock, MapPin, Shield, Sparkles, Truck, Calculator } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -97,16 +97,6 @@ export default function Home() {
                     <span className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/15 px-4 py-2 text-sm font-semibold text-amber-100 backdrop-blur-sm shadow-[0_0_24px_-8px_rgba(251,191,36,0.45)]">
                       <Sparkles className="h-4 w-4 shrink-0 text-amber-300" aria-hidden />
                       {t.hero.promoBadge}
-                    </span>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                  >
-                    <span className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/30 px-4 py-2 text-sm font-semibold text-primary backdrop-blur-sm">
-                      <BadgeCheck className="h-4 w-4 text-yellow-400" />
-                      Prvý v Bratislave
                     </span>
                   </motion.div>
                 </div>
