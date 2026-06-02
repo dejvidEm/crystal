@@ -7,12 +7,13 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { bookioUrl } from "@/lib/site-config"
 
 export function Navbar() {
   const pathnameRaw = usePathname()
   const pathname = pathnameRaw ?? "/"
   const isCalcPage = pathname === "/calc"
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -54,6 +55,7 @@ export function Navbar() {
     { name: t.nav.services, href: isHomePage ? "#services" : "/#services" },
     { name: t.nav.howItWorks, href: isHomePage ? "#how-it-works" : "/#how-it-works" },
     { name: "Lokality", href: "/lokality" },
+    { name: t.nav.blog, href: "/blog" },
     { name: t.nav.reviews, href: isHomePage ? "#reviews" : "/#reviews" },
     { name: t.nav.contact, href: isHomePage ? "#contact" : "/#contact" },
   ]
@@ -64,10 +66,10 @@ export function Navbar() {
               scrolled ? "bg-black/80 backdrop-blur-md py-7 shadow-xl" : "bg-transparent py-11"
             }`}
           >
-            <div className="container mx-auto px-6">
-              <div className="relative flex items-center justify-between">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-10">
+              <div className="relative flex w-full items-center justify-between 2xl:justify-center">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 z-20">
+                <Link href="/" className="z-20 shrink-0 2xl:mr-16">
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -81,15 +83,18 @@ export function Navbar() {
                   </motion.div>
                 </Link>
 
-                {/* Desktop Navigation - Hidden on calc page */}
+                {/* Desktop navigácia – od 2xl (1536px), burger skôr; font bez zmenšenia */}
                 {!isCalcPage && (
-                  <nav className="hidden lg:flex items-center" aria-label="Main navigation">
+                  <nav
+                    className="hidden 2xl:flex shrink-0 items-center"
+                    aria-label="Main navigation"
+                  >
                     <div className="flex items-center space-x-2">
                       {navItems.map((item) => (
                         <Link
                           key={item.name}
                           href={item.href}
-                          className="relative px-5 py-4 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:text-primary group"
+                          className="relative whitespace-nowrap px-5 py-4 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:text-primary group"
                           onClick={handleLinkClick}
                         >
                           {item.name}
@@ -104,13 +109,10 @@ export function Navbar() {
                   </nav>
                 )}
 
-                {/* Desktop Actions */}
-                <div className="hidden lg:flex items-center space-x-4">
-                  {/* Language Switcher */}
+                {/* Jazyk + Rezervovať */}
+                <div className="hidden 2xl:flex shrink-0 items-center space-x-5 2xl:ml-16">
                   <LanguageSwitcher variant="minimal" />
-
-                  {/* Book Now Button */}
-                  <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" target="_blank" rel="noopener noreferrer">
+                  <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -121,9 +123,9 @@ export function Navbar() {
                   </a>
                 </div>
 
-                {/* Mobile Menu Button and Language Switcher - Hidden on calc page */}
+                {/* Burger + jazyk – pod 2xl */}
                 {!isCalcPage && (
-                  <div className="lg:hidden flex items-center space-x-2 z-20">
+                  <div className="2xl:hidden flex items-center gap-4 z-20">
                     <LanguageSwitcher variant="icon" />
                     <button
                       onClick={() => setIsOpen(!isOpen)}
@@ -136,9 +138,8 @@ export function Navbar() {
                     </button>
                   </div>
                 )}
-                {/* Mobile Language Switcher only on calc page */}
                 {isCalcPage && (
-                  <div className="lg:hidden flex items-center space-x-2 z-20">
+                  <div className="2xl:hidden flex items-center gap-4 z-20">
                     <LanguageSwitcher variant="icon" />
                   </div>
                 )}
@@ -152,7 +153,7 @@ export function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: "100%" }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="fixed top-0 left-0 w-full h-screen z-50 bg-black backdrop-blur-md lg:hidden"
+                    className="fixed top-0 left-0 w-full h-screen z-50 bg-black backdrop-blur-md 2xl:hidden"
                   >
                     {/* X Button */}
                     <button
@@ -169,13 +170,13 @@ export function Navbar() {
                           <Link
                             key={item.name}
                             href={item.href}
-                            className="text-xl uppercase tracking-widest text-zinc-200 hover:text-primary transition-colors"
+                            className="whitespace-nowrap text-xl uppercase tracking-widest text-zinc-200 hover:text-primary transition-colors"
                             onClick={handleLinkClick}
                           >
                             {item.name}
                           </Link>
                         ))}
-                        <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" target="_blank" rel="noopener noreferrer" onClick={handleLinkClick}>
+                        <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer" onClick={handleLinkClick}>
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}

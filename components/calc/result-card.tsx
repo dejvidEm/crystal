@@ -9,6 +9,7 @@ import { PriceRange, TimeRange, CalculatorData, getPriceBreakdown } from "@/lib/
 import { useLanguage } from "@/lib/i18n/language-context"
 import { packages, packagesEn } from "@/lib/pricing-data"
 import { LeadInquiryCard } from "@/components/calc/lead-inquiry-card"
+import { bookioUrl, whatsappUrl } from "@/lib/site-config"
 
 interface ResultCardProps {
   priceRange: PriceRange
@@ -92,11 +93,7 @@ export function ResultCard({ priceRange, timeRange, data }: ResultCardProps) {
       })
     }
 
-    // Get current language from localStorage or default to 'sk'
-    const lang = typeof window !== "undefined" ? (localStorage.getItem("language") || "sk") : "sk"
-    
-    // Redirect to booking page
-    window.open(`https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=${lang}`, "_blank")
+    window.open(bookioUrl(language), "_blank", "noopener,noreferrer")
   }
 
   const handleContactClick = () => {
@@ -111,7 +108,7 @@ export function ResultCard({ priceRange, timeRange, data }: ResultCardProps) {
     const message = messageTemplate
       .replace("{price}", priceText)
       .replace("{time}", timeText)
-    window.open(`https://wa.me/421912345678?text=${encodeURIComponent(message)}`, "_blank")
+    window.open(whatsappUrl(message), "_blank", "noopener,noreferrer")
   }
 
   return (

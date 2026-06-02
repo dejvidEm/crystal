@@ -11,7 +11,7 @@ export function WhyChooseUsSection() {
     <section id="why-choose-us" className="relative overflow-hidden py-24">
       <div className="container relative z-10 mx-auto px-4">
         <LazyLoadSection>
-          <div className="mb-12 text-center">
+          <div className="mb-16 text-center md:mb-20">
             <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
               {t.whyChooseUs.title}
             </h2>

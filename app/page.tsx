@@ -26,7 +26,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { BentoVideo } from "@/components/bento-video"
 import { BeforeAfterSlider } from "@/components/before-after-slider"
 import { WhyChooseUsSection } from "@/components/why-choose-us-section"
+import { BlogHomeSection } from "@/components/blog/blog-home-section"
 import { ContactForm } from "@/components/contact-form"
+import { bookioUrl } from "@/lib/site-config"
 
 // Lazy load components that are not needed immediately
 const ReviewCarousel = lazy(() =>
@@ -116,7 +118,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.7 }}
                 className="flex flex-col sm:flex-row gap-4 items-center justify-center"
               >
-                <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" target="_blank" rel="noopener noreferrer">
+                <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                     {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -349,7 +351,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="pt-6">
-                      <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" target="_blank" rel="noopener noreferrer">
+                      <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
                         <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                           {t.headlightRenewal?.bookService || "Rezervovať službu"} <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
@@ -387,7 +389,7 @@ export default function Home() {
                         </ul>
                       </CardContent>
                       <CardFooter>
-                        <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk" target="_blank" rel="noopener noreferrer" className="w-full">
+                        <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer" className="w-full">
                           <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
                             {t.headlightRenewal?.card?.selectPackage || "Vybrať službu"}
                           </Button>
@@ -705,6 +707,9 @@ export default function Home() {
           </section>
           */}
 
+          {/* Blog Section */}
+          <BlogHomeSection />
+
           {/* FAQ Section */}
           <section id="faq" className="py-24 relative">
             <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background"></div>
@@ -772,7 +777,7 @@ export default function Home() {
                     <p className="mb-8 text-zinc-400">{t.booking.description}</p>
                     <a
                       target="_blank"
-                      href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk"
+                      href={bookioUrl(language)}
                       rel="noopener noreferrer"
                       className="inline-flex justify-center"
                     >
