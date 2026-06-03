@@ -10,9 +10,13 @@ export function AdditionalServicesTable() {
   const rows = language === "en" ? additionalServicesEn : additionalServices
 
   return (
-    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="mx-auto grid max-w-4xl gap-8 overflow-visible pt-4 sm:grid-cols-2">
       {rows.map((service, index) => (
-        <LazyLoadSection key={`${language}-${service.icon}-${index}`} delay={0.1 + index * 0.12}>
+        <LazyLoadSection
+          key={`${language}-${service.icon}-${index}`}
+          delay={0.1 + index * 0.12}
+          className="h-full"
+        >
           <AdditionalServiceCard service={service} />
         </LazyLoadSection>
       ))}

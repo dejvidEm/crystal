@@ -231,11 +231,10 @@ export function ReviewCarousel() {
               <div className="relative mb-4 h-24 w-24 overflow-hidden rounded-full border-2 border-primary">
                 <Image
                   src={reviews[currentIndex].avatar || "/placeholder.svg"}
-                  alt=""
+                  alt={t.reviews.avatarAlt}
                   fill
                   className="object-cover"
                   sizes="96px"
-                  aria-hidden
                 />
               </div>
               <div className="flex" aria-label={`Rating: ${reviews[currentIndex].rating} out of 5 stars`}>

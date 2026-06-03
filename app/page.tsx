@@ -2,12 +2,11 @@
 
 import { lazy, Suspense } from "react"
 import { motion } from "framer-motion"
-import { ArrowRight, Check, ChevronRight, Clock, MapPin, Shield, Sparkles, Truck, Calculator } from "lucide-react"
+import { ArrowRight, Check, ChevronRight, Clock, MapPin, Sparkles, Truck, Calculator } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Navbar } from "@/components/navbar"
 import { LazyLoadSection } from "@/components/lazy-section"
 import { OptimizedImage } from "@/components/optimized-image"
@@ -175,11 +174,10 @@ export default function Home() {
             <div className="pointer-events-none absolute inset-0">
               <Image
                 src="/images/handover-after.png"
-                alt=""
+                alt={t.handoverShowcase.decorativeBackgroundAlt}
                 fill
                 className="object-cover opacity-[0.22]"
                 sizes="100vw"
-                aria-hidden
               />
               <div className="absolute inset-0 bg-gradient-to-b from-background via-background/92 to-background" />
             </div>
@@ -209,6 +207,8 @@ export default function Home() {
                   afterSrc="/images/handover-after.png"
                   beforeLabel={t.handoverShowcase.beforeLabel}
                   afterLabel={t.handoverShowcase.afterLabel}
+                  beforeImageAlt={t.handoverShowcase.beforeImageAlt}
+                  afterImageAlt={t.handoverShowcase.afterImageAlt}
                   dragHint={t.handoverShowcase.dragHint}
                 />
               </motion.div>
@@ -315,115 +315,6 @@ export default function Home() {
           {/* Why Choose Us Section */}
           <WhyChooseUsSection />
 
-          {/* Headlight Renewal Section */}
-          <section id="headlight-renewal" className="relative overflow-hidden py-24">
-            <div className="container relative z-10 mx-auto px-4">
-              <LazyLoadSection>
-                <div className="mb-12 text-center">
-                  <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
-                    {t.headlightRenewal?.title || "Renovácia svetlometov"}
-                  </h2>
-                  <div className="h-1 w-24 mx-auto bg-primary"></div>
-                  <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
-                    {t.headlightRenewal?.subtitle || "Obnovte krištáľovo čistý vzhľad vašich svetlometov"}
-                  </p>
-                </div>
-              </LazyLoadSection>
-
-              <div className="grid gap-12 md:grid-cols-2 md:items-center">
-                <LazyLoadSection delay={0.2}>
-                  <div className="space-y-6 text-zinc-300">
-                    <p className="text-lg">
-                      {t.headlightRenewal?.description || "Naša profesionálna renovácia svetlometov transformuje zakalené a zažltnuté svetlomety späť do ich pôvodného krištáľovo čistého stavu. Používame špecializované techniky a prémiové produkty na obnovenie priehľadnosti a jasu."}
-                    </p>
-                    <div className="flex flex-wrap gap-4 pt-4">
-                      <div className="flex items-center gap-2 bg-primary/50 p-3 rounded-tl-2xl rounded-br-2xl">
-                        <Sparkles className="h-5 w-5 text-primary" aria-hidden="true" />
-                        <span>Profesionálne výsledky</span>
-                      </div>
-                      <div className="flex items-center gap-2 bg-primary/50 p-3 rounded-tl-2xl rounded-br-2xl">
-                        <Check className="h-5 w-5 text-primary" aria-hidden="true" />
-                        <span>Mobilná služba</span>
-                      </div>
-                      <div className="flex items-center gap-2 bg-primary/50 p-3 rounded-tl-2xl rounded-br-2xl">
-                        <Shield className="h-5 w-5 text-primary" aria-hidden="true" />
-                        <span>Ochrana proti UV</span>
-                      </div>
-                    </div>
-                    <div className="pt-6">
-                      <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
-                        <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                          {t.headlightRenewal?.bookService || "Rezervovať službu"} <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
-                      </a>
-                    </div>
-                    <Card className="mt-8 glass-card border-0 overflow-hidden w-full max-w-sm">
-                      <CardHeader>
-                        <CardTitle className="text-2xl text-primary">
-                          {t.headlightRenewal?.card?.title || "Renovácia svetlometov"}
-                        </CardTitle>
-                        <CardDescription className="text-zinc-400">
-                          {t.headlightRenewal?.card?.subtitle || "Kompletná úprava oboch svetlometov"}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="mb-6 flex flex-wrap items-baseline gap-2">
-                          <span className="text-3xl font-bold text-white">
-                            {t.headlightRenewal?.card?.price || "70 €"}
-                          </span>
-                          <span className="text-sm text-zinc-400">
-                            {t.headlightRenewal?.card?.priceNote || "za oba svetlomety"}
-                          </span>
-                        </div>
-                        <ul className="space-y-3">
-                          {(t.headlightRenewal?.card?.features || [
-                            "Odstránenie oxidácie a zažltnutia",
-                            "Leštenie svetlometov",
-                            "Nanesenie UV ochrany",
-                          ]).map((feature: string, index: number) => (
-                            <li key={index} className="flex items-start">
-                              <Check className="mr-2 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-                              <span className="text-zinc-300">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                      <CardFooter>
-                        <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer" className="w-full">
-                          <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                            {t.headlightRenewal?.card?.selectPackage || "Vybrať službu"}
-                          </Button>
-                        </a>
-                      </CardFooter>
-                    </Card>
-                  </div>
-                </LazyLoadSection>
-
-                <LazyLoadSection delay={0.3}>
-                  <div className="relative mx-auto overflow-hidden">
-                    <div className="relative z-0 flex h-full items-center justify-center p-4">
-                      <div className="relative w-full max-w-[350px] md:max-w-[550px] aspect-[3/4]">
-                        <Image
-                          src="/images/headlight-renewal-before-after.png"
-                          alt={t.headlightRenewal?.beforeAfter || "Pred a po renovácii svetlometov"}
-                          fill
-                          className="object-contain rounded-2xl"
-                          sizes="(max-width: 768px) 350px, 550px"
-                          quality={90}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </LazyLoadSection>
-              </div>
-            </div>
-
-            {/* Decorative elements */}
-            <div className="section-divider"></div>
-            <div className="absolute -left-20 top-1/4 h-64 w-64 rounded-full bg-primary/5 blur-3xl"></div>
-            <div className="absolute -right-20 bottom-1/4 h-64 w-64 rounded-full bg-primary/5 blur-3xl"></div>
-          </section>
-
           {/* Services Section */}
           <section id="services" className="py-24 relative">
             <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background"></div>
@@ -437,21 +328,21 @@ export default function Home() {
                 </div>
               </LazyLoadSection>
 
-              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-                <LazyLoadSection delay={0.1}>
-                  <PricingPackageCard packageData={pkgs.refresh} />
+              <div className="grid gap-8 overflow-visible pt-4 md:grid-cols-2 lg:grid-cols-4">
+                <LazyLoadSection delay={0.1} className="h-full">
+                  <PricingPackageCard packageKey="refresh" packageData={pkgs.refresh} />
                 </LazyLoadSection>
 
-                <LazyLoadSection delay={0.2}>
-                  <PricingPackageCard packageData={pkgs.essential} />
+                <LazyLoadSection delay={0.2} className="h-full">
+                  <PricingPackageCard packageKey="essential" packageData={pkgs.essential} />
                 </LazyLoadSection>
 
-                <LazyLoadSection delay={0.4}>
-                  <PricingPackageCard packageData={pkgs.premium} />
+                <LazyLoadSection delay={0.4} className="h-full">
+                  <PricingPackageCard packageKey="premium" packageData={pkgs.premium} />
                 </LazyLoadSection>
 
-                <LazyLoadSection delay={0.6}>
-                  <PricingPackageCard packageData={pkgs.ultimate} />
+                <LazyLoadSection delay={0.6} className="h-full">
+                  <PricingPackageCard packageKey="ultimate" packageData={pkgs.ultimate} />
                 </LazyLoadSection>
               </div>
             </div>
@@ -467,7 +358,6 @@ export default function Home() {
                   </h2>
                   <div className="h-1 w-24 mx-auto bg-primary"></div>
                   <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.additionalServices.subtitle}</p>
-                  <CarSizeSelector />
                 </div>
               </LazyLoadSection>
 
@@ -602,6 +492,7 @@ export default function Home() {
                     <BentoVideo
                       src="/bento/video/one.mov"
                       fallbackImage="/bento/photo/IMG_1814.jpg"
+                      fallbackAlt={t.mediaBento.videoFallbackAlt}
                       fallbackSizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="transition-transform duration-700 group-hover:scale-105"
                     />
@@ -616,7 +507,7 @@ export default function Home() {
                   <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-5">
                     <Image
                       src="/bento/photo/IMG_1813.jpg"
-                      alt=""
+                      alt={t.mediaBento.photoAlts[0]}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       quality={82}
@@ -627,7 +518,7 @@ export default function Home() {
                   <div className="group relative col-span-2 row-span-3 overflow-hidden rounded-xl border border-white/10 lg:col-span-4 lg:row-span-3">
                     <Image
                       src="/bento/photo/IMG_1814.jpg"
-                      alt=""
+                      alt={t.mediaBento.photoAlts[1]}
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       quality={82}
@@ -639,7 +530,7 @@ export default function Home() {
                   <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-4">
                     <Image
                       src="/bento/photo/IMG_1815.jpg"
-                      alt=""
+                      alt={t.mediaBento.photoAlts[2]}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       quality={82}
@@ -652,6 +543,7 @@ export default function Home() {
                     <BentoVideo
                       src="/bento/video/two.mov"
                       fallbackImage="/bento/photo/IMG_1817.jpg"
+                      fallbackAlt={t.mediaBento.videoFallbackAlt}
                       fallbackSizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="transition-transform duration-700 group-hover:scale-105"
                     />
@@ -661,7 +553,7 @@ export default function Home() {
                   <div className="group relative col-span-2 row-span-2 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-2">
                     <Image
                       src="/bento/photo/IMG_1816.jpg"
-                      alt=""
+                      alt={t.mediaBento.photoAlts[3]}
                       fill
                       sizes="(max-width: 1024px) 100vw, 25vw"
                       quality={82}
@@ -672,7 +564,7 @@ export default function Home() {
                   <div className="group relative col-span-2 row-span-2 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-2">
                     <Image
                       src="/bento/photo/IMG_1817.jpg"
-                      alt=""
+                      alt={t.mediaBento.photoAlts[4]}
                       fill
                       sizes="(max-width: 1024px) 100vw, 25vw"
                       quality={82}

@@ -159,12 +159,12 @@ export function ResultCard({ priceRange, timeRange, data }: ResultCardProps) {
                 </span>
                 <span className="font-medium">{breakdown.packageEur} €</span>
               </li>
-              {breakdown.largeVehicleEur > 0 && (
+              {breakdown.vehicleSizeSurchargeEur > 0 && (
                 <li className="flex items-center justify-between">
                   <span>
-                    {t.calculator?.priceBreakdownLargeVehicle || "Large vehicle surcharge"}
+                    {t.calculator?.priceBreakdownLargeVehicle || "Vehicle size surcharge"}
                   </span>
-                  <span className="font-medium">+{breakdown.largeVehicleEur} €</span>
+                  <span className="font-medium">+{breakdown.vehicleSizeSurchargeEur} €</span>
                 </li>
               )}
               {breakdown.extremeConditionEur > 0 && (

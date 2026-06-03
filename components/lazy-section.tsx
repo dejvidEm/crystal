@@ -32,7 +32,7 @@ export function LazyLoadSection({ children, delay = 0, className = "" }: LazyLoa
         visible: { opacity: 1, y: 0 },
       }}
       transition={{ duration: 0.6, delay, ease: "easeOut" }}
-      className={className}
+      className={className ? `overflow-visible ${className}` : "overflow-visible"}
     >
       {children}
     </motion.div>

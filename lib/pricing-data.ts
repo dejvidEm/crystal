@@ -21,7 +21,10 @@ export type PackageData = {
   mostPopular?: boolean
 }
 
-export type AdditionalServiceIcon = "seats" | "ozone" | "leather"
+export type AdditionalServiceIcon = "headlights" | "engine"
+
+/** Ikony doplnkov v kalkulačke (ceny v `calculatorAddonCatalog`). */
+export type CalculatorAddonIcon = "seats" | "ozone" | "leather" | "headlights"
 
 /** Doplnky v kalkulačke — zhodné s kartami doplnkových služieb na webe */
 export const CALCULATOR_ADDONS = ["seats", "ozone", "leather"] as const
@@ -59,10 +62,67 @@ export function calculatorVehicleToCarSize(v: CalculatorVehicleSize): CarSize {
   return "van"
 }
 
-/** EUR za doplnok podľa veľkosti vozidla (čiarka z `additionalServices`) */
+/** Základné ceny balíkov (malé auto / hatchback). */
+export const PACKAGE_BASE_PRICE_EUR: Record<PackageKey, number> = {
+  refresh: 39,
+  essential: 79,
+  premium: 119,
+  ultimate: 49,
+}
+
+/**
+ * Prirážka oproti malej kategórii:
+ * - SUV/Crossover: REFRESH, INTERIÉR, TEPOVANIE +5 €; KOMPLET +10 €
+ * - Dodávka/Pickup: všetko +10 € okrem TEPOVANIA (+5 €)
+ */
+export function packageSurchargeByCarSize(key: PackageKey, size: CarSize): number {
+  if (size === "small") return 0
+  if (size === "suv") return key === "premium" ? 10 : 5
+  return key === "ultimate" ? 5 : 10
+}
+
+export function packagePriceByCarSize(key: PackageKey, size: CarSize): number {
+  return PACKAGE_BASE_PRICE_EUR[key] + packageSurchargeByCarSize(key, size)
+}
+
+export function packageSurchargeByVehicleType(
+  key: PackageKey,
+  vehicle: CalculatorVehicleSize | null,
+): number {
+  if (!vehicle) return 0
+  return packageSurchargeByCarSize(key, calculatorVehicleToCarSize(vehicle))
+}
+
+export function formatPriceLabel(eur: number, lang: "sk" | "en"): string {
+  return lang === "en" ? `€${eur}` : `${eur} €`
+}
+
+function packagePriceLabels(lang: "sk" | "en"): Record<PackageKey, PackageData["price"]> {
+  return PACKAGE_KEYS.reduce(
+    (acc, key) => {
+      acc[key] = {
+        small: formatPriceLabel(packagePriceByCarSize(key, "small"), lang),
+        suv: formatPriceLabel(packagePriceByCarSize(key, "suv"), lang),
+        van: formatPriceLabel(packagePriceByCarSize(key, "van"), lang),
+      }
+      return acc
+    },
+    {} as Record<PackageKey, PackageData["price"]>,
+  )
+}
+
+/** Cenník doplnkov v kalkulačke (nezobrazuje sa v sekcii doplnkových služieb na webe). */
+const calculatorAddonCatalog: { icon: CalculatorAddonIcon; price: AdditionalServiceData["price"] }[] = [
+  { icon: "seats", price: { small: "30 €", suv: "40 €", van: "45 €" } },
+  { icon: "ozone", price: { small: "25 €", suv: "35 €", van: "45 €" } },
+  { icon: "leather", price: { small: "40 €", suv: "45 €", van: "50 €" } },
+  { icon: "headlights", price: { small: "70 €", suv: "70 €", van: "70 €" } },
+]
+
+/** EUR za doplnok podľa veľkosti vozidla (kalkulačka). */
 export function calculatorAddonPriceEuro(addon: CalculatorAddon, vehicleSize: CalculatorVehicleSize): number {
   const tier = calculatorVehicleToCarSize(vehicleSize)
-  const row = additionalServices.find((s) => s.icon === addon)
+  const row = calculatorAddonCatalog.find((s) => s.icon === addon)
   if (!row) return 0
   const raw = row.price[tier]
   const n = euroAmountFromPriceLabel(String(raw))
@@ -77,18 +137,18 @@ export type AdditionalServiceData = {
     suv: string
     van: string
   }
+  features: string[]
+  footerNote?: string
   icon: AdditionalServiceIcon
 }
+
+const packagePricesSk = packagePriceLabels("sk")
 
 export const packages: Record<string, PackageData> = {
   refresh: {
     title: "REFRESH",
     subtitle: "Základný balík pre pravidelnú starostlivosť o vozidlo",
-    price: {
-      small: "39 €",
-      suv: "39 €",
-      van: "39 €",
-    },
+    price: packagePricesSk.refresh,
     features: [
       "Ručné umytie interiéru",
       "Vysávanie interiéru",
@@ -101,11 +161,7 @@ export const packages: Record<string, PackageData> = {
   essential: {
     title: "INTERIÉR",
     subtitle: "Kompletný hĺbkový detailing interiéru vozidla",
-    price: {
-      small: "79 €",
-      suv: "79 €",
-      van: "79 €",
-    },
+    price: packagePricesSk.essential,
     features: [
       "Všetko v balíku REFRESH",
       "Hĺbkový detailing interiéru",
@@ -120,11 +176,7 @@ export const packages: Record<string, PackageData> = {
   premium: {
     title: "KOMPLET",
     subtitle: "Kompletný detailing interiéru a exteriéru vozidla na profesionálnej úrovni",
-    price: {
-      small: "119 €",
-      suv: "119 €",
-      van: "119 €",
-    },
+    price: packagePricesSk.premium,
     mostPopular: true,
     features: [
       "Všetko v balíku INTERIÉR",
@@ -140,11 +192,7 @@ export const packages: Record<string, PackageData> = {
   ultimate: {
     title: "TEPOVANIE",
     subtitle: "Profesionálne tepovanie interiéru vozidla",
-    price: {
-      small: "49 €",
-      suv: "49 €",
-      van: "49 €",
-    },
+    price: packagePricesSk.ultimate,
     features: [
       "Tepovanie sedačiek",
       "Tepovanie koberčekov a podlahy",
@@ -165,21 +213,17 @@ function parseEuroFromPriceLabel(label: string): number {
  * Berieme malú kategóriu (pri týchto balíkoch sú ceny rovnaké pre SUV/van).
  */
 export function packageBasePriceFromPricelist(key: PackageKey): number {
-  const pkg = packages[key]
-  if (!pkg) return 0
-  return parseEuroFromPriceLabel(pkg.price.small)
+  return PACKAGE_BASE_PRICE_EUR[key] ?? 0
 }
+
+const packagePricesEn = packagePriceLabels("en")
 
 /** English copy for calculator / EN locale (keep in sync with `packages`). */
 export const packagesEn: Record<PackageKey, PackageData> = {
   refresh: {
     title: "REFRESH",
     subtitle: "Core package for regular vehicle care",
-    price: {
-      small: "€39",
-      suv: "€39",
-      van: "€39",
-    },
+    price: packagePricesEn.refresh,
     features: [
       "Hand interior wash",
       "Interior vacuuming",
@@ -192,11 +236,7 @@ export const packagesEn: Record<PackageKey, PackageData> = {
   essential: {
     title: "INTERIOR",
     subtitle: "Full deep interior detailing",
-    price: {
-      small: "€79",
-      suv: "€79",
-      van: "€79",
-    },
+    price: packagePricesEn.essential,
     features: [
       "Everything in the REFRESH package",
       "Deep interior detailing",
@@ -211,11 +251,7 @@ export const packagesEn: Record<PackageKey, PackageData> = {
   premium: {
     title: "COMPLETE",
     subtitle: "Professional full interior and exterior detailing",
-    price: {
-      small: "€119",
-      suv: "€119",
-      van: "€119",
-    },
+    price: packagePricesEn.premium,
     mostPopular: true,
     features: [
       "Everything in the INTERIOR package",
@@ -230,11 +266,7 @@ export const packagesEn: Record<PackageKey, PackageData> = {
   ultimate: {
     title: "UPHOLSTERY",
     subtitle: "Professional interior upholstery cleaning",
-    price: {
-      small: "€49",
-      suv: "€49",
-      van: "€49",
-    },
+    price: packagePricesEn.ultimate,
     features: [
       "Seat shampooing",
       "Carpet and floor shampooing",
@@ -247,67 +279,71 @@ export const packagesEn: Record<PackageKey, PackageData> = {
 
 export const additionalServices: AdditionalServiceData[] = [
   {
-    name: "Tepovanie textilných sedačiek ",
-    description: "Profesionálna hĺbková extrakcia znečistenej textílie",
+    name: "Renovácia svetlometov",
+    description: "Kompletná úprava oboch predných svetlometov",
     price: {
-      small: "€30",
-      suv: "€40",
-      van: "€45",
+      small: "70 €",
+      suv: "70 €",
+      van: "70 €",
     },
-    icon: "seats",
+    features: [
+      "Odstránenie oxidácie a zažltnutia",
+      "Leštenie svetlometov",
+      "Nanesenie UV ochrany",
+    ],
+    footerNote: "za oba svetlomety",
+    icon: "headlights",
   },
   {
-    name: "Dezinfekcia ozónom",
-    description: "Eliminovanie zápachov a dezinfekcia priestoru a povrchov vozidla",
+    name: "Čistenie motorového priestoru",
+    description: "Vyčistenie a úprava motorového priestoru pre reprezentatívny vzhľad",
     price: {
-      small: "€25",
-      suv: "€35",
-      van: "€45",
+      small: "70 €",
+      suv: "70 €",
+      van: "70 €",
     },
-    icon: "ozone",
-  },
-  {
-    name: "Čistenie a impregnácia koženého čalúnenia a sedadiel",
-    description: "Hĺbkové čistenie a impregnácia kožených častí vozidla",
-    price: {
-      small: "€40",
-      suv: "€45",
-      van: "€50",
-    },
-    icon: "leather",
+    features: [
+      "Dôkladné čistenie motorového priestoru",
+      "Odstránenie prachu, mastnoty a nečistôt",
+      "Úprava plastov a hadíc",
+      "Prezentovateľný vzhľad pod kapotou",
+    ],
+    icon: "engine",
   },
 ]
 
 /** English copy for homepage additional-service cards (same order as `additionalServices`). */
 export const additionalServicesEn: AdditionalServiceData[] = [
   {
-    name: "Fabric seat shampooing",
-    description: "Professional deep extraction for heavily soiled fabrics",
+    name: "Headlight restoration",
+    description: "Full restoration of both front headlights",
     price: {
-      small: "€30",
-      suv: "€40",
-      van: "€45",
+      small: "€70",
+      suv: "€70",
+      van: "€70",
     },
-    icon: "seats",
+    features: [
+      "Oxidation and yellowing removal",
+      "Headlight polishing",
+      "UV protection applied",
+    ],
+    footerNote: "for both headlights",
+    icon: "headlights",
   },
   {
-    name: "Ozone disinfection",
-    description: "Odour removal and disinfection of cabin surfaces",
+    name: "Engine bay cleaning",
+    description: "Cleaning and detailing of the engine compartment",
     price: {
-      small: "€25",
-      suv: "€35",
-      van: "€45",
+      small: "€70",
+      suv: "€70",
+      van: "€70",
     },
-    icon: "ozone",
-  },
-  {
-    name: "Leather upholstery cleaning & protection",
-    description: "Deep cleaning and protection for leather trim and seats",
-    price: {
-      small: "€40",
-      suv: "€45",
-      van: "€50",
-    },
-    icon: "leather",
+    features: [
+      "Thorough engine bay cleaning",
+      "Dust, grease and grime removal",
+      "Plastics and hoses dressed",
+      "Show-ready look under the hood",
+    ],
+    icon: "engine",
   },
 ]

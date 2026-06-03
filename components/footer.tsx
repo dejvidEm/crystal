@@ -78,8 +78,20 @@ export function Footer() {
                   <Link href="/o-nas" className="text-zinc-400 hover:text-primary transition-colors">
                     {t.nav.aboutUs}
                   </Link>
+                  <Link href="/cennik" className="text-zinc-400 hover:text-primary transition-colors">
+                    {t.nav.pricing}
+                  </Link>
                   <Link href="/#services" className="text-zinc-400 hover:text-primary transition-colors">
                     {t.nav.services}
+                  </Link>
+                  <Link href="/mobilny-detailing" className="text-zinc-400 hover:text-primary transition-colors">
+                    {t.footer.serviceMobilnyDetailing}
+                  </Link>
+                  <Link href="/tepovanie" className="text-zinc-400 hover:text-primary transition-colors">
+                    {t.footer.serviceTepovanie}
+                  </Link>
+                  <Link href="/renovacia-svetlometov" className="text-zinc-400 hover:text-primary transition-colors">
+                    {t.footer.serviceRenovaciaSvetlometov}
                   </Link>
                   <Link href="/#how-it-works" className="text-zinc-400 hover:text-primary transition-colors">
                     {t.nav.howItWorks}

@@ -8,7 +8,9 @@ import { LanguageProvider } from "@/lib/i18n/language-context"
 import { parseLanguage } from "@/lib/i18n/language-cookie"
 import { LanguageTransition } from "@/components/language-transition"
 import { CookieConsent } from "@/components/cookie-consent"
+import { SiteGraphJsonLd } from "@/components/seo/site-graph-json-ld"
 import { LocalBusinessStructuredData } from "@/components/structured-data"
+import { metaDescription } from "@/lib/seo-meta"
 import { Analytics } from "@vercel/analytics/next"
 
 // Optimize font loading
@@ -26,8 +28,9 @@ export const metadata: Metadata = {
     default: "Crystal Detailing | Prémiový mobilný detailing v Bratislave",
     template: "%s | Crystal Detailing",
   },
-  description:
-    "Prvá mobilná služba detailingu luxusných áut na Slovensku, ktorá príde k vám. Profesionálny detailing pre luxusné vozidlá v celej Bratislave, Pezinoku, Sencu a okolí.",
+  description: metaDescription(
+    "Prvá mobilná služba detailingu luxusných áut na Slovensku, ktorá príde k vám. Profesionálny detailing v Bratislave, Pezinoku, Senci a okolí.",
+  ),
   keywords: [
     "mobilný detailing",
     "detailing auta",
@@ -66,7 +69,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Crystal Detailing | Prémiový mobilný detailing v Bratislave",
-    description: "Prvá mobilná služba detailingu luxusných áut na Slovensku, ktorá príde k vám. Profesionálny detailing pre luxusné vozidlá v celej Bratislave a okolí.",
+    description: metaDescription(
+      "Prvá mobilná služba detailingu luxusných áut na Slovensku, ktorá príde k vám. Profesionálny detailing v Bratislave a okolí.",
+    ),
     url: baseUrl,
     siteName: "Crystal Detailing",
     locale: "sk_SK",
@@ -110,6 +115,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={initialLanguage === "en" ? "en" : "sk"} suppressHydrationWarning className="scroll-smooth">
       <body className={`${inter.className} antialiased`}>
+        <SiteGraphJsonLd />
         <LocalBusinessStructuredData />
         <LanguageProvider initialLanguage={initialLanguage}>
           <LanguageTransition />

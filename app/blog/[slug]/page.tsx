@@ -4,6 +4,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BlogArticlePageClient } from "@/components/blog/blog-article-page-client"
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data"
+import { metaDescription } from "@/lib/seo-meta"
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!post) return { title: "Článok nenájdený" }
 
   const title = post.title.sk
-  const description = post.excerpt.sk
+  const description = metaDescription(post.excerpt.sk)
   const url = `https://crystaldetailing.sk/blog/${slug}`
 
   return {

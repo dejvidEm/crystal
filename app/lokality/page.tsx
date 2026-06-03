@@ -7,12 +7,14 @@ import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 import { zahorieATrnavaDistricts } from '@/lib/district-pages-data'
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/site-config'
+import { metaDescription } from '@/lib/seo-meta'
 
 export const metadata: Metadata = {
   title:
     'Lokality | Mobilný detailing Bratislava, okresy Malacky, Senica, Skalica, Trnava, Galanta, Dunajská Streda',
-  description:
-    'Crystal Detailing — mobilný detailing v Bratislave, Pezinoku, Senci, Chorvátskom Grobe a na Záhorí (okres Malacky, Senica, Skalica), v Trnavskom kraji (okres Trnava, Galanta, Dunajská Streda). Prídeme k vám.',
+  description: metaDescription(
+    'Mobilný detailing v Bratislave, Pezinoku, Senci, na Záhorí a v Trnavskom kraji. Crystal Detailing príde priamo k vám domov alebo do firmy.',
+  ),
   keywords: [
     'mobilný detailing Bratislava',
     'mobilný detailing okres Malacky',

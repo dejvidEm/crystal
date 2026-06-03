@@ -8,10 +8,33 @@ export const sk = {
   nav: {
     aboutUs: "O\u00A0nás",
     services: "Služby",
+    servicesMenu: "Menu služieb",
+    pricing: "Cenník",
     howItWorks: "Ako\u00A0to\u00A0funguje",
     blog: "Blog",
     reviews: "Recenzie",
     contact: "Kontakt",
+  },
+  cennikPage: {
+    h1: "Cenník služieb",
+    intro:
+      "Prehľad balíkov a doplnkových služieb Crystal Detailing. Ceny balíkov sa menia podľa veľkosti vozidla – vyberte kategóriu vyššie. Presnú ponuku získate aj v kalkulačke.",
+    packagesHeading: "Balíky",
+    addonsHeading: "Doplnkové služby",
+    backHome: "Späť na úvod",
+  },
+  seo: {
+    breadcrumbAria: "Navigácia stránky",
+    breadcrumbHome: "Domov",
+    breadcrumbServices: "Služby",
+    breadcrumbPricing: "Cenník",
+  },
+  servicePage: {
+    highlightsTitle: "Hlavné výhody",
+    includesTitle: "Čo je súčasťou služby",
+    relatedTitle: "Súvisiace stránky",
+    bookNow: "Rezervovať termín",
+    getQuote: "Cenová kalkulačka",
   },
   hero: {
     promoBadge: "Letná akcia −10 % na všetky balíky",
@@ -28,6 +51,9 @@ export const sk = {
     beforeLabel: "Pred",
     afterLabel: "Po",
     dragHint: "Potiahnite alebo kliknite na fotku pre porovnanie",
+    decorativeBackgroundAlt: "Čisté auto po mobilnom detailingu Crystal Detailing",
+    beforeImageAlt: "Auto pred mobilným detailingom Crystal Detailing",
+    afterImageAlt: "Auto po mobilnom detailingu Crystal Detailing",
   },
   about: {
     title: "O Crystal Detailing",
@@ -86,6 +112,7 @@ export const sk = {
     title: "Naše prémiové balíky",
     subtitle:
       "Vyberte si z našich starostlivo vytvorených detailingových balíkov navrhnutých na obnovu a ochranu vášho vozidla",
+    mostPopularLabel: "Najobľúbenejšie",
     essential: {
       title: "Balík interiér",
       subtitle: "Ideálny pre pravidelnú údržbu interiéru",
@@ -167,7 +194,7 @@ export const sk = {
         price: "€70",
       },
     ],
-    note: "Všetky doplnkové služby je možné pridať k akémukoľvek balíku. Ceny sa môžu líšiť v závislosti od veľkosti a stavu vozidla.",
+    note: "Doplnkové služby je možné objednať samostatne alebo pridať k akémukoľvek balíku. Presná cena sa môže líšiť podľa stavu vozidla.",
     new: "Nové",
   },
   headlightRenewal: {
@@ -230,12 +257,21 @@ export const sk = {
     labels: {
       mobileStudio: "Mobilné štúdio v akcii",
     },
+    photoAlts: [
+      "Detailné čistenie interiéru vozidla po mobilnom detailingu",
+      "Mobilná detailingová jednotka Crystal pri práci na lokalite",
+      "Výsledok čistenia exteriéru luxusného vozidla",
+      "Profesionálna starostlivosť o interiér automobilu",
+      "Mobilný detailing Crystal – práca na exteriéri vozidla",
+    ],
+    videoFallbackAlt: "Mobilné štúdio Crystal Detailing pri práci na zákazníckom aute",
   },
   reviews: {
     title: "Čo hovoria naši klienti",
     subtitle: "Zistite, prečo nám naši klienti dôverujú so svojimi cenenými vozidlami",
     previousReview: "Predchádzajúca recenzia",
     nextReview: "Ďalšia recenzia",
+    avatarAlt: "Spokojný zákazník Crystal Detailing",
   },
   faq: {
     title: "Často kladené otázky",
@@ -311,18 +347,24 @@ export const sk = {
     sidebarCategories: "Kategórie",
     allCategories: "Všetky články",
     noPosts: "V tejto kategórii zatiaľ nie sú žiadne články.",
+    sortLabel: "Radenie",
+    sortNewest: "Od najnovších",
+    sortOldest: "Od najstarších",
     loading: "Načítavam…",
     readingTimeOne: "1 min čítania",
     readingTimeMany: "{minutes} min čítania",
   },
   footer: {
     tagline:
-      "Prvá luxusná mobilná detailingová služba pre autá na Slovensku, ktorá príde priamo k vám.",
+      "Prvá luxusná mobilná detailingová služba, ktorá príde priamo k vám.",
     contactHeading: "Kontakt",
     quickLinksHeading: "Rýchle odkazy",
     locations: "Lokality",
     blog: "Blog",
     priceCalculator: "Cenová kalkulačka",
+    serviceMobilnyDetailing: "Mobilný detailing",
+    serviceTepovanie: "Tepovanie",
+    serviceRenovaciaSvetlometov: "Renovácia svetlometov",
     privacyPolicy: "Ochrana osobných údajov",
     termsOfService: "Obchodné podmienky",
     contactUs: "Kontaktujte nás",
@@ -350,7 +392,7 @@ export const sk = {
     next: "Ďalej",
     calculating: "Počítanie...",
     almostDone: "Už ste skoro hotoví (zostávajú 2 kroky)",
-    mostPopular: "Najobľúbenejší",
+    mostPopular: "Najobľúbenejšie",
     step1Title: "Aký typ vozidla máte?",
     vehicleSmall: "Malé",
     vehicleSmallDesc: "Hatchback / Sedan",

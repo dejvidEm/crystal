@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { metaDescription } from "@/lib/seo-meta"
 
 const base = "https://crystaldetailing.sk"
 
@@ -22,9 +23,11 @@ function metaFor(
   description: string,
 ): Metadata {
   const url = `${base}/${slug}`
+  const descriptionMeta = metaDescription(description)
+
   return {
     title,
-    description,
+    description: descriptionMeta,
     alternates: { canonical: url },
     keywords: [
       `mobilný detailing ${slug.replace(/-/g, " ")}`,
@@ -35,7 +38,7 @@ function metaFor(
     ],
     openGraph: {
       title: `${title} | Crystal Detailing`,
-      description,
+      description: descriptionMeta,
       url,
     },
   }

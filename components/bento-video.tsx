@@ -8,6 +8,7 @@ type BentoVideoProps = {
   src: string
   /** Shown only if the video fails to load/decode (e.g. unsupported .mov). */
   fallbackImage: string
+  fallbackAlt: string
   className?: string
   /** Passed to next/image when fallback is used. */
   fallbackSizes?: string
@@ -18,7 +19,7 @@ type BentoVideoProps = {
  * pauses off-screen to save CPU/GPU and bandwidth (preload="none").
  * If playback is not possible, shows fallbackImage so the tile is never empty.
  */
-export function BentoVideo({ src, fallbackImage, className, fallbackSizes }: BentoVideoProps) {
+export function BentoVideo({ src, fallbackImage, fallbackAlt, className, fallbackSizes }: BentoVideoProps) {
   const [useFallback, setUseFallback] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -53,7 +54,7 @@ export function BentoVideo({ src, fallbackImage, className, fallbackSizes }: Ben
       <div className="absolute inset-0">
         <Image
           src={fallbackImage}
-          alt=""
+          alt={fallbackAlt}
           fill
           quality={82}
           sizes={fallbackSizes ?? "(max-width: 640px) 100vw, 25vw"}

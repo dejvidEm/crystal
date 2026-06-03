@@ -25,8 +25,12 @@ import {
   PACKAGE_KEYS,
   packages,
   packagesEn,
+  formatPriceLabel,
+  packagePriceByCarSize,
+  calculatorVehicleToCarSize,
   type PackageData,
   type PackageKey,
+  type CalculatorVehicleSize,
 } from "@/lib/pricing-data"
 import { useLanguage } from "@/lib/i18n/language-context"
 
@@ -323,9 +327,11 @@ export default function CalculatorPage() {
                                   key={key}
                                   value={key}
                                   packageData={pkg}
+                                  vehicleType={data.vehicleType}
                                   selected={data.mainService === key}
                                   name="mainService"
                                   t={t}
+                                  language={language === "en" ? "en" : "sk"}
                                 />
                               )
                             })}
@@ -532,16 +538,23 @@ export default function CalculatorPage() {
 function PackageOptionCard({
   value,
   packageData,
+  vehicleType,
   selected,
   name,
   t,
+  language,
 }: {
   value: PackageKey
   packageData: PackageData
+  vehicleType: CalculatorVehicleSize | null
   selected: boolean
   name?: string
   t?: { calculator?: { mostPopular?: string } }
+  language: "sk" | "en"
 }) {
+  const carSize = vehicleType ? calculatorVehicleToCarSize(vehicleType) : "small"
+  const displayPrice = formatPriceLabel(packagePriceByCarSize(value, carSize), language)
+
   return (
     <div className="relative">
       <label
@@ -560,7 +573,7 @@ function PackageOptionCard({
         </div>
         <div className="font-semibold tracking-tight">{packageData.title}</div>
         <p className="mt-1 text-sm text-muted-foreground">{packageData.subtitle}</p>
-        <p className="mt-2 text-sm font-semibold text-primary">{packageData.price.small}</p>
+        <p className="mt-2 text-sm font-semibold text-primary">{displayPrice}</p>
         <ul className="mt-4 space-y-2 border-t border-border pt-4">
           {packageData.features.map((feature, index) => (
             <li key={index} className="flex items-start gap-2 text-sm text-foreground/90">

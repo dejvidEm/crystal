@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { CONTACT_EMAIL } from '@/lib/site-config'
+import { ORGANIZATION_SAME_AS } from '@/lib/seo-site'
 
 interface LocalBusinessSchema {
   '@context': string
@@ -114,11 +115,7 @@ export function LocalBusinessStructuredData() {
           closes: '20:00',
         },
       ],
-      sameAs: [
-        // Add actual social media URLs when available
-        // 'https://www.facebook.com/crystaldetailing',
-        // 'https://www.instagram.com/crystaldetailing',
-      ],
+      sameAs: [...ORGANIZATION_SAME_AS],
     }
 
     const script = document.createElement('script')

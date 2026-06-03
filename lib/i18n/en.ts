@@ -8,10 +8,33 @@ export const en = {
   nav: {
     aboutUs: "About Us",
     services: "Services",
+    servicesMenu: "Services menu",
+    pricing: "Price list",
     howItWorks: "How\u00A0It\u00A0Works",
     blog: "Blog",
     reviews: "Reviews",
     contact: "Contact",
+  },
+  cennikPage: {
+    h1: "Service price list",
+    intro:
+      "Overview of Crystal Detailing packages and add-on services. Package prices vary by vehicle size—select a category above. Get an exact quote in our calculator.",
+    packagesHeading: "Packages",
+    addonsHeading: "Add-on services",
+    backHome: "Back to home",
+  },
+  seo: {
+    breadcrumbAria: "Page navigation",
+    breadcrumbHome: "Home",
+    breadcrumbServices: "Services",
+    breadcrumbPricing: "Price list",
+  },
+  servicePage: {
+    highlightsTitle: "Key benefits",
+    includesTitle: "What is included",
+    relatedTitle: "Related pages",
+    bookNow: "Book now",
+    getQuote: "Price calculator",
   },
   hero: {
     promoBadge: "Summer sale −10% on all packages",
@@ -28,6 +51,9 @@ export const en = {
     beforeLabel: "Before",
     afterLabel: "After",
     dragHint: "Drag or tap the photo to compare",
+    decorativeBackgroundAlt: "Clean car after Crystal Detailing mobile service",
+    beforeImageAlt: "Car before Crystal Detailing mobile service",
+    afterImageAlt: "Car after Crystal Detailing mobile service",
   },
   about: {
     title: "About Crystal Detailing",
@@ -86,6 +112,7 @@ export const en = {
     title: "Our Premium Packages",
     subtitle:
       "Choose from our carefully crafted detailing packages designed to restore and protect your vehicle",
+    mostPopularLabel: "Most popular",
     essential: {
       title: "Interior Package",
       subtitle: "Ideal for regular interior maintenance",
@@ -161,7 +188,7 @@ export const en = {
         price: "€70",
       },
     ],
-    note: "All additional services can be added to any package. Prices may vary based on vehicle size and condition.",
+    note: "Additional services can be booked on their own or added to any package. The final price may vary depending on vehicle condition.",
     new: "New",
   },
   headlightRenewal: {
@@ -224,12 +251,21 @@ export const en = {
     labels: {
       mobileStudio: "Mobile studio in action",
     },
+    photoAlts: [
+      "Detailed interior cleaning after mobile detailing",
+      "Crystal mobile detailing unit at work on site",
+      "Luxury vehicle exterior after professional cleaning",
+      "Professional care for vehicle interior surfaces",
+      "Crystal mobile detailing – exterior work in progress",
+    ],
+    videoFallbackAlt: "Crystal Detailing mobile studio working on a customer car",
   },
   reviews: {
     title: "What Our Clients Say",
     subtitle: "Discover why our clients trust us with their prized vehicles",
     previousReview: "Previous review",
     nextReview: "Next review",
+    avatarAlt: "Satisfied Crystal Detailing customer",
   },
   faq: {
     title: "Frequently Asked Questions",
@@ -305,6 +341,9 @@ export const en = {
     sidebarCategories: "Categories",
     allCategories: "All articles",
     noPosts: "No articles in this category yet.",
+    sortLabel: "Sort",
+    sortNewest: "Newest first",
+    sortOldest: "Oldest first",
     loading: "Loading…",
     readingTimeOne: "1 min read",
     readingTimeMany: "{minutes} min read",
@@ -316,6 +355,9 @@ export const en = {
     locations: "Locations",
     blog: "Blog",
     priceCalculator: "Price Calculator",
+    serviceMobilnyDetailing: "Mobile detailing",
+    serviceTepovanie: "Car upholstery cleaning",
+    serviceRenovaciaSvetlometov: "Headlight restoration",
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
     contactUs: "Contact Us",
@@ -349,7 +391,7 @@ export const en = {
     next: "Next",
     calculating: "Calculating...",
     almostDone: "You're almost done (2 steps left)",
-    mostPopular: "Popular",
+    mostPopular: "Most popular",
     step1Title: "What type of vehicle do you have?",
     vehicleSmall: "Small",
     vehicleSmallDesc: "Hatchback / Sedan",

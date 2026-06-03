@@ -3,6 +3,9 @@
  * Nový článok: pridaj záznam do `blogPosts` (zoradené od najnovšieho).
  */
 
+import { mobilnyDetailingPredDovolenkou } from "@/lib/blog-posts/mobilny-detailing-pred-dovolenkou"
+import { renovaciaSvetlometovMobilne } from "@/lib/blog-posts/renovacia-svetlometov-mobilne"
+
 export type BlogCategoryId =
   | "detailing-tips"
   | "tepovanie"
@@ -38,6 +41,8 @@ export type BlogPost = {
 }
 
 export const blogPosts: BlogPost[] = [
+  renovaciaSvetlometovMobilne,
+  mobilnyDetailingPredDovolenkou,
   {
     slug: "preco-mobilny-detailing-bratislava",
     category: "mobilny-detailing",
@@ -340,10 +345,20 @@ export function getCategoryLabel(id: BlogCategoryId, lang: "sk" | "en"): string 
   return getCategoryById(id)?.label[lang] ?? id
 }
 
-export function getAllPosts(): BlogPost[] {
-  return [...blogPosts].sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-  )
+export type BlogSortOrder = "newest" | "oldest"
+
+export const DEFAULT_BLOG_SORT: BlogSortOrder = "newest"
+
+/** Query `radenie`: `najstarsie` = oldest first; absent or other = newest first */
+export function parseBlogSort(param: string | null): BlogSortOrder {
+  return param === "najstarsie" ? "oldest" : "newest"
+}
+
+export function getAllPosts(sort: BlogSortOrder = DEFAULT_BLOG_SORT): BlogPost[] {
+  return [...blogPosts].sort((a, b) => {
+    const diff = new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    return sort === "newest" ? diff : -diff
+  })
 }
 
 export function getLatestPosts(limit: number): BlogPost[] {
@@ -354,8 +369,11 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug)
 }
 
-export function getPostsByCategory(category: BlogCategoryId | null): BlogPost[] {
-  const sorted = getAllPosts()
+export function getPostsByCategory(
+  category: BlogCategoryId | null,
+  sort: BlogSortOrder = DEFAULT_BLOG_SORT,
+): BlogPost[] {
+  const sorted = getAllPosts(sort)
   if (!category) return sorted
   return sorted.filter((p) => p.category === category)
 }

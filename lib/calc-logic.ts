@@ -1,4 +1,8 @@
-import type { PackageKey } from "./pricing-data"
+import {
+  PACKAGE_BASE_PRICE_EUR,
+  packageSurchargeByVehicleType,
+  type PackageKey,
+} from "./pricing-data"
 
 /**
  * Čistý čas práce podľa balíka (v minútach).
@@ -24,15 +28,7 @@ export const EXTREME_CONDITION_DURATION_MINUTES = 20
  * Fixné ceny balíkov v kalkulačke (musia sa zhodovať s cenníkom na webe).
  * Rovnaké pre všetky veľkosti vozidiel – rozdiel rieši samostatná prirážka nižšie.
  */
-export const PACKAGE_PRICES_EUR: Record<PackageKey, number> = {
-  refresh: 39,
-  essential: 79,
-  premium: 119,
-  ultimate: 49,
-}
-
-/** Prirážka za veľké vozidlo (krok 1: výber veľkosti = "large"). */
-export const LARGE_VEHICLE_SURCHARGE_EUR = 10
+export const PACKAGE_PRICES_EUR: Record<PackageKey, number> = PACKAGE_BASE_PRICE_EUR
 
 /** Prirážka za extrémne znečistenie (krok 2: stav = "extreme"). */
 export const EXTREME_CONDITION_SURCHARGE_EUR = 10
@@ -80,7 +76,8 @@ export interface TimeRange {
 
 export interface PriceBreakdown {
   packageEur: number
-  largeVehicleEur: number
+  /** Prirážka podľa veľkosti vozidla (SUV / dodávka). */
+  vehicleSizeSurchargeEur: number
   extremeConditionEur: number
   totalEur: number
 }
@@ -91,21 +88,24 @@ export interface PriceBreakdown {
  */
 export function getPriceBreakdown(data: CalculatorData): PriceBreakdown {
   if (!data.mainService) {
-    return { packageEur: 0, largeVehicleEur: 0, extremeConditionEur: 0, totalEur: 0 }
+    return { packageEur: 0, vehicleSizeSurchargeEur: 0, extremeConditionEur: 0, totalEur: 0 }
   }
   const packageEur = PACKAGE_PRICES_EUR[data.mainService] ?? 0
-  const largeVehicleEur = data.vehicleType === "large" ? LARGE_VEHICLE_SURCHARGE_EUR : 0
+  const vehicleSizeSurchargeEur = packageSurchargeByVehicleType(
+    data.mainService,
+    data.vehicleType,
+  )
   const extremeConditionEur = data.condition === "extreme" ? EXTREME_CONDITION_SURCHARGE_EUR : 0
   return {
     packageEur,
-    largeVehicleEur,
+    vehicleSizeSurchargeEur,
     extremeConditionEur,
-    totalEur: packageEur + largeVehicleEur + extremeConditionEur,
+    totalEur: packageEur + vehicleSizeSurchargeEur + extremeConditionEur,
   }
 }
 
 /**
- * Cena pre UI = fixná suma = základ balíka (+10 € pri large) (+10 € pri extreme).
+ * Cena pre UI = základ balíka + prirážka za veľkosť (+10 € pri extreme).
  * Žiadne doplnky, žiadne rozpätie ±%.
  */
 export function calculatePrice(data: CalculatorData): PriceRange {

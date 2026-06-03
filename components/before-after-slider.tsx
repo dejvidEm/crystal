@@ -9,6 +9,8 @@ type BeforeAfterSliderProps = {
   afterSrc: string
   beforeLabel: string
   afterLabel: string
+  beforeImageAlt: string
+  afterImageAlt: string
   dragHint?: string
 }
 
@@ -17,6 +19,8 @@ export function BeforeAfterSlider({
   afterSrc,
   beforeLabel,
   afterLabel,
+  beforeImageAlt,
+  afterImageAlt,
   dragHint,
 }: BeforeAfterSliderProps) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -59,7 +63,7 @@ export function BeforeAfterSlider({
       >
         <Image
           src={afterSrc}
-          alt=""
+          alt={afterImageAlt}
           fill
           className="absolute inset-0 object-cover"
           sizes="(max-width: 768px) 100vw, min(1152px, 92vw)"
@@ -69,7 +73,7 @@ export function BeforeAfterSlider({
 
         <Image
           src={beforeSrc}
-          alt=""
+          alt={beforeImageAlt}
           fill
           className="absolute inset-0 object-cover"
           sizes="(max-width: 768px) 100vw, min(1152px, 92vw)"

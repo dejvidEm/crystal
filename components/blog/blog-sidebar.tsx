@@ -16,8 +16,12 @@ export function BlogSidebar() {
   const isBlogIndex = pathname === "/blog"
 
   function categoryHref(id: BlogCategoryId | null): string {
-    if (!id) return "/blog"
-    return `/blog?kategoria=${id}`
+    const params = new URLSearchParams()
+    if (id) params.set("kategoria", id)
+    const radenie = searchParams.get("radenie")
+    if (radenie === "najstarsie") params.set("radenie", "najstarsie")
+    const q = params.toString()
+    return q ? `/blog?${q}` : "/blog"
   }
 
   return (

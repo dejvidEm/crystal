@@ -3,40 +3,54 @@
 import { Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import type { PackageData } from "@/lib/pricing-data"
+import {
+  formatPriceLabel,
+  packagePriceByCarSize,
+  type PackageData,
+  type PackageKey,
+} from "@/lib/pricing-data"
 import { useCarSizeStore } from "@/lib/car-size-store"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { bookioUrl } from "@/lib/site-config"
 
 interface PricingPackageCardProps {
+  packageKey: PackageKey
   packageData: PackageData
   delay?: number
 }
 
-export function PricingPackageCard({ packageData, delay = 0 }: PricingPackageCardProps) {
+export function PricingPackageCard({ packageKey, packageData, delay = 0 }: PricingPackageCardProps) {
   const { carSize } = useCarSizeStore()
-  const { t } = useLanguage()
+  const { language, t } = useLanguage()
+  const lang = language === "en" ? "en" : "sk"
+  const displayPrice = formatPriceLabel(packagePriceByCarSize(packageKey, carSize), lang)
 
   return (
-    <Card
-      className={`glass-card border-0 overflow-hidden ${packageData.mostPopular ? "relative border-primary/20" : ""}`}
-    >
-      {packageData.mostPopular && (
-        <div className="absolute -top-4 left-0 right-0 flex justify-center">
-          <span className="rounded-full bg-primary px-4 py-1 text-xs font-semibold uppercase text-black">
-            {t.services.premium.mostPopular}
-          </span>
-        </div>
-      )}
-      <CardHeader>
+    <div className="relative h-full">
+      <Card
+        className={`glass-card relative flex h-full flex-col overflow-visible ${
+          packageData.mostPopular
+            ? "border border-primary/45 shadow-[0_0_28px_-6px_hsl(var(--primary)/0.35)]"
+            : "border-0"
+        }`}
+      >
+        {packageData.mostPopular && (
+          <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2">
+            <span className="whitespace-nowrap rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-black shadow-md">
+              {t.services.mostPopularLabel}
+            </span>
+          </div>
+        )}
+      <CardHeader className={packageData.mostPopular ? "pt-10" : undefined}>
         <CardTitle className="text-2xl text-primary">{packageData.title}</CardTitle>
         <CardDescription className="text-zinc-400">{packageData.subtitle}</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex-1">
         <div className="mb-6 flex flex-wrap items-baseline gap-2">
           {packageData.originalPrice && (
             <span className="text-lg font-medium text-zinc-500 line-through">{packageData.originalPrice}</span>
           )}
-          <span className="text-3xl font-bold text-white">{packageData.price[carSize]}</span>
+          <span className="text-3xl font-bold text-white">{displayPrice}</span>
         </div>
         <ul className="space-y-3">
           {packageData.features.map((feature, index) => (
@@ -52,13 +66,17 @@ export function PricingPackageCard({ packageData, delay = 0 }: PricingPackageCar
           </p>
         )}
       </CardContent>
-      <CardFooter>
+      <CardFooter className="mt-auto">
         <Button
+          asChild
           className={`w-full ${packageData.mostPopular ? "bg-primary text-primary-foreground hover:bg-primary/90" : "bg-white/10 hover:bg-white/20 text-white border border-white/20"}`}
         >
-          {t.services.essential.selectPackage}
+          <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+            {t.services.essential.selectPackage}
+          </a>
         </Button>
       </CardFooter>
-    </Card>
+      </Card>
+    </div>
   )
 }
