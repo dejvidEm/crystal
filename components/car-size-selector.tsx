@@ -14,8 +14,7 @@ export function CarSizeSelector() {
   }
 
   return (
-    <div className="flex flex-col items-center mb-8">
-      <h3 className="text-zinc-300 mb-2 mt-8 text-sm">{t.carSizes.selectVehicleSize}</h3>
+    <div className="mb-8 mt-6 flex flex-col items-center">
       <Tabs value={carSize} onValueChange={handleCarSizeChange} className="w-full max-w-md">
         <TabsList className="grid grid-cols-3 w-full">
           <TabsTrigger value="small">{t.carSizes.small}</TabsTrigger>

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { BackToHomeLink } from "@/components/seo/back-to-home-link"
 import { PageBreadcrumbs } from "@/components/seo/page-breadcrumbs"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { getServicePageCopy, type ServicePageSlug } from "@/lib/service-pages-data"
@@ -24,8 +25,9 @@ export function ServiceLandingPage({ slug }: ServiceLandingPageProps) {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <Navbar />
-      <main className="pt-28 pb-20">
-        <div className="container mx-auto px-4">
+      <main className="pb-20 pt-32 md:pt-36">
+        <div className="container relative z-10 mx-auto px-4">
+          <BackToHomeLink />
           <PageBreadcrumbs
             items={[
               { label: t.seo.breadcrumbHome, href: "/" },

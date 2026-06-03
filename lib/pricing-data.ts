@@ -288,6 +288,7 @@ export const additionalServices: AdditionalServiceData[] = [
     },
     features: [
       "Odstránenie oxidácie a zažltnutia",
+      "Brúsenie svetlometov",
       "Leštenie svetlometov",
       "Nanesenie UV ochrany",
     ],
@@ -324,6 +325,7 @@ export const additionalServicesEn: AdditionalServiceData[] = [
     },
     features: [
       "Oxidation and yellowing removal",
+      "Headlight sanding",
       "Headlight polishing",
       "UV protection applied",
     ],

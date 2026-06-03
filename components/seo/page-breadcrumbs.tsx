@@ -1,7 +1,7 @@
 "use client"
 
-import Link from "next/link"
 import { ChevronRight } from "lucide-react"
+import { HashAwareLink } from "@/components/seo/hash-aware-link"
 import { useLanguage } from "@/lib/i18n/language-context"
 
 type Crumb = {
@@ -26,9 +26,9 @@ export function PageBreadcrumbs({ items, className = "" }: PageBreadcrumbsProps)
             <li key={`${item.label}-${index}`} className="flex items-center gap-1">
               {index > 0 && <ChevronRight className="h-3.5 w-3.5 shrink-0 opacity-50" aria-hidden />}
               {item.href && !isLast ? (
-                <Link href={item.href} className="text-primary hover:underline">
+                <HashAwareLink href={item.href} className="text-primary hover:underline">
                   {item.label}
-                </Link>
+                </HashAwareLink>
               ) : (
                 <span className={isLast ? "text-zinc-400" : undefined} aria-current={isLast ? "page" : undefined}>
                   {item.label}

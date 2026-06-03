@@ -8,6 +8,8 @@ import { PACKAGE_KEYS, packages, packagesEn } from "@/lib/pricing-data"
 
 type PackagesPricingSectionProps = {
   layout?: "grid" | "stack"
+  /** Rovnaká mriežka ako na homepage – 4 balíky vedľa seba od lg */
+  gridVariant?: "home" | "cennik"
   showCarSizeSelector?: boolean
   title?: string
   subtitle?: string
@@ -15,8 +17,15 @@ type PackagesPricingSectionProps = {
   showHeader?: boolean
 }
 
+const GRID_CLASS = {
+  home: "grid gap-8 overflow-visible pt-4 md:grid-cols-2 lg:grid-cols-4",
+  /** /cennik – 4 balíky v jednom riadku od tabletu (ako sekcia na homepage) */
+  cennik: "grid w-full gap-6 overflow-visible pt-4 sm:gap-8 md:grid-cols-4",
+} as const
+
 export function PackagesPricingSection({
   layout = "grid",
+  gridVariant = "home",
   showCarSizeSelector = true,
   title,
   subtitle,
@@ -31,9 +40,11 @@ export function PackagesPricingSection({
     <LazyLoadSection
       key={key}
       delay={layout === "stack" ? 0.05 * index : 0.1 + index * 0.1}
-      className="h-full"
+      className={layout === "grid" ? "contents" : "h-full"}
     >
-      <PricingPackageCard packageKey={key} packageData={pkgs[key]} />
+      <div className={layout === "grid" ? "h-full min-w-0" : "h-full"}>
+        <PricingPackageCard packageKey={key} packageData={pkgs[key]} />
+      </div>
     </LazyLoadSection>
   ))
 
@@ -59,9 +70,7 @@ export function PackagesPricingSection({
         )}
 
         {layout === "grid" ? (
-          <div className="grid gap-8 overflow-visible pt-4 md:grid-cols-2 lg:grid-cols-4">
-            {cards}
-          </div>
+          <div className={GRID_CLASS[gridVariant]}>{cards}</div>
         ) : (
           <div className="mx-auto flex max-w-2xl flex-col gap-8 overflow-visible pt-2">{cards}</div>
         )}

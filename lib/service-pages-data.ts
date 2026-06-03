@@ -166,6 +166,7 @@ export const servicePagesSk: Record<ServicePageSlug, ServicePageCopy> = {
     includesTitle: "Súčasť služby",
     includes: [
       "Odstránenie oxidácie a zažltnutia",
+      "Brúsenie svetlometov",
       "Leštenie svetlometov",
       "Nanesenie UV ochrany",
       "Cena 70 € za oba svetlomety (podľa stavu vozidla)",
@@ -314,6 +315,7 @@ export const servicePagesEn: Record<ServicePageSlug, ServicePageCopy> = {
     includesTitle: "Service includes",
     includes: [
       "Oxidation and yellowing removal",
+      "Headlight sanding",
       "Headlight polishing",
       "UV protection applied",
       "€70 for both headlights (depending on condition)",

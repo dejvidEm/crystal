@@ -37,7 +37,7 @@ export const sk = {
     getQuote: "Cenová kalkulačka",
   },
   hero: {
-    promoBadge: "Letná akcia −10 % na všetky balíky",
+    promoBadge: "Letná akcia −10 % na všetky balíky s kódom LETO26",
     title: "Prémiové mobilné",
     titleHighlight: "detailingové služby",
     subtitle: "Prvá luxusná mobilná detailingová služba na Slovensku, ktorá príde priamo k vám",
@@ -156,7 +156,6 @@ export const sk = {
     },
   },
   carSizes: {
-    selectVehicleSize: "Vyberte veľkosť vozidla",
     small: "Sedan/Kompakt",
     suv: "SUV/Crossover",
     van: "Dodávka/Pickup",
@@ -208,6 +207,7 @@ export const sk = {
       subtitle: "Kompletná úprava oboch svetlometov",
       features: [
         "Odstránenie oxidácie a zažltnutia",
+        "Brúsenie svetlometov",
         "Leštenie svetlometov",
         "Nanesenie UV ochrany",
       ],

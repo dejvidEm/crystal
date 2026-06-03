@@ -47,6 +47,7 @@ export function CennikPageClient() {
 
         <PackagesPricingSection
           layout="grid"
+          gridVariant="cennik"
           showHeader
           title={t.cennikPage.packagesHeading}
           subtitle={t.services.subtitle}

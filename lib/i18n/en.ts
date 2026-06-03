@@ -37,7 +37,7 @@ export const en = {
     getQuote: "Price calculator",
   },
   hero: {
-    promoBadge: "Summer sale −10% on all packages",
+    promoBadge: "Summer sale −10% on all packages with code LETO26",
     title: "Premium Mobile",
     titleHighlight: "Car Detailing",
     subtitle: "Slovakia's first luxury mobile detailing service that comes to your location",
@@ -202,6 +202,7 @@ export const en = {
       subtitle: "Full restoration of both headlights",
       features: [
         "Removal of oxidation and yellowing",
+        "Headlight sanding",
         "Headlight polishing",
         "UV protection coating",
       ],
@@ -367,7 +368,6 @@ export const en = {
     changeLanguage: "Change language",
   },
   carSizes: {
-    selectVehicleSize: "Select Vehicle Size",
     small: "Sedan/Compact",
     suv: "SUV/Crossover",
     van: "Van/Truck",
