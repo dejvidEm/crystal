@@ -339,7 +339,7 @@ export const sk = {
     subtitle: "Tipy, rady a novinky zo sveta mobilného detailingu",
     pageTitle: "Blog Crystal Detailing",
     pageIntro:
-      "Praktické články o čistení interiéru, ochrane laku, tepovaní a mobilnom servise v Bratislave a okolí.",
+      "Praktické články o mobilnom detailingu, tepovaní, renovácii svetlometov a čistení interiéru v Bratislave a okolí.",
     viewAll: "Všetky články",
     readMore: "Čítať viac",
     backHome: "Späť na úvod",

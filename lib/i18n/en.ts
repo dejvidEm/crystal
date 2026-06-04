@@ -334,7 +334,7 @@ export const en = {
     subtitle: "Tips, advice, and news from mobile car detailing",
     pageTitle: "Crystal Detailing Blog",
     pageIntro:
-      "Practical articles on interior cleaning, paint protection, shampooing, and mobile service in Bratislava and beyond.",
+      "Practical articles on mobile detailing, upholstery cleaning, headlight restoration, and interior care in Bratislava and beyond.",
     viewAll: "All articles",
     readMore: "Read more",
     backHome: "Back to home",

@@ -3,8 +3,10 @@ import { notFound } from "next/navigation"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BlogArticlePageClient } from "@/components/blog/blog-article-page-client"
-import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data"
-import { metaDescription } from "@/lib/seo-meta"
+import { JsonLd } from "@/components/seo/json-ld"
+import { getAllPostSlugs, getBlogPostKeywords, getPostBySlug } from "@/lib/blog-data"
+import { buildBlogArticleMetadata } from "@/lib/seo-metadata"
+import { buildBlogPostPageJsonLd } from "@/lib/seo-structured-data"
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -19,23 +21,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = getPostBySlug(slug)
   if (!post) return { title: "Článok nenájdený" }
 
-  const title = post.title.sk
-  const description = metaDescription(post.excerpt.sk)
-  const url = `https://crystaldetailing.sk/blog/${slug}`
-
-  return {
-    title: `${title} | Blog Crystal Detailing`,
-    description,
-    alternates: { canonical: url },
-    openGraph: {
-      title,
-      description,
-      url,
-      type: "article",
-      publishedTime: post.publishedAt,
-      images: [{ url: `https://crystaldetailing.sk${post.image}`, alt: post.imageAlt.sk }],
-    },
-  }
+  return buildBlogArticleMetadata({
+    title: post.title.sk,
+    description: post.excerpt.sk,
+    slug,
+    publishedAt: post.publishedAt,
+    imagePath: post.image,
+    imageAlt: post.imageAlt.sk,
+    keywords: getBlogPostKeywords(post),
+  })
 }
 
 export default async function BlogArticlePage({ params }: PageProps) {
@@ -45,6 +39,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <JsonLd data={buildBlogPostPageJsonLd(post)} />
       <Navbar />
       <main className="pt-28 pb-20 md:pt-32">
         <article className="container mx-auto px-4">

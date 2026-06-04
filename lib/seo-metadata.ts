@@ -73,6 +73,86 @@ export function buildPageMetadata(options: BuildPageMetadataOptions): Metadata {
   }
 }
 
+export type BuildBlogArticleMetadataOptions = {
+  title: string
+  description: string
+  slug: string
+  publishedAt: string
+  imagePath: string
+  imageAlt: string
+  keywords?: string[]
+}
+
+export function buildBlogArticleMetadata(options: BuildBlogArticleMetadataOptions): Metadata {
+  const {
+    title,
+    description,
+    slug,
+    publishedAt,
+    imagePath,
+    imageAlt,
+    keywords,
+  } = options
+
+  const pathname = `/blog/${slug}`
+  const url = absoluteUrl(pathname)
+  const descriptionMeta = metaDescription(description)
+  const fullTitle = `${title} | Blog ${SITE_NAME}`
+  const ogImage = absoluteUrl(imagePath)
+
+  return {
+    title: { absolute: fullTitle },
+    description: descriptionMeta,
+    keywords,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
+      description: descriptionMeta,
+      url,
+      siteName: SITE_NAME,
+      locale: "sk_SK",
+      type: "article",
+      publishedTime: publishedAt,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: imageAlt,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | Blog ${SITE_NAME}`,
+      description: descriptionMeta,
+      images: [ogImage],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot,
+    },
+  }
+}
+
+export const blogListingMetadata = buildPageMetadata({
+  title: "Blog",
+  description:
+    "Praktické články o mobilnom detailingu, tepovaní, renovácii svetlometov a čistení interiéru v Bratislave a okolí.",
+  pathname: "/blog",
+  keywords: [
+    "blog detailing",
+    "mobilný detailing tipy",
+    "tepovanie auta rady",
+    "renovácia svetlometov",
+    "detailing Bratislava",
+  ],
+  socialTitle: "Blog Crystal Detailing",
+})
+
 export const homePageMetadataExtras = {
   metadataBase: new URL(SITE_URL),
 } as const

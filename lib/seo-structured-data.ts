@@ -8,6 +8,10 @@ import {
   absoluteUrl,
 } from "@/lib/seo-site"
 import { CONTACT_EMAIL, CONTACT_PHONE_E164 } from "@/lib/site-config"
+import {
+  getCategoryById,
+  type BlogPost,
+} from "@/lib/blog-data"
 import { getServicePageCopy, type ServicePageSlug } from "@/lib/service-pages-data"
 import { metaDescription } from "@/lib/seo-meta"
 
@@ -167,6 +171,43 @@ export function buildServicePageGraphJsonLd(slug: ServicePageSlug) {
       { name: copy.h1, url },
     ]),
     buildServiceJsonLd(slug),
+  ]
+}
+
+export function buildBlogPostPageJsonLd(post: BlogPost) {
+  const pathname = `/blog/${post.slug}`
+  const url = absoluteUrl(pathname)
+  const title = post.title.sk
+  const description = post.excerpt.sk
+  const category = getCategoryById(post.category)
+
+  return [
+    buildWebPageJsonLd({
+      pathname,
+      title,
+      description,
+    }),
+    buildBreadcrumbJsonLd([
+      { name: "Domov", url: SITE_URL },
+      { name: "Blog", url: absoluteUrl("/blog") },
+      { name: title, url },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "@id": `${url}#article`,
+      headline: title,
+      description: metaDescription(description),
+      image: absoluteUrl(post.image),
+      datePublished: post.publishedAt,
+      dateModified: post.publishedAt,
+      inLanguage: "sk-SK",
+      articleSection: category?.label.sk,
+      author: { "@id": ORGANIZATION_ID },
+      publisher: { "@id": ORGANIZATION_ID },
+      mainEntityOfPage: { "@id": `${url}#webpage` },
+      isPartOf: { "@id": WEBSITE_ID },
+    },
   ]
 }
 
