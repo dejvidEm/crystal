@@ -232,8 +232,16 @@ export function Navbar() {
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="relative flex w-full items-center justify-between lg:justify-center">
-          <Link href="/" className="z-20 shrink-0 lg:mr-8 xl:mr-16" aria-label="Crystal Detailing – domov">
+        <div
+          className={`relative flex w-full items-center ${
+            isCalcPage ? "justify-between" : "justify-between lg:justify-center"
+          }`}
+        >
+          <Link
+            href="/"
+            className={`z-20 shrink-0 ${isCalcPage ? "" : "lg:mr-8 xl:mr-16"}`}
+            aria-label="Crystal Detailing – domov"
+          >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -265,7 +273,11 @@ export function Navbar() {
             </nav>
           )}
 
-          <div className="hidden shrink-0 items-center space-x-5 lg:ml-8 lg:flex xl:ml-16">
+          <div
+            className={`hidden shrink-0 items-center space-x-5 lg:flex ${
+              isCalcPage ? "" : "lg:ml-8 xl:ml-16"
+            }`}
+          >
             <LanguageSwitcher variant="minimal" />
             <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
               <motion.button

@@ -26,6 +26,7 @@ import {
   packages,
   packagesEn,
   formatPriceLabel,
+  packageOriginalPriceByCarSize,
   packagePriceByCarSize,
   calculatorVehicleToCarSize,
   type PackageData,
@@ -554,6 +555,7 @@ function PackageOptionCard({
 }) {
   const carSize = vehicleType ? calculatorVehicleToCarSize(vehicleType) : "small"
   const displayPrice = formatPriceLabel(packagePriceByCarSize(value, carSize), language)
+  const originalPrice = formatPriceLabel(packageOriginalPriceByCarSize(value, carSize), language)
 
   return (
     <div className="relative">
@@ -573,7 +575,12 @@ function PackageOptionCard({
         </div>
         <div className="font-semibold tracking-tight">{packageData.title}</div>
         <p className="mt-1 text-sm text-muted-foreground">{packageData.subtitle}</p>
-        <p className="mt-2 text-sm font-semibold text-primary">{displayPrice}</p>
+        <div className="mt-3 flex flex-wrap items-baseline gap-3">
+          <span className="text-xl font-semibold text-zinc-400 line-through decoration-primary decoration-2">
+            {originalPrice}
+          </span>
+          <span className="text-2xl font-bold text-primary">{displayPrice}</span>
+        </div>
         <ul className="mt-4 space-y-2 border-t border-border pt-4">
           {packageData.features.map((feature, index) => (
             <li key={index} className="flex items-start gap-2 text-sm text-foreground/90">
