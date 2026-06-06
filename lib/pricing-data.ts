@@ -85,6 +85,14 @@ export function packagePriceByCarSize(key: PackageKey, size: CarSize): number {
   return PACKAGE_BASE_PRICE_EUR[key] + packageSurchargeByCarSize(key, size)
 }
 
+/** Aktuálna letná zľava na hlavné balíky (zobrazuje sa preškrtnutá cena pred zľavou). */
+export const PACKAGE_SUMMER_DISCOUNT_PERCENT = 10
+
+export function packageOriginalPriceByCarSize(key: PackageKey, size: CarSize): number {
+  const discounted = packagePriceByCarSize(key, size)
+  return Math.round(discounted / (1 - PACKAGE_SUMMER_DISCOUNT_PERCENT / 100))
+}
+
 export function packageSurchargeByVehicleType(
   key: PackageKey,
   vehicle: CalculatorVehicleSize | null,

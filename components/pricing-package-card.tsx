@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   formatPriceLabel,
+  packageOriginalPriceByCarSize,
   packagePriceByCarSize,
   type PackageData,
   type PackageKey,
@@ -24,6 +25,7 @@ export function PricingPackageCard({ packageKey, packageData, delay = 0 }: Prici
   const { language, t } = useLanguage()
   const lang = language === "en" ? "en" : "sk"
   const displayPrice = formatPriceLabel(packagePriceByCarSize(packageKey, carSize), lang)
+  const originalPrice = formatPriceLabel(packageOriginalPriceByCarSize(packageKey, carSize), lang)
 
   return (
     <div className="relative h-full">
@@ -46,11 +48,11 @@ export function PricingPackageCard({ packageKey, packageData, delay = 0 }: Prici
         <CardDescription className="text-zinc-400">{packageData.subtitle}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1">
-        <div className="mb-6 flex flex-wrap items-baseline gap-2">
-          {packageData.originalPrice && (
-            <span className="text-lg font-medium text-zinc-500 line-through">{packageData.originalPrice}</span>
-          )}
-          <span className="text-3xl font-bold text-white">{displayPrice}</span>
+        <div className="mb-6">
+          <p className="text-xl font-semibold text-zinc-400 line-through decoration-primary decoration-2">
+            {originalPrice}
+          </p>
+          <p className="text-3xl font-bold text-white">{displayPrice}</p>
         </div>
         <ul className="space-y-3">
           {packageData.features.map((feature, index) => (
