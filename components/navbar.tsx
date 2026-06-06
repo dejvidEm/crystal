@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback, useMemo } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
@@ -11,7 +12,7 @@ import { bookioUrl } from "@/lib/site-config"
 import { getServicePageCopy, SERVICE_PAGE_SLUGS } from "@/lib/service-pages-data"
 
 const navLinkClass =
-  "relative whitespace-nowrap px-5 py-4 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:text-primary group"
+  "relative whitespace-nowrap px-3 py-4 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:text-primary group lg:px-3 xl:px-4 2xl:px-5"
 
 export function Navbar() {
   const pathnameRaw = usePathname()
@@ -231,24 +232,28 @@ export function Navbar() {
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="relative flex w-full items-center justify-between 2xl:justify-center">
-          <Link href="/" className="z-20 shrink-0 2xl:mr-16">
+        <div className="relative flex w-full items-center justify-between lg:justify-center">
+          <Link href="/" className="z-20 shrink-0 lg:mr-8 xl:mr-16" aria-label="Crystal Detailing – domov">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
               className="flex items-center"
             >
-              <span className="text-2xl font-light tracking-wider">
-                <span className="text-white">CRYSTAL</span>
-                <span className="text-primary">DETAILING</span>
-              </span>
+              <Image
+                src="/images/luxury_logo.png"
+                alt="Crystal Detailing"
+                width={200}
+                height={52}
+                className="h-9 w-auto sm:h-10"
+                priority
+              />
             </motion.div>
           </Link>
 
           {!isCalcPage && (
             <nav
-              className="hidden shrink-0 items-center 2xl:flex"
+              className="hidden shrink-0 items-center lg:flex"
               aria-label="Main navigation"
             >
               <div className="flex items-center space-x-2">
@@ -260,7 +265,7 @@ export function Navbar() {
             </nav>
           )}
 
-          <div className="hidden shrink-0 items-center space-x-5 2xl:ml-16 2xl:flex">
+          <div className="hidden shrink-0 items-center space-x-5 lg:ml-8 lg:flex xl:ml-16">
             <LanguageSwitcher variant="minimal" />
             <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
               <motion.button
@@ -274,7 +279,7 @@ export function Navbar() {
           </div>
 
           {!isCalcPage && (
-            <div className="z-20 flex items-center gap-4 2xl:hidden">
+            <div className="z-20 flex items-center gap-4 lg:hidden">
               <LanguageSwitcher variant="icon" />
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -288,7 +293,7 @@ export function Navbar() {
             </div>
           )}
           {isCalcPage && (
-            <div className="z-20 flex items-center gap-4 2xl:hidden">
+            <div className="z-20 flex items-center gap-4 lg:hidden">
               <LanguageSwitcher variant="icon" />
             </div>
           )}
@@ -301,7 +306,7 @@ export function Navbar() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: "100%" }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="fixed left-0 top-0 z-[105] h-screen w-full bg-black backdrop-blur-md 2xl:hidden"
+                className="fixed left-0 top-0 z-[105] h-screen w-full bg-black backdrop-blur-md lg:hidden"
               >
                 <button
                   onClick={() => setIsOpen(false)}
