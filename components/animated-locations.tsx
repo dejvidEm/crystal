@@ -24,6 +24,11 @@ const locations = {
     "Svätý Jur",
     "Pezinok",
     "Modra",
+    "Hainburg an der Donau",
+    "Bruck an der Leitha",
+    "Eisenstadt",
+    "Schwechat",
+    "Wien",
   ],
   sk: [
     "Staré Mesto",
@@ -44,6 +49,11 @@ const locations = {
     "Svätý Jur",
     "Pezinok",
     "Modra",
+    "Hainburg an der Donau",
+    "Bruck an der Leitha",
+    "Eisenstadt",
+    "Schwechat",
+    "Wien",
   ],
 }
 

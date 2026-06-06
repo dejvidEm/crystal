@@ -15,12 +15,17 @@ export type DistrictPageDefinition = {
   areas: string[]
   faqs: DistrictFaq[]
   metadata: Metadata
+  /** Nadpis sekcie oblastí – default „Oblasti pokrytia v okrese“ */
+  areasHeading?: string
+  /** Text v CTA sekcii – default o okrese */
+  ctaLead?: string
 }
 
 function metaFor(
   slug: string,
   title: string,
   description: string,
+  extraKeywords: string[] = [],
 ): Metadata {
   const url = `${base}/${slug}`
   const descriptionMeta = metaDescription(description)
@@ -35,6 +40,7 @@ function metaFor(
       `tepovanie áut ${slug.replace(/-/g, " ")}`,
       "mobilný detailing Západné Slovensko",
       "detailing Slovensko",
+      ...extraKeywords,
     ],
     openGraph: {
       title: `${title} | Crystal Detailing`,
@@ -42,6 +48,22 @@ function metaFor(
       url,
     },
   }
+}
+
+function metaForAustria(
+  slug: string,
+  title: string,
+  description: string,
+  placeName: string,
+  germanKeywords: string[],
+): Metadata {
+  return metaFor(slug, title, description, [
+    `mobilný detailing ${placeName}`,
+    `detailing ${placeName} Rakúsko`,
+    `mobilný detailing pri Bratislave Rakúsko`,
+    `auto detailing Grenze Slowakei`,
+    ...germanKeywords,
+  ])
 }
 
 export const districtMalacky: DistrictPageDefinition = {
@@ -250,4 +272,260 @@ export const zahorieATrnavaDistricts: DistrictPageDefinition[] = [
   districtTrnava,
   districtGalanta,
   districtDunajskaStreda,
+]
+
+export const districtHainburg: DistrictPageDefinition = {
+  path: "/hainburg-an-der-donau",
+  h1: "Mobilný detailing v Hainburg an der Donau a pri slovensko-rakúskej hranici",
+  lead:
+    "Bývate v Hainburg an der Donau, Wolfsthale alebo v bezprostrednom pohraničí? Crystal Detailing vyrazí z Bratislavy priamo k vám – mobilný detailing auta bez cesty na Slovensko. Tepovanie, čistenie interiéru a exteriéru u vás doma, vo firme alebo na parkovisku.",
+  areas: [
+    "Hainburg an der Donau",
+    "Wolfsthal",
+    "Berg",
+    "Jedenspeigen",
+    "Stopfenreuth",
+    "Engelhartstetten",
+  ],
+  areasHeading: "Oblasti pokrytia pri hranici",
+  ctaLead: "Mobilný detailing v Hainburg an der Donau a okolí – dohodnite si termín ešte dnes.",
+  faqs: [
+    {
+      question: "Poskytujete mobilný detailing v Hainburg an der Donau?",
+      answer:
+        "Áno, Hainburg an der Donau a okolité obce pri hranici sú v našej výjazdovej zóne. Prídeme s kompletnou mobilnou výbavou priamo na vašu adresu.",
+    },
+    {
+      question: "Ako dlho trvá príchod z Bratislavy do Hainburgu?",
+      answer:
+        "Hainburg an der Donau je od Bratislavy vzdialený približne 15–20 minút. Presný čas dohodneme pri rezervácii podľa vašej adresy.",
+    },
+    {
+      question: "Môžem si objednať detailing aj v nemčine / angličtine?",
+      answer:
+        "Áno, komunikáciu vieme prispôsobiť. Rezerváciu môžete urobiť online alebo telefonicky – službu realizujeme rovnako ako na Slovensku.",
+    },
+  ],
+  metadata: metaForAustria(
+    "hainburg-an-der-donau",
+    "Mobilný detailing Hainburg an der Donau | pri hranici | Crystal Detailing",
+    "Mobilný detailing Hainburg an der Donau, Wolfsthal a pohraničie. Tepovanie, čistenie auta – výjazd z Bratislavy priamo k vám v Rakúsku.",
+    "Hainburg an der Donau",
+    [
+      "mobile Autopflege Hainburg",
+      "Auto detailing Hainburg an der Donau",
+      "Fahrzeugaufbereitung Grenze Slowakei",
+      "mobile Autoreinigung Wolfsthal",
+    ],
+  ),
+}
+
+export const districtBruck: DistrictPageDefinition = {
+  path: "/bruck-an-der-leitha",
+  h1: "Mobilný detailing v Bruck an der Leitha a okolí",
+  lead:
+    "Pre zákazníkov z Bruck an der Leitha, Gattendorfu a okolia ponúkame prémiový mobilný detailing s výjazdom z Bratislavy. Nemusíte hľadať autoumývku – kompletné čistenie interiéru, exteriéru a tepovanie u vás na mieste.",
+  areas: [
+    "Bruck an der Leitha",
+    "Gattendorf",
+    "Rohrau",
+    "Parbasdorf",
+    "Höflein",
+    "Prellenkirchen",
+  ],
+  areasHeading: "Oblasti pokrytia v okolí Bruck an der Leitha",
+  ctaLead: "Mobilný detailing v Bruck an der Leitha – rezervujte si termín online alebo telefonicky.",
+  faqs: [
+    {
+      question: "Chodíte s detailingom do Bruck an der Leitha?",
+      answer:
+        "Áno, Bruck an der Leitha a obce v okolí pokrývame mobilnou službou. Výjazd zabezpečujeme z Bratislavy s vlastnou vodou a profesionálnou výbavou.",
+    },
+    {
+      question: "Aké služby sú dostupné v Bruck an der Leitha?",
+      answer:
+        "Kompletné balíky interiér + exteriér, tepovanie sedadiel, renovácia svetlometov, ošetrenie kože a doplnkové služby podľa cenníka.",
+    },
+    {
+      question: "Platí rovnaká cena ako v Bratislave?",
+      answer:
+        "Ceny sú transparentné podľa cenníka a kalkulačky. Pri rezervácii vám potvrdíme finálny odhad vrátane výjazdu do Rakúska.",
+    },
+  ],
+  metadata: metaForAustria(
+    "bruck-an-der-leitha",
+    "Mobilný detailing Bruck an der Leitha | Crystal Detailing",
+    "Mobilný detailing Bruck an der Leitha a okolie. Tepovanie, čistenie auta – mobilná jednotka z Bratislavy priamo k vám.",
+    "Bruck an der Leitha",
+    [
+      "mobile Autopflege Bruck an der Leitha",
+      "Auto detailing Bruck an der Leitha",
+      "Fahrzeugaufbereitung Niederösterreich",
+      "mobile Autoreinigung Bruck",
+    ],
+  ),
+}
+
+export const districtEisenstadt: DistrictPageDefinition = {
+  path: "/eisenstadt-burgenland",
+  h1: "Mobilný detailing v Burgenlande – Eisenstadt, Mattersburg, Neusiedl",
+  lead:
+    "Crystal Detailing pre vás vyrazí do Burgenlandu – Eisenstadt, Mattersburg, Neusiedl am See, Parndorf a okolie. Mobilný detailing pre súkromné aj firemné vozidlá; na Google nás nájdete aj pod hľadaním mobilný detailing Eisenstadt / Auto detailing Burgenland.",
+  areas: [
+    "Eisenstadt",
+    "Mattersburg",
+    "Neusiedl am See",
+    "Parndorf",
+    "Wimpassing an der Leitha",
+    "Nickelsdorf",
+    "Oberpullendorf",
+  ],
+  areasHeading: "Oblasti pokrytia v Burgenlande",
+  ctaLead: "Mobilný detailing v Burgenlande – objednajte si termín ešte dnes.",
+  faqs: [
+    {
+      question: "Pokrývate Eisenstadt a Mattersburg mobilným detailingom?",
+      answer:
+        "Áno, Eisenstadt, Mattersburg a ďalšie obce v Burgenlande sú v našej výjazdovej oblasti. Termín si dohodnete online alebo telefonicky.",
+    },
+    {
+      question: "Je výjazd do Burgenlandu z Bratislavy praktický?",
+      answer:
+        "Áno, Eisenstadt a okolie sú od Bratislavy približne 45–60 minút. Mobilná služba vám ušetrí čas – nemusíte s autom nikam jazdiť.",
+    },
+    {
+      question: "Ponúkate tepovanie sedadiel v Eisenstadte?",
+      answer:
+        "Áno, tepovanie interiéru je jedna z našich najobľúbenejších služieb. Kombinovať ho môžete s balíkmi podľa cenníka a kalkulačky.",
+    },
+  ],
+  metadata: metaForAustria(
+    "eisenstadt-burgenland",
+    "Mobilný detailing Eisenstadt, Burgenland | Mattersburg | Crystal Detailing",
+    "Mobilný detailing Eisenstadt, Mattersburg, Neusiedl am See a Burgenland. Tepovanie, čistenie auta – výjazd z Bratislavy.",
+    "Eisenstadt",
+    [
+      "mobile Autopflege Eisenstadt",
+      "Auto detailing Burgenland",
+      "Fahrzeugaufbereitung Mattersburg",
+      "mobile Autoreinigung Neusiedl am See",
+    ],
+  ),
+}
+
+export const districtWienUmgebung: DistrictPageDefinition = {
+  path: "/wien-umgebung",
+  h1: "Mobilný detailing vo víenskom okolí – Schwechat, Fischamend, Niederösterreich",
+  lead:
+    "Bývate pri letisku Schwechat, vo Fischamende alebo v okolí Viedne na strane Niederösterreich? Mobilný detailing Crystal Detailing príde k vám – ideálne pre zaneprázdnených v okolí diaľnice Bratislava – Wien.",
+  areas: [
+    "Schwechat",
+    "Fischamend",
+    "Maria Enzersdorf",
+    "Brunn am Gebirge",
+    "Himberg",
+    "Moosbrunn",
+    "Rannersdorf",
+    "Götzendorf an der Leitha",
+    "Bad Deutsch-Altenburg",
+    "Petronell-Carnuntum",
+  ],
+  areasHeading: "Oblasti pokrytia vo víenskom okolí",
+  ctaLead: "Mobilný detailing vo víenskom okolí – dohodnite si termín priamo u vás.",
+  faqs: [
+    {
+      question: "Poskytujete detailing vo Schwechate a pri letisku?",
+      answer:
+        "Áno, Schwechat, Fischamend a okolité obce vo víenskom okolí sú v našej mobilnej zóne. Službu realizujeme u vás doma, vo firme alebo na dohodnutom parkovisku.",
+    },
+    {
+      question: "Ako ďaleko od Bratislavy je možný výjazd vo víenskom okolí?",
+      answer:
+        "Bežne dochádzame po trasu Bratislava – Schwechat – okolie Viedne. Presný rozsah a čas príchodu potvrdíme pri rezervácii.",
+    },
+    {
+      question: "Môžem objednať detailing pre firemné vozidlá vo víenskom okolí?",
+      answer:
+        "Áno, firemné flotily a viac vozidiel riešime po dohode. Kontaktujte nás s požiadavkou na termín a rozsah služby.",
+    },
+  ],
+  metadata: metaForAustria(
+    "wien-umgebung",
+    "Mobilný detailing Wien Umgebung | Schwechat, Fischamend | Crystal Detailing",
+    "Mobilný detailing vo víenskom okolí – Schwechat, Fischamend, Niederösterreich. Tepovanie a čistenie auta s výjazdom z Bratislavy.",
+    "Wien Umgebung",
+    [
+      "mobile Autopflege Schwechat",
+      "Auto detailing Wien Umgebung",
+      "Fahrzeugaufbereitung Fischamend",
+      "mobile Autoreinigung Niederösterreich",
+    ],
+  ),
+}
+
+export const districtWien: DistrictPageDefinition = {
+  path: "/wien",
+  h1: "Mobilný detailing vo Viedni (Wien)",
+  lead:
+    "Hľadáte mobilný detailing vo Viedni? Crystal Detailing vyrazí z Bratislavy až do Wien – čistenie interiéru, exteriéru, tepovanie a renovácia svetlometov priamo u vás. Na Google nás nájdete pod mobilný detailing Wien / mobile Autopflege Wien.",
+  areas: [
+    "Wien Innere Stadt",
+    "Wien Leopoldstadt",
+    "Wien Landstraße",
+    "Wien Donaustadt",
+    "Wien Floridsdorf",
+    "Wien Favoriten",
+    "Wien Simmering",
+    "Wien Liesing",
+    "Wien Hietzing",
+    "Wien Penzing",
+    "Wien Ottakring",
+    "Wien Döbling",
+  ],
+  areasHeading: "Oblasti pokrytia vo Viedni",
+  ctaLead: "Mobilný detailing vo Viedni – rezervujte si termín ešte dnes.",
+  faqs: [
+    {
+      question: "Poskytujete mobilný detailing vo Viedni (Wien)?",
+      answer:
+        "Áno, do Viedne dochádzame s mobilnou jednotkou. Službu realizujeme na vašej adrese – byt, rodinný dom, firma alebo parkovisko po dohode.",
+    },
+    {
+      question: "Ako dlho trvá príchod z Bratislavy do Viedne?",
+      answer:
+        "Podľa konkrétneho víenného okresu a dopravnej situácie zvyčajne 45–75 minút. Čas príchodu potvrdíme pri rezervácii.",
+    },
+    {
+      question: "Aké služby sú dostupné vo Viedni?",
+      answer:
+        "Kompletný mobilný detailing – balíky REFRESH, INTERIÉR, KOMPLET, tepovanie, renovácia svetlometov a doplnkové služby podľa cenníka.",
+    },
+  ],
+  metadata: metaForAustria(
+    "wien",
+    "Mobilný detailing Wien | Viedeň | Crystal Detailing",
+    "Mobilný detailing vo Viedni (Wien). Tepovanie, čistenie interiéru a exteriéru auta – mobilná služba s výjazdom z Bratislavy.",
+    "Wien",
+    [
+      "mobile Autopflege Wien",
+      "Auto detailing Wien",
+      "Fahrzeugaufbereitung Wien",
+      "mobile Autoreinigung Wien",
+      "Innenreinigung Auto Wien",
+    ],
+  ),
+}
+
+/** Rakúsko pri Bratislave – poradie na /lokality a vo sitemape */
+export const austriaNearBratislavaLocations: DistrictPageDefinition[] = [
+  districtHainburg,
+  districtBruck,
+  districtEisenstadt,
+  districtWienUmgebung,
+  districtWien,
+]
+
+export const allLocationPages: DistrictPageDefinition[] = [
+  ...zahorieATrnavaDistricts,
+  ...austriaNearBratislavaLocations,
 ]

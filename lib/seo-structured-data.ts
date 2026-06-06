@@ -38,7 +38,7 @@ export function buildWebSiteSchema() {
     url: SITE_URL,
     name: SITE_NAME,
     description: metaDescription(
-      "Prémiový mobilný detailing v Bratislave a na západnom Slovensku. Cenník, tepovanie, renovácia svetlometov a výjazd priamo k vám.",
+      "Prémiový mobilný detailing v Bratislave, na západnom Slovensku a v Rakúsku pri Viedni. Cenník, tepovanie, renovácia svetlometov a výjazd priamo k vám.",
     ),
     inLanguage: ["sk-SK", "en"],
     publisher: { "@id": ORGANIZATION_ID },

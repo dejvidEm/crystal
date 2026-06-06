@@ -55,6 +55,11 @@ export default function Home() {
     "Trnava",
     "Galanta",
     "Dunajská Streda",
+    "Hainburg an der Donau",
+    "Bruck an der Leitha",
+    "Eisenstadt",
+    "Schwechat",
+    "Wien",
   ]
 
   return (

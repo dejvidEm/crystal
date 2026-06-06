@@ -46,7 +46,7 @@ export function DistrictSeoPage({ data }: { data: DistrictPageDefinition }) {
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold mb-6 text-gradient flex items-center gap-2">
                 <MapPin className="h-8 w-8 text-primary" aria-hidden />
-                Oblasti pokrytia v okrese
+                {data.areasHeading ?? "Oblasti pokrytia v okrese"}
               </h2>
               <div className="grid md:grid-cols-2 gap-4 mb-8">
                 {data.areas.map((area) => (
@@ -104,7 +104,7 @@ export function DistrictSeoPage({ data }: { data: DistrictPageDefinition }) {
               <CardContent className="p-8 md:p-12 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient">Rezervujte si termín</h2>
                 <p className="text-zinc-300 mb-6 max-w-2xl mx-auto">
-                  Mobilný detailing vo vašom okrese – dohodnite si termín ešte dnes.
+                  {data.ctaLead ?? "Mobilný detailing vo vašom okrese – dohodnite si termín ešte dnes."}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk">

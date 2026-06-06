@@ -5,15 +5,15 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
-import { zahorieATrnavaDistricts } from '@/lib/district-pages-data'
+import { austriaNearBratislavaLocations, zahorieATrnavaDistricts } from '@/lib/district-pages-data'
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/site-config'
 import { metaDescription } from '@/lib/seo-meta'
 
 export const metadata: Metadata = {
   title:
-    'Lokality | Mobilný detailing Bratislava, okresy Malacky, Senica, Skalica, Trnava, Galanta, Dunajská Streda',
+    'Lokality | Mobilný detailing Bratislava, Záhorie, Trnavský kraj a Rakúsko pri Viedni',
   description: metaDescription(
-    'Mobilný detailing v Bratislave, Pezinoku, Senci, na Záhorí a v Trnavskom kraji. Crystal Detailing príde priamo k vám domov alebo do firmy.',
+    'Mobilný detailing v Bratislave, Pezinoku, Senci, na Záhorí, v Trnavskom kraji a v Rakúsku – Hainburg, Bruck, Eisenstadt, Wien Umgebung až po Viedeň.',
   ),
   keywords: [
     'mobilný detailing Bratislava',
@@ -24,6 +24,11 @@ export const metadata: Metadata = {
     'mobilný detailing Galanta',
     'mobilný detailing Dunajská Streda',
     'mobilný detailing Záhorie',
+    'mobilný detailing Hainburg an der Donau',
+    'mobilný detailing Wien',
+    'mobilný detailing Rakúsko',
+    'mobile Autopflege Wien',
+    'Auto detailing Schwechat',
     'tepovanie áut Trnava',
     'detailing Západné Slovensko',
   ],
@@ -32,9 +37,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      'Lokality | Mobilný detailing Bratislava, Malacky, Senica, Skalica, Trnava, Galanta, Dunajská Streda | Crystal Detailing',
+      'Lokality | Mobilný detailing Bratislava, Záhorie, Trnavský kraj a Rakúsko | Crystal Detailing',
     description:
-      'Mobilný detailing na Záhorí a v Trnavskom kraji — okresy Malacky, Senica, Skalica, Trnava, Galanta, Dunajská Streda. Bratislava, Pezinok, Senec, Chorvátsky Grob.',
+      'Mobilný detailing na Záhorí, v Trnavskom kraji a v Rakúsku pri Bratislave — Hainburg, Bruck, Eisenstadt, Wien Umgebung a Viedeň. Bratislava, Pezinok, Senec.',
     url: 'https://crystaldetailing.sk/lokality',
   },
 }
@@ -85,8 +90,11 @@ export default function LokalityPage() {
             <p className="text-xl text-zinc-300 mb-4">
               Crystal Detailing prináša prémiové mobilné detailingové služby priamo k vám v{' '}
               <strong className="text-foreground">Bratislave, na Záhorí</strong> (okresy Malacky, Senica, Skalica), v{' '}
-              <strong className="text-foreground">Trnavskom kraji</strong> (okres Trnava, Galanta, Dunajská Streda) a
-              v bezprostrednom okolí Bratislavy — Pezinok, Senec, Chorvátsky Grob.
+              <strong className="text-foreground">Trnavskom kraji</strong> (okres Trnava, Galanta, Dunajská Streda), v
+              bezprostrednom okolí Bratislavy — Pezinok, Senec, Chorvátsky Grob — aj v{' '}
+              <strong className="text-foreground">Rakúsku pri Bratislave</strong> až po{' '}
+              <strong className="text-foreground">Viedeň</strong> (Hainburg, Bruck an der Leitha, Eisenstadt, Schwechat,
+              Wien).
             </p>
             <p className="text-zinc-400">
               Naša plne vybavená mobilná jednotka príde na vaše miesto — domov, do firmy alebo na parkovisko. Nemusíte
@@ -127,6 +135,44 @@ export default function LokalityPage() {
                       </div>
                       <Link href={location.slug}>
                         <Button className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90">
+                          Viac informácií <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Austria — SEO */}
+        <section id="rakusko" className="container mx-auto px-4 py-16">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center text-gradient">
+            Rakúsko pri Bratislave až po Viedeň
+          </h2>
+          <p className="text-center text-zinc-400 max-w-2xl mx-auto mb-10">
+            Samostatné stránky pre lokálne SEO v Rakúsku — mobilný detailing / mobile Autopflege v Hainburg an der Donau,
+            Bruck an der Leitha, Burgenlande, vo víenskom okolí a vo Viedni. Výjazd z Bratislavy priamo k vám.
+          </p>
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {austriaNearBratislavaLocations.map((location) => (
+              <Card
+                key={location.path}
+                className="border-border bg-card hover:border-primary/50 transition-colors"
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 bg-primary/10 rounded-lg">
+                      <MapPin className="h-6 w-6 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold mb-2">
+                        {location.h1.replace(/^Mobilný detailing (v |vo )/, "")}
+                      </h3>
+                      <p className="text-zinc-400 text-sm mb-4 line-clamp-4">{location.lead}</p>
+                      <Link href={location.path}>
+                        <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
                           Viac informácií <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
                       </Link>

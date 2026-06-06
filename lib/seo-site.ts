@@ -39,6 +39,15 @@ export const AREA_SERVED_CITIES = [
   "Trnava",
   "Galanta",
   "Dunajská Streda",
+  "Hainburg an der Donau",
+  "Wolfsthal",
+  "Bruck an der Leitha",
+  "Eisenstadt",
+  "Mattersburg",
+  "Neusiedl am See",
+  "Schwechat",
+  "Fischamend",
+  "Wien",
 ] as const
 
 export const ORGANIZATION_SAME_AS = [SOCIAL_LINKS.instagram, SOCIAL_LINKS.facebook] as const

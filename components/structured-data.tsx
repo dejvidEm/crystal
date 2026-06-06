@@ -106,6 +106,14 @@ export function LocalBusinessStructuredData() {
         { '@type': 'City', name: 'Sereď' },
         { '@type': 'City', name: 'Dunajská Streda' },
         { '@type': 'City', name: 'Veľký Meder' },
+        { '@type': 'City', name: 'Hainburg an der Donau' },
+        { '@type': 'City', name: 'Bruck an der Leitha' },
+        { '@type': 'City', name: 'Eisenstadt' },
+        { '@type': 'City', name: 'Mattersburg' },
+        { '@type': 'City', name: 'Neusiedl am See' },
+        { '@type': 'City', name: 'Schwechat' },
+        { '@type': 'City', name: 'Fischamend' },
+        { '@type': 'City', name: 'Wien' },
       ],
       openingHoursSpecification: [
         {

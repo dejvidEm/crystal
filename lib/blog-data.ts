@@ -37,6 +37,242 @@ export type BlogPost = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "mobilny-detailing-bratislava-rakusko",
+    category: "mobilny-detailing",
+    publishedAt: "2026-06-06",
+    image: "/images/blog/mobilny-detailing-bratislava-rakusko.png",
+    imageAlt: {
+      sk: "Mobilný detailing auta pri dome v Bratislave – technik Crystal Detailing s výbavou a panorámou Bratislavy",
+      en: "Mobile car detailing at a home in Bratislava – Crystal Detailing technician with equipment and Bratislava skyline",
+    },
+    title: {
+      sk: "Mobilný detailing v Bratislave a v Rakúsku: prídeme k vám domov aj cez hranicu",
+      en: "Mobile detailing in Bratislava and Austria: we come to your home, even across the border",
+    },
+    excerpt: {
+      sk: "Profesionálny mobilný detailing v Bratislave, okolí a v Rakúsku pri hranici až po Viedeň. Kompletná výbava, tepovanie a čistenie auta priamo u vás – bez cesty do servisu.",
+      en: "Professional mobile detailing in Bratislava, surrounding areas, and Austria near the border up to Vienna. Full equipment, shampooing and car cleaning at your location—no trip to a service centre.",
+    },
+    body: {
+      sk: [
+        {
+          type: "p",
+          text: "Predstavte si, že auto máte zaparkované pred domom, vo firme alebo na dvore. Príde plne vybavená mobilná jednotka, technik nastaví pracovisko a o pár hodín máte interiér aj exteriér v stave, aký by ste v bežnej umyvárke nedosiahli – bez toho, aby ste niekam museli ísť. Presne tak funguje mobilný detailing Crystal Detailing v Bratislave a okolí.",
+        },
+        {
+          type: "p",
+          text: "Na obrázku vidíte typickú scénu z našej práce: technik pri striebornom Audi, mobilný van s organizovanou výbavou a v pozadí Bratislava. Nie je to len marketingová fotka – takto to vyzerá u zákazníkov každý deň. Prídeme na dohodnutú adresu, postaráme sa o auto na mieste a vy medzitým riešite svoj deň.",
+        },
+        {
+          type: "h2",
+          text: "Prečo mobilný detailing v Bratislave dáva zmysel",
+        },
+        {
+          type: "p",
+          text: "Bratislava je mesto, kde ľudia často nemajú čas strácať pol dňa v servise alebo čakať v rade v automatickej umyvárke. Mobilný detailing rieši presne to: šetrí čas, eliminuje stres a prináša prémiový výsledok priamo k vám.",
+        },
+        {
+          type: "ul",
+          items: [
+            "nemusíte nikam jazdiť – služba prebehne u vás doma, vo firme alebo na parkovisku",
+            "individuálny prístup podľa typu vozidla, veľkosti a stavu znečistenia",
+            "profesionálna výbava vrátane tepovača, extraktorov a prémiových prípravkov",
+            "možnosť kombinovať služby – od balíka REFRESH po tepovanie a renováciu svetlometov",
+            "transparentné ceny podľa cenníka a kalkulačky ešte pred začatím práce",
+          ],
+        },
+        {
+          type: "p",
+          text: "Či bývate v Starom Meste, Ružinove, Petržalke, Dúbravke alebo v okrajových častiach ako Lamač či Devínska Nová Ves – mobilný detailing je praktickejší než hľadať voľný termín v kamennom servise.",
+        },
+        {
+          type: "h2",
+          text: "Kam všade dochádzame okrem Bratislavy",
+        },
+        {
+          type: "p",
+          text: "Crystal Detailing pokrýva nielen hlavné mesto, ale celé bezprostredné okolie a západné Slovensko. Bežne vyrazíme do Pezinka, Senca, Chorvátskeho Grobu, na Záhorie (Malacky, Stupava, Senica, Skalica) aj do Trnavského kraja (Trnava, Galanta, Dunajská Streda). Kompletný prehľad nájdete na stránke lokality.",
+        },
+        {
+          type: "p",
+          text: "Od roku 2026 sme rozšírili výjazdy aj do Rakúska pri Bratislave. Ak bývate v Hainburg an der Donau, Bruck an der Leitha, v Burgenlande (Eisenstadt, Mattersburg, Neusiedl am See) alebo vo víenskom okolí až po samotnú Viedeň – mobilný detailing vám vieme prísť aj tam. Výjazd zabezpečujeme z Bratislavy, komunikáciu vieme prispôsobiť a službu realizujeme rovnako profesionálne ako na Slovensku.",
+        },
+        {
+          type: "h2",
+          text: "Čo všetko vieme urobiť priamo u vás",
+        },
+        {
+          type: "p",
+          text: "Mobilný detailing nie je len umytie auta zvonku. Ide o komplexnú starostlivosť o vozidlo – interiér aj exteriér – s dôrazom na detail a kvalitu materiálov.",
+        },
+        {
+          type: "ul",
+          items: [
+            "umývanie a ošetrenie exteriéru vrátane diskov a prípravkov šetrných k laku",
+            "hĺbkové čistenie interiéru – palubná doska, plasty, koža, textílie",
+            "tepovanie sedadiel a kobercov extrakčnou metódou",
+            "renovácia svetlometov – obnova priehľadnosti a svietivosti",
+            "doplnkové služby ako ozónovanie, ošetrenie kože či čistenie motora",
+          ],
+        },
+        {
+          type: "p",
+          text: "Balíky REFRESH, INTERIÉR, KOMPLET a TEPOVANIE nájdete v cenníku. Cena sa odvíja aj od veľkosti vozidla – SUV a dodávky majú príplatok podľa kategórie. Presný odhad získate v cenovej kalkulačke na webe.",
+        },
+        {
+          type: "h2",
+          text: "Ako prebieha objednávka – od rezervácie po hotové auto",
+        },
+        {
+          type: "p",
+          text: "Proces je jednoduchý a nemusíte nič zložito riešiť:",
+        },
+        {
+          type: "ul",
+          items: [
+            "vyberte službu v cenníku alebo kalkulačke a rezervujte termín online cez Bookio",
+            "dohodneme presný čas príchodu a adresu – dom, firma, parkovisko",
+            "technik príde s mobilným vanom a kompletnou výbavou vrátane vody a elektriny",
+            "pred začatím práce potvrdíme rozsah a cenu",
+            "po dokončení skontrolujete výsledok a auto môžete hneď používať",
+          ],
+        },
+        {
+          type: "p",
+          text: "Pri výjazdoch do Rakúska rátať s cestovným časom z Bratislavy – Hainburg je približne 15–20 minút, Eisenstadt okolo hodiny, Viedeň podľa okresu 45–75 minút. Presný čas vám potvrdíme pri rezervácii.",
+        },
+        {
+          type: "h2",
+          text: "Pre koho je služba ideálna",
+        },
+        {
+          type: "p",
+          text: "Mobilný detailing ocenia majitelia prémiových a bežných áut, rodiny s deťmi (špinavé sedačky a koberce), firmy s firemnými vozidlami, predajcov áut pred odovzdaním kupujúcemu aj ľudia v Rakúsku pri hranici, ktorí nechcú kvôli čisteniu auta cestovať na Slovensko.",
+        },
+        {
+          type: "p",
+          text: "Ak hľadáte „mobilný detailing Bratislava“, „tepovanie auta Pezinok“ alebo „mobile Autopflege Wien“ – Crystal Detailing je služba, ktorá príde k vám. Nie vy k nám.",
+        },
+        {
+          type: "h2",
+          text: "Záver",
+        },
+        {
+          type: "p",
+          text: "Mobilný detailing v Bratislave a v Rakúsku pri hranici je najpraktickejší spôsob, ako mať auto čisté, voňavé a udržiavané bez straty času. Rezervujte si termín ešte dnes – prídeme s výbavou, skúsenosťami a s cieľom, aby ste boli s výsledkom spokojní.",
+        },
+      ],
+      en: [
+        {
+          type: "p",
+          text: "Picture your car parked at home, at the office, or in your driveway. A fully equipped mobile unit arrives, the technician sets up, and a few hours later the interior and exterior are in a condition you would not get at a standard car wash—without you going anywhere. That is how Crystal Detailing mobile service works in Bratislava and the surrounding region.",
+        },
+        {
+          type: "p",
+          text: "The photo shows a typical scene from our work: a technician with a silver Audi, a mobile van with organised equipment, and Bratislava in the background. It is not just a marketing shot—this is what it looks like at customers’ locations every day. We come to the agreed address, care for the car on site, and you get on with your day.",
+        },
+        {
+          type: "h2",
+          text: "Why mobile detailing in Bratislava makes sense",
+        },
+        {
+          type: "p",
+          text: "In Bratislava, people often cannot afford to lose half a day at a service centre or wait in line at an automatic wash. Mobile detailing solves exactly that: it saves time, removes hassle, and delivers a premium result right where you are.",
+        },
+        {
+          type: "ul",
+          items: [
+            "no need to drive anywhere—service at home, at work, or in a car park",
+            "individual approach based on vehicle type, size, and level of soiling",
+            "professional equipment including extractors and premium products",
+            "combine services—from a REFRESH package to shampooing and headlight restoration",
+            "transparent pricing from the price list and calculator before work starts",
+          ],
+        },
+        {
+          type: "p",
+          text: "Whether you live in the Old Town, Ružinov, Petržalka, Dúbravka, or outlying areas such as Lamač or Devínska Nová Ves—mobile detailing is more practical than hunting for a slot at a fixed-location service.",
+        },
+        {
+          type: "h2",
+          text: "Where we travel beyond Bratislava",
+        },
+        {
+          type: "p",
+          text: "Crystal Detailing covers not only the capital but the whole immediate area and western Slovakia. We regularly visit Pezinok, Senec, Chorvátsky Grob, Záhorie (Malacky, Stupava, Senica, Skalica), and Trnava region (Trnava, Galanta, Dunajská Streda). See the locations page for the full overview.",
+        },
+        {
+          type: "p",
+          text: "From 2026 we also run trips into Austria near Bratislava. If you live in Hainburg an der Donau, Bruck an der Leitha, Burgenland (Eisenstadt, Mattersburg, Neusiedl am See), or the Vienna area up to the city itself—we can come to you there too. We travel from Bratislava and deliver the same professional service as in Slovakia.",
+        },
+        {
+          type: "h2",
+          text: "What we can do at your location",
+        },
+        {
+          type: "p",
+          text: "Mobile detailing is not just an exterior wash. It is full vehicle care—interior and exterior—with attention to detail and material quality.",
+        },
+        {
+          type: "ul",
+          items: [
+            "exterior wash and treatment including wheels and paint-safe products",
+            "deep interior cleaning—dashboard, plastics, leather, textiles",
+            "seat and carpet shampooing with extraction",
+            "headlight restoration—clarity and brightness",
+            "add-ons such as ozone treatment, leather care, or engine bay cleaning",
+          ],
+        },
+        {
+          type: "p",
+          text: "REFRESH, INTERIOR, COMPLETE, and SHAMPOOING packages are in the price list. Price also depends on vehicle size—SUVs and vans have a surcharge by category. Get an exact estimate in the online calculator.",
+        },
+        {
+          type: "h2",
+          text: "How booking works—from reservation to a finished car",
+        },
+        {
+          type: "p",
+          text: "The process is simple:",
+        },
+        {
+          type: "ul",
+          items: [
+            "choose a service in the price list or calculator and book online via Bookio",
+            "we agree arrival time and address—home, office, car park",
+            "the technician arrives with the mobile van and full kit including water and power",
+            "we confirm scope and price before starting",
+            "you check the result when finished and can use the car straight away",
+          ],
+        },
+        {
+          type: "p",
+          text: "For trips to Austria, allow travel time from Bratislava—Hainburg is roughly 15–20 minutes, Eisenstadt around an hour, Vienna depending on district 45–75 minutes. We confirm the exact timing when you book.",
+        },
+        {
+          type: "h2",
+          text: "Who it is ideal for",
+        },
+        {
+          type: "p",
+          text: "Mobile detailing suits owners of premium and everyday cars, families with children (dirty seats and carpets), companies with fleet vehicles, sellers preparing a handover, and people in Austria near the border who do not want to drive to Slovakia just to have their car cleaned.",
+        },
+        {
+          type: "p",
+          text: "If you search for “mobilný detailing Bratislava”, “car shampooing Pezinok”, or “mobile Autopflege Wien”—Crystal Detailing is the service that comes to you. Not the other way around.",
+        },
+        {
+          type: "h2",
+          text: "Conclusion",
+        },
+        {
+          type: "p",
+          text: "Mobile detailing in Bratislava and in Austria near the border is the most practical way to keep your car clean, fresh, and well maintained without losing time. Book your slot today—we arrive with equipment, experience, and the goal of a result you will be happy with.",
+        },
+      ],
+    },
+  },
+  {
   slug: "renovacia-svetlometov-mobilne",
   category: "detailing-tips",
   publishedAt: "2026-06-04",

@@ -40,6 +40,11 @@ const DISTRICT_ROUTES = [
   "/trnava",
   "/galanta",
   "/dunajska-streda",
+  "/hainburg-an-der-donau",
+  "/bruck-an-der-leitha",
+  "/eisenstadt-burgenland",
+  "/wien-umgebung",
+  "/wien",
 ] as const
 
 /** Hlavná mapa stránok – homepage, lokality, blog, právne stránky */
