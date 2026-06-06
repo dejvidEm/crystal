@@ -14,7 +14,7 @@ export function FloatingCalcButton() {
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.5, duration: 0.5 }}
-      className="fixed bottom-6 left-0 right-0 z-[100] md:hidden px-4"
+      className="fixed bottom-6 left-0 right-0 z-[100] md:hidden px-4 [[data-mobile-nav-open]_&]:pointer-events-none [[data-mobile-nav-open]_&]:invisible"
     >
       <div className="flex justify-center">
         <Link href="/calc" className="block w-full max-w-[280px]">
