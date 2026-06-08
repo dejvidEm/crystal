@@ -25,7 +25,7 @@ const baseUrl = 'https://crystaldetailing.sk' // Update with actual production d
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Crystal Detailing | Prémiový mobilný detailing v Bratislave",
+    default: "Crystal Detailing | Mobilný detailing",
     template: "%s | Crystal Detailing",
   },
   description: metaDescription(
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Crystal Detailing | Prémiový mobilný detailing v Bratislave",
+    title: "Crystal Detailing | Mobilný detailing",
     description: metaDescription(
       "Prvá mobilná služba detailingu luxusných áut na Slovensku, ktorá príde k vám. Profesionálny detailing v Bratislave a okolí.",
     ),
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Crystal Detailing | Prémiový mobilný detailing v Bratislave",
+    title: "Crystal Detailing | Mobilný detailing",
     description: "Prvá mobilná služba detailingu luxusných áut na Slovensku, ktorá príde k vám.",
     images: [`${baseUrl}/images/luxury-car.png`],
   },
