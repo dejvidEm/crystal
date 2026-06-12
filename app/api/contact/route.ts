@@ -2,8 +2,8 @@ import { after, NextResponse } from "next/server"
 import { renderKeyValueEmail, sendEmail } from "@/lib/email"
 
 /**
- * Endpoint pre kontaktný formulár v sekcii „Ste pripravení…".
- * Validuje vstup a pošle ho cez Resend na inbox tímu.
+ * Spoločný endpoint pre kontaktné formuláre (domovská stránka aj /pre-firmy).
+ * Validuje vstup a pošle ho cez Resend na LEAD_INBOX_EMAIL.
  */
 
 export const runtime = "nodejs"
@@ -14,6 +14,7 @@ type ContactPayload = {
   email?: unknown
   phone?: unknown
   message?: unknown
+  fleetSize?: unknown
 }
 
 function isString(value: unknown): value is string {
@@ -29,6 +30,24 @@ const PHONE_DIGITS_MIN = 9
 const MESSAGE_MAX = 2000
 const NAME_MAX = 120
 const COMPANY_MAX = 160
+const FLEET_MIN = 1
+const FLEET_MAX = 9999
+
+function parseFleetSize(value: unknown): number | null {
+  if (value === undefined || value === null || value === "") return null
+  const parsed =
+    typeof value === "number"
+      ? value
+      : typeof value === "string"
+        ? Number.parseInt(value, 10)
+        : NaN
+  if (!Number.isFinite(parsed)) return null
+  return parsed
+}
+
+function isBusinessPayload(body: ContactPayload): boolean {
+  return body.fleetSize !== undefined && body.fleetSize !== null && body.fleetSize !== ""
+}
 
 export async function POST(request: Request) {
   let body: ContactPayload
@@ -38,8 +57,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Invalid JSON body" }, { status: 400 })
   }
 
+  const isBusiness = isBusinessPayload(body)
+
   if (!isNonEmptyString(body.name) || body.name.length > NAME_MAX) {
-    return NextResponse.json({ ok: false, error: "Zadajte svoje meno." }, { status: 422 })
+    return NextResponse.json(
+      { ok: false, error: isBusiness ? "Zadajte kontaktnú osobu." : "Zadajte svoje meno." },
+      { status: 422 },
+    )
   }
   if (!isNonEmptyString(body.email) || !EMAIL_RE.test(body.email)) {
     return NextResponse.json({ ok: false, error: "Zadajte platný e-mail." }, { status: 422 })
@@ -53,6 +77,47 @@ export async function POST(request: Request) {
       { status: 422 },
     )
   }
+
+  if (isBusiness) {
+    if (!isNonEmptyString(body.company) || body.company.length > COMPANY_MAX) {
+      return NextResponse.json({ ok: false, error: "Zadajte názov firmy." }, { status: 422 })
+    }
+
+    const fleetSize = parseFleetSize(body.fleetSize)
+    if (fleetSize === null || fleetSize < FLEET_MIN || fleetSize > FLEET_MAX) {
+      return NextResponse.json(
+        { ok: false, error: "Zadajte platný počet vozidiel vo flotile." },
+        { status: 422 },
+      )
+    }
+
+    if (isString(body.message) && body.message.length > MESSAGE_MAX) {
+      return NextResponse.json({ ok: false, error: "Poznámka je príliš dlhá." }, { status: 422 })
+    }
+
+    const contact = {
+      company: body.company.trim(),
+      name: body.name.trim(),
+      email: body.email.trim(),
+      phone: body.phone.trim(),
+      fleetSize,
+      message: isString(body.message) ? body.message.trim() : "",
+      receivedAt: new Date().toISOString(),
+    }
+
+    console.info("[contact/business]", contact)
+
+    after(async () => {
+      try {
+        await sendBusinessNotification(contact)
+      } catch (err) {
+        console.error("[contact/business] notification failed:", err)
+      }
+    })
+
+    return NextResponse.json({ ok: true })
+  }
+
   if (!isNonEmptyString(body.message) || body.message.length > MESSAGE_MAX) {
     return NextResponse.json({ ok: false, error: "Napíšte krátku správu." }, { status: 422 })
   }
@@ -71,9 +136,6 @@ export async function POST(request: Request) {
 
   console.info("[contact]", contact)
 
-  // Resend volanie posúvame za odpoveď, nech používateľ nečaká na sieťový
-  // round-trip k e-mailovej službe. `after()` (Next.js 15) garantuje, že
-  // úloha dobehne v rámci toho istého serverless invocation-u.
   after(async () => {
     try {
       await sendContactNotification(contact)
@@ -94,6 +156,16 @@ type ContactMessage = {
   receivedAt: string
 }
 
+type BusinessMessage = {
+  company: string
+  name: string
+  email: string
+  phone: string
+  fleetSize: number
+  message: string
+  receivedAt: string
+}
+
 async function sendContactNotification(msg: ContactMessage): Promise<void> {
   const { html, text } = renderKeyValueEmail({
     heading: "Nová správa z kontaktného formulára",
@@ -110,6 +182,29 @@ async function sendContactNotification(msg: ContactMessage): Promise<void> {
 
   await sendEmail({
     subject: `Kontaktný formulár – ${msg.name}`,
+    html,
+    text,
+    replyTo: msg.email,
+  })
+}
+
+async function sendBusinessNotification(msg: BusinessMessage): Promise<void> {
+  const { html, text } = renderKeyValueEmail({
+    heading: "Nový firemný dopyt – Pre firmy",
+    intro: "Odoslané z webu crystaldetailing.sk/pre-firmy.",
+    rows: [
+      { label: "Firma", value: msg.company },
+      { label: "Kontaktná osoba", value: msg.name },
+      { label: "E-mail", value: msg.email },
+      { label: "Mobil", value: msg.phone },
+      { label: "Počet vozidiel", value: String(msg.fleetSize) },
+      { label: "Poznámka", value: msg.message || null },
+    ],
+    footnote: `Prijaté: ${msg.receivedAt}`,
+  })
+
+  await sendEmail({
+    subject: `Firemný dopyt – ${msg.company}`,
     html,
     text,
     replyTo: msg.email,
