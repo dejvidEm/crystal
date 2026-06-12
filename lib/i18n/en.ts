@@ -336,6 +336,8 @@ export const en = {
   businessContactForm: {
     companyLabel: "Company name",
     companyPlaceholder: "Your company name",
+    industryLabel: "Industry or sector",
+    industryPlaceholder: "e.g. passenger transport, construction, hospitality...",
     nameLabel: "Contact person",
     namePlaceholder: "Full name",
     fleetLabel: "Number of vehicles in fleet",

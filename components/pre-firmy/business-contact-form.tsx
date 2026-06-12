@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react"
 import { motion } from "framer-motion"
 import {
+  Briefcase,
   Building2,
   Car as CarIcon,
   CheckCircle2,
@@ -26,6 +27,7 @@ export function BusinessContactForm() {
   const { t } = useLanguage()
   const bc = t.businessContactForm
   const [company, setCompany] = useState("")
+  const [industry, setIndustry] = useState("")
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
@@ -46,6 +48,7 @@ export function BusinessContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           company,
+          industry,
           name,
           email,
           phone,
@@ -104,6 +107,32 @@ export function BusinessContactForm() {
             onChange={(e) => setCompany(e.target.value)}
             disabled={status === "submitting"}
             placeholder={bc?.companyPlaceholder || "Názov vašej firmy"}
+            className="pl-9"
+          />
+        </IconField>
+
+        <IconField
+          id="business-industry"
+          label={
+            <>
+              {bc?.industryLabel || "Segment alebo odvetvie"}
+              <span className="ml-1 text-xs font-normal text-zinc-500">
+                ({bc?.optional || "voliteľné"})
+              </span>
+            </>
+          }
+          icon={<Briefcase className="h-4 w-4" />}
+        >
+          <Input
+            id="business-industry"
+            autoComplete="organization-title"
+            value={industry}
+            onChange={(e) => setIndustry(e.target.value)}
+            disabled={status === "submitting"}
+            placeholder={
+              bc?.industryPlaceholder ||
+              "napr. preprava osôb, stavebníctvo, gastro..."
+            }
             className="pl-9"
           />
         </IconField>

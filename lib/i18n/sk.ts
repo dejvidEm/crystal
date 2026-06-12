@@ -341,6 +341,8 @@ export const sk = {
   businessContactForm: {
     companyLabel: "Názov firmy",
     companyPlaceholder: "Názov vašej firmy",
+    industryLabel: "Segment alebo odvetvie",
+    industryPlaceholder: "napr. preprava osôb, stavebníctvo, gastro...",
     nameLabel: "Kontaktná osoba",
     namePlaceholder: "Meno a priezvisko",
     fleetLabel: "Počet vozidiel vo flotile",

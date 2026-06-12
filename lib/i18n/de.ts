@@ -343,6 +343,8 @@ export const de = {
   businessContactForm: {
     companyLabel: "Firmenname",
     companyPlaceholder: "Name Ihrer Firma",
+    industryLabel: "Branche oder Segment",
+    industryPlaceholder: "z. B. Personenbeförderung, Bau, Gastronomie …",
     nameLabel: "Ansprechpartner",
     namePlaceholder: "Vollständiger Name",
     fleetLabel: "Anzahl Fahrzeuge in der Flotte",

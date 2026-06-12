@@ -11,6 +11,7 @@ export const runtime = "nodejs"
 type ContactPayload = {
   name?: unknown
   company?: unknown
+  industry?: unknown
   email?: unknown
   phone?: unknown
   message?: unknown
@@ -30,6 +31,7 @@ const PHONE_DIGITS_MIN = 9
 const MESSAGE_MAX = 2000
 const NAME_MAX = 120
 const COMPANY_MAX = 160
+const INDUSTRY_MAX = 160
 const FLEET_MIN = 1
 const FLEET_MAX = 9999
 
@@ -91,12 +93,20 @@ export async function POST(request: Request) {
       )
     }
 
+    if (isString(body.industry) && body.industry.length > INDUSTRY_MAX) {
+      return NextResponse.json(
+        { ok: false, error: "Segment alebo odvetvie je príliš dlhý." },
+        { status: 422 },
+      )
+    }
+
     if (isString(body.message) && body.message.length > MESSAGE_MAX) {
       return NextResponse.json({ ok: false, error: "Poznámka je príliš dlhá." }, { status: 422 })
     }
 
     const contact = {
       company: body.company.trim(),
+      industry: isString(body.industry) ? body.industry.trim() : "",
       name: body.name.trim(),
       email: body.email.trim(),
       phone: body.phone.trim(),
@@ -158,6 +168,7 @@ type ContactMessage = {
 
 type BusinessMessage = {
   company: string
+  industry: string
   name: string
   email: string
   phone: string
@@ -194,6 +205,7 @@ async function sendBusinessNotification(msg: BusinessMessage): Promise<void> {
     intro: "Odoslané z webu crystaldetailing.sk/pre-firmy.",
     rows: [
       { label: "Firma", value: msg.company },
+      { label: "Segment / odvetvie", value: msg.industry || null },
       { label: "Kontaktná osoba", value: msg.name },
       { label: "E-mail", value: msg.email },
       { label: "Mobil", value: msg.phone },
