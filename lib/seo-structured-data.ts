@@ -13,6 +13,7 @@ import {
   type BlogPost,
 } from "@/lib/blog-data"
 import { getServicePageCopy, type ServicePageSlug } from "@/lib/service-pages-data"
+import { preFirmyCopySk } from "@/lib/pre-firmy-copy"
 import { metaDescription } from "@/lib/seo-meta"
 
 const ORGANIZATION_ID = `${SITE_URL}/#organization`
@@ -171,6 +172,47 @@ export function buildServicePageGraphJsonLd(slug: ServicePageSlug) {
       { name: copy.h1, url },
     ]),
     buildServiceJsonLd(slug),
+  ]
+}
+
+export function buildPreFirmyPageJsonLd() {
+  const copy = preFirmyCopySk
+  const pathname = "/pre-firmy"
+  const url = absoluteUrl(pathname)
+
+  return [
+    buildWebPageJsonLd({
+      pathname,
+      title: copy.metaTitle,
+      description: copy.metaDescription,
+    }),
+    buildBreadcrumbJsonLd([
+      { name: "Domov", url: SITE_URL },
+      { name: "Služby", url: `${SITE_URL}/#services` },
+      { name: copy.hero.h1, url },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": `${url}#service`,
+      name: copy.hero.h1,
+      description: metaDescription(copy.metaDescription),
+      url,
+      serviceType: "Firemný mobilný detailing a starostlivosť o flotily",
+      provider: { "@id": ORGANIZATION_ID },
+      areaServed: AREA_SERVED_CITIES.map((name) => ({ "@type": "City", name })),
+      audience: {
+        "@type": "BusinessAudience",
+        audienceType: "Firemné flotily a organizácie",
+      },
+      offers: {
+        "@type": "Offer",
+        url,
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        description: "Individuálna ponuka podľa počtu vozidiel vo flotile",
+      },
+    },
   ]
 }
 

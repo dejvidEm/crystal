@@ -74,7 +74,7 @@ export function Footer() {
 
               <div>
                 <h3 className="text-xl font-heading mb-4 text-white">{t.footer.quickLinksHeading}</h3>
-                <div className="grid grid-cols-1 gap-2">
+                <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                   <Link href="/o-nas" className="text-zinc-400 hover:text-primary transition-colors">
                     {t.nav.aboutUs}
                   </Link>
@@ -92,6 +92,9 @@ export function Footer() {
                   </Link>
                   <Link href="/renovacia-svetlometov" className="text-zinc-400 hover:text-primary transition-colors">
                     {t.footer.serviceRenovaciaSvetlometov}
+                  </Link>
+                  <Link href="/pre-firmy" className="text-zinc-400 hover:text-primary transition-colors">
+                    {t.nav.forBusiness}
                   </Link>
                   <Link href="/#how-it-works" className="text-zinc-400 hover:text-primary transition-colors">
                     {t.nav.howItWorks}

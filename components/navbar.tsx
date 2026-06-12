@@ -30,16 +30,23 @@ export function Navbar() {
   const lang = language === "en" ? "en" : "sk"
 
   const serviceNavLinks = useMemo(
-    () =>
-      SERVICE_PAGE_SLUGS.map((slug) => ({
+    () => [
+      ...SERVICE_PAGE_SLUGS.map((slug) => ({
         slug,
         href: `/${slug}`,
         label: getServicePageCopy(slug, lang)?.h1 ?? slug,
       })),
-    [lang],
+      {
+        slug: "pre-firmy",
+        href: "/pre-firmy",
+        label: t.nav.forBusiness,
+      },
+    ],
+    [lang, t.nav.forBusiness],
   )
 
-  const isServicePageActive = serviceNavLinks.some((link) => pathname === link.href)
+  const isServicePageActive =
+    SERVICE_PAGE_SLUGS.some((slug) => pathname === `/${slug}`) || pathname === "/pre-firmy"
 
   const handleScroll = useCallback(() => {
     setScrolled(window.scrollY > 50)
@@ -87,7 +94,6 @@ export function Navbar() {
   const servicesHref = isHomePage ? "#services" : "/#services"
 
   const navItems = [
-    { name: t.nav.aboutUs, href: "/o-nas" },
     { name: t.nav.pricing, href: "/cennik" },
     { name: t.nav.howItWorks, href: isHomePage ? "#how-it-works" : "/#how-it-works" },
     { name: "Lokality", href: "/lokality" },
@@ -266,9 +272,8 @@ export function Navbar() {
             >
               <div className="flex items-center space-x-2">
                 {renderNavLink(navItems[0])}
-                {renderNavLink(navItems[1])}
                 {renderServicesDropdown()}
-                {navItems.slice(2).map((item) => renderNavLink(item))}
+                {navItems.slice(1).map((item) => renderNavLink(item))}
               </div>
             </nav>
           )}
@@ -331,13 +336,6 @@ export function Navbar() {
                 <div className="flex h-full flex-col items-center justify-center">
                   <nav className="flex flex-col items-center space-y-8" aria-label="Mobile navigation">
                     <Link
-                      href="/o-nas"
-                      className="whitespace-nowrap text-xl uppercase tracking-widest text-zinc-200 transition-colors hover:text-primary"
-                      onClick={handleLinkClick}
-                    >
-                      {t.nav.aboutUs}
-                    </Link>
-                    <Link
                       href="/cennik"
                       className="whitespace-nowrap text-xl uppercase tracking-widest text-zinc-200 transition-colors hover:text-primary"
                       onClick={handleLinkClick}
@@ -345,7 +343,7 @@ export function Navbar() {
                       {t.nav.pricing}
                     </Link>
                     {renderMobileServices()}
-                    {navItems.slice(2).map((item) => (
+                    {navItems.slice(1).map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}

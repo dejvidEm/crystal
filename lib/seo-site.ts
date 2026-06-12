@@ -21,6 +21,7 @@ export const SITELINK_PAGES = [
     priority: 0.9,
     changeFrequency: "monthly" as const,
   },
+  { pathname: "/pre-firmy", name: "Pre firmy", priority: 0.88, changeFrequency: "monthly" as const },
   { pathname: "/calc", name: "Cenová kalkulačka", priority: 0.88, changeFrequency: "monthly" as const },
   { pathname: "/lokality", name: "Lokality", priority: 0.85, changeFrequency: "monthly" as const },
   { pathname: "/o-nas", name: "O nás", priority: 0.8, changeFrequency: "monthly" as const },

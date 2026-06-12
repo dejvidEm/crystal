@@ -25,6 +25,7 @@ const SERVICE_SITEMAP_PATHS = [
   "/mobilny-detailing",
   "/tepovanie",
   "/renovacia-svetlometov",
+  "/pre-firmy",
 ] as const
 
 const LEGAL_ROUTES = ["/ochrana-osobnych-udajov", "/obchodne-podmienky"] as const

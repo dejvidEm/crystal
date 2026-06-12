@@ -1,64 +1,59 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import Link from "next/link"
+import { motion, useInView, useScroll, useTransform } from "framer-motion"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 
 export function MobileServiceBanner() {
   const { t } = useLanguage()
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLElement>(null)
+  const isInView = useInView(ref, { once: true, amount: 0.35 })
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   })
 
-  // Parallax effect for the image
   const y = useTransform(scrollYProgress, [0, 1], [0, 100])
 
-  // Opacity effect for the content
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.6], [0, 1, 1])
-
-  // Scale effect for the content
-  const scale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1])
-
   return (
-    <section ref={ref} className="relative h-[500px] md:h-[600px] overflow-hidden">
-      {/* Image with parallax effect */}
-      <motion.div className="absolute inset-0 w-full h-full" style={{ y, position: 'relative' }}>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80 z-10"></div>
-        <div className="relative h-full w-full">
-          <Image
-            src="/images/van-with-logo.png"
-            alt="Mobilná detailingová jednotka Crystal Detailing v Bratislave"
-            fill
-            className="object-cover"
-            style={{ objectPosition: "60% center" }}
-            priority
-            sizes="100vw"
-          />
-        </div>
+    <section ref={ref} className="relative h-[500px] overflow-hidden md:h-[600px]">
+      <motion.div className="absolute inset-0 z-0" style={{ y }}>
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/70 via-black/50 to-black/70" />
+        <Image
+          src="/images/van-with-logo.png"
+          alt="Mobilná detailingová jednotka Crystal Detailing v Bratislave"
+          fill
+          className="object-cover brightness-[0.72]"
+          style={{ objectPosition: "60% center" }}
+          priority
+          sizes="100vw"
+        />
       </motion.div>
 
-      {/* Content overlay */}
-      <div className="container relative z-20 h-full mx-auto px-4" style={{ position: 'relative' }}>
-        <motion.div className="flex flex-col items-start justify-center h-full max-w-2xl" style={{ opacity, scale, position: 'relative' }}>
-          <div className="glass-card p-8 md:p-10 rounded-lg border border-primary/20 backdrop-blur-md">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient">
-              {t.mobileService?.title || "We Come To You"}
+      <div className="container relative z-20 mx-auto flex h-full items-start justify-center px-4 pt-32 md:pt-36">
+        <motion.div
+          className="w-full max-w-xl text-center"
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+        >
+          <div className="glass-card rounded-lg border border-primary/20 p-8 backdrop-blur-md md:p-10">
+            <h2 className="text-gradient mb-3 text-3xl font-bold md:text-4xl">
+              {t.mobileService?.title || "Sme Crystal Detailing"}
             </h2>
-            <p className="text-zinc-200 text-lg mb-6">
-              {t.mobileService?.description ||
-                "Our fully equipped mobile detailing unit brings the premium car wash experience directly to your location. No need to drive anywhere or wait in line - we handle everything while you focus on what matters to you."}
+            <p className="mb-6 text-base text-zinc-300 md:text-lg">
+              {t.mobileService?.shortLead ||
+                "Prémiový mobilný detailing pre tých, ktorí očakávajú dokonalosť v každom detaile."}
             </p>
-            <div className="flex flex-wrap gap-4 items-center">
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-                {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
+            <Link href="/o-nas">
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                {t.nav.aboutUs}
               </Button>
-              <span className="text-zinc-400">{t.mobileService?.availability || "Available 7 days a week"}</span>
-            </div>
+            </Link>
           </div>
         </motion.div>
       </div>
