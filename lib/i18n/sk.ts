@@ -12,6 +12,7 @@ export const sk = {
     forBusiness: "Pre firmy",
     pricing: "Cenník",
     howItWorks: "Ako\u00A0to\u00A0funguje",
+    locations: "Lokality",
     blog: "Blog",
     reviews: "Recenzie",
     contact: "Kontakt",
@@ -394,6 +395,9 @@ export const sk = {
   },
   languageSwitcher: {
     changeLanguage: "Zmeniť jazyk",
+  },
+  legal: {
+    lastUpdated: "Posledná aktualizácia:",
   },
   gallery: {
     title: "Galéria zákazníkov",

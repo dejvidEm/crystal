@@ -5,10 +5,11 @@ import { usePathname, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { blogCategories, type BlogCategoryId } from "@/lib/blog-data"
+import { toContentLocale } from "@/lib/i18n/locale"
 
 export function BlogSidebar() {
   const { language, t } = useLanguage()
-  const lang = language === "en" ? "en" : "sk"
+  const lang = toContentLocale(language)
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const activeCategory = searchParams.get("kategoria") as BlogCategoryId | null

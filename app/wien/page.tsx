@@ -1,8 +1,8 @@
-import { DistrictSeoPage } from "@/components/district-seo-page"
+import { DistrictSeoPageServer } from "@/components/district-seo-page-server"
 import { districtWien } from "@/lib/district-pages-data"
 
 export const metadata = districtWien.metadata
 
 export default function WienPage() {
-  return <DistrictSeoPage data={districtWien} />
+  return <DistrictSeoPageServer data={districtWien} />
 }

@@ -10,6 +10,7 @@ import { LanguageSwitcher } from "@/components/language-switcher"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { bookioUrl } from "@/lib/site-config"
 import { getServicePageCopy, SERVICE_PAGE_SLUGS } from "@/lib/service-pages-data"
+import { toContentLocale } from "@/lib/i18n/locale"
 
 const navLinkClass =
   "relative whitespace-nowrap px-3 py-4 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:text-primary group lg:px-3 xl:px-4 2xl:px-5"
@@ -27,7 +28,7 @@ export function Navbar() {
 
   const showServicesDropdown = servicesHovered && !servicesDropdownDismissed
 
-  const lang = language === "en" ? "en" : "sk"
+  const lang = toContentLocale(language)
 
   const serviceNavLinks = useMemo(
     () => [
@@ -96,7 +97,7 @@ export function Navbar() {
   const navItems = [
     { name: t.nav.pricing, href: "/cennik" },
     { name: t.nav.howItWorks, href: isHomePage ? "#how-it-works" : "/#how-it-works" },
-    { name: "Lokality", href: "/lokality" },
+    { name: t.nav.locations, href: "/lokality" },
     { name: t.nav.blog, href: "/blog" },
     { name: t.nav.reviews, href: isHomePage ? "#reviews" : "/#reviews" },
     { name: t.nav.contact, href: isHomePage ? "#contact" : "/#contact" },

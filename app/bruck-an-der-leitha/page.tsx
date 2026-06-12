@@ -1,8 +1,8 @@
-import { DistrictSeoPage } from "@/components/district-seo-page"
+import { DistrictSeoPageServer } from "@/components/district-seo-page-server"
 import { districtBruck } from "@/lib/district-pages-data"
 
 export const metadata = districtBruck.metadata
 
 export default function BruckPage() {
-  return <DistrictSeoPage data={districtBruck} />
+  return <DistrictSeoPageServer data={districtBruck} />
 }

@@ -1,8 +1,8 @@
-import { DistrictSeoPage } from "@/components/district-seo-page"
+import { DistrictSeoPageServer } from "@/components/district-seo-page-server"
 import { districtSkalica } from "@/lib/district-pages-data"
 
 export const metadata = districtSkalica.metadata
 
 export default function SkalicaDistrictPage() {
-  return <DistrictSeoPage data={districtSkalica} />
+  return <DistrictSeoPageServer data={districtSkalica} />
 }

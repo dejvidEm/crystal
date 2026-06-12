@@ -2,12 +2,13 @@
 
 import { AdditionalServiceCard } from "@/components/additional-service-card"
 import { LazyLoadSection } from "@/components/lazy-section"
-import { additionalServices, additionalServicesEn } from "@/lib/pricing-data"
+import { getAdditionalServices } from "@/lib/pricing-data"
+import { toContentLocale } from "@/lib/i18n/locale"
 import { useLanguage } from "@/lib/i18n/language-context"
 
 export function AdditionalServicesTable() {
   const { language } = useLanguage()
-  const rows = language === "en" ? additionalServicesEn : additionalServices
+  const rows = getAdditionalServices(toContentLocale(language))
 
   return (
     <div className="mx-auto grid max-w-4xl gap-8 overflow-visible pt-4 sm:grid-cols-2">

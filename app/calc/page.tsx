@@ -23,8 +23,7 @@ import {
 } from "@/lib/calc-logic"
 import {
   PACKAGE_KEYS,
-  packages,
-  packagesEn,
+  getPackages,
   formatPriceLabel,
   packageOriginalPriceByCarSize,
   packagePriceByCarSize,
@@ -33,6 +32,7 @@ import {
   type PackageKey,
   type CalculatorVehicleSize,
 } from "@/lib/pricing-data"
+import { toContentLocale, type ContentLocale } from "@/lib/i18n/locale"
 import { useLanguage } from "@/lib/i18n/language-context"
 
 const TOTAL_STEPS = 5
@@ -322,7 +322,7 @@ export default function CalculatorPage() {
                         <RadioGroup value={data.mainService || ""} onValueChange={handleMainServiceChange}>
                           <div className="grid gap-4 sm:grid-cols-2">
                             {PACKAGE_KEYS.map((key) => {
-                              const pkg = (language === "en" ? packagesEn : packages)[key]
+                              const pkg = getPackages(toContentLocale(language))[key]
                               return (
                                 <PackageOptionCard
                                   key={key}
@@ -332,7 +332,7 @@ export default function CalculatorPage() {
                                   selected={data.mainService === key}
                                   name="mainService"
                                   t={t}
-                                  language={language === "en" ? "en" : "sk"}
+                                  language={toContentLocale(language)}
                                 />
                               )
                             })}
@@ -551,7 +551,7 @@ function PackageOptionCard({
   selected: boolean
   name?: string
   t?: { calculator?: { mostPopular?: string } }
-  language: "sk" | "en"
+  language: ContentLocale
 }) {
   const carSize = vehicleType ? calculatorVehicleToCarSize(vehicleType) : "small"
   const displayPrice = formatPriceLabel(packagePriceByCarSize(value, carSize), language)

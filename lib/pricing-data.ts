@@ -1,4 +1,4 @@
-// Pricing data for different car sizes
+import type { ContentLocale } from "@/lib/i18n/locale"
 export type CarSize = "small" | "suv" | "van"
 
 /** Keys used by the calculator and pricing cards (same order as on the homepage). */
@@ -101,11 +101,11 @@ export function packageSurchargeByVehicleType(
   return packageSurchargeByCarSize(key, calculatorVehicleToCarSize(vehicle))
 }
 
-export function formatPriceLabel(eur: number, lang: "sk" | "en"): string {
-  return lang === "en" ? `€${eur}` : `${eur} €`
+export function formatPriceLabel(eur: number, lang: ContentLocale): string {
+  return lang === "sk" ? `${eur} €` : `€${eur}`
 }
 
-function packagePriceLabels(lang: "sk" | "en"): Record<PackageKey, PackageData["price"]> {
+function packagePriceLabels(lang: ContentLocale): Record<PackageKey, PackageData["price"]> {
   return PACKAGE_KEYS.reduce(
     (acc, key) => {
       acc[key] = {
@@ -357,3 +357,113 @@ export const additionalServicesEn: AdditionalServiceData[] = [
     icon: "engine",
   },
 ]
+
+const packagePricesDe = packagePriceLabels("de")
+
+/** German copy for calculator / DE locale (keep in sync with `packages`). */
+export const packagesDe: Record<PackageKey, PackageData> = {
+  refresh: {
+    title: "REFRESH",
+    subtitle: "Basispaket für regelmäßige Fahrzeugpflege",
+    price: packagePricesDe.refresh,
+    features: [
+      "Handwäsche Innenraum",
+      "Innenraum saugen",
+      "Kunststoffreinigung",
+      "Fußmatten shampoonieren / Bodenwanne reinigen",
+      "Duft im Innenraum",
+    ],
+    footerNote: "Ideal für eine regelmäßige monatliche Innenraum-Auffrischung.",
+  },
+  essential: {
+    title: "INNENRAUM",
+    subtitle: "Tiefenreinigung des kompletten Innenraums",
+    price: packagePricesDe.essential,
+    features: [
+      "Alles aus dem REFRESH-Paket",
+      "Tiefen-Detailing Innenraum",
+      "Reserveradmulde",
+      "Leder- & Kunststoffpflege",
+      "Scheiben und Spiegel reinigen",
+      "Pedalreinigung",
+    ],
+    footerNote:
+      "Ideal, wenn der Innenraum volle Pflege braucht – vor dem Verkauf, nach der Saison oder bei starker Nutzung.",
+  },
+  premium: {
+    title: "KOMPLETT",
+    subtitle: "Professionelles Detailing von Innen- und Außenbereich",
+    price: packagePricesDe.premium,
+    mostPopular: true,
+    features: [
+      "Alles aus dem INNENRAUM-Paket",
+      "Komplettes Hand-Detailing Außenbereich",
+      "Felgenreinigung und -entseuchung",
+      "Reifenreinigung und -pflege",
+      "Insekten- und Schmutzentfernung",
+      "Kunststoffaufbereitung",
+    ],
+    footerNote: "Für anspruchsvolle Kunden, die maximale Sauberkeit und Pflege erwarten.",
+  },
+  ultimate: {
+    title: "POLSTERREINIGUNG",
+    subtitle: "Professionelle Polster- und Textilreinigung",
+    price: packagePricesDe.ultimate,
+    features: [
+      "Sitzpolster shampoonieren",
+      "Teppich- und Boden shampoonieren",
+      "Dachhimmel shampoonieren und reinigen",
+      "Kofferraumreinigung (ohne Bodenmatte)",
+    ],
+    footerNote: "Entfernt Flecken, Gerüche und eingebetteten Schmutz aus Textilien.",
+  },
+}
+
+/** German copy for homepage additional-service cards. */
+export const additionalServicesDe: AdditionalServiceData[] = [
+  {
+    name: "Scheinwerfer-Aufbereitung",
+    description: "Komplette Aufbereitung beider Frontscheinwerfer",
+    price: {
+      small: "€70",
+      suv: "€70",
+      van: "€70",
+    },
+    features: [
+      "Entfernung von Oxidation und Vergilbung",
+      "Scheinwerfer abschleifen",
+      "Scheinwerfer polieren",
+      "UV-Schutz auftragen",
+    ],
+    footerNote: "für beide Scheinwerfer",
+    icon: "headlights",
+  },
+  {
+    name: "Motorraumreinigung",
+    description: "Reinigung und Aufbereitung des Motorraums",
+    price: {
+      small: "€70",
+      suv: "€70",
+      van: "€70",
+    },
+    features: [
+      "Gründliche Motorraumreinigung",
+      "Staub-, Fett- und Schmutzentfernung",
+      "Kunststoffe und Schläuche pflegen",
+      "Repräsentativer Look unter der Haube",
+    ],
+    icon: "engine",
+  },
+]
+
+export function getPackages(lang: ContentLocale): Record<PackageKey, PackageData> {
+  if (lang === "en") return packagesEn
+  if (lang === "de") return packagesDe
+  return packages
+}
+
+export function getAdditionalServices(lang: ContentLocale): AdditionalServiceData[] {
+  if (lang === "en") return additionalServicesEn
+  if (lang === "de") return additionalServicesDe
+  return additionalServices
+}

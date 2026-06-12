@@ -12,6 +12,7 @@ export const en = {
     forBusiness: "For Business",
     pricing: "Price list",
     howItWorks: "How\u00A0It\u00A0Works",
+    locations: "Locations",
     blog: "Blog",
     reviews: "Reviews",
     contact: "Contact",
@@ -388,6 +389,9 @@ export const en = {
   },
   languageSwitcher: {
     changeLanguage: "Change language",
+  },
+  legal: {
+    lastUpdated: "Last updated:",
   },
   carSizes: {
     small: "Sedan/Compact",

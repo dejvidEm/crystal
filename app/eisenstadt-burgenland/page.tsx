@@ -1,8 +1,8 @@
-import { DistrictSeoPage } from "@/components/district-seo-page"
+import { DistrictSeoPageServer } from "@/components/district-seo-page-server"
 import { districtEisenstadt } from "@/lib/district-pages-data"
 
 export const metadata = districtEisenstadt.metadata
 
 export default function EisenstadtPage() {
-  return <DistrictSeoPage data={districtEisenstadt} />
+  return <DistrictSeoPageServer data={districtEisenstadt} />
 }

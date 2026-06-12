@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { PriceRange, TimeRange, CalculatorData, getPriceBreakdown } from "@/lib/calc-logic"
 import { useLanguage } from "@/lib/i18n/language-context"
-import { packages, packagesEn } from "@/lib/pricing-data"
+import { getPackages } from "@/lib/pricing-data"
+import { toContentLocale } from "@/lib/i18n/locale"
 import { LeadInquiryCard } from "@/components/calc/lead-inquiry-card"
 import { bookioUrl, whatsappUrl } from "@/lib/site-config"
 
@@ -23,7 +24,7 @@ export function ResultCard({ priceRange, timeRange, data }: ResultCardProps) {
   const breakdown = getPriceBreakdown(data)
   const packageTitle =
     data.mainService != null
-      ? (language === "en" ? packagesEn : packages)[data.mainService]?.title
+      ? getPackages(toContentLocale(language))[data.mainService]?.title
       : undefined
 
   useEffect(() => {

@@ -10,6 +10,7 @@ import {
   type PackageData,
   type PackageKey,
 } from "@/lib/pricing-data"
+import { toContentLocale } from "@/lib/i18n/locale"
 import { useCarSizeStore } from "@/lib/car-size-store"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { bookioUrl } from "@/lib/site-config"
@@ -23,7 +24,7 @@ interface PricingPackageCardProps {
 export function PricingPackageCard({ packageKey, packageData, delay = 0 }: PricingPackageCardProps) {
   const { carSize } = useCarSizeStore()
   const { language, t } = useLanguage()
-  const lang = language === "en" ? "en" : "sk"
+  const lang = toContentLocale(language)
   const displayPrice = formatPriceLabel(packagePriceByCarSize(packageKey, carSize), lang)
   const originalPrice = formatPriceLabel(packageOriginalPriceByCarSize(packageKey, carSize), lang)
 

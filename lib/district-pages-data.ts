@@ -1,25 +1,11 @@
 import type { Metadata } from "next"
 import { metaDescription } from "@/lib/seo-meta"
+import type { DistrictFaq, DistrictPageDefinition } from "@/lib/district-page-types"
+
+export type { DistrictFaq, DistrictPageDefinition } from "@/lib/district-page-types"
+export { toDistrictPageContent } from "@/lib/district-page-types"
 
 const base = "https://crystaldetailing.sk"
-
-export type DistrictFaq = { question: string; answer: string }
-
-export type DistrictPageDefinition = {
-  path: string
-  /** H1 na stránke */
-  h1: string
-  /** Úvodný odsek (SEO + čitateľ) */
-  lead: string
-  /** Obce / mestá pod okresom */
-  areas: string[]
-  faqs: DistrictFaq[]
-  metadata: Metadata
-  /** Nadpis sekcie oblastí – default „Oblasti pokrytia v okrese“ */
-  areasHeading?: string
-  /** Text v CTA sekcii – default o okrese */
-  ctaLead?: string
-}
 
 function metaFor(
   slug: string,

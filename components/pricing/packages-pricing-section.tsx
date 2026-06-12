@@ -4,7 +4,8 @@ import { CarSizeSelector } from "@/components/car-size-selector"
 import { PricingPackageCard } from "@/components/pricing-package-card"
 import { LazyLoadSection } from "@/components/lazy-section"
 import { useLanguage } from "@/lib/i18n/language-context"
-import { PACKAGE_KEYS, packages, packagesEn } from "@/lib/pricing-data"
+import { PACKAGE_KEYS, getPackages } from "@/lib/pricing-data"
+import { toContentLocale } from "@/lib/i18n/locale"
 
 type PackagesPricingSectionProps = {
   layout?: "grid" | "stack"
@@ -32,7 +33,7 @@ export function PackagesPricingSection({
   showHeader = true,
 }: PackagesPricingSectionProps) {
   const { language, t } = useLanguage()
-  const pkgs = language === "en" ? packagesEn : packages
+  const pkgs = getPackages(toContentLocale(language))
   const heading = title ?? t.services.title
   const intro = subtitle ?? t.services.subtitle
 

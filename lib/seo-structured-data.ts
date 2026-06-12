@@ -41,7 +41,7 @@ export function buildWebSiteSchema() {
     description: metaDescription(
       "Prémiový mobilný detailing v Bratislave, na západnom Slovensku a v Rakúsku pri Viedni. Cenník, tepovanie, renovácia svetlometov a výjazd priamo k vám.",
     ),
-    inLanguage: ["sk-SK", "en"],
+    inLanguage: ["sk-SK", "en", "de"],
     publisher: { "@id": ORGANIZATION_ID },
     hasPart: SITELINK_PAGES.map((page) => ({
       "@type": "WebPage",

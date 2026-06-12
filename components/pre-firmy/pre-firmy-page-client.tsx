@@ -21,6 +21,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { BusinessContactForm } from "@/components/pre-firmy/business-contact-form"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { getPreFirmyCopy } from "@/lib/pre-firmy-copy"
+import { toContentLocale } from "@/lib/i18n/locale"
 
 const audienceIcons = [Building2, CarIcon, Truck, Briefcase] as const
 
@@ -30,7 +31,7 @@ function scrollToContact() {
 
 export function PreFirmyPageClient() {
   const { language, t } = useLanguage()
-  const lang = language === "en" ? "en" : "sk"
+  const lang = toContentLocale(language)
   const copy = getPreFirmyCopy(lang)
 
   const heroRef = useRef<HTMLElement>(null)
@@ -177,7 +178,7 @@ export function PreFirmyPageClient() {
               <Card className="glass-card relative flex flex-col overflow-visible border border-primary/45 shadow-[0_0_28px_-6px_hsl(var(--primary)/0.35)]">
                 <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2">
                   <span className="whitespace-nowrap rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-black shadow-md">
-                    {lang === "en" ? "For business" : "Pre firmy"}
+                    {t.nav.forBusiness}
                   </span>
                 </div>
                 <CardHeader className="pt-10">
@@ -188,9 +189,11 @@ export function PreFirmyPageClient() {
                   <div className="mb-6">
                     <p className="text-2xl font-semibold text-primary">{copy.packagePriceLabel}</p>
                     <p className="mt-1 text-sm text-zinc-500">
-                      {lang === "en"
-                        ? "Based on fleet size and scope"
-                        : "Podľa počtu vozidiel a rozsahu služieb"}
+                      {lang === "sk"
+                        ? "Podľa počtu vozidiel a rozsahu služieb"
+                        : lang === "de"
+                          ? "Nach Fahrzeuganzahl und Leistungsumfang"
+                          : "Based on fleet size and scope"}
                     </p>
                   </div>
                   <ul className="space-y-3">

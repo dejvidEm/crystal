@@ -10,13 +10,13 @@ export type BlogCategoryId =
 
 export type BlogCategory = {
   id: BlogCategoryId
-  label: { sk: string; en: string }
+  label: { sk: string; en: string; de: string }
 }
 
 export const blogCategories: BlogCategory[] = [
-  { id: "detailing-tips", label: { sk: "Detailing tipy", en: "Detailing Tips" } },
-  { id: "tepovanie", label: { sk: "Tepovanie", en: "Upholstery Cleaning" } },
-  { id: "mobilny-detailing", label: { sk: "Mobilný detailing", en: "Mobile Detailing" } },
+  { id: "detailing-tips", label: { sk: "Detailing tipy", en: "Detailing Tips", de: "Detailing-Tipps" } },
+  { id: "tepovanie", label: { sk: "Tepovanie", en: "Upholstery Cleaning", de: "Polsterreinigung" } },
+  { id: "mobilny-detailing", label: { sk: "Mobilný detailing", en: "Mobile Detailing", de: "Mobile Autopflege" } },
 ]
 
 export type BlogContentBlock =
@@ -29,10 +29,10 @@ export type BlogPost = {
   category: BlogCategoryId
   publishedAt: string
   image: string
-  imageAlt: { sk: string; en: string }
-  title: { sk: string; en: string }
-  excerpt: { sk: string; en: string }
-  body: { sk: BlogContentBlock[]; en: BlogContentBlock[] }
+  imageAlt: { sk: string; en: string; de: string }
+  title: { sk: string; en: string; de: string }
+  excerpt: { sk: string; en: string; de: string }
+  body: { sk: BlogContentBlock[]; en: BlogContentBlock[]; de: BlogContentBlock[] }
 }
 
 export const blogPosts: BlogPost[] = [
@@ -44,14 +44,17 @@ export const blogPosts: BlogPost[] = [
     imageAlt: {
       sk: "Mobilný detailing auta pri dome v Bratislave – technik Crystal Detailing s výbavou a panorámou Bratislavy",
       en: "Mobile car detailing at a home in Bratislava – Crystal Detailing technician with equipment and Bratislava skyline",
+      de: "Mobile Autopflege zu Hause in Bratislava – Crystal Detailing Techniker mit Ausrüstung und Bratislava Skyline",
     },
     title: {
       sk: "Mobilný detailing v Bratislave a v Rakúsku: prídeme k vám domov aj cez hranicu",
       en: "Mobile detailing in Bratislava and Austria: we come to your home, even across the border",
+      de: "Mobile Autopflege in Bratislava und Österreich: Wir kommen zu Ihnen nach Hause, auch über die Grenze",
     },
     excerpt: {
       sk: "Profesionálny mobilný detailing v Bratislave, okolí a v Rakúsku pri hranici až po Viedeň. Kompletná výbava, tepovanie a čistenie auta priamo u vás – bez cesty do servisu.",
       en: "Professional mobile detailing in Bratislava, surrounding areas, and Austria near the border up to Vienna. Full equipment, shampooing and car cleaning at your location—no trip to a service centre.",
+      de: "Professionelle mobile Autopflege in Bratislava, Umgebung und Österreich nahe der Grenze bis Wien. Komplette Ausrüstung, Polsterreinigung und Autoreinigung bei Ihnen vor Ort – ohne Fahrt zur Werkstatt.",
     },
     body: {
       sk: [
@@ -270,6 +273,114 @@ export const blogPosts: BlogPost[] = [
           text: "Mobile detailing in Bratislava and in Austria near the border is the most practical way to keep your car clean, fresh, and well maintained without losing time. Book your slot today—we arrive with equipment, experience, and the goal of a result you will be happy with.",
         },
       ],
+      de: [
+        {
+          type: "p",
+          text: "Stellen Sie sich vor, Ihr Auto steht vor dem Haus, im Büro oder in der Einfahrt. Eine voll ausgestattete mobile Einheit kommt an, der Techniker richtet alles ein, und nach wenigen Stunden sind Innen- und Außenbereich in einem Zustand, den Sie in einer normalen Waschanlage nicht erreichen würden – ohne dass Sie irgendwohin fahren müssen. So funktioniert der mobile Service von Crystal Detailing in Bratislava und Umgebung.",
+        },
+        {
+          type: "p",
+          text: "Das Foto zeigt eine typische Szene aus unserer Arbeit: ein Techniker bei einem silbernen Audi, ein mobiler Van mit organisierter Ausrüstung und Bratislava im Hintergrund. Das ist nicht nur ein Marketingbild – so sieht es täglich bei unseren Kunden aus. Wir kommen zur vereinbarten Adresse, kümmern uns vor Ort um das Auto, und Sie können Ihren Tag normal weiter verbringen.",
+        },
+        {
+          type: "h2",
+          text: "Warum mobile Autopflege in Bratislava sinnvoll ist",
+        },
+        {
+          type: "p",
+          text: "In Bratislava können sich viele Menschen keinen halben Tag in der Werkstatt oder Warteschlangen in der Waschanlage leisten. Mobile Autopflege löst genau das: Sie spart Zeit, reduziert Stress und liefert ein Premium-Ergebnis direkt bei Ihnen.",
+        },
+        {
+          type: "ul",
+          items: [
+            "kein Fahren nötig – Service bei Ihnen zu Hause, im Büro oder auf dem Parkplatz",
+            "individueller Ansatz je nach Fahrzeugtyp, Größe und Verschmutzungsgrad",
+            "professionelle Ausrüstung inklusive Extraktionsgeräte und Premium-Produkte",
+            "Kombination von Leistungen – vom REFRESH-Paket bis zur Polsterreinigung und Scheinwerfer-Aufbereitung",
+            "transparente Preise laut Preisliste und Rechner vor Arbeitsbeginn",
+          ],
+        },
+        {
+          type: "p",
+          text: "Ob Sie in der Altstadt, in Ružinov, Petržalka, Dúbravka oder in Randgebieten wie Lamač oder Devínska Nová Ves wohnen – mobile Autopflege ist praktischer, als einen Termin in einer stationären Werkstatt zu suchen.",
+        },
+        {
+          type: "h2",
+          text: "Wohin wir außerhalb Bratislavas fahren",
+        },
+        {
+          type: "p",
+          text: "Crystal Detailing deckt nicht nur die Hauptstadt ab, sondern das gesamte unmittelbare Umland und die Westslowakei. Wir fahren regelmäßig nach Pezinok, Senec, Chorvátsky Grob, Záhorie (Malacky, Stupava, Senica, Skalica) und in die Region Trnava (Trnava, Galanta, Dunajská Streda). Den vollständigen Überblick finden Sie auf der Standortseite.",
+        },
+        {
+          type: "p",
+          text: "Seit 2026 fahren wir auch nach Österreich nahe Bratislava. Wenn Sie in Hainburg an der Donau, Bruck an der Leitha, im Burgenland (Eisenstadt, Mattersburg, Neusiedl am See) oder im Wiener Umland bis zur Stadt selbst wohnen – können wir auch zu Ihnen kommen. Wir fahren von Bratislava aus und liefern denselben professionellen Service wie in der Slowakei.",
+        },
+        {
+          type: "h2",
+          text: "Was wir bei Ihnen vor Ort erledigen können",
+        },
+        {
+          type: "p",
+          text: "Mobile Autopflege ist nicht nur eine Außenwäsche. Es ist umfassende Fahrzeugpflege – Innen- und Außenbereich – mit Fokus auf Details und Materialqualität.",
+        },
+        {
+          type: "ul",
+          items: [
+            "Außenwäsche und -behandlung inklusive Felgen und lackfreundlicher Produkte",
+            "Tiefenreinigung des Innenraums – Armaturenbrett, Kunststoffe, Leder, Textilien",
+            "Polsterreinigung von Sitzen und Teppichen mit Extraktionsmethode",
+            "Scheinwerfer-Aufbereitung – Wiederherstellung von Klarheit und Helligkeit",
+            "Zusatzleistungen wie Ozonbehandlung, Lederpflege oder Motorraumreinigung",
+          ],
+        },
+        {
+          type: "p",
+          text: "Die Pakete REFRESH, INTERIOR, COMPLETE und SHAMPOOING finden Sie in der Preisliste. Der Preis hängt auch von der Fahrzeuggröße ab – SUVs und Transporter haben je nach Kategorie einen Aufpreis. Eine genaue Schätzung erhalten Sie im Online-Rechner.",
+        },
+        {
+          type: "h2",
+          text: "So läuft die Buchung ab – von der Reservierung bis zum fertigen Auto",
+        },
+        {
+          type: "p",
+          text: "Der Ablauf ist einfach:",
+        },
+        {
+          type: "ul",
+          items: [
+            "Leistung in Preisliste oder Rechner wählen und online über Bookio buchen",
+            "wir vereinbaren Ankunftszeit und Adresse – Zuhause, Büro, Parkplatz",
+            "der Techniker kommt mit mobilem Van und kompletter Ausrüstung inklusive Wasser und Strom",
+            "wir bestätigen Umfang und Preis vor Arbeitsbeginn",
+            "Sie prüfen das Ergebnis nach Abschluss und können das Auto sofort nutzen",
+          ],
+        },
+        {
+          type: "p",
+          text: "Bei Fahrten nach Österreich sollten Sie die Fahrzeit ab Bratislava einplanen – Hainburg sind etwa 15–20 Minuten, Eisenstadt rund eine Stunde, Wien je nach Bezirk 45–75 Minuten. Die genaue Zeit bestätigen wir bei der Buchung.",
+        },
+        {
+          type: "h2",
+          text: "Für wen die Dienstleistung ideal ist",
+        },
+        {
+          type: "p",
+          text: "Mobile Autopflege schätzen Besitzer von Premium- und Alltagsfahrzeugen, Familien mit Kindern (schmutzige Sitze und Teppiche), Firmen mit Fuhrpark, Verkäufer vor der Übergabe und Menschen in Österreich nahe der Grenze, die nicht extra in die Slowakei fahren möchten, nur um ihr Auto reinigen zu lassen.",
+        },
+        {
+          type: "p",
+          text: "Wenn Sie nach „mobilný detailing Bratislava“, „Autopolsterreinigung Pezinok“ oder „mobile Autopflege Wien“ suchen – Crystal Detailing ist der Service, der zu Ihnen kommt. Nicht umgekehrt.",
+        },
+        {
+          type: "h2",
+          text: "Fazit",
+        },
+        {
+          type: "p",
+          text: "Mobile Autopflege in Bratislava und in Österreich nahe der Grenze ist der praktischste Weg, Ihr Auto sauber, frisch und gepflegt zu halten, ohne Zeit zu verlieren. Buchen Sie noch heute Ihren Termin – wir kommen mit Ausrüstung, Erfahrung und dem Ziel eines Ergebnisses, mit dem Sie zufrieden sind.",
+        },
+      ],
     },
   },
   {
@@ -280,14 +391,17 @@ export const blogPosts: BlogPost[] = [
   imageAlt: {
     sk: "Leštenie svetlometu profesionálnou leštičkou pri mobilnej renovácii",
     en: "Headlight polishing with a professional buffer during mobile restoration",
+    de: "Scheinwerfer-Politur mit professionellem Poliergerät bei mobiler Aufbereitung",
   },
   title: {
     sk: "Renovácia svetlometov mobilne: zažltnuté svetlá vyriešime priamo u vás",
     en: "Mobile headlight restoration: we fix yellowed lights at your location",
+    de: "Mobile Scheinwerfer-Aufbereitung: Vergilbte Scheinwerfer beheben wir direkt bei Ihnen",
   },
   excerpt: {
     sk: "Máte matné alebo zažltnuté svetlomety? Mobilná renovácia svetlometov obnoví vzhľad auta, zlepší svietivosť a pripraví svetlá na bezpečnejšiu jazdu.",
     en: "Dull or yellowed headlights? Mobile headlight restoration restores your car’s look, improves brightness, and prepares lights for safer driving.",
+    de: "Matte oder vergilbte Scheinwerfer? Mobile Scheinwerfer-Aufbereitung verbessert das Erscheinungsbild, die Helligkeit und bereitet die Lichter auf sichereres Fahren vor.",
   },
   body: {
     sk: [
@@ -795,6 +909,205 @@ export const blogPosts: BlogPost[] = [
         text: "If your lights are dull, yellow, or greyed, book mobile headlight restoration. Your car will look better and driving in the dark will feel more comfortable.",
       },
     ],
+    de: [
+      {
+        type: "p",
+        text: "Matte, vergilbte oder grau gewordene Scheinwerfer können das Erscheinungsbild eines ganzen Autos ruinieren. Selbst ein gepflegtes Fahrzeug wirkt älter, wenn die Frontlichter wie trüber Kunststoff aussehen. Es geht nicht nur um die Optik – Scheinwerfer sollen leuchten. Wenn die Oberfläche oxidiert, zerkratzt oder gelb ist, dringt das Licht nicht so sauber durch, wie es sollte.",
+      },
+      {
+        type: "p",
+        text: "Deshalb lohnt es sich, die Scheinwerfer-Aufbereitung anzugehen, bevor Nachtfahrten oder eine technische Kontrolle zum Problem werden. Fahrzeugbeleuchtung muss gesetzliche technische Anforderungen erfüllen, und Kontrolllisten enthalten einen eigenen Abschnitt für Beleuchtung und Lichtsignale.",
+      },
+      {
+        type: "p",
+        text: "Die gute Nachricht: Sie müssen dafür nirgendwohin fahren. Wir bieten mobile Scheinwerfer-Aufbereitung bei Ihnen zu Hause, am Arbeitsplatz oder an einem geeigneten Parkplatz.",
+      },
+      {
+        type: "h2",
+        text: "Warum vergilben und mattieren Scheinwerfer mit der Zeit?",
+      },
+      {
+        type: "p",
+        text: "Die meisten modernen Autos haben Kunststoff-Scheinwerfer, kein Glas. Kunststoff ist leichter und sicherer, leidet aber unter Sonne, UV-Strahlung, Straßenschmutz, Steinschlägen, Salz, Insekten und routinemäßigem Waschen, das die Schutzschicht nach und nach angreift.",
+      },
+      {
+        type: "p",
+        text: "Zuerst bemerken Sie einen leichten Schleier, dann die Vergilbung, dann Mattigkeit und Graufärbung – und das Auto wirkt Jahre älter. Trüber Kunststoff streut Licht anders als klarer Kunststoff, was schwächere Ausleuchtung, schlechteres Nachtfahren und mehr Ermüdung bedeuten kann.",
+      },
+      {
+        type: "h2",
+        text: "Woran erkennen Sie, dass Ihre Scheinwerfer aufbereitet werden müssen?",
+      },
+      {
+        type: "p",
+        text: "Eine Aufbereitung lohnt sich, wenn die Lichter nicht mehr klar sind – allein ein milchiger Film kann nach der Behandlung einen großen Unterschied machen.",
+      },
+      {
+        type: "ul",
+        items: [
+          "vergilbte Scheinwerfer",
+          "matte oder grau gewordener Kunststoff",
+          "trübes, wolkiges Erscheinungsbild",
+          "schwächeres Licht bei Nacht",
+          "die Front wirkt veraltet",
+          "feine Kratzer auf der Linse",
+          "TÜV/Inspektion steht an",
+          "Vorbereitung auf den Fahrzeugverkauf",
+        ],
+      },
+      {
+        type: "p",
+        text: "Wenn Sie die Linse von der Seite betrachten und der Kunststoff nicht mehr transparent ist, ist es Zeit zu handeln – je früher, desto besser das Ergebnis.",
+      },
+      {
+        type: "h2",
+        text: "Scheinwerfer-Aufbereitung ist nicht nur schnelles Polieren",
+      },
+      {
+        type: "p",
+        text: "Viele versuchen zu Hause Paste, Tuch oder Produkte aus dem Handel. Das hilft kurz, hält aber oft nicht, weil oxidierte Linsen mehr als eine Oberflächenpolitur brauchen.",
+      },
+      {
+        type: "p",
+        text: "Professionelle Aufbereitung umfasst in der Regel Reinigung und Entfettung, Abkleben der Umgebung, schrittweises Schleifen der beschädigten Schicht, Polieren und einen Schutzlack zur Verlängerung des Ergebnisses. Der Unterschied ist sofort sichtbar – klarere Lichter und eine frischere Front.",
+      },
+      {
+        type: "h2",
+        text: "Mobile Scheinwerfer-Aufbereitung: Wir kommen zu Ihnen",
+      },
+      {
+        type: "p",
+        text: "Der größte Vorteil ist der Komfort. Kein Abschleppen zur Werkstatt oder Warten in der Servicebucht – wir bereiten Scheinwerfer dort auf, wo Sie sind.",
+      },
+      {
+        type: "p",
+        text: "Buchen Sie einen Termin, halten Sie das Auto bereit, und wir erledigen den Rest, während Sie arbeiten oder entspannen.",
+      },
+      {
+        type: "h2",
+        text: "Wann lohnt sich die Aufbereitung am meisten?",
+      },
+      {
+        type: "p",
+        text: "Der beste Zeitpunkt ist, wenn erste Vergilbung sichtbar ist, die Einheit aber nicht tief rissig oder innen beschädigt ist.",
+      },
+      {
+        type: "p",
+        text: "Vor der Inspektion: matte oder gelbe Lichter sollten rechtzeitig behoben werden. Aufbereitung allein garantiert keinen Bestehen – Funktion, Einstellung und Gesamtbeleuchtung werden ebenfalls geprüft.",
+      },
+      {
+        type: "p",
+        text: "Vor dem Verkauf: gelbe Scheinwerfer altern das Auto sofort. Aufbereitete Linsen können das gesamte Fahrzeug optisch verjüngen.",
+      },
+      {
+        type: "p",
+        text: "Vor dem Winter und vor dem Urlaub: mehr Nachtfahrten, Regen und Autobahnen sind genau die Situationen, in denen Sie bestmögliches Licht wollen.",
+      },
+      {
+        type: "h2",
+        text: "Hilft Aufbereitung bei schwachen Scheinwerfern?",
+      },
+      {
+        type: "p",
+        text: "Ja, wenn das Problem trüber oder vergilbter Außenkunststoff ist – Aufbereitung stellt die Klarheit wieder her, sodass Licht sauberer durchdringt.",
+      },
+      {
+        type: "p",
+        text: "Fairer Hinweis: verbrannte Reflektoren, schwache Birnen, Fehleinstellung, Innenschäden oder Verkabelung brauchen separate technische Reparaturen. Aufbereitung betrifft vor allem den Außenkunststoff – das häufigste Problem bei älteren Autos.",
+      },
+      {
+        type: "h2",
+        text: "Warum billige DIY-Lösungen meiden?",
+      },
+      {
+        type: "p",
+        text: "Zahnpasta, WD-40 oder schnelles Polieren mit einem Tuch geben oft nur kurzzeitig ein besseres Bild, ohne die Ursache zu beheben. Ohne richtige Vorbereitung und Schutz kehrt die Trübung schnell zurück; unprofessionelles Schleifen kann Linsen beschädigen oder Lack um die Lampe angreifen.",
+      },
+      {
+        type: "h2",
+        text: "Wie läuft die mobile Aufbereitung ab?",
+      },
+      {
+        type: "ul",
+        items: [
+          "Zustandsprüfung – Außenkunststoff vs. Innenschaden",
+          "Gründliche Reinigung und Entfettung",
+          "Abkleben zum Schutz von Lack und Zierleisten",
+          "Schrittweises Schleifen der beschädigten Schicht",
+          "Polieren für maximale Klarheit",
+          "Schutzbeschichtung gegen erneute Vergilbung und Trübung",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Kann jeder Scheinwerfer aufbereitet werden?",
+      },
+      {
+        type: "p",
+        text: "Nicht immer. Die meisten Kunststoff-Einheiten lassen sich verbessern, aber rissige, volllaufende, innen beschädigte, stark verbrannte oder schlecht reparierte Linsen brauchen ggf. einen Ersatz. Schicken Sie ein Foto – wir sagen Ihnen, ob Aufbereitung sinnvoll ist.",
+      },
+      {
+        type: "h2",
+        text: "Wie lange dauert es?",
+      },
+      {
+        type: "p",
+        text: "Beide Frontscheinwerfer dauern je nach Zustand typischerweise von unter einer Stunde bis zu einigen Stunden. Beim mobilen Service warten Sie nicht in der Werkstatt – Ihr Auto bleibt bei Ihnen vor Ort.",
+      },
+      {
+        type: "h2",
+        text: "Was kostet es?",
+      },
+      {
+        type: "p",
+        text: "Der Preis hängt vom Zustand, Fahrzeugtyp und Umfang ab. Fotos der Frontlichter helfen uns, Standard- oder intensivere Arbeit anzubieten. Das billigste schnelle Polieren ohne richtigen Schutz hält oft nur wenige Wochen.",
+      },
+      {
+        type: "h2",
+        text: "Kombination mit anderen Detailing-Leistungen",
+      },
+      {
+        type: "ul",
+        items: [
+          "Scheinwerfer-Aufbereitung + Innenraumreinigung",
+          "Scheinwerfer-Aufbereitung + mobile Autopflege",
+          "Scheinwerfer-Aufbereitung + Handwäsche",
+          "Scheinwerfer-Aufbereitung + Lackschutz",
+          "Scheinwerfer-Aufbereitung + Verkaufsvorbereitung",
+        ],
+      },
+      {
+        type: "p",
+        text: "Sauberer Innenraum, gewaschener Außenbereich und aufbereitete Lichter lassen das Auto oft in einem Besuch Jahre jünger wirken.",
+      },
+      {
+        type: "h2",
+        text: "Für wen ist mobile Aufbereitung ideal?",
+      },
+      {
+        type: "ul",
+        items: [
+          "vergilbte oder matte Scheinwerfer",
+          "schlechte Sicht bei Nacht",
+          "Vorbereitung auf Inspektion oder Verkauf",
+          "Vermeidung teurer neuer Scheinwerfer-Einheiten",
+          "keine Zeit für einen Werkstattbesuch",
+          "Erledigung zu Hause oder im Büro",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Fazit",
+      },
+      {
+        type: "p",
+        text: "Vergilbte Scheinwerfer bedeuten nicht immer den Kauf neuer Einheiten. Professionelle Aufbereitung kann Klarheit wiederherstellen, das Erscheinungsbild verbessern und sichereres Nachtfahren unterstützen – und wir machen alles mobil bei Ihnen vor Ort.",
+      },
+      {
+        type: "p",
+        text: "Wenn Ihre Lichter matt, gelb oder grau sind, buchen Sie die mobile Scheinwerfer-Aufbereitung. Ihr Auto sieht besser aus und Fahren im Dunkeln fühlt sich angenehmer an.",
+      },
+    ],
   },
 },
   {
@@ -805,14 +1118,17 @@ export const blogPosts: BlogPost[] = [
   imageAlt: {
     sk: "Čistenie interiéru auta – pena a kefa na čalúnenom paneli dverí pri detailingu pred dovolenkou",
     en: "Car interior cleaning – foam and brush on upholstered door panel before a holiday trip",
+    de: "Innenraumreinigung – Schaum und Bürste auf gepolstertem Türpanel vor dem Urlaub",
   },
   title: {
     sk: "Mobilný detailing pred dovolenkou: pripravte auto na leto bez čakania v autoumyvárni",
     en: "Mobile detailing before holiday: prepare your car for summer without the car wash queue",
+    de: "Mobile Autopflege vor dem Urlaub: Bereiten Sie Ihr Auto auf den Sommer ohne Waschanlagen-Warteschlange vor",
   },
   excerpt: {
     sk: "Pripravte auto na letnú dovolenku bez stresu. Mobilný detailing vyčistí interiér, odstráni zápach, hmyz, peľ a ochráni lak priamo u vás.",
     en: "Prepare your car for summer holiday without stress. Mobile detailing cleans the interior, removes odour, bugs, pollen, and protects paint at your location.",
+    de: "Bereiten Sie Ihr Auto stressfrei auf den Sommerurlaub vor. Mobile Autopflege reinigt den Innenraum, entfernt Gerüche, Insekten, Pollen und schützt den Lack bei Ihnen vor Ort.",
   },
   body: {
     sk: [
@@ -1320,6 +1636,179 @@ export const blogPosts: BlogPost[] = [
         text: "Your holiday starts when you close the door and drive off. A clean interior, clear glass, fresh seats, and protected paint make the whole trip better. Book mobile detailing at your location and travel in a car that genuinely feels good.",
       },
     ],
+    de: [
+      {
+        type: "p",
+        text: "Ein Sommer-Roadtrip hat seinen Reiz – Gepäck, Navigation, Kinder fragen „Wie lange noch?“, Kaffee von der Tankstelle und Hunderte Kilometer vor Ihnen. Bevor Sie losfahren, verdient eine Sache Aufmerksamkeit, die viele Fahrer bis zuletzt aufschieben: der Zustand Ihres Autos innen und außen.",
+      },
+      {
+        type: "p",
+        text: "Nicht die Mechanik – die gehört in die Werkstatt. Wir meinen Sauberkeit, Geruch, Staub, Sitze, Kofferraum, Lack, Scheiben, Klimaanlage und das Gefühl im Auto. In einem Auto voller Krümel, Flecken, Staub, Tierhaare, fettiger Scheiben und alter Gerüche zu reisen, ist unnötiger Stress.",
+      },
+      {
+        type: "p",
+        text: "Deshalb ist mobile Autopflege vor dem Urlaub eine der besten Maßnahmen für Ihr Auto und Ihren Komfort. Keine Schlange in der Waschanlage, kein freier Tag, kein irgendwohin Fahren – professionelle Reinigung kommt zu Ihnen.",
+      },
+      {
+        type: "h2",
+        text: "Warum Ihr Auto vor dem Urlaub aufbereitet werden sollte",
+      },
+      {
+        type: "p",
+        text: "Vor der Reise kümmern sich die meisten um Reifen, Service, Vignetten, Versicherung und Gepäck. Reinigung bleibt oft zuletzt – ein schnelles Abspülen und fünf Minuten Staubsaugen. Eine lange Fahrt zeigt dann alles, was Sie sonst ignorieren: Stunden im Sitz, Staub auf dem Armaturenbrett, fettige Windschutzscheibe bei tief stehender Sonne und Gerüche aus Teppichen oder Sitzen.",
+      },
+      {
+        type: "p",
+        text: "Autopflege vor dem Urlaub geht nicht nur ums Aussehen. Es geht um Komfort, Hygiene und Schutz Ihres Autos durch die ganze Sommersaison.",
+      },
+      {
+        type: "h2",
+        text: "Was der Sommer mit Ihrem Auto macht",
+      },
+      {
+        type: "p",
+        text: "Der Sommer ist härter fürs Auto, als es scheint. Karosserie sammelt Insekten, Baumharz, Pollen, Staub und Straßenschmutz. Der Innenraum bekommt Schweiß, Sonnencreme, Essen, Sand, Tierhaare und volle Klimaanlage in einem geschlossenen Raum. Reinigung vor der Fahrt – nicht danach – startet den Urlaub richtig.",
+      },
+      {
+        type: "h2",
+        text: "Mobile Autopflege: Reinigung ohne Waschanlagen-Besuch",
+      },
+      {
+        type: "p",
+        text: "Der größte Vorteil ist einfach: Ihr Auto wird dort gereinigt, wo Sie sind – zu Hause, bei der Arbeit oder im Hof. Ein Profi kommt mit Ausrüstung und Produkten und arbeitet vor Ort, während Sie packen oder andere Dinge erledigen.",
+      },
+      {
+        type: "h2",
+        text: "Innenraumreinigung vor dem Urlaub",
+      },
+      {
+        type: "p",
+        text: "Die meiste Zeit der Fahrt verbringen Sie im Innenraum. Qualitative mobile Autopflege geht tiefer als schnelles Staubsaugen und Abwischen.",
+      },
+      {
+        type: "ul",
+        items: [
+          "gründliches Staubsaugen von Innenraum und Kofferraum",
+          "Reinigung von Kunststoffen, Armaturenbrett und Türverkleidungen",
+          "Getränkehalter, Ablagen und Details",
+          "Innenraum-Scheibenreinigung",
+          "Staubentfernung an schwer erreichbaren Stellen",
+          "Sitzreinigung passend zum Material",
+          "Textil-Polsterreinigung bei Bedarf",
+          "Geruchsneutralisation",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Polsterreinigung vor der Fahrt: wann sie sich lohnt",
+      },
+      {
+        type: "p",
+        text: "Bei Stoffsitzen, Kindern, Haustieren oder täglicher Nutzung macht Polsterreinigung vor dem Urlaub einen großen Unterschied. Sitze halten Schweiß, Staub, Essen und Gerüche, die bei Tiefenreinigung erst sichtbar werden.",
+      },
+      {
+        type: "ul",
+        items: [
+          "anhaltender oder muffiger Geruch im Auto",
+          "sichtbare Flecken auf den Sitzen",
+          "Kinder oder Hund reisen mit",
+          "lange keine Tiefenreinigung",
+          "lange Fahrt bei Hitze bevorsteht",
+          "Auto soll im bestmöglichen Zustand sein",
+        ],
+      },
+      {
+        type: "p",
+        text: "Planen Sie Trocknungszeit ein – buchen Sie einige Tage vor Abfahrt, nicht am Abend davor.",
+      },
+      {
+        type: "h2",
+        text: "Außenbereich: Insekten, Pollen und Lackschutz",
+      },
+      {
+        type: "p",
+        text: "Die Front trifft auf Autobahnen am härtesten. Professionelle Handwäsche entfernt Schmutz schonender als schnelles Abspülen. Lackschutz danach hilft, das Auto im Sommer länger sauber zu halten.",
+      },
+      {
+        type: "h2",
+        text: "Warum eine normale Waschanlage oft nicht reicht",
+      },
+      {
+        type: "p",
+        text: "Eine Schnellwäsche hat ihren Platz. Vor dem Urlaub brauchen Sie meist mehr: Spalten zwischen Sitzen, Lüftung, Kofferraum, Innenscheiben, Gerüche und Gesamtzustand. Detailing adressiert, was eine schnelle Wäsche oft übersieht.",
+      },
+      {
+        type: "h2",
+        text: "Saubere Scheiben sind wichtiger als gedacht",
+      },
+      {
+        type: "p",
+        text: "Fettige Innenscheiben verschlechtern die Sicht bei tief stehender Sonne auf langen Fahrten. Gründliche Innen- und Außenreinigung verbessert Sicherheit und Komfort.",
+      },
+      {
+        type: "h2",
+        text: "Reisen mit Kindern?",
+      },
+      {
+        type: "p",
+        text: "Rücksitze sammeln Krümel, Saft und Sand. Innenraum vor dem Beladen in Ordnung bringen bedeutet weniger Geruch und angenehmere Fahrt für alle.",
+      },
+      {
+        type: "h2",
+        text: "Firmenwagen vor dem Sommer",
+      },
+      {
+        type: "p",
+        text: "Mobile Autopflege funktioniert auch für Fuhrpark und Firmenfahrzeuge – gereinigt bei Ihnen vor Ort, ohne halben Tag in der Waschanlage.",
+      },
+      {
+        type: "h2",
+        text: "Wann buchen?",
+      },
+      {
+        type: "p",
+        text: "Buchen Sie wenn möglich 3–7 Tage vor Abfahrt, besonders bei Polsterreinigung oder Lackschutz. Sommertermine sind schnell ausgebucht.",
+      },
+      {
+        type: "h2",
+        text: "Wie Sie sich auf den Besuch vorbereiten",
+      },
+      {
+        type: "p",
+        text: "Entfernen Sie persönliche Gegenstände aus dem Auto und nennen Sie Probleme im Voraus – Geruch, Flecken, Tierhaare oder Baumharz am Lack – damit wir den richtigen Ansatz wählen.",
+      },
+      {
+        type: "h2",
+        text: "Was kostet es?",
+      },
+      {
+        type: "p",
+        text: "Der Preis hängt von Fahrzeuggröße, Zustand und Umfang ab – von Basisreinigung bis Tiefenreinigung und Lackschutz. Fotos und kurze Beschreibung helfen bei der Paketempfehlung.",
+      },
+      {
+        type: "h2",
+        text: "Für wen ist es am besten geeignet?",
+      },
+      {
+        type: "ul",
+        items: [
+          "Urlaubs-Roadtrips",
+          "Familien mit Kindern oder Hunden",
+          "Gerüche oder Flecken im Auto",
+          "Reinigung zu Hause oder im Büro",
+          "Sommerlicher Lackschutz",
+          "keine Zeit für Waschanlagen-Schlangen",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Fazit",
+      },
+      {
+        type: "p",
+        text: "Ihr Urlaub beginnt, wenn Sie die Tür schließen und losfahren. Sauberer Innenraum, klare Scheiben, frische Sitze und geschützter Lack machen die ganze Fahrt besser. Buchen Sie mobile Autopflege bei Ihnen vor Ort und reisen Sie in einem Auto, in dem Sie sich wirklich wohlfühlen.",
+      },
+    ],
   },
 },
   {
@@ -1330,14 +1819,17 @@ export const blogPosts: BlogPost[] = [
     imageAlt: {
       sk: "Mobilná detailingová jednotka Crystal Detailing",
       en: "Crystal Detailing mobile unit",
+      de: "Mobile Crystal Detailing Einheit",
     },
     title: {
       sk: "Prečo sa oplatí mobilný detailing v Bratislave",
       en: "Why mobile detailing in Bratislava is worth it",
+      de: "Warum sich mobile Autopflege in Bratislava lohnt",
     },
     excerpt: {
       sk: "Ušetríte čas, vyhnete sa rade v umyvárke a získate prémiový výsledok priamo na vašej adrese.",
       en: "Save time, skip the car wash queue, and get premium results right at your address.",
+      de: "Sparen Sie Zeit, vermeiden Sie die Warteschlange in der Waschanlage und erhalten Sie Premium-Ergebnisse direkt bei Ihnen vor Ort.",
     },
     body: {
       sk: [
@@ -1402,6 +1894,37 @@ export const blogPosts: BlogPost[] = [
           text: "Company car owners, families with kids (messy interiors), sellers preparing a handover, and anyone who wants their car visually and hygienically clean without driving to a service.",
         },
       ],
+      de: [
+        {
+          type: "p",
+          text: "Mobile Autopflege ist nicht nur „Auto in der Einfahrt waschen“. Es ist umfassende Innen- und Außenpflege mit professioneller Ausrüstung, die zu Ihnen kommt – nach Hause, ins Büro oder auf den Parkplatz.",
+        },
+        {
+          type: "h2",
+          text: "Was Sie gegenüber einer klassischen Waschanlage gewinnen",
+        },
+        {
+          type: "ul",
+          items: [
+            "Kein Anstehen in der Schlange und kein halber Tag in der Werkstatt",
+            "Individueller Ansatz je nach Fahrzeugtyp und Verschmutzungsgrad",
+            "Premium-Produkte, schonend zu Lack, Leder und Textilien",
+            "Kombination von Leistungen – vom Refresh-Paket bis zur Tiefenreinigung",
+          ],
+        },
+        {
+          type: "p",
+          text: "In Bratislava und Umgebung ist Zeit oft wertvoller als ein paar Euro Ersparnis. Mobile Autopflege ermöglicht es Ihnen, das Auto neben Beruf oder Familie zu erledigen – wir kommen zum vereinbarten Termin und kümmern uns um alles.",
+        },
+        {
+          type: "h2",
+          text: "Für wen die Dienstleistung ideal ist",
+        },
+        {
+          type: "p",
+          text: "Für Firmenwagenbesitzer, Familien mit Kindern (unordentliche Innenräume), Verkäufer vor der Übergabe an den Käufer und alle, die ihr Auto optisch und hygienisch sauber haben möchten, ohne zur Werkstatt fahren zu müssen.",
+        },
+      ],
     },
   },
   {
@@ -1412,14 +1935,17 @@ export const blogPosts: BlogPost[] = [
     imageAlt: {
       sk: "Profesionálne tepovanie sedačiek extrakčným čističom v aute",
       en: "Professional car seat shampooing with an extraction cleaning tool",
+      de: "Professionelle Polsterreinigung mit Extraktionsgerät im Auto",
     },
     title: {
       sk: "Tepovanie sedačiek: kedy ho potrebujete a čo od neho čakať",
       en: "Seat shampooing: when you need it and what to expect",
+      de: "Polsterreinigung: wann Sie sie brauchen und was Sie erwartet",
     },
     excerpt: {
       sk: "Zápach, škvrny alebo alergie? Tepovanie hĺbkovo odstráni nečistoty, ktoré bežné vysávanie nezvládne.",
       en: "Odour, stains, or allergies? Deep cleaning removes dirt regular vacuuming cannot handle.",
+      de: "Geruch, Flecken oder Allergien? Tiefenreinigung entfernt Schmutz, den normales Staubsaugen nicht bewältigt.",
     },
     body: {
       sk: [
@@ -1468,6 +1994,29 @@ export const blogPosts: BlogPost[] = [
           text: "With our mobile service we bring an extractor and suitable products to you. Drying time depends on material and season; in summer seats dry faster, in winter we recommend booking with enough time to dry.",
         },
       ],
+      de: [
+        {
+          type: "p",
+          text: "Regelmäßiges Staubsaugen entfernt Oberflächenstaub und groben Schmutz. Polsterreinigung (Extraktionsreinigung) geht tiefer – in Sitzfasern, Teppiche und textile Türverkleidungen.",
+        },
+        {
+          type: "h2",
+          text: "Anzeichen, dass es Zeit für eine Tiefenreinigung ist",
+        },
+        {
+          type: "ul",
+          items: [
+            "Anhaltender Geruch (Rauch, Haustiere, Feuchtigkeit)",
+            "Sichtbare Flecken oder Schmutzflecken auf den Sitzen",
+            "Allergische Reaktionen im Auto",
+            "Fahrzeugverkauf – der Innenraum muss wie neu wirken",
+          ],
+        },
+        {
+          type: "p",
+          text: "Mit unserem mobilen Service bringen wir Extraktor und passende Produkte zu Ihnen. Die Trocknungszeit hängt vom Material und der Jahreszeit ab; im Sommer trocknen Sitze schneller, im Winter empfehlen wir eine Buchung mit ausreichend Trocknungszeit.",
+        },
+      ],
     },
   },
   {
@@ -1478,14 +2027,17 @@ export const blogPosts: BlogPost[] = [
     imageAlt: {
       sk: "Pred a po renovácii svetlometov",
       en: "Headlights before and after restoration",
+      de: "Scheinwerfer vor und nach der Aufbereitung",
     },
     title: {
       sk: "Renovácia svetlometov: kedy nestačí bežné umývanie",
       en: "Headlight restoration: when a regular wash is not enough",
+      de: "Scheinwerfer-Aufbereitung: wenn normales Waschen nicht ausreicht",
     },
     excerpt: {
       sk: "Zažltnuté svetlomety zhoršujú svietivosť aj vzhľad auta. Renovácia ich vráti do takmer nového stavu.",
       en: "Yellowed headlights reduce visibility and hurt your car’s look. Restoration brings them back to near-new.",
+      de: "Vergilbte Scheinwerfer verschlechtern die Sicht und den Look Ihres Autos. Aufbereitung bringt sie fast in Neuzustand zurück.",
     },
     body: {
       sk: [
@@ -1532,6 +2084,28 @@ export const blogPosts: BlogPost[] = [
           text: "The difference is visible immediately. With our mobile service we can do it at your location—just a dry, shaded spot and a booked slot in our online system.",
         },
       ],
+      de: [
+        {
+          type: "p",
+          text: "Kunststoff-Scheinwerfer oxidieren mit der Zeit durch UV-Strahlung und Witterung. Das Ergebnis ist eine matte, gelbe Oberfläche und schwächere Straßenbeleuchtung – ein Sicherheits- und Ästhetikproblem.",
+        },
+        {
+          type: "h2",
+          text: "Was professionelle Aufbereitung umfasst",
+        },
+        {
+          type: "ul",
+          items: [
+            "Entfernung der Oxidation durch mehrstufiges Schleifen",
+            "Polieren zur Wiederherstellung der Klarheit",
+            "UV-Schutz, damit das Ergebnis länger hält",
+          ],
+        },
+        {
+          type: "p",
+          text: "Der Unterschied ist sofort sichtbar. Mit unserem mobilen Service können wir das bei Ihnen vor Ort erledigen – nur ein trockener, schattiger Platz und ein gebuchter Termin in unserem Online-System.",
+        },
+      ],
     },
   },
 ]
@@ -1555,7 +2129,7 @@ export function getCategoryById(id: BlogCategoryId): BlogCategory | undefined {
   return blogCategories.find((c) => c.id === id)
 }
 
-export function getCategoryLabel(id: BlogCategoryId, lang: "sk" | "en"): string {
+export function getCategoryLabel(id: BlogCategoryId, lang: "sk" | "en" | "de"): string {
   return getCategoryById(id)?.label[lang] ?? id
 }
 
@@ -1592,9 +2166,10 @@ export function getPostsByCategory(
   return sorted.filter((p) => p.category === category)
 }
 
-export function formatBlogDate(isoDate: string, lang: "sk" | "en"): string {
+export function formatBlogDate(isoDate: string, lang: "sk" | "en" | "de"): string {
   const date = new Date(isoDate + "T12:00:00")
-  return date.toLocaleDateString(lang === "sk" ? "sk-SK" : "en-GB", {
+  const locale = lang === "sk" ? "sk-SK" : lang === "de" ? "de-DE" : "en-GB"
+  return date.toLocaleDateString(locale, {
     day: "numeric",
     month: "long",
     year: "numeric",

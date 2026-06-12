@@ -62,7 +62,7 @@ export default function PezinokPage() {
                 </Link>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">
-                Mobilný detailing v Pezinoku
+                Mobilný detailing v Pezinku
               </h1>
               <p className="text-xl text-zinc-300 mb-6">
                 Prémiové mobilné detailingové služby v Pezinoku a okolí. Prídeme k vám domov alebo do kancelárie.

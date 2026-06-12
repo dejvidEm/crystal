@@ -186,9 +186,87 @@ const preFirmyEn: PreFirmyCopy = {
     "Fill in the form—we will prepare a quote based on fleet size and your requirements. We usually reply within one business day.",
 }
 
-export function getPreFirmyCopy(lang: "sk" | "en"): PreFirmyCopy {
-  return lang === "en" ? preFirmyEn : preFirmySk
+const preFirmyDe: PreFirmyCopy = {
+  metaTitle: "Mobile Autopflege für Unternehmen und Fuhrparks",
+  metaDescription:
+    "Premium mobile Autopflege für Firmenflotten in Bratislava und Umgebung. Einheitlicher Standard, flexible Termine und maßgeschneidertes Pflegepaket – Preis nach Fuhrparkgröße.",
+  keywords: [
+    "Fuhrpark Detailing",
+    "Firmenauto Reinigung",
+    "mobile Autopflege Unternehmen",
+    "Flottenpflege Bratislava",
+  ],
+  hero: {
+    h1: "Mobile Autopflege für Unternehmen",
+    lead:
+      "Premium-Pflege für Ihren Firmenfuhrpark ohne Ausfallzeiten in der Werkstatt. Wir kommen zu Ihrem Standort, Areal oder Parkplatz und halten einen einheitlichen Standard über die gesamte Flotte.",
+    cta: "Firmenangebot anfordern",
+  },
+  statsTitle: "Warum Unternehmen Crystal Detailing wählen",
+  stats: [
+    { value: "100 %", label: "mobiler Service – keine Zeit in der Waschanlage" },
+    { value: "7 Tage", label: "flexible Termine nach Ihrem Betrieb" },
+    { value: "1", label: "Ansprechpartner für die gesamte Flotte" },
+    { value: "∞", label: "Flottengröße – individuelles Angebot" },
+  ],
+  audienceTitle: "Für wen ist der Service gedacht",
+  audienceIntro:
+    "Das Firmenpaket richtet sich an Organisationen, die repräsentative Fahrzeuge wollen – ohne eigene Waschprozesse.",
+  audience: [
+    {
+      title: "Firmenflotten & GmbH",
+      description: "Dienstwagen, Pool-Fahrzeuge und Transporter – regelmäßige Pflege nach Plan.",
+    },
+    {
+      title: "Leasing & Autohäuser",
+      description: "Übergabevorbereitung, Demo-Fahrzeuge und einheitlicher Auftritt vor dem Verkauf.",
+    },
+    {
+      title: "Taxi, Carsharing & Transport",
+      description: "Schnelle Innen- und Außenauffrischung zwischen Schichten – sauberer Eindruck bei Kunden.",
+    },
+    {
+      title: "Bau- & Projektfirmen",
+      description: "Pick-ups, SUVs und Transporter vor Ort – mobile Autopflege im Areal oder auf der Baustelle.",
+    },
+  ],
+  whyTitle: "Warum das Firmenpaket",
+  whyIntro:
+    "Wir sind keine normale Waschanlage. Premium mobile Autopflege mit Fokus auf Detail, Diskretion und planbare Ergebnisse.",
+  whyReasons: [
+    "Ein Anbieter für die gesamte Flotte – ein Standard, weniger Administration",
+    "Mobile Einheit mit Wasser und Equipment – Fahrzeuge bleiben stehen",
+    "Termine außerhalb der Stoßzeit oder am Wochenende nach Vereinbarung",
+    "Firmenrechnung und transparente Preiskommunikation im Voraus",
+    "Innenraum, Außenbereich, Polsterreinigung und Extras kombinierbar",
+    "Diskrete Arbeit bei Ihnen vor Ort und vor Kunden",
+  ],
+  packageTitle: "Pflegepaket für Unternehmen",
+  packageIntro:
+    "Ein Paket für Ihre Flotte – Umfang und Häufigkeit nach Fahrzeuganzahl und Betrieb. Preis individuell.",
+  packageName: "FIRMENPFLEGE",
+  packageSubtitle: "Umfassende mobile Flottenpflege",
+  packagePriceLabel: "Individuelles Angebot",
+  packageFeatures: [
+    "Flottencheck und Vorschlag für Pflegeplan",
+    "Mobile Innen- und Außenpflege an Ihrer Adresse",
+    "Einheitlicher Standard für alle Flottenfahrzeuge",
+    "Polsterreinigung, Scheinwerfer-Aufbereitung und Extras nach Vereinbarung",
+    "Flexible Termine – auch außerhalb der Geschäftszeiten",
+    "Ein Ansprechpartner und Firmenrechnung",
+  ],
+  packageCta: "Kontakt aufnehmen",
+  contactTitle: "Firmenanfrage",
+  contactIntro:
+    "Formular ausfüllen – wir erstellen ein Angebot nach Fuhrparkgröße und Ihren Wünschen. Antwort meist innerhalb eines Werktags.",
+}
+
+export function getPreFirmyCopy(lang: "sk" | "en" | "de"): PreFirmyCopy {
+  if (lang === "en") return preFirmyEn
+  if (lang === "de") return preFirmyDe
+  return preFirmySk
 }
 
 export const preFirmyCopySk = preFirmySk
 export const preFirmyCopyEn = preFirmyEn
+export const preFirmyCopyDe = preFirmyDe

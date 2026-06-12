@@ -1,6 +1,5 @@
 "use client"
 
-import { lazy, Suspense } from "react"
 import { motion } from "framer-motion"
 import { ArrowRight, Check, ChevronRight, Clock, MapPin, Sparkles, Truck, Calculator } from "lucide-react"
 import Image from "next/image"
@@ -16,7 +15,8 @@ import { VideoBackground } from "@/components/video-background"
 import { CarSizeSelector } from "@/components/car-size-selector"
 import { PricingPackageCard } from "@/components/pricing-package-card"
 import { AdditionalServicesTable } from "@/components/additional-services-table"
-import { packages, packagesEn } from "@/lib/pricing-data"
+import { getPackages } from "@/lib/pricing-data"
+import { toContentLocale } from "@/lib/i18n/locale"
 import { MobileServiceBanner } from "@/components/mobile-service-banner"
 import { CustomerGallery } from "@/components/customer-gallery"
 import { FloatingCalcButton } from "@/components/floating-calc-button"
@@ -29,10 +29,7 @@ import { BlogHomeSection } from "@/components/blog/blog-home-section"
 import { ContactForm } from "@/components/contact-form"
 import { bookioUrl } from "@/lib/site-config"
 
-// Lazy load components that are not needed immediately
-const ReviewCarousel = lazy(() =>
-  import("@/components/review-carousel").then((mod) => ({ default: mod.ReviewCarousel })),
-)
+import { ReviewCarousel } from "@/components/review-carousel"
 
 export default function Home() {
   const { language, t } = useLanguage()
@@ -42,7 +39,7 @@ export default function Home() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
   }
 
-  const pkgs = language === "en" ? packagesEn : packages
+  const pkgs = getPackages(toContentLocale(language))
 
   const serviceAreas = [
     "Bratislava",
@@ -655,9 +652,7 @@ export default function Home() {
               </LazyLoadSection>
 
               <LazyLoadSection delay={0.2}>
-                <Suspense fallback={<div className="h-64 flex items-center justify-center">Loading reviews...</div>}>
-                  <ReviewCarousel />
-                </Suspense>
+                <ReviewCarousel />
               </LazyLoadSection>
             </div>
           </section>

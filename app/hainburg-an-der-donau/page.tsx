@@ -1,8 +1,8 @@
-import { DistrictSeoPage } from "@/components/district-seo-page"
+import { DistrictSeoPageServer } from "@/components/district-seo-page-server"
 import { districtHainburg } from "@/lib/district-pages-data"
 
 export const metadata = districtHainburg.metadata
 
 export default function HainburgPage() {
-  return <DistrictSeoPage data={districtHainburg} />
+  return <DistrictSeoPageServer data={districtHainburg} />
 }

@@ -13,10 +13,11 @@ import {
   getCategoryLabel,
   getReadingTimeMinutes,
 } from "@/lib/blog-data"
+import { toContentLocale } from "@/lib/i18n/locale"
 
 export function BlogArticlePageClient({ post }: { post: BlogPost }) {
   const { language, t } = useLanguage()
-  const lang = language === "en" ? "en" : "sk"
+  const lang = toContentLocale(language)
   const title = post.title[lang]
   const blocks = post.body[lang]
   const readingMin = getReadingTimeMinutes(blocks)

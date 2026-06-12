@@ -330,10 +330,161 @@ export const servicePagesEn: Record<ServicePageSlug, ServicePageCopy> = {
   },
 }
 
-export function getServicePageCopy(slug: string, lang: "sk" | "en"): ServicePageCopy | undefined {
+export const servicePagesDe: Record<ServicePageSlug, ServicePageCopy> = {
+  "mobilny-detailing": {
+    metaTitle: "Mobile Autopflege Bratislava & Region",
+    keywords: [
+      "mobile Autopflege",
+      "Auto Detailing Bratislava",
+      "mobile Autopflege Slowakei",
+      "Innenraumreinigung Auto",
+    ],
+    metaDescription:
+      "Premium mobile Autopflege bei Ihnen vor Ort. Innen- und Außenreinigung, Polsterreinigung, Lackpflege. Crystal Detailing kommt zu Ihnen nach Hause oder ins Büro.",
+    h1: "Mobile Autopflege",
+    lead: "Premium-Fahrzeugpflege ohne Werkstattbesuch. Wir bringen Wasser, Strom und Equipment mit – Sie wählen Zeit und Ort.",
+    highlights: [
+      "Service zu Hause, im Büro oder auf Ihrem Parkplatz",
+      "Pakete vom schnellen Refresh bis zum Komplett-Detailing",
+      "Handarbeit, Premium-Produkte, persönlicher Ansatz",
+      "Bratislava, Pezinok, Senec, Záhorie & Trnava-Region",
+    ],
+    sections: [
+      {
+        title: "Was unsere mobile Autopflege umfasst",
+        paragraphs: [
+          "Mobile Autopflege ist mehr als eine schnelle Wäsche. Es ist vollständige Innen- und Außenpflege mit professionellem Equipment, das zu Ihnen kommt.",
+          "Keine Warteschlangen in der Waschanlage und keine halben Tage in der Werkstatt. Buchen Sie einen Termin – wir erledigen den Rest.",
+        ],
+      },
+      {
+        title: "Für wen ist der Service gedacht",
+        paragraphs: [
+          "Autobesitzer, die Zeit schätzen, Firmen mit Fuhrpark, Familien vor dem Urlaub oder beim Autoverkauf. Wer ein sauberes, geschütztes und repräsentatives Fahrzeug ohne Aufwand möchte, ist bei uns richtig.",
+        ],
+      },
+    ],
+    includesTitle: "Was Sie buchen können",
+    includes: [
+      "REFRESH – regelmäßige Innenraum-Auffrischung",
+      "INNENRAUM – Tiefen-Detailing Innenraum",
+      "KOMPLETT – Innen- und Außenbereich",
+      "POLSTERREINIGUNG – Tiefenreinigung von Textilien",
+      "Extras: Scheinwerfer-Aufbereitung, Motorraumreinigung",
+    ],
+    ctaTitle: "Mobile Autopflege buchen",
+    ctaSubtitle: "Preisliste ansehen oder sofort einen Richtpreis im Rechner erhalten.",
+    relatedLinks: [
+      { href: "/cennik", label: "Preisliste" },
+      { href: "/calc", label: "Preisrechner" },
+      { href: "/lokality", label: "Einsatzgebiete" },
+    ],
+  },
+  tepovanie: {
+    metaTitle: "Polsterreinigung Auto Bratislava",
+    keywords: [
+      "Polsterreinigung Auto",
+      "Sitzreinigung Auto",
+      "mobile Autoreinigung Bratislava",
+      "Geruchsneutralisation Auto",
+    ],
+    metaDescription:
+      "Professionelle Sitz- und Teppichreinigung. Geruchs- und Fleckenentfernung. Mobiler Crystal-Detailing-Service in Bratislava und Umgebung.",
+    h1: "Polsterreinigung Auto",
+    lead: "Tiefenreinigung von Textilien im Fahrzeug – Sitze, Teppiche, Boden und Dachhimmel. Ideal bei Gerüchen, Flecken, Kindern, Haustieren oder vor dem Verkauf.",
+    highlights: [
+      "Extraktionsreinigung für Textiloberflächen",
+      "Geruchs- und Schmutzentfernung",
+      "Mobil bei Ihnen vor Ort",
+      "Kombinierbar mit INNENRAUM- oder KOMPLETT-Paketen",
+    ],
+    sections: [
+      {
+        title: "Wann sich Polsterreinigung lohnt",
+        paragraphs: [
+          "Wenn der Innenraum muffig riecht, Sitze Flecken haben, Sie mit Kindern oder Haustieren unterwegs sind oder das Auto lange keine Tiefenreinigung hatte.",
+          "Shampoonieren entfernt Schmutz aus dem Gewebe, nicht nur von der Oberfläche. Planen Sie ausreichend Trocknungszeit nach dem Service ein.",
+        ],
+      },
+      {
+        title: "Was wir reinigen",
+        paragraphs: [
+          "Sitze, Teppiche, Fußmatten, Dachhimmel und Kofferraum – je nach Fahrzeugzustand und Ihren Wünschen.",
+        ],
+      },
+    ],
+    includesTitle: "POLSTERREINIGUNG-Paket umfasst",
+    includes: [
+      "Sitzpolster shampoonieren",
+      "Teppich- und Boden shampoonieren",
+      "Dachhimmelreinigung",
+      "Kofferraumreinigung (ohne Bodenmatte)",
+    ],
+    ctaTitle: "Polsterreinigung buchen",
+    ctaSubtitle: "POLSTERREINIGUNG-Paket in der Preisliste. Bei starker Verschmutzung Fotos senden.",
+    relatedLinks: [
+      { href: "/cennik", label: "Preisliste – POLSTERREINIGUNG" },
+      { href: "/mobilny-detailing", label: "Mobile Autopflege" },
+      { href: "/calc", label: "Preisrechner" },
+    ],
+  },
+  "renovacia-svetlometov": {
+    metaTitle: "Mobile Scheinwerfer-Aufbereitung Bratislava",
+    keywords: [
+      "Scheinwerfer aufbereiten",
+      "Scheinwerfer polieren",
+      "vergilbte Scheinwerfer",
+      "mobile Scheinwerfer-Aufbereitung",
+    ],
+    metaDescription:
+      "Vergilbte oder matte Scheinwerfer? Mobile Aufbereitung stellt Klarheit und Optik wieder her. €70 für beide – wir kommen zu Ihnen.",
+    h1: "Scheinwerfer-Aufbereitung",
+    lead: "Professionelle Aufbereitung trüber oder vergilbter Frontscheinwerfer bei Ihnen vor Ort. Oft ohne teure Neuteile, wenn nur der Kunststoff oxidiert ist.",
+    highlights: [
+      "Beide Frontscheinwerfer behandelt",
+      "Oxidationsentfernung, Polieren, UV-Schutz",
+      "Mobiler Service an Ihrer Adresse",
+      "Ideal vor TÜV, Verkauf oder Winterfahrt",
+    ],
+    sections: [
+      {
+        title: "Warum Scheinwerfer rechtzeitig aufbereiten",
+        paragraphs: [
+          "Kunststofflinsen vergilben und werden matt. Das Auto wirkt älter und das Licht dringt schlechter durch.",
+          "Aufbereitung betrifft den Außenkunststoff. Verbrannte Reflektoren oder Kabelprobleme brauchen separate Reparatur – wir beraten anhand von Fotos.",
+        ],
+      },
+      {
+        title: "So funktioniert die Aufbereitung",
+        paragraphs: [
+          "Reinigung, Abkleben, schrittweises Schleifen, Polieren und Schutzschicht. Ergebnis: klarere Linsen und besseres Fahrgefühl bei Nacht.",
+        ],
+      },
+    ],
+    includesTitle: "Leistung umfasst",
+    includes: [
+      "Entfernung von Oxidation und Vergilbung",
+      "Scheinwerfer abschleifen",
+      "Scheinwerfer polieren",
+      "UV-Schutz auftragen",
+      "€70 für beide Scheinwerfer (je nach Zustand)",
+    ],
+    ctaTitle: "Scheinwerfer-Aufbereitung buchen",
+    ctaSubtitle: "Foto der Scheinwerfer senden oder direkt Termin reservieren.",
+    relatedLinks: [
+      { href: "/cennik", label: "Preisliste Zusatzleistungen" },
+      { href: "/blog/renovacia-svetlometov-mobilne", label: "Artikel zur Aufbereitung" },
+      { href: "/calc", label: "Preisrechner" },
+    ],
+  },
+}
+
+export function getServicePageCopy(slug: string, lang: "sk" | "en" | "de"): ServicePageCopy | undefined {
   if (!SERVICE_PAGE_SLUGS.includes(slug as ServicePageSlug)) return undefined
   const key = slug as ServicePageSlug
-  return lang === "en" ? servicePagesEn[key] : servicePagesSk[key]
+  if (lang === "en") return servicePagesEn[key]
+  if (lang === "de") return servicePagesDe[key]
+  return servicePagesSk[key]
 }
 
 export function buildServicePageMetadata(slug: ServicePageSlug): Metadata {

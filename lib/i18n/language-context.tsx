@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 import { en } from "./en"
+import { de } from "./de"
 import { sk } from "./sk"
 import { setLanguageCookie, type Language } from "./language-cookie"
 
@@ -14,8 +15,9 @@ interface LanguageContextType {
   isChanging: boolean
 }
 
-const translations = {
+const translations: Record<Language, Translations> = {
   en,
+  de,
   sk,
 }
 
@@ -43,7 +45,7 @@ export function LanguageProvider({ children, initialLanguage = defaultLanguage }
   useEffect(() => {
     try {
       const storedLanguage = localStorage.getItem("language")
-      if (storedLanguage === "en" || storedLanguage === "sk") {
+      if (storedLanguage === "en" || storedLanguage === "sk" || storedLanguage === "de") {
         setLanguageState(storedLanguage)
         setLanguageCookie(storedLanguage)
       }
@@ -78,7 +80,7 @@ export function LanguageProvider({ children, initialLanguage = defaultLanguage }
     }
   }
 
-  const t = translations[language]
+  const t = translations[language] ?? translations.sk
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t, isChanging }}>{children}</LanguageContext.Provider>

@@ -22,9 +22,9 @@ export function whatsappUrl(message?: string): string {
 export const BOOKIO_WIDGET_BASE =
   "https://services.bookio.com/crystal-detailing-ob6b7b8y/widget" as const
 
-/** Vytvorí Bookio odkaz so správnym jazykom (sk/en). */
+/** Vytvorí Bookio odkaz so správnym jazykom (sk/en/de). */
 export function bookioUrl(lang?: string): string {
-  const normalized = lang === "en" ? "en" : "sk"
+  const normalized = lang === "en" ? "en" : lang === "de" ? "de" : "sk"
   return `${BOOKIO_WIDGET_BASE}?lang=${normalized}`
 }
 

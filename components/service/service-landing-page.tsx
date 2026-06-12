@@ -10,6 +10,7 @@ import { BackToHomeLink } from "@/components/seo/back-to-home-link"
 import { PageBreadcrumbs } from "@/components/seo/page-breadcrumbs"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { getServicePageCopy, type ServicePageSlug } from "@/lib/service-pages-data"
+import { toContentLocale } from "@/lib/i18n/locale"
 import { bookioUrl } from "@/lib/site-config"
 
 type ServiceLandingPageProps = {
@@ -18,7 +19,7 @@ type ServiceLandingPageProps = {
 
 export function ServiceLandingPage({ slug }: ServiceLandingPageProps) {
   const { language, t } = useLanguage()
-  const lang = language === "en" ? "en" : "sk"
+  const lang = toContentLocale(language)
   const copy = getServicePageCopy(slug, lang)
   if (!copy) return null
 

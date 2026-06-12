@@ -119,7 +119,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const initialLanguage = parseLanguage(cookieStore.get("language")?.value)
 
   return (
-    <html lang={initialLanguage === "en" ? "en" : "sk"} suppressHydrationWarning className="scroll-smooth">
+    <html lang={initialLanguage} suppressHydrationWarning className="scroll-smooth">
       <body className={`${inter.className} antialiased`}>
         <SiteGraphJsonLd />
         <LocalBusinessStructuredData />

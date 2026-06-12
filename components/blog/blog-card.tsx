@@ -10,6 +10,7 @@ import {
   getCategoryLabel,
   getReadingTimeMinutes,
 } from "@/lib/blog-data"
+import { toContentLocale } from "@/lib/i18n/locale"
 
 interface BlogCardProps {
   post: BlogPost
@@ -18,7 +19,7 @@ interface BlogCardProps {
 
 export function BlogCard({ post, variant = "default" }: BlogCardProps) {
   const { language, t } = useLanguage()
-  const lang = language === "en" ? "en" : "sk"
+  const lang = toContentLocale(language)
   const title = post.title[lang]
   const excerpt = post.excerpt[lang]
   const readingMin = getReadingTimeMinutes(post.body[lang])

@@ -3,65 +3,49 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { toContentLocale, type ContentLocale } from "@/lib/i18n/locale"
 
-const locations = {
-  en: [
-    "Staré Mesto",
-    "Ružinov",
-    "Nové Mesto",
-    "Petržalka",
-    "Dúbravka",
-    "Karlova Ves",
-    "Rača",
-    "Vajnory",
-    "Devín",
-    "Devínska Nová Ves",
-    "Záhorská Bystrica",
-    "Lamač",
-    "Ivanka pri Dunaji",
-    "Bernolákovo",
-    "Chorvátsky Grob",
-    "Svätý Jur",
-    "Pezinok",
-    "Modra",
-    "Hainburg an der Donau",
-    "Bruck an der Leitha",
-    "Eisenstadt",
-    "Schwechat",
-    "Wien",
-  ],
-  sk: [
-    "Staré Mesto",
-    "Ružinov",
-    "Nové Mesto",
-    "Petržalka",
-    "Dúbravka",
-    "Karlova Ves",
-    "Rača",
-    "Vajnory",
-    "Devín",
-    "Devínska Nová Ves",
-    "Záhorská Bystrica",
-    "Lamač",
-    "Ivanka pri Dunaji",
-    "Bernolákovo",
-    "Chorvátsky Grob",
-    "Svätý Jur",
-    "Pezinok",
-    "Modra",
-    "Hainburg an der Donau",
-    "Bruck an der Leitha",
-    "Eisenstadt",
-    "Schwechat",
-    "Wien",
-  ],
+const locationList = [
+  "Staré Mesto",
+  "Ružinov",
+  "Nové Mesto",
+  "Petržalka",
+  "Dúbravka",
+  "Karlova Ves",
+  "Rača",
+  "Vajnory",
+  "Devín",
+  "Devínska Nová Ves",
+  "Záhorská Bystrica",
+  "Lamač",
+  "Ivanka pri Dunaji",
+  "Bernolákovo",
+  "Chorvátsky Grob",
+  "Svätý Jur",
+  "Pezinok",
+  "Modra",
+  "Hainburg an der Donau",
+  "Bruck an der Leitha",
+  "Eisenstadt",
+  "Schwechat",
+  "Wien",
+] as const
+
+const locations: Record<ContentLocale, readonly string[]> = {
+  sk: locationList,
+  en: locationList,
+  de: locationList,
 }
 
 export function AnimatedLocations() {
   const { language } = useLanguage()
   const [currentIndex, setCurrentIndex] = useState(0)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const currentLocations = language === "sk" ? locations.sk : locations.en
+  const currentLocations = locations[toContentLocale(language)] ?? locations.sk
+
+  useEffect(() => {
+    setCurrentIndex(0)
+  }, [language])
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
