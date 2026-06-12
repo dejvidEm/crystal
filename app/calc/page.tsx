@@ -15,6 +15,7 @@ import { Footer } from "@/components/footer"
 import { StickySummary } from "@/components/calc/sticky-summary"
 import { ResultCard } from "@/components/calc/result-card"
 import { CalcBackButton } from "@/components/calc/back-button"
+import { trackGoogleAdsEvent } from "@/lib/google-ads"
 import {
   calculatePrice,
   calculateTime,
@@ -52,12 +53,10 @@ export default function CalculatorPage() {
 
   // Track calculator started
   useEffect(() => {
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      ;(window as any).gtag("event", "calc_started", {
-        event_category: "calculator",
-        event_label: "page_load",
-      })
-    }
+    trackGoogleAdsEvent("calc_started", {
+      event_category: "calculator",
+      event_label: "page_load",
+    })
   }, [])
 
   const progress = (currentStep / TOTAL_STEPS) * 100
@@ -163,13 +162,11 @@ export default function CalculatorPage() {
       const timer = setTimeout(() => {
         setIsCalculating(false)
         // Track calculator completed
-        if (typeof window !== "undefined" && (window as any).gtag) {
-          ;(window as any).gtag("event", "calc_completed", {
-            event_category: "calculator",
-            event_label: "result_shown",
-            value: calculatePrice(data).min,
-          })
-        }
+        trackGoogleAdsEvent("calc_completed", {
+          event_category: "calculator",
+          event_label: "result_shown",
+          value: calculatePrice(data).min,
+        })
       }, 600)
       return () => clearTimeout(timer)
     }

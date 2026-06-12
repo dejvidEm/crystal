@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { createConversionTransactionId, trackGoogleAdsPurchaseConversion } from "@/lib/google-ads"
 
 type Status = "idle" | "submitting" | "success" | "error"
 
@@ -41,6 +42,7 @@ export function ContactForm() {
         throw new Error(json.error || "Submit failed")
       }
       setStatus("success")
+      trackGoogleAdsPurchaseConversion(createConversionTransactionId())
     } catch (err) {
       setStatus("error")
       setErrorMessage(

@@ -11,6 +11,7 @@ import { getPackages } from "@/lib/pricing-data"
 import { toContentLocale } from "@/lib/i18n/locale"
 import { LeadInquiryCard } from "@/components/calc/lead-inquiry-card"
 import { bookioUrl, whatsappUrl } from "@/lib/site-config"
+import { trackGoogleAdsEvent } from "@/lib/google-ads"
 
 interface ResultCardProps {
   priceRange: PriceRange
@@ -86,13 +87,10 @@ export function ResultCard({ priceRange, timeRange, data }: ResultCardProps) {
   }
 
   const handleBookClick = () => {
-    // Track event if analytics exist
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      ;(window as any).gtag("event", "booking_clicked", {
-        event_category: "calculator",
-        event_label: "result_card",
-      })
-    }
+    trackGoogleAdsEvent("booking_clicked", {
+      event_category: "calculator",
+      event_label: "result_card",
+    })
 
     window.open(bookioUrl(language), "_blank", "noopener,noreferrer")
   }

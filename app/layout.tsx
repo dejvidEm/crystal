@@ -12,6 +12,7 @@ import { SiteGraphJsonLd } from "@/components/seo/site-graph-json-ld"
 import { LocalBusinessStructuredData } from "@/components/structured-data"
 import { metaDescription } from "@/lib/seo-meta"
 import { Analytics } from "@vercel/analytics/next"
+import { GoogleAds } from "@/components/analytics/google-ads"
 
 // Optimize font loading
 const inter = Inter({
@@ -129,6 +130,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <CookieConsent />
         </LanguageProvider>
         <Analytics />
+        <GoogleAds />
       </body>
     </html>
   )
