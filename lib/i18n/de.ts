@@ -257,7 +257,8 @@ export const de = {
   },
   mediaBento: {
     title: "Ergebnisse im Detail",
-    subtitle: "Fotos und Videos unserer Arbeit in modernem, klarem Layout",
+    subtitle: "Mehr von unserer Arbeit finden Sie auf unserem Instagram.",
+    instagramCta: "Folgen Sie uns auf Instagram",
     labels: {
       mobileStudio: "Mobiles Studio in Aktion",
     },

@@ -1,9 +1,8 @@
 "use client"
 
 import { useEffect, useState, useCallback, useMemo } from "react"
-import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react"
+import { ChevronLeft, ChevronRight, CircleUser, Quote, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { toContentLocale } from "@/lib/i18n/locale"
@@ -105,14 +104,12 @@ export function ReviewCarousel() {
             aria-live="polite"
           >
             <div className="flex shrink-0 flex-col items-center">
-              <div className="relative mb-4 h-24 w-24 overflow-hidden rounded-full border-2 border-primary">
-                <Image
-                  src={activeReview.avatar || "/placeholder.svg"}
-                  alt={t.reviews.avatarAlt}
-                  fill
-                  className="object-cover"
-                  sizes="96px"
-                />
+              <div
+                className="mb-4 flex h-24 w-24 items-center justify-center rounded-full border-2 border-primary bg-zinc-900/60"
+                aria-label={t.reviews.avatarAlt}
+                role="img"
+              >
+                <CircleUser className="h-12 w-12 text-primary/75" strokeWidth={1.25} />
               </div>
               <div className="flex" aria-label={`Rating: ${activeReview.rating} out of 5 stars`}>
                 {[...Array(5)].map((_, i) => (

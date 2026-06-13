@@ -34,7 +34,7 @@ export function isCalculatorAddon(value: unknown): value is CalculatorAddon {
   return typeof value === "string" && (CALCULATOR_ADDONS as readonly string[]).includes(value as string)
 }
 
-/** Prvá súvislá hodnota EUR v cenníkovom texte („119 €“, „€35“, …) */
+/** Prvá súvislá hodnota EUR v cenníkovom texte („129 €“, „€35“, …) */
 export function euroAmountFromPriceLabel(label: string): number {
   const m = String(label).match(/(\d+)/)
   if (!m) return 0
@@ -66,7 +66,7 @@ export function calculatorVehicleToCarSize(v: CalculatorVehicleSize): CarSize {
 export const PACKAGE_BASE_PRICE_EUR: Record<PackageKey, number> = {
   refresh: 39,
   essential: 79,
-  premium: 119,
+  premium: 129,
   ultimate: 49,
 }
 

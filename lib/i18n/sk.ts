@@ -257,7 +257,8 @@ export const sk = {
   },
   mediaBento: {
     title: "Výsledky v detailoch",
-    subtitle: "Fotky a videá našej práce v modernom prehľadnom rozložení",
+    subtitle: "Viac z našej práce si môžete pozrieť na našom Instagrame.",
+    instagramCta: "Sledujte nás na Instagrame",
     labels: {
       mobileStudio: "Mobilné štúdio v akcii",
     },

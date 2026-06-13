@@ -107,7 +107,7 @@ type Lead = {
 const PACKAGE_LABELS: Record<string, string> = {
   refresh: "REFRESH (39 €)",
   essential: "INTERIÉR (79 €)",
-  premium: "KOMPLET (119 €)",
+  premium: "KOMPLET (129 €)",
   ultimate: "TEPOVANIE (49 €)",
 }
 const VEHICLE_LABELS: Record<string, string> = {

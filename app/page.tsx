@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, Check, ChevronRight, Clock, MapPin, Sparkles, Truck, Calculator } from "lucide-react"
+import { ArrowRight, Check, ChevronRight, Clock, Instagram, MapPin, Sparkles, Truck, Calculator } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -27,7 +27,7 @@ import { BeforeAfterSlider } from "@/components/before-after-slider"
 import { WhyChooseUsSection } from "@/components/why-choose-us-section"
 import { BlogHomeSection } from "@/components/blog/blog-home-section"
 import { ContactForm } from "@/components/contact-form"
-import { bookioUrl } from "@/lib/site-config"
+import { bookioUrl, SOCIAL_LINKS } from "@/lib/site-config"
 
 import { ReviewCarousel } from "@/components/review-carousel"
 
@@ -482,8 +482,20 @@ export default function Home() {
                   </h2>
                   <div className="h-1 w-24 mx-auto bg-primary"></div>
                   <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
-                    {t.mediaBento?.subtitle || "Fotky a videá našej práce v modernom prehľadnom rozložení"}
+                    {t.mediaBento?.subtitle || "Viac z našej práce si môžete pozrieť na našom Instagrame."}
                   </p>
+                  <div className="mt-8 flex justify-center">
+                    <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer">
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="border-primary text-primary hover:bg-primary/10"
+                      >
+                        <Instagram className="mr-2 h-5 w-5" />
+                        {t.mediaBento?.instagramCta || "Sledujte nás na Instagrame"}
+                      </Button>
+                    </a>
+                  </div>
                 </div>
               </LazyLoadSection>
 
