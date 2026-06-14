@@ -326,15 +326,19 @@ export function Navbar() {
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="fixed left-0 top-0 z-[105] h-screen w-full bg-black backdrop-blur-md lg:hidden"
               >
+                <div className="absolute inset-x-0 top-0 flex items-center justify-center border-b border-white/10 px-6 py-5">
+                  <LanguageSwitcher variant="minimal" />
+                </div>
+
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="absolute right-6 top-6 z-50 text-white"
+                  className="absolute right-6 top-5 z-50 text-white"
                   aria-label="Close menu"
                 >
                   <X className="h-6 w-6 text-primary" />
                 </button>
 
-                <div className="flex h-full flex-col items-center justify-center">
+                <div className="flex h-full flex-col items-center justify-center pt-16">
                   <nav className="flex flex-col items-center space-y-8" aria-label="Mobile navigation">
                     <Link
                       href="/cennik"
