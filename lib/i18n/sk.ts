@@ -5,6 +5,16 @@ export const sk = {
     scrollToExplore: "Posunúť na preskúmanie",
     getQuote: "Získať cenovú ponuku",
   },
+  welcomePromo: {
+    badge: "Limitovaná ponuka • Len pre nových klientov",
+    eyebrow: "Víta vás Crystal Detailing",
+    discount: "−10 %",
+    discountSubtitle: "na váš prvý detailing",
+    body: "Prémiový mobilný detailing priamo u vás – doma, v práci alebo kdekoľvek budete potrebovať. Zľava platí pri prvej rezervácii cez náš online systém.",
+    cta: "Rezervovať prvý detailing",
+    dismiss: "Nie, ďakujem, zaplatím plnú cenu",
+    closeLabel: "Zavrieť ponuku",
+  },
   nav: {
     aboutUs: "O\u00A0nás",
     services: "Služby",
@@ -116,6 +126,14 @@ export const sk = {
     title: "Naše prémiové balíky",
     subtitle:
       "Vyberte si z našich starostlivo vytvorených detailingových balíkov navrhnutých na obnovu a ochranu vášho vozidla",
+    travelNote: {
+      baPrefix: "Bratislava: výjazd",
+      free: "zdarma",
+      within15kmPrefix: "do 15 km od BA",
+      within15kmFee: "+10 €",
+      from15kmPrefix: "od 15 km od BA",
+      perKmFee: "0,50 €/km",
+    },
     mostPopularLabel: "Najobľúbenejšie",
     essential: {
       title: "Balík interiér",

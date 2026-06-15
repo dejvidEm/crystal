@@ -14,6 +14,7 @@ import { useLanguage } from "@/lib/i18n/language-context"
 import { VideoBackground } from "@/components/video-background"
 import { CarSizeSelector } from "@/components/car-size-selector"
 import { PricingPackageCard } from "@/components/pricing-package-card"
+import { PackagesTravelNote } from "@/components/pricing/packages-travel-note"
 import { AdditionalServicesTable } from "@/components/additional-services-table"
 import { getPackages } from "@/lib/pricing-data"
 import { toContentLocale } from "@/lib/i18n/locale"
@@ -347,6 +348,7 @@ export default function Home() {
                   <PricingPackageCard packageKey="ultimate" packageData={pkgs.ultimate} />
                 </LazyLoadSection>
               </div>
+              <PackagesTravelNote />
             </div>
           </section>
 

@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/lib/i18n/language-context"
 import { parseLanguage } from "@/lib/i18n/language-cookie"
 import { LanguageTransition } from "@/components/language-transition"
 import { CookieConsent } from "@/components/cookie-consent"
+import { FirstVisitPromoModal } from "@/components/first-visit-promo-modal"
 import { SiteGraphJsonLd } from "@/components/seo/site-graph-json-ld"
 import { LocalBusinessStructuredData } from "@/components/structured-data"
 import { metaDescription } from "@/lib/seo-meta"
@@ -127,6 +128,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <LanguageProvider initialLanguage={initialLanguage}>
           <LanguageTransition />
           <PageTransitions>{children}</PageTransitions>
+          <FirstVisitPromoModal />
           <CookieConsent />
         </LanguageProvider>
         <Analytics />

@@ -5,6 +5,16 @@ export const de = {
     scrollToExplore: "Weiter scrollen",
     getQuote: "Angebot anfordern",
   },
+  welcomePromo: {
+    badge: "Limitiertes Angebot • Nur für Neukunden",
+    eyebrow: "Willkommen bei Crystal Detailing",
+    discount: "−10 %",
+    discountSubtitle: "auf Ihre erste Aufbereitung",
+    body: "Premium-Mobile-Detailing direkt bei Ihnen – zu Hause, im Büro oder wo Sie uns brauchen. Der Rabatt gilt bei der ersten Buchung über unser Online-System.",
+    cta: "Erste Aufbereitung buchen",
+    dismiss: "Nein danke, ich zahle den vollen Preis",
+    closeLabel: "Angebot schließen",
+  },
   nav: {
     aboutUs: "Über uns",
     services: "Leistungen",
@@ -118,6 +128,14 @@ export const de = {
     title: "Unsere Premium-Pakete",
     subtitle:
       "Wählen Sie aus sorgfältig zusammengestellten Detailing-Paketen zur Pflege und zum Schutz Ihres Fahrzeugs",
+    travelNote: {
+      baPrefix: "Bratislava: Anfahrt",
+      free: "kostenlos",
+      within15kmPrefix: "bis 15 km von BA",
+      within15kmFee: "+10 €",
+      from15kmPrefix: "ab 15 km von BA",
+      perKmFee: "0,50 €/km",
+    },
     mostPopularLabel: "Am beliebtesten",
     essential: {
       title: "Innenraum-Paket",

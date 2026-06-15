@@ -5,6 +5,16 @@ export const en = {
     scrollToExplore: "Scroll to explore",
     getQuote: "Get Quote",
   },
+  welcomePromo: {
+    badge: "Limited offer • New clients only",
+    eyebrow: "Welcome to Crystal Detailing",
+    discount: "−10%",
+    discountSubtitle: "on your first detail",
+    body: "Premium mobile detailing at your location—home, office, or wherever you need us. The discount applies on your first booking through our online system.",
+    cta: "Book my first detail",
+    dismiss: "No thanks, I'll pay full price",
+    closeLabel: "Close offer",
+  },
   nav: {
     aboutUs: "About Us",
     services: "Services",
@@ -116,6 +126,14 @@ export const en = {
     title: "Our Premium Packages",
     subtitle:
       "Choose from our carefully crafted detailing packages designed to restore and protect your vehicle",
+    travelNote: {
+      baPrefix: "Bratislava: dispatch",
+      free: "free",
+      within15kmPrefix: "within 15 km of BA",
+      within15kmFee: "+€10",
+      from15kmPrefix: "from 15 km from BA",
+      perKmFee: "€0.50/km",
+    },
     mostPopularLabel: "Most popular",
     essential: {
       title: "Interior Package",

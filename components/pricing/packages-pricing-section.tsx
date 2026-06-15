@@ -1,6 +1,7 @@
 "use client"
 
 import { CarSizeSelector } from "@/components/car-size-selector"
+import { PackagesTravelNote } from "@/components/pricing/packages-travel-note"
 import { PricingPackageCard } from "@/components/pricing-package-card"
 import { LazyLoadSection } from "@/components/lazy-section"
 import { useLanguage } from "@/lib/i18n/language-context"
@@ -75,6 +76,7 @@ export function PackagesPricingSection({
         ) : (
           <div className="mx-auto flex max-w-2xl flex-col gap-8 overflow-visible pt-2">{cards}</div>
         )}
+        <PackagesTravelNote />
       </div>
     </section>
   )
