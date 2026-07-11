@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { LegalPage } from "@/components/legal-page"
 import { useLanguage } from "@/lib/i18n/language-context"
-import { toContentLocale } from "@/lib/i18n/locale"
+import { toContentLocale, type ContentLocale } from "@/lib/i18n/locale"
 import type { LegalPageCopy } from "@/lib/legal-pages-data"
 import {
   COMPANY_LEGAL,
@@ -13,14 +13,18 @@ import {
   CONTACT_PHONE_TEL,
 } from "@/lib/site-config"
 
-type LegalDocumentBodyProps = {
-  copy: LegalPageCopy
-  privacyLinkLabel?: string
+type LegalPageRendererProps = {
+  copies: Record<ContentLocale, LegalPageCopy>
+  showPrivacyLink?: boolean
 }
 
-export function LegalDocumentBody({ copy, privacyLinkLabel }: LegalDocumentBodyProps) {
+export default function LegalPageRenderer({ copies, showPrivacyLink = false }: LegalPageRendererProps) {
+  const { language, t } = useLanguage()
+  const copy = copies[toContentLocale(language)]
+  const privacyLinkLabel = t.footer.privacyPolicy
+
   return (
-    <>
+    <LegalPage title={copy.title} lastUpdated={copy.lastUpdated} lastUpdatedLabel={t.legal.lastUpdated}>
       <p>{interpolate(copy.intro)}</p>
       {copy.sections.map((section) => (
         <section key={section.heading}>
@@ -29,6 +33,7 @@ export function LegalDocumentBody({ copy, privacyLinkLabel }: LegalDocumentBodyP
             <LegalParagraph
               key={paragraph}
               text={paragraph}
+              showPrivacyLink={showPrivacyLink}
               privacyLinkLabel={privacyLinkLabel}
             />
           ))}
@@ -43,29 +48,33 @@ export function LegalDocumentBody({ copy, privacyLinkLabel }: LegalDocumentBodyP
             <LegalParagraph
               key={paragraph}
               text={paragraph}
+              showPrivacyLink={showPrivacyLink}
               privacyLinkLabel={privacyLinkLabel}
             />
           ))}
         </section>
       ))}
-    </>
+    </LegalPage>
   )
 }
 
 function LegalParagraph({
   text,
+  showPrivacyLink,
   privacyLinkLabel,
 }: {
   text: string
-  privacyLinkLabel?: string
+  showPrivacyLink: boolean
+  privacyLinkLabel: string
 }) {
   const content = interpolate(text)
-  if (content.includes("{{privacyLink}}")) {
+
+  if (showPrivacyLink && content.includes("{{privacyLink}}")) {
     const [before, after] = content.split("{{privacyLink}}")
     return (
       <p>
         {before}
-        <Link href="/ochrana-osobnych-udajov">{privacyLinkLabel ?? "Privacy Policy"}</Link>
+        <Link href="/ochrana-osobnych-udajov">{privacyLinkLabel}</Link>
         {after}
       </p>
     )
@@ -129,20 +138,4 @@ function interpolate(text: string): string {
     .replace(/\{\{dic\}\}/g, COMPANY_LEGAL.dic)
     .replace(/\{\{email\}\}/g, CONTACT_EMAIL)
     .replace(/\{\{phone\}\}/g, CONTACT_PHONE_DISPLAY)
-}
-
-type LegalDocumentPageProps = {
-  getCopy: (lang: ReturnType<typeof toContentLocale>) => LegalPageCopy
-  privacyLinkLabel?: string
-}
-
-export function LegalDocumentPage({ getCopy, privacyLinkLabel }: LegalDocumentPageProps) {
-  const { language, t } = useLanguage()
-  const copy = getCopy(toContentLocale(language))
-
-  return (
-    <LegalPage title={copy.title} lastUpdated={copy.lastUpdated} lastUpdatedLabel={t.legal.lastUpdated}>
-      <LegalDocumentBody copy={copy} privacyLinkLabel={privacyLinkLabel ?? t.footer.privacyPolicy} />
-    </LegalPage>
-  )
 }

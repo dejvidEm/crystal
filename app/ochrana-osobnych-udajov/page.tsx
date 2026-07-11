@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import { LegalDocumentPage } from "@/components/legal/legal-document-page"
-import { getPrivacyCopy, privacyMetadataSk } from "@/lib/legal-pages-data"
+import LegalPageRenderer from "@/components/legal/legal-page-renderer"
+import { privacyCopyByLocale, privacyMetadataSk } from "@/lib/legal-pages-data"
 import { buildPageMetadata } from "@/lib/seo-metadata"
 
 export const metadata: Metadata = buildPageMetadata({
@@ -11,5 +11,5 @@ export const metadata: Metadata = buildPageMetadata({
 })
 
 export default function PrivacyPolicyPage() {
-  return <LegalDocumentPage getCopy={getPrivacyCopy} />
+  return <LegalPageRenderer copies={privacyCopyByLocale} />
 }

@@ -445,16 +445,24 @@ const termsDe: LegalPageCopy = {
   ],
 }
 
+export const privacyCopyByLocale: Record<ContentLocale, LegalPageCopy> = {
+  sk: privacySk,
+  en: privacyEn,
+  de: privacyDe,
+}
+
+export const termsCopyByLocale: Record<ContentLocale, LegalPageCopy> = {
+  sk: termsSk,
+  en: termsEn,
+  de: termsDe,
+}
+
 export function getPrivacyCopy(lang: ContentLocale): LegalPageCopy {
-  if (lang === "en") return privacyEn
-  if (lang === "de") return privacyDe
-  return privacySk
+  return privacyCopyByLocale[lang]
 }
 
 export function getTermsCopy(lang: ContentLocale): LegalPageCopy {
-  if (lang === "en") return termsEn
-  if (lang === "de") return termsDe
-  return termsSk
+  return termsCopyByLocale[lang]
 }
 
 export const privacyMetadataSk = privacySk.meta
