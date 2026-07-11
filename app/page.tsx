@@ -12,13 +12,13 @@ import { OptimizedImage } from "@/components/optimized-image"
 import { Footer } from "@/components/footer"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { VideoBackground } from "@/components/video-background"
+import { HeroStats } from "@/components/hero-stats"
 import { CarSizeSelector } from "@/components/car-size-selector"
 import { PricingPackageCard } from "@/components/pricing-package-card"
 import { PackagesTravelNote } from "@/components/pricing/packages-travel-note"
 import { AdditionalServicesTable } from "@/components/additional-services-table"
 import { getPackages } from "@/lib/pricing-data"
 import { toContentLocale } from "@/lib/i18n/locale"
-import { MobileServiceBanner } from "@/components/mobile-service-banner"
 import { CustomerGallery } from "@/components/customer-gallery"
 import { FloatingCalcButton } from "@/components/floating-calc-button"
 import { ServiceStructuredData } from "@/components/structured-data"
@@ -82,7 +82,7 @@ export default function Home() {
           <Navbar />
 
           {/* Hero Section */}
-          <section className="relative h-screen w-full overflow-hidden">
+          <section id="hero" className="relative h-screen w-full overflow-hidden">
             {/* Video Background */}
             <VideoBackground />
 
@@ -125,7 +125,7 @@ export default function Home() {
                     {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </a>
-                <Link href="/calc">
+                <Link href="/calc" id="hero-get-quote">
                   <Button
                     size="lg"
                     variant="outline"
@@ -137,6 +137,7 @@ export default function Home() {
                 </Link>
               </motion.div>
             </div>
+            <HeroStats />
             <div className="absolute bottom-8 left-0 right-0 z-10 flex justify-center">
               <motion.div
                 initial={{ opacity: 0, y: 0 }}
@@ -312,9 +313,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Mobile Service Banner */}
-          <MobileServiceBanner />
-
           {/* Why Choose Us Section */}
           <WhyChooseUsSection />
 
@@ -340,12 +338,12 @@ export default function Home() {
                   <PricingPackageCard packageKey="essential" packageData={pkgs.essential} />
                 </LazyLoadSection>
 
-                <LazyLoadSection delay={0.4} className="h-full">
-                  <PricingPackageCard packageKey="premium" packageData={pkgs.premium} />
+                <LazyLoadSection delay={0.3} className="h-full">
+                  <PricingPackageCard packageKey="exterior" packageData={pkgs.exterior} />
                 </LazyLoadSection>
 
-                <LazyLoadSection delay={0.6} className="h-full">
-                  <PricingPackageCard packageKey="ultimate" packageData={pkgs.ultimate} />
+                <LazyLoadSection delay={0.4} className="h-full">
+                  <PricingPackageCard packageKey="premium" packageData={pkgs.premium} />
                 </LazyLoadSection>
               </div>
               <PackagesTravelNote />

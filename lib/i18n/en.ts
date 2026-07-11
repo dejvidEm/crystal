@@ -5,6 +5,12 @@ export const en = {
     scrollToExplore: "Scroll to explore",
     getQuote: "Get Quote",
   },
+  cookieConsent: {
+    message:
+      "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking \"Accept\", you consent to our use of cookies.",
+    decline: "Decline",
+    accept: "Accept",
+  },
   welcomePromo: {
     badge: "Limited offer • New clients only",
     eyebrow: "Welcome to Crystal Detailing",
@@ -57,6 +63,12 @@ export const en = {
       "Experience the pinnacle of automotive care without leaving your home or office. Our expert detailers bring premium products and equipment directly to you, transforming your vehicle into a masterpiece of automotive perfection.",
     availableIn: "Available in",
     andSurrounding: "and surrounding areas",
+    stats: [
+      { value: "600+", label: "detailed vehicles" },
+      { value: "5.0", label: "average rating", showStar: true },
+      { value: "4", label: "years of experience" },
+      { value: "2000+", label: "hours of time saved" },
+    ],
   },
   handoverShowcase: {
     title: "We hand your car back not just clean—but like new",
@@ -207,7 +219,7 @@ export const en = {
       {
         name: "Engine Bay Detailing",
         description: "Clean and dress your engine bay for a showroom appearance",
-        price: "€70",
+        price: "€60",
       },
     ],
     note: "Additional services can be booked on their own or added to any package. The final price may vary depending on vehicle condition.",
@@ -473,6 +485,8 @@ export const en = {
     addonLeatherDesc: "Cleaning and conditioning of leather surfaces.",
     addonHeadlights: "Headlight restoration",
     addonHeadlightsDesc: "Restoration of cloudy and yellowed headlights.",
+    addonEngine: "Engine bay cleaning",
+    addonEngineDesc: "Cleaning and detailing of the engine compartment – €60.",
     addonNeedVehicle: "Go back to step 1 and select a vehicle type to see add-on prices.",
     priceBreakdownTitle: "How the price is calculated",
     priceBreakdownPackage: "Package",

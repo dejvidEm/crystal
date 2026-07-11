@@ -256,7 +256,7 @@ export function buildBlogPostPageJsonLd(post: BlogPost) {
 export function buildCennikPageJsonLd() {
   const title = "Cenník mobilného detailingu"
   const description =
-    "Cenník balíkov REFRESH, INTERIÉR, KOMPLET, TEPOVANIE a doplnkových služieb Crystal Detailing v Bratislave a okolí."
+    "Cenník balíkov REFRESH, INTERIÉR, EXTERIÉR, KOMPLET a doplnkových služieb Crystal Detailing v Bratislave a okolí."
 
   return [
     buildWebPageJsonLd({ pathname: "/cennik", title, description }),
@@ -271,8 +271,9 @@ export function buildCennikPageJsonLd() {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Balík REFRESH", url: absoluteUrl("/cennik") },
         { "@type": "ListItem", position: 2, name: "Balík INTERIÉR", url: absoluteUrl("/cennik") },
-        { "@type": "ListItem", position: 3, name: "Balík KOMPLET", url: absoluteUrl("/cennik") },
-        { "@type": "ListItem", position: 4, name: "Balík TEPOVANIE", url: absoluteUrl("/cennik") },
+        { "@type": "ListItem", position: 3, name: "Balík EXTERIÉR", url: absoluteUrl("/cennik") },
+        { "@type": "ListItem", position: 4, name: "Balík KOMPLET", url: absoluteUrl("/cennik") },
+        { "@type": "ListItem", position: 5, name: "TEPOVANIE", url: absoluteUrl("/cennik") },
       ],
     },
   ]

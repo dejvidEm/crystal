@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react"
 import { Button } from "./ui/button"
+import { useLanguage } from "@/lib/i18n/language-context"
 
 export function CookieConsent() {
+  const { t } = useLanguage()
   const [showBanner, setShowBanner] = useState<boolean | null>(null)
 
   useEffect(() => {
@@ -36,19 +38,25 @@ export function CookieConsent() {
 
   if (showBanner !== true) return null
 
+  const copy = t.cookieConsent
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 p-4 shadow-lg z-[110] md:z-50">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-gray-600 dark:text-gray-300">
-          We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By
-          clicking &quot;Accept&quot;, you consent to our use of cookies.
-        </p>
-        <div className="flex gap-2">
-          <Button variant="outline" onClick={handleDecline} className="text-sm">
-            Decline
+    <div className="fixed bottom-0 left-0 right-0 z-[110] border-t border-white/10 bg-black/95 p-4 shadow-lg backdrop-blur-md md:z-50">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
+        <p className="text-sm text-zinc-300">{copy.message}</p>
+        <div className="flex shrink-0 gap-2">
+          <Button
+            variant="outline"
+            onClick={handleDecline}
+            className="border-zinc-600 bg-transparent text-sm text-zinc-200 hover:bg-white/10 hover:text-white"
+          >
+            {copy.decline}
           </Button>
-          <Button onClick={handleAccept} className="text-sm">
-            Accept
+          <Button
+            onClick={handleAccept}
+            className="bg-primary text-sm text-primary-foreground hover:bg-primary/90"
+          >
+            {copy.accept}
           </Button>
         </div>
       </div>

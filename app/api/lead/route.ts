@@ -107,8 +107,8 @@ type Lead = {
 const PACKAGE_LABELS: Record<string, string> = {
   refresh: "REFRESH (39 €)",
   essential: "INTERIÉR (79 €)",
-  premium: "KOMPLET (129 €)",
-  ultimate: "TEPOVANIE (49 €)",
+  exterior: "EXTERIÉR (69 €)",
+  premium: "KOMPLET (139 €)",
 }
 const VEHICLE_LABELS: Record<string, string> = {
   small: "Malé (Hatchback / Sedan)",
@@ -125,6 +125,7 @@ const ADDON_LABELS: Record<string, string> = {
   carpets: "Tepovanie koberčekov",
   leather: "Impregnácia kožených sedačiek a častí",
   headlights: "Renovácia svetlometov",
+  engine: "Čistenie motorového priestoru",
 }
 
 function labelOrRaw(map: Record<string, string>, key: string | null): string {

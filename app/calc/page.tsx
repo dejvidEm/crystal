@@ -406,6 +406,16 @@ export default function CalculatorPage() {
                             checked={data.addons.includes("headlights")}
                             onCheckedChange={(c) => handleAddonChecked("headlights", c)}
                           />
+                          <AddonCard
+                            id="addon-engine"
+                            label={t.calculator?.addonEngine || "Čistenie motorového priestoru"}
+                            description={
+                              t.calculator?.addonEngineDesc ||
+                              "Vyčistenie a úprava motorového priestoru – 60 €."
+                            }
+                            checked={data.addons.includes("engine")}
+                            onCheckedChange={(c) => handleAddonChecked("engine", c)}
+                          />
                         </div>
                       </CardContent>
                     </Card>

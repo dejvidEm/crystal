@@ -11,8 +11,8 @@ import {
 export const CALC_PACKAGE_DURATION_MINUTES: Record<PackageKey, number> = {
   refresh: 60,
   essential: 60,
+  exterior: 60,
   premium: 120,
-  ultimate: 60,
 }
 
 /** Každý zaškrtnutý doplnok pridá tento čas. */
@@ -37,7 +37,7 @@ export const EXTREME_CONDITION_SURCHARGE_EUR = 10
  * Doplnky v poslednom kroku sú IBA INFORMATÍVNE.
  * Nezapočítavajú sa do finálnej ceny – cena = balík + prípadné prirážky vyššie.
  */
-export const CALC_INFO_ADDONS = ["seats", "carpets", "leather", "headlights"] as const
+export const CALC_INFO_ADDONS = ["seats", "carpets", "leather", "headlights", "engine"] as const
 export type InfoAddon = (typeof CALC_INFO_ADDONS)[number]
 
 export function isInfoAddon(value: unknown): value is InfoAddon {

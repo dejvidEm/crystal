@@ -5,6 +5,12 @@ export const de = {
     scrollToExplore: "Weiter scrollen",
     getQuote: "Angebot anfordern",
   },
+  cookieConsent: {
+    message:
+      "Wir verwenden Cookies, um Ihr Surferlebnis zu verbessern, Inhalte zu personalisieren und den Traffic zu analysieren. Mit „Zustimmen“ willigen Sie in die Verwendung von Cookies ein.",
+    decline: "Ablehnen",
+    accept: "Zustimmen",
+  },
   welcomePromo: {
     badge: "Limitiertes Angebot • Nur für Neukunden",
     eyebrow: "Willkommen bei Crystal Detailing",
@@ -58,6 +64,12 @@ export const de = {
       "Erleben Sie höchste Automobilpflege, ohne Ihr Zuhause oder Büro zu verlassen. Unsere erfahrenen Aufbereiter bringen Premium-Produkte und professionelles Equipment direkt zu Ihnen und verwandeln Ihr Fahrzeug in ein Meisterwerk automobilen Glanzes.",
     availableIn: "Verfügbar in",
     andSurrounding: "und Umgebung",
+    stats: [
+      { value: "600+", label: "aufbereitete Fahrzeuge" },
+      { value: "5,0", label: "durchschnittliche Bewertung", showStar: true },
+      { value: "4", label: "Jahre Erfahrung" },
+      { value: "2000+", label: "gesparte Stunden" },
+    ],
   },
   handoverShowcase: {
     title: "Wir übergeben Ihr Auto nicht nur sauber – sondern wie neu",
@@ -211,7 +223,7 @@ export const de = {
       {
         name: "Motorraum-Detailing",
         description: "Motorraum reinigen und aufbereiten für ein Showroom-Erscheinungsbild",
-        price: "€70",
+        price: "€60",
       },
     ],
     note: "Zusatzleistungen können einzeln oder zu jedem Paket gebucht werden. Der Endpreis kann je nach Fahrzeugzustand variieren.",
@@ -483,6 +495,8 @@ export const de = {
     addonLeatherDesc: "Reinigung und Pflege von Lederflächen.",
     addonHeadlights: "Scheinwerferaufbereitung",
     addonHeadlightsDesc: "Aufbereitung trüber und vergilbter Scheinwerfer.",
+    addonEngine: "Motorraumreinigung",
+    addonEngineDesc: "Reinigung und Aufbereitung des Motorraums – 60 €.",
     addonNeedVehicle:
       "Gehen Sie zu Schritt 1 zurück und wählen Sie einen Fahrzeugtyp, um Zusatzpreise zu sehen.",
     priceBreakdownTitle: "So wird der Preis berechnet",

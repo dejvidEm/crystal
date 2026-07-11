@@ -5,6 +5,12 @@ export const sk = {
     scrollToExplore: "Posunúť na preskúmanie",
     getQuote: "Získať cenovú ponuku",
   },
+  cookieConsent: {
+    message:
+      "Používame cookies na zlepšenie vášho zážitku z prehliadania, personalizáciu obsahu a analýzu návštevnosti. Kliknutím na „Súhlasím“ súhlasíte s používaním cookies.",
+    decline: "Odmietnuť",
+    accept: "Súhlasím",
+  },
   welcomePromo: {
     badge: "Limitovaná ponuka • Len pre nových klientov",
     eyebrow: "Víta vás Crystal Detailing",
@@ -57,6 +63,12 @@ export const sk = {
       "Zažite špičkovú starostlivosť o vaše vozidlo bez toho, aby ste museli opustiť domov alebo kanceláriu. Naši odborníci prinášajú prémiové produkty a vybavenie priamo k vám, premieňajúc vaše vozidlo na majstrovské dielo automobilovej dokonalosti.",
     availableIn: "Dostupné v",
     andSurrounding: "a okolí",
+    stats: [
+      { value: "600+", label: "detailovaných áut" },
+      { value: "5.0", label: "priemerné hodnotenie", showStar: true },
+      { value: "4", label: "roky skúseností" },
+      { value: "2000+", label: "ušetrených hodín času" },
+    ],
   },
   handoverShowcase: {
     title: "Auto odovzdáme nie čisté, ale nové",
@@ -212,7 +224,7 @@ export const sk = {
       {
         name: "Detailing motorového priestoru",
         description: "Vyčistenie a úprava motorového priestoru pre vzhľad ako z výstavnej siene",
-        price: "€70",
+        price: "€60",
       },
     ],
     note: "Doplnkové služby je možné objednať samostatne alebo pridať k akémukoľvek balíku. Presná cena sa môže líšiť podľa stavu vozidla.",
@@ -474,6 +486,8 @@ export const sk = {
     addonLeatherDesc: "Čistenie a výživa kožených povrchov v interiéri.",
     addonHeadlights: "Renovácia svetlometov",
     addonHeadlightsDesc: "Obnova zakalených a zažltnutých svetlometov.",
+    addonEngine: "Čistenie motorového priestoru",
+    addonEngineDesc: "Vyčistenie a úprava motorového priestoru – 60 €.",
     addonNeedVehicle: "Pre zobrazenie cien doplnkov sa vráťte na prvý krok a zvoľte typ vozidla.",
     priceBreakdownTitle: "Z čoho sa cena skladá",
     priceBreakdownPackage: "Balík",

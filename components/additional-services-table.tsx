@@ -11,7 +11,7 @@ export function AdditionalServicesTable() {
   const rows = getAdditionalServices(toContentLocale(language))
 
   return (
-    <div className="mx-auto grid max-w-4xl gap-8 overflow-visible pt-4 sm:grid-cols-2">
+    <div className="mx-auto grid max-w-5xl gap-6 overflow-visible pt-4 sm:grid-cols-2 lg:grid-cols-3">
       {rows.map((service, index) => (
         <LazyLoadSection
           key={`${language}-${service.icon}-${index}`}

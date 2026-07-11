@@ -67,9 +67,10 @@ export function VideoBackground() {
           <source src="/two.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        {/* Multiple overlay layers for better text readability */}
+        {/* Overlay layers for text readability */}
         <div className="absolute inset-0 bg-black opacity-70"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/65 md:to-black/80"></div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-black/70 via-black/35 to-transparent md:hidden"></div>
       </motion.div>
     </div>
   )

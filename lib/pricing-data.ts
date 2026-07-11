@@ -2,8 +2,11 @@ import type { ContentLocale } from "@/lib/i18n/locale"
 export type CarSize = "small" | "suv" | "van"
 
 /** Keys used by the calculator and pricing cards (same order as on the homepage). */
-export const PACKAGE_KEYS = ["refresh", "essential", "premium", "ultimate"] as const
+export const PACKAGE_KEYS = ["refresh", "essential", "exterior", "premium"] as const
 export type PackageKey = (typeof PACKAGE_KEYS)[number]
+
+/** Tepovanie – cena v doplnkových službách (nie hlavný balík). */
+export const UPHOLSTERY_BASE_PRICE_EUR = 49
 
 export type PackageData = {
   title: string
@@ -21,7 +24,7 @@ export type PackageData = {
   mostPopular?: boolean
 }
 
-export type AdditionalServiceIcon = "headlights" | "engine"
+export type AdditionalServiceIcon = "headlights" | "engine" | "upholstery"
 
 /** Ikony doplnkov v kalkulačke (ceny v `calculatorAddonCatalog`). */
 export type CalculatorAddonIcon = "seats" | "ozone" | "leather" | "headlights"
@@ -49,8 +52,8 @@ export type CalculatorVehicleSize = "small" | "medium" | "large"
 export const PACKAGE_DURATION_MINUTES: Record<PackageKey, number> = {
   refresh: 45,
   essential: 60,
+  exterior: 60,
   premium: 120,
-  ultimate: 45,
 }
 
 /** Čas za každý doplnkový checkbox v kalkulačke */
@@ -66,19 +69,33 @@ export function calculatorVehicleToCarSize(v: CalculatorVehicleSize): CarSize {
 export const PACKAGE_BASE_PRICE_EUR: Record<PackageKey, number> = {
   refresh: 39,
   essential: 79,
-  premium: 129,
-  ultimate: 49,
+  exterior: 69,
+  premium: 139,
 }
 
 /**
  * Prirážka oproti malej kategórii:
- * - SUV/Crossover: REFRESH, INTERIÉR, TEPOVANIE +5 €; KOMPLET +10 €
- * - Dodávka/Pickup: všetko +10 € okrem TEPOVANIA (+5 €)
+ * - SUV/Crossover: REFRESH, INTERIÉR, EXTERIÉR +5 €; KOMPLET +10 €
+ * - Dodávka/Pickup: REFRESH, INTERIÉR, EXTERIÉR +10 €; KOMPLET +10 €
  */
 export function packageSurchargeByCarSize(key: PackageKey, size: CarSize): number {
   if (size === "small") return 0
   if (size === "suv") return key === "premium" ? 10 : 5
-  return key === "ultimate" ? 5 : 10
+  return 10
+}
+
+export function upholsterySurchargeByCarSize(size: CarSize): number {
+  if (size === "small") return 0
+  return 5
+}
+
+export function upholsteryPriceByCarSize(size: CarSize): number {
+  return UPHOLSTERY_BASE_PRICE_EUR + upholsterySurchargeByCarSize(size)
+}
+
+export function upholsteryOriginalPriceByCarSize(size: CarSize): number {
+  const discounted = upholsteryPriceByCarSize(size)
+  return Math.round(discounted / (1 - PACKAGE_SUMMER_DISCOUNT_PERCENT / 100))
 }
 
 export function packagePriceByCarSize(key: PackageKey, size: CarSize): number {
@@ -148,6 +165,12 @@ export type AdditionalServiceData = {
   features: string[]
   footerNote?: string
   icon: AdditionalServiceIcon
+  /** Menšia karta v sekcii doplnkových služieb (napr. TEPOVANIE). */
+  compact?: boolean
+  /** Preškrtnutá letná cena ako pri hlavných balíkoch. */
+  showDiscount?: boolean
+  /** Dynamická cena podľa veľkosti vozidla (TEPOVANIE). */
+  pricingTier?: "upholstery"
 }
 
 const packagePricesSk = packagePriceLabels("sk")
@@ -181,6 +204,20 @@ export const packages: Record<string, PackageData> = {
     footerNote:
       "Ideálne keď interiér potrebuje komplexnú starostlivosť – pred predajom, po sezóne alebo pri vyššej záťaži.",
   },
+  exterior: {
+    title: "EXTERIÉR",
+    subtitle: "Kompletné ručné čistenie exteriéru vozidla",
+    price: packagePricesSk.exterior,
+    features: [
+      "Ručný detailing exteriéru",
+      "Dekontaminácia a čistenie diskov",
+      "Čistenie a výživenie pneumatík",
+      "Umývanie okien zvonku aj zvnútra",
+      "Odstránenie hmyzu a usadených nečistôt",
+      "Oživenie plastov",
+    ],
+    footerNote: "Ideálne pre pravidelnú starostlivosť o vzhľad auta zvonka.",
+  },
   premium: {
     title: "KOMPLET",
     subtitle: "Kompletný detailing interiéru a exteriéru vozidla na profesionálnej úrovni",
@@ -188,6 +225,7 @@ export const packages: Record<string, PackageData> = {
     mostPopular: true,
     features: [
       "Všetko v balíku INTERIÉR",
+      "Všetko v balíku EXTERIÉR",
       "Kompletný ručný detailing exteriéru",
       "Dekontaminácia a čistenie diskov",
       "Čistenie a výživenie pneumatík",
@@ -196,19 +234,6 @@ export const packages: Record<string, PackageData> = {
     ],
     footerNote:
       "Vhodné pre náročných klientov, ktorí očakávajú maximálnu čistotu a starostlivosť.",
-  },
-  ultimate: {
-    title: "TEPOVANIE",
-    subtitle: "Profesionálne tepovanie interiéru vozidla",
-    price: packagePricesSk.ultimate,
-    features: [
-      "Tepovanie sedačiek",
-      "Tepovanie koberčekov a podlahy",
-      "Tepovanie a čistenie stropnice",
-      "Tepovanie kufra bez podlahy",
-    ],
-    footerNote:
-      "Odstránenie škvŕn, fľakov, zápachu a nahromadených nečistôt z textílií.",
   },
 }
 
@@ -256,6 +281,20 @@ export const packagesEn: Record<PackageKey, PackageData> = {
     footerNote:
       "Best when the interior needs full care — before sale, after a season, or under heavy use.",
   },
+  exterior: {
+    title: "EXTERIOR",
+    subtitle: "Exterior vehicle cleaning",
+    price: packagePricesEn.exterior,
+    features: [
+      "Hand exterior detailing",
+      "Wheel decontamination and cleaning",
+      "Tire cleaning and dressing",
+      "Exterior window wash",
+      "Bug and bonded grime removal",
+      "Plastic restoration",
+    ],
+    footerNote: "Ideal for regular care of your car's exterior appearance.",
+  },
   premium: {
     title: "COMPLETE",
     subtitle: "Professional full interior and exterior detailing",
@@ -263,6 +302,7 @@ export const packagesEn: Record<PackageKey, PackageData> = {
     mostPopular: true,
     features: [
       "Everything in the INTERIOR package",
+      "Everything in the EXTERIOR package",
       "Full hand exterior detailing",
       "Wheel decontamination and cleaning",
       "Tire cleaning and dressing",
@@ -271,21 +311,29 @@ export const packagesEn: Record<PackageKey, PackageData> = {
     ],
     footerNote: "For discerning clients who expect maximum cleanliness and care.",
   },
-  ultimate: {
-    title: "UPHOLSTERY",
-    subtitle: "Professional interior upholstery cleaning",
-    price: packagePricesEn.ultimate,
-    features: [
-      "Seat shampooing",
-      "Carpet and floor shampooing",
-      "Headliner shampooing and cleaning",
-      "Trunk cleaning (without floor mat)",
-    ],
-    footerNote: "Removes stains, odours and built-up grime from fabrics.",
-  },
 }
 
 export const additionalServices: AdditionalServiceData[] = [
+  {
+    name: "TEPOVANIE",
+    description: "Profesionálne tepovanie interiéru vozidla",
+    price: {
+      small: "49 €",
+      suv: "54 €",
+      van: "54 €",
+    },
+    features: [
+      "Tepovanie sedačiek",
+      "Tepovanie koberčekov a podlahy",
+      "Tepovanie a čistenie stropnice",
+      "Tepovanie kufra bez podlahy",
+    ],
+    footerNote: "Odstránenie škvŕn, fľakov, zápachu a nahromadených nečistôt z textílií.",
+    icon: "upholstery",
+    compact: true,
+    showDiscount: true,
+    pricingTier: "upholstery",
+  },
   {
     name: "Renovácia svetlometov",
     description: "Kompletná úprava oboch predných svetlometov",
@@ -307,9 +355,9 @@ export const additionalServices: AdditionalServiceData[] = [
     name: "Čistenie motorového priestoru",
     description: "Vyčistenie a úprava motorového priestoru pre reprezentatívny vzhľad",
     price: {
-      small: "70 €",
-      suv: "70 €",
-      van: "70 €",
+      small: "60 €",
+      suv: "60 €",
+      van: "60 €",
     },
     features: [
       "Dôkladné čistenie motorového priestoru",
@@ -323,6 +371,26 @@ export const additionalServices: AdditionalServiceData[] = [
 
 /** English copy for homepage additional-service cards (same order as `additionalServices`). */
 export const additionalServicesEn: AdditionalServiceData[] = [
+  {
+    name: "UPHOLSTERY",
+    description: "Professional interior upholstery cleaning",
+    price: {
+      small: "€49",
+      suv: "€54",
+      van: "€54",
+    },
+    features: [
+      "Seat shampooing",
+      "Carpet and floor shampooing",
+      "Headliner shampooing and cleaning",
+      "Trunk cleaning (without floor mat)",
+    ],
+    footerNote: "Removes stains, odours and built-up grime from fabrics.",
+    icon: "upholstery",
+    compact: true,
+    showDiscount: true,
+    pricingTier: "upholstery",
+  },
   {
     name: "Headlight restoration",
     description: "Full restoration of both front headlights",
@@ -344,9 +412,9 @@ export const additionalServicesEn: AdditionalServiceData[] = [
     name: "Engine bay cleaning",
     description: "Cleaning and detailing of the engine compartment",
     price: {
-      small: "€70",
-      suv: "€70",
-      van: "€70",
+      small: "€60",
+      suv: "€60",
+      van: "€60",
     },
     features: [
       "Thorough engine bay cleaning",
@@ -390,6 +458,20 @@ export const packagesDe: Record<PackageKey, PackageData> = {
     footerNote:
       "Ideal, wenn der Innenraum volle Pflege braucht – vor dem Verkauf, nach der Saison oder bei starker Nutzung.",
   },
+  exterior: {
+    title: "AUSSENBEREICH",
+    subtitle: "Reinigung des Fahrzeug-Außenbereichs",
+    price: packagePricesDe.exterior,
+    features: [
+      "Hand-Detailing Außenbereich",
+      "Felgenreinigung und -entseuchung",
+      "Reifenreinigung und -pflege",
+      "Außenscheiben waschen",
+      "Insekten- und Schmutzentfernung",
+      "Kunststoffaufbereitung",
+    ],
+    footerNote: "Ideal für die regelmäßige Pflege des Erscheinungsbilds Ihres Fahrzeugs.",
+  },
   premium: {
     title: "KOMPLETT",
     subtitle: "Professionelles Detailing von Innen- und Außenbereich",
@@ -397,6 +479,7 @@ export const packagesDe: Record<PackageKey, PackageData> = {
     mostPopular: true,
     features: [
       "Alles aus dem INNENRAUM-Paket",
+      "Alles aus dem AUSSENBEREICH-Paket",
       "Komplettes Hand-Detailing Außenbereich",
       "Felgenreinigung und -entseuchung",
       "Reifenreinigung und -pflege",
@@ -405,10 +488,18 @@ export const packagesDe: Record<PackageKey, PackageData> = {
     ],
     footerNote: "Für anspruchsvolle Kunden, die maximale Sauberkeit und Pflege erwarten.",
   },
-  ultimate: {
-    title: "POLSTERREINIGUNG",
-    subtitle: "Professionelle Polster- und Textilreinigung",
-    price: packagePricesDe.ultimate,
+}
+
+/** German copy for homepage additional-service cards. */
+export const additionalServicesDe: AdditionalServiceData[] = [
+  {
+    name: "POLSTERREINIGUNG",
+    description: "Professionelle Polster- und Textilreinigung",
+    price: {
+      small: "€49",
+      suv: "€54",
+      van: "€54",
+    },
     features: [
       "Sitzpolster shampoonieren",
       "Teppich- und Boden shampoonieren",
@@ -416,11 +507,11 @@ export const packagesDe: Record<PackageKey, PackageData> = {
       "Kofferraumreinigung (ohne Bodenmatte)",
     ],
     footerNote: "Entfernt Flecken, Gerüche und eingebetteten Schmutz aus Textilien.",
+    icon: "upholstery",
+    compact: true,
+    showDiscount: true,
+    pricingTier: "upholstery",
   },
-}
-
-/** German copy for homepage additional-service cards. */
-export const additionalServicesDe: AdditionalServiceData[] = [
   {
     name: "Scheinwerfer-Aufbereitung",
     description: "Komplette Aufbereitung beider Frontscheinwerfer",
@@ -442,9 +533,9 @@ export const additionalServicesDe: AdditionalServiceData[] = [
     name: "Motorraumreinigung",
     description: "Reinigung und Aufbereitung des Motorraums",
     price: {
-      small: "€70",
-      suv: "€70",
-      van: "€70",
+      small: "€60",
+      suv: "€60",
+      van: "€60",
     },
     features: [
       "Gründliche Motorraumreinigung",
