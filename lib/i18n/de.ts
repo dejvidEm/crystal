@@ -53,13 +53,14 @@ export const de = {
     relatedTitle: "Verwandte Seiten",
     bookNow: "Jetzt buchen",
     getQuote: "Preisrechner",
+    callNow: "Anrufen",
   },
   hero: {
     promoBadge: "Sommeraktion −10 % auf alle Pakete",
-    title: "Premium Mobile",
-    titleHighlight: "Fahrzeugaufbereitung",
+    title: "Mobile Autoreinigung bei Ihnen zu Hause",
+    titleHighlight: "",
     subtitle:
-      "Luxuriöser mobiler Detailing-Service für Österreich, Deutschland und die Slowakei – wir kommen direkt zu Ihnen",
+      "Wir kommen zu Ihnen nach Hause oder ins Büro. Kein Fahren, kein Stau und kein Anschluss an Wasser oder Strom nötig.",
     description:
       "Erleben Sie höchste Automobilpflege, ohne Ihr Zuhause oder Büro zu verlassen. Unsere erfahrenen Aufbereiter bringen Premium-Produkte und professionelles Equipment direkt zu Ihnen und verwandeln Ihr Fahrzeug in ein Meisterwerk automobilen Glanzes.",
     availableIn: "Verfügbar in",
@@ -149,6 +150,7 @@ export const de = {
       perKmFee: "0,50 €/km",
     },
     mostPopularLabel: "Am beliebtesten",
+    lastAvailableSlotsBadge: "Letzte freie Termine",
     essential: {
       title: "Innenraum-Paket",
       subtitle: "Ideal für die regelmäßige Innenraumpflege",

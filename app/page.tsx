@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, Check, ChevronRight, Clock, Instagram, MapPin, Sparkles, Truck, Calculator } from "lucide-react"
+import { ArrowRight, Check, ChevronRight, Clock, Instagram, MapPin, Phone, Sparkles, Truck, Calculator } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -16,6 +16,7 @@ import { HeroStats } from "@/components/hero-stats"
 import { CarSizeSelector } from "@/components/car-size-selector"
 import { PricingPackageCard } from "@/components/pricing-package-card"
 import { PackagesTravelNote } from "@/components/pricing/packages-travel-note"
+import { PackagesAvailabilityBadge } from "@/components/pricing/packages-availability-badge"
 import { AdditionalServicesTable } from "@/components/additional-services-table"
 import { getPackages } from "@/lib/pricing-data"
 import { toContentLocale } from "@/lib/i18n/locale"
@@ -28,7 +29,7 @@ import { BeforeAfterSlider } from "@/components/before-after-slider"
 import { WhyChooseUsSection } from "@/components/why-choose-us-section"
 import { BlogHomeSection } from "@/components/blog/blog-home-section"
 import { ContactForm } from "@/components/contact-form"
-import { bookioUrl, SOCIAL_LINKS } from "@/lib/site-config"
+import { bookioUrl, CONTACT_PHONE_TEL, SOCIAL_LINKS } from "@/lib/site-config"
 
 import { ReviewCarousel } from "@/components/review-carousel"
 
@@ -107,8 +108,14 @@ export default function Home() {
                 </div>
                 <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
                   <span className="text-gradient">
-                    {t.hero.title} <br className="hidden sm:block" />
-                    {t.hero.titleHighlight}
+                    {t.hero.title}
+                    {t.hero.titleHighlight ? (
+                      <>
+                        {" "}
+                        <br className="hidden sm:block" />
+                        {t.hero.titleHighlight}
+                      </>
+                    ) : null}
                   </span>
                 </h1>
                 <p className="mx-auto max-w-2xl text-lg text-zinc-300 sm:text-xl">{t.hero.subtitle}</p>
@@ -118,7 +125,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className="flex flex-col sm:flex-row gap-4 items-center justify-center"
+                className="flex flex-col sm:flex-row flex-wrap gap-4 items-center justify-center"
               >
                 <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
@@ -135,6 +142,16 @@ export default function Home() {
                     {t.common.getQuote || "Get Quote"}
                   </Button>
                 </Link>
+                <a href={CONTACT_PHONE_TEL} className="w-full sm:w-auto md:hidden">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full border-white/25 bg-white/5 text-white hover:bg-white/10 sm:w-auto"
+                  >
+                    <Phone className="mr-2 h-4 w-4" />
+                    {t.common.callNow}
+                  </Button>
+                </a>
               </motion.div>
             </div>
             <HeroStats />
@@ -322,6 +339,7 @@ export default function Home() {
             <div className="container mx-auto px-4 relative z-10">
               <LazyLoadSection>
                 <div className="mb-16 text-center">
+                  <PackagesAvailabilityBadge />
                   <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">{t.services.title}</h2>
                   <div className="h-1 w-24 mx-auto bg-primary"></div>
                   <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.services.subtitle}</p>
@@ -370,7 +388,8 @@ export default function Home() {
             </div>
           </section>
 
-          {/* What to Expect Section */}
+          {/* Sekcia „Čo môžete očakávať“ — dočasne skrytá */}
+          {false && (
           <section id="what-to-expect" className="py-24">
             <div className="container mx-auto px-4">
               <LazyLoadSection>
@@ -470,6 +489,7 @@ export default function Home() {
               </div>
             </div>
           </section>
+          )}
 
           {/* Media Bento Section */}
           <section id="media-bento" className="py-24 relative">
@@ -633,20 +653,22 @@ export default function Home() {
               </LazyLoadSection>
 
               <LazyLoadSection delay={0.2}>
-                <div className="mx-auto w-full max-w-4xl rounded-xl border border-white/10 bg-black/30 p-4 backdrop-blur-md sm:p-6">
-                  <Accordion type="single" collapsible className="w-full">
-                    {(t.faq?.items || []).map((item: { question: string; answer: string }, index: number) => (
-                      <AccordionItem key={index} value={`faq-item-${index}`} className="border-white/10">
-                        <AccordionTrigger className="text-left text-base sm:text-lg text-white hover:no-underline">
-                          {item.question}
-                        </AccordionTrigger>
-                        <AccordionContent className="text-zinc-300 text-sm sm:text-base leading-relaxed">
-                          {item.answer}
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
-                </div>
+                <Accordion type="single" collapsible defaultValue="faq-item-0" className="mx-auto flex w-full max-w-4xl flex-col gap-3">
+                  {(t.faq?.items || []).map((item: { question: string; answer: string }, index: number) => (
+                    <AccordionItem
+                      key={index}
+                      value={`faq-item-${index}`}
+                      className="overflow-hidden rounded-xl border border-white/10 border-b-white/10 bg-black/30 backdrop-blur-md"
+                    >
+                      <AccordionTrigger className="px-4 py-4 text-left text-base text-white hover:no-underline sm:px-6 sm:text-lg">
+                        {item.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="px-4 pb-4 text-sm leading-relaxed text-zinc-300 sm:px-6 sm:text-base">
+                        {item.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </LazyLoadSection>
             </div>
           </section>

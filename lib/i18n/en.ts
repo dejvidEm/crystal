@@ -53,12 +53,14 @@ export const en = {
     relatedTitle: "Related pages",
     bookNow: "Book now",
     getQuote: "Price calculator",
+    callNow: "Call now",
   },
   hero: {
     promoBadge: "Summer sale −10% on all packages",
-    title: "Premium Mobile",
-    titleHighlight: "Car Detailing",
-    subtitle: "Slovakia's first luxury mobile detailing service that comes to your location",
+    title: "Mobile car cleaning at your home",
+    titleHighlight: "",
+    subtitle:
+      "We come to your home or office. No driving, traffic jams, or need to hook up water or electricity.",
     description:
       "Experience the pinnacle of automotive care without leaving your home or office. Our expert detailers bring premium products and equipment directly to you, transforming your vehicle into a masterpiece of automotive perfection.",
     availableIn: "Available in",
@@ -147,6 +149,7 @@ export const en = {
       perKmFee: "€0.50/km",
     },
     mostPopularLabel: "Most popular",
+    lastAvailableSlotsBadge: "Last available slots",
     essential: {
       title: "Interior Package",
       subtitle: "Ideal for regular interior maintenance",

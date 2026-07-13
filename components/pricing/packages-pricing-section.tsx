@@ -1,6 +1,7 @@
 "use client"
 
 import { CarSizeSelector } from "@/components/car-size-selector"
+import { PackagesAvailabilityBadge } from "@/components/pricing/packages-availability-badge"
 import { PackagesTravelNote } from "@/components/pricing/packages-travel-note"
 import { PricingPackageCard } from "@/components/pricing-package-card"
 import { LazyLoadSection } from "@/components/lazy-section"
@@ -58,6 +59,7 @@ export function PackagesPricingSection({
       <div className="container relative z-10 mx-auto px-4">
         {showHeader && (
           <div className="mb-12 text-center md:mb-16">
+            <PackagesAvailabilityBadge />
             <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">{heading}</h2>
             <div className="mx-auto h-1 w-24 bg-primary" />
             <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{intro}</p>

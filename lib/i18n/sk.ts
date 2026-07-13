@@ -4,6 +4,7 @@ export const sk = {
     bookNow: "Rezervovať",
     scrollToExplore: "Posunúť na preskúmanie",
     getQuote: "Získať cenovú ponuku",
+    callNow: "Zavolať",
   },
   cookieConsent: {
     message:
@@ -56,9 +57,10 @@ export const sk = {
   },
   hero: {
     promoBadge: "Letná akcia −10 % na všetky balíky",
-    title: "Prémiové mobilné",
-    titleHighlight: "detailingové služby",
-    subtitle: "Prvá luxusná mobilná detailingová služba na Slovensku, ktorá príde priamo k vám",
+    title: "Mobilné čistenie auta priamo u vás doma",
+    titleHighlight: "",
+    subtitle:
+      "Prídeme k vám domov alebo do práce. Bez presunov, čakania v zápche a potreby pripojenia na vodu alebo elektrinu.",
     description:
       "Zažite špičkovú starostlivosť o vaše vozidlo bez toho, aby ste museli opustiť domov alebo kanceláriu. Naši odborníci prinášajú prémiové produkty a vybavenie priamo k vám, premieňajúc vaše vozidlo na majstrovské dielo automobilovej dokonalosti.",
     availableIn: "Dostupné v",
@@ -147,6 +149,7 @@ export const sk = {
       perKmFee: "0,50 €/km",
     },
     mostPopularLabel: "Najobľúbenejšie",
+    lastAvailableSlotsBadge: "Posledné voľné termíny",
     essential: {
       title: "Balík interiér",
       subtitle: "Ideálny pre pravidelnú údržbu interiéru",
