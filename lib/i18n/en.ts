@@ -3,7 +3,7 @@ export const en = {
     languageName: "English",
     bookNow: "Book Now",
     scrollToExplore: "Scroll to explore",
-    getQuote: "Get Quote",
+    getQuote: "Non-binding estimate",
   },
   cookieConsent: {
     message:

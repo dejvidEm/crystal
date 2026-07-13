@@ -3,7 +3,7 @@ export const de = {
     languageName: "Deutsch",
     bookNow: "Jetzt buchen",
     scrollToExplore: "Weiter scrollen",
-    getQuote: "Angebot anfordern",
+    getQuote: "Unverbindliche Kalkulation",
   },
   cookieConsent: {
     message:

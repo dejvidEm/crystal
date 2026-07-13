@@ -3,7 +3,7 @@ export const sk = {
     languageName: "Slovenčina",
     bookNow: "Rezervovať",
     scrollToExplore: "Posunúť na preskúmanie",
-    getQuote: "Získať cenovú ponuku",
+    getQuote: "Nezáväzná kalkulácia",
     callNow: "Zavolať",
   },
   cookieConsent: {

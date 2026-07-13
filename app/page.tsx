@@ -125,13 +125,24 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className="flex flex-col sm:flex-row flex-wrap gap-4 items-center justify-center"
+                className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4"
               >
-                <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                    {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </a>
+                <div className="flex items-center justify-center gap-3 sm:contents">
+                  <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+                    <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                      {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </a>
+                  <a href={CONTACT_PHONE_TEL} className="shrink-0 md:hidden" aria-label={t.common.callNow}>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="h-11 w-11 shrink-0 border-white/25 bg-white/5 p-0 text-white hover:bg-white/10"
+                    >
+                      <Phone className="h-5 w-5" aria-hidden />
+                    </Button>
+                  </a>
+                </div>
                 <Link href="/calc" id="hero-get-quote">
                   <Button
                     size="lg"
@@ -142,16 +153,6 @@ export default function Home() {
                     {t.common.getQuote || "Get Quote"}
                   </Button>
                 </Link>
-                <a href={CONTACT_PHONE_TEL} className="w-full sm:w-auto md:hidden">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full border-white/25 bg-white/5 text-white hover:bg-white/10 sm:w-auto"
-                  >
-                    <Phone className="mr-2 h-4 w-4" />
-                    {t.common.callNow}
-                  </Button>
-                </a>
               </motion.div>
             </div>
             <HeroStats />
