@@ -95,7 +95,7 @@ export const sk = {
   },
   whyChooseUs: {
     title: "Prečo si vybrať nás",
-    imageAlt: "Mobilná detailingová jednotka Crystal Detailing pripravená prísť k vám",
+    imageAlt: "Člen tímu Crystal Detailing v detailingovom štúdiu",
     items: [
       {
         title: "Prídeme za vami, vy nikam nemusíte",

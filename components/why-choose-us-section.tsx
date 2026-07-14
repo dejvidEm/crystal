@@ -19,22 +19,28 @@ export function WhyChooseUsSection() {
           </div>
         </LazyLoadSection>
 
-        <div className="grid gap-10 md:grid-cols-2 md:items-stretch md:gap-x-16 lg:gap-x-24 xl:gap-x-32">
-          <LazyLoadSection delay={0.1} className="h-full">
-            <div className="relative h-full min-h-[280px] overflow-hidden rounded-tl-3xl rounded-br-3xl">
-              <OptimizedImage
-                src="/images/van-with-logo.png"
-                alt={t.whyChooseUs.imageAlt}
-                fill
-                className="relative h-full w-full"
-                loadingClassName="h-full w-full object-cover object-center"
-                sizes="(max-width: 768px) 100vw, 45vw"
-                quality={90}
+        <div className="flex flex-col gap-10 md:flex-row md:items-start md:gap-10 lg:gap-14">
+          <LazyLoadSection delay={0.1} className="mx-auto w-full max-w-[300px] shrink-0 md:mx-0 md:max-w-none md:w-[320px] lg:w-[360px]">
+            <div className="relative w-full">
+              <div
+                className="pointer-events-none absolute -bottom-6 left-1/2 -z-10 h-[85%] w-[85%] -translate-x-1/2 rounded-full bg-primary/45 blur-[64px] md:blur-[56px]"
+                aria-hidden
               />
+              <div className="relative aspect-[819/1024] w-full overflow-hidden rounded-tl-3xl rounded-br-3xl">
+                <OptimizedImage
+                  src="/images/why-choose-us-team.png"
+                  alt={t.whyChooseUs.imageAlt}
+                  fill
+                  className="relative h-full w-full"
+                  loadingClassName="h-full w-full object-cover object-center"
+                  sizes="(max-width: 768px) 300px, 360px"
+                  quality={90}
+                />
+              </div>
             </div>
           </LazyLoadSection>
 
-          <div className="space-y-12">
+          <div className="min-w-0 flex-1 space-y-12 md:pl-4 lg:pl-6">
             {t.whyChooseUs.items.map((item, index) => (
               <LazyLoadSection key={item.title} delay={0.15 + index * 0.08}>
                 <div className="relative">

@@ -95,7 +95,7 @@ export const de = {
   },
   whyChooseUs: {
     title: "Warum Crystal Detailing",
-    imageAlt: "Crystal-Detailing-Mobilstudio, bereit zu Ihnen zu kommen",
+    imageAlt: "Crystal-Detailing-Teammitglied im Detailing-Studio",
     items: [
       {
         title: "Wir kommen zu Ihnen – Sie müssen nirgendwohin",

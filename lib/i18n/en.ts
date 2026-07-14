@@ -95,7 +95,7 @@ export const en = {
   },
   whyChooseUs: {
     title: "Why Choose Us",
-    imageAlt: "Crystal Detailing mobile unit ready to come to your location",
+    imageAlt: "Crystal Detailing team member in the detailing studio",
     items: [
       {
         title: "We come to you—you don't have to go anywhere",
