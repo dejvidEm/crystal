@@ -3,6 +3,7 @@ import { toContentLocale } from "@/lib/i18n/locale"
 
 export type CarouselReview = {
   id: number
+  name: string
   avatar: string
   rating: number
   review: string
@@ -10,7 +11,26 @@ export type CarouselReview = {
   location: string
 }
 
-const reviewsEn: CarouselReview[] = [
+type ReviewEntry = Omit<CarouselReview, "name">
+
+const REVIEW_NAMES: Record<number, string> = {
+  1: "Tomáš M.",
+  2: "Peter K.",
+  3: "Michal R.",
+  4: "Lucia S.",
+  5: "Jakub V.",
+  6: "Marek D.",
+  7: "Andrea H.",
+}
+
+function withReviewNames(reviews: ReviewEntry[]): CarouselReview[] {
+  return reviews.map((review) => ({
+    ...review,
+    name: REVIEW_NAMES[review.id] ?? "Zákazník",
+  }))
+}
+
+const reviewsEn: ReviewEntry[] = [
   {
     id: 1,
     avatar: "/placeholder.svg?height=80&width=80",
@@ -75,7 +95,7 @@ const reviewsEn: CarouselReview[] = [
   },
 ]
 
-const reviewsSk: CarouselReview[] = [
+const reviewsSk: ReviewEntry[] = [
   {
     id: 1,
     avatar: "/placeholder.svg?height=80&width=80",
@@ -140,7 +160,7 @@ const reviewsSk: CarouselReview[] = [
   },
 ]
 
-const reviewsDe: CarouselReview[] = [
+const reviewsDe: ReviewEntry[] = [
   {
     id: 1,
     avatar: "/placeholder.svg?height=80&width=80",
@@ -205,7 +225,7 @@ const reviewsDe: CarouselReview[] = [
   },
 ]
 
-export const REVIEWS_BY_LOCALE: Record<ContentLocale, CarouselReview[]> = {
+const REVIEWS_BY_LOCALE: Record<ContentLocale, ReviewEntry[]> = {
   sk: reviewsSk,
   en: reviewsEn,
   de: reviewsDe,
@@ -213,5 +233,6 @@ export const REVIEWS_BY_LOCALE: Record<ContentLocale, CarouselReview[]> = {
 
 export function getCarouselReviews(language: ContentLocale): CarouselReview[] {
   const locale = toContentLocale(language)
-  return REVIEWS_BY_LOCALE[locale] ?? REVIEWS_BY_LOCALE.sk ?? []
+  const entries = REVIEWS_BY_LOCALE[locale] ?? REVIEWS_BY_LOCALE.sk ?? []
+  return withReviewNames(entries)
 }

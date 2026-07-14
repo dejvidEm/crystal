@@ -9,6 +9,9 @@ export const CONTACT_PHONE_DISPLAY = "+421 918 722 720" as const
 export const CONTACT_PHONE_E164 = "+421918722720" as const
 export const CONTACT_PHONE_TEL = `tel:${CONTACT_PHONE_E164}` as const
 
+/** Google recenzie – profil / zdieľaný odkaz */
+export const GOOGLE_REVIEWS_URL = "https://share.google/YZISypzCwKXNKtRM7" as const
+
 /** WhatsApp číslo bez "+" (wa.me formát) */
 export const WHATSAPP_NUMBER = "421918722720" as const
 

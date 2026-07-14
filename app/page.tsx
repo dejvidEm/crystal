@@ -31,7 +31,7 @@ import { BlogHomeSection } from "@/components/blog/blog-home-section"
 import { ContactForm } from "@/components/contact-form"
 import { bookioUrl, CONTACT_PHONE_TEL, SOCIAL_LINKS } from "@/lib/site-config"
 
-import { ReviewCarousel } from "@/components/review-carousel"
+import { ReviewsSection } from "@/components/reviews/reviews-section"
 
 export default function Home() {
   const { language, t } = useLanguage()
@@ -330,6 +330,8 @@ export default function Home() {
               </LazyLoadSection>
             </div>
           </section>
+
+          <ReviewsSection />
 
           {/* Why Choose Us Section */}
           <WhyChooseUsSection />
@@ -670,24 +672,6 @@ export default function Home() {
                     </AccordionItem>
                   ))}
                 </Accordion>
-              </LazyLoadSection>
-            </div>
-          </section>
-
-          {/* Reviews Section */}
-          <section id="reviews" className="py-24 relative">
-            <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background"></div>
-            <div className="container mx-auto px-4 relative z-10">
-              <LazyLoadSection>
-                <div className="mb-16 text-center">
-                  <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">{t.reviews.title}</h2>
-                  <div className="h-1 w-24 mx-auto bg-primary"></div>
-                  <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.reviews.subtitle}</p>
-                </div>
-              </LazyLoadSection>
-
-              <LazyLoadSection delay={0.2}>
-                <ReviewCarousel />
               </LazyLoadSection>
             </div>
           </section>

@@ -13,7 +13,7 @@ export function HeroStats() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.9 }}
-      className="pointer-events-none absolute bottom-12 left-0 right-0 z-10 px-4 sm:bottom-28 md:px-6"
+      className="pointer-events-none absolute bottom-14 left-0 right-0 z-10 px-4 sm:bottom-28 md:px-6"
       aria-hidden
     >
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-3 gap-y-0 sm:gap-4 md:max-w-5xl md:grid-cols-4 md:gap-8 lg:max-w-6xl lg:gap-10">

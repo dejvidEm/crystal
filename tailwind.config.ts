@@ -75,12 +75,22 @@ const config = {
           from: { opacity: "1" },
           to: { opacity: "0" },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap, 1rem)))" },
+        },
+        "marquee-vertical": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(-100% - var(--gap, 1rem)))" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.5s ease-out",
         "fade-out": "fade-out 0.5s ease-out",
+        marquee: "marquee var(--duration, 40s) linear infinite",
+        "marquee-vertical": "marquee-vertical var(--duration, 40s) linear infinite",
       },
     },
   },

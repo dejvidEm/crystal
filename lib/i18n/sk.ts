@@ -306,7 +306,11 @@ export const sk = {
   },
   reviews: {
     title: "Čo hovoria naši klienti",
-    subtitle: "Zistite, prečo nám naši klienti dôverujú so svojimi cenenými vozidlami",
+    subtitle: "Zistite, prečo nám naši klienti dôverujú so svojimi cennými vozidlami",
+    googleRatingValue: "5.0",
+    googleReviewCount: "z 50+ recenzií",
+    googleRatingAria: "Hodnotenie 5.0 z 5 hviezdičiek",
+    viewAllGoogleReviews: "Pozrieť si všetky recenzie na Google",
     previousReview: "Predchádzajúca recenzia",
     nextReview: "Ďalšia recenzia",
     avatarAlt: "Spokojný zákazník Crystal Detailing",

@@ -306,6 +306,10 @@ export const de = {
   reviews: {
     title: "Das sagen unsere Kunden",
     subtitle: "Erfahren Sie, warum uns Kunden ihre wertvollen Fahrzeuge anvertrauen",
+    googleRatingValue: "5,0",
+    googleReviewCount: "aus über 50 Bewertungen",
+    googleRatingAria: "Bewertung 5,0 von 5 Sternen",
+    viewAllGoogleReviews: "Alle Bewertungen auf Google ansehen",
     previousReview: "Vorherige Bewertung",
     nextReview: "Nächste Bewertung",
     avatarAlt: "Zufriedener Crystal-Detailing-Kunde",

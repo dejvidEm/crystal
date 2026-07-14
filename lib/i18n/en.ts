@@ -302,6 +302,10 @@ export const en = {
   reviews: {
     title: "What Our Clients Say",
     subtitle: "Discover why our clients trust us with their prized vehicles",
+    googleRatingValue: "5.0",
+    googleReviewCount: "from 50+ reviews",
+    googleRatingAria: "Rating 5.0 out of 5 stars",
+    viewAllGoogleReviews: "View all reviews on Google",
     previousReview: "Previous review",
     nextReview: "Next review",
     avatarAlt: "Satisfied Crystal Detailing customer",
