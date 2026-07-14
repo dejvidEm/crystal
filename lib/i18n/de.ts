@@ -295,13 +295,17 @@ export const de = {
       mobileStudio: "Mobiles Studio in Aktion",
     },
     photoAlts: [
+      "Mobiles Porsche-Cayenne-Detailing direkt beim Kunden zu Hause",
       "Detaillierte Innenreinigung nach mobilem Detailing",
       "Crystal-Mobile-Detailing-Studio bei der Arbeit vor Ort",
       "Luxusfahrzeug-Außenbereich nach professioneller Reinigung",
       "Professionelle Pflege von Innenraum-Oberflächen",
-      "Crystal Mobile Detailing – Außenarbeiten im Gange",
+      "Reinigung des SUV-Kofferraums mit umgeklappten Rücksitzen",
+      "Detaillierte Reinigung des hinteren Innenraums eines Porsche Cayenne",
     ],
     videoFallbackAlt: "Crystal-Detailing-Mobilstudio bei der Arbeit am Kundenfahrzeug",
+    showMore: "Mehr anzeigen",
+    showLess: "Weniger anzeigen",
   },
   reviews: {
     title: "Das sagen unsere Kunden",

@@ -296,13 +296,17 @@ export const sk = {
       mobileStudio: "Mobilné štúdio v akcii",
     },
     photoAlts: [
+      "Mobilný detailing Porsche Cayenne priamo u zákazníka doma",
       "Detailné čistenie interiéru vozidla po mobilnom detailingu",
       "Mobilná detailingová jednotka Crystal pri práci na lokalite",
       "Výsledok čistenia exteriéru luxusného vozidla",
       "Profesionálna starostlivosť o interiér automobilu",
-      "Mobilný detailing Crystal – práca na exteriéri vozidla",
+      "Čistenie batožinového priestoru SUV s poskladanými sedadlami",
+      "Detailné čistenie zadného interiéru Porsche Cayenne",
     ],
     videoFallbackAlt: "Mobilné štúdio Crystal Detailing pri práci na zákazníckom aute",
+    showMore: "Zobraziť viac",
+    showLess: "Zobraziť menej",
   },
   reviews: {
     title: "Čo hovoria naši klienti",

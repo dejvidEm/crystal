@@ -20,11 +20,10 @@ import { PackagesAvailabilityBadge } from "@/components/pricing/packages-availab
 import { AdditionalServicesTable } from "@/components/additional-services-table"
 import { getPackages } from "@/lib/pricing-data"
 import { toContentLocale } from "@/lib/i18n/locale"
-import { CustomerGallery } from "@/components/customer-gallery"
+import { MediaGallery } from "@/components/media-gallery"
 import { FloatingCalcButton } from "@/components/floating-calc-button"
 import { ServiceStructuredData } from "@/components/structured-data"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { BentoVideo } from "@/components/bento-video"
 import { BeforeAfterSlider } from "@/components/before-after-slider"
 import { WhyChooseUsSection } from "@/components/why-choose-us-section"
 import { BlogHomeSection } from "@/components/blog/blog-home-section"
@@ -499,7 +498,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background"></div>
             <div className="container mx-auto px-4 relative z-10">
               <LazyLoadSection>
-                <div className="mb-16 text-center">
+                <div className="mb-8 text-center md:mb-16">
                   <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
                     {t.mediaBento?.title || "Výsledky v detailoch"}
                   </h2>
@@ -523,92 +522,7 @@ export default function Home() {
               </LazyLoadSection>
 
               <LazyLoadSection delay={0.2}>
-                <div className="grid grid-flow-dense grid-cols-2 auto-rows-[110px] gap-4 sm:grid-cols-4 lg:grid-cols-8">
-                  {/* Video 1 — portrait */}
-                  <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-5">
-                    <BentoVideo
-                      src="/bento/video/one.mov"
-                      fallbackImage="/bento/photo/IMG_1814.jpg"
-                      fallbackAlt={t.mediaBento.videoFallbackAlt}
-                      fallbackSizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                    <div className="pointer-events-none absolute bottom-4 left-4 right-4">
-                      <p className="text-sm font-medium text-white/90">
-                        {t.mediaBento?.labels?.mobileStudio || "Mobilné štúdio v akcii"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-5">
-                    <Image
-                      src="/bento/photo/IMG_1813.jpg"
-                      alt={t.mediaBento.photoAlts[0]}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      quality={82}
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="group relative col-span-2 row-span-3 overflow-hidden rounded-xl border border-white/10 lg:col-span-4 lg:row-span-3">
-                    <Image
-                      src="/bento/photo/IMG_1814.jpg"
-                      alt={t.mediaBento.photoAlts[1]}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      quality={82}
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  </div>
-
-                  <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-4">
-                    <Image
-                      src="/bento/photo/IMG_1815.jpg"
-                      alt={t.mediaBento.photoAlts[2]}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      quality={82}
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-
-                  {/* Video 2 — portrait */}
-                  <div className="group relative col-span-2 row-span-4 overflow-hidden rounded-xl border border-white/10 sm:col-span-1 lg:col-span-2 lg:row-span-4">
-                    <BentoVideo
-                      src="/bento/video/two.mov"
-                      fallbackImage="/bento/photo/IMG_1817.jpg"
-                      fallbackAlt={t.mediaBento.videoFallbackAlt}
-                      fallbackSizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  </div>
-
-                  <div className="group relative col-span-2 row-span-2 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-2">
-                    <Image
-                      src="/bento/photo/IMG_1816.jpg"
-                      alt={t.mediaBento.photoAlts[3]}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 25vw"
-                      quality={82}
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="group relative col-span-2 row-span-2 overflow-hidden rounded-xl border border-white/10 lg:col-span-2 lg:row-span-2">
-                    <Image
-                      src="/bento/photo/IMG_1817.jpg"
-                      alt={t.mediaBento.photoAlts[4]}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 25vw"
-                      quality={82}
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-                </div>
+                <MediaGallery />
               </LazyLoadSection>
             </div>
           </section>

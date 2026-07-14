@@ -291,13 +291,17 @@ export const en = {
       mobileStudio: "Mobile studio in action",
     },
     photoAlts: [
+      "Mobile Porsche Cayenne detailing at the customer's home",
       "Detailed interior cleaning after mobile detailing",
       "Crystal mobile detailing unit at work on site",
       "Luxury vehicle exterior after professional cleaning",
       "Professional care for vehicle interior surfaces",
-      "Crystal mobile detailing – exterior work in progress",
+      "SUV cargo area cleaning with rear seats folded down",
+      "Detailed cleaning of the rear interior of a Porsche Cayenne",
     ],
     videoFallbackAlt: "Crystal Detailing mobile studio working on a customer car",
+    showMore: "Show more",
+    showLess: "Show less",
   },
   reviews: {
     title: "What Our Clients Say",
