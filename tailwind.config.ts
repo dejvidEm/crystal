@@ -76,12 +76,12 @@ const config = {
           to: { opacity: "0" },
         },
         marquee: {
-          from: { transform: "translateX(0)" },
-          to: { transform: "translateX(calc(-100% - var(--gap, 1rem)))" },
+          from: { transform: "translate3d(0, 0, 0)" },
+          to: { transform: "translate3d(-50%, 0, 0)" },
         },
         "marquee-vertical": {
-          from: { transform: "translateY(0)" },
-          to: { transform: "translateY(calc(-100% - var(--gap, 1rem)))" },
+          from: { transform: "translate3d(0, 0, 0)" },
+          to: { transform: "translate3d(0, -50%, 0)" },
         },
       },
       animation: {

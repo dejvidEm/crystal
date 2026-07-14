@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef } from "react"
+import { type ComponentPropsWithoutRef, type ReactNode } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -20,15 +20,15 @@ interface MarqueeProps extends ComponentPropsWithoutRef<"div"> {
   /**
    * Content to be displayed in the marquee
    */
-  children: React.ReactNode
+  children: ReactNode
   /**
    * Whether to animate vertically instead of horizontally
    * @default false
    */
   vertical?: boolean
   /**
-   * Number of times to repeat the content
-   * @default 4
+   * Number of times to repeat the content (use 2 for a seamless loop)
+   * @default 2
    */
   repeat?: number
 }
@@ -39,36 +39,41 @@ export function Marquee({
   pauseOnHover = false,
   children,
   vertical = false,
-  repeat = 4,
+  repeat = 2,
   ...props
 }: MarqueeProps) {
   return (
     <div
       {...props}
       className={cn(
-        "group flex gap-[var(--gap)] overflow-hidden p-2 [--duration:40s] [--gap:1rem]",
-        {
-          "flex-row": !vertical,
-          "flex-col": vertical,
-        },
-        className
+        "group overflow-hidden p-2 [--duration:40s] [--gap:1rem]",
+        className,
       )}
     >
-      {Array(repeat)
-        .fill(0)
-        .map((_, i) => (
+      <div
+        className={cn(
+          "flex w-max will-change-transform",
+          {
+            "animate-marquee flex-row": !vertical,
+            "animate-marquee-vertical flex-col": vertical,
+            "[animation-direction:reverse]": reverse,
+            "[@media(hover:hover)]:group-hover:[animation-play-state:paused]": pauseOnHover,
+          },
+        )}
+      >
+        {Array.from({ length: repeat }).map((_, copyIndex) => (
           <div
-            key={i}
-            className={cn("flex shrink-0 justify-around gap-[var(--gap)]", {
-              "animate-marquee flex-row": !vertical,
-              "animate-marquee-vertical flex-col": vertical,
-              "group-hover:[animation-play-state:paused]": pauseOnHover,
-              "[animation-direction:reverse]": reverse,
+            key={`marquee-copy-${copyIndex}`}
+            className={cn("flex shrink-0 gap-[var(--gap)]", {
+              "flex-row": !vertical,
+              "flex-col": vertical,
             })}
+            aria-hidden={copyIndex > 0 ? true : undefined}
           >
             {children}
           </div>
         ))}
+      </div>
     </div>
   )
 }

@@ -21,7 +21,7 @@ type PackagesPricingSectionProps = {
 }
 
 const GRID_CLASS = {
-  home: "grid gap-8 overflow-visible pt-4 md:grid-cols-2 lg:grid-cols-4",
+  home: "grid gap-6 overflow-visible pt-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4",
   /** /cennik – 4 balíky v jednom riadku od tabletu (ako sekcia na homepage) */
   cennik: "grid w-full gap-6 overflow-visible pt-4 sm:gap-8 md:grid-cols-4",
 } as const

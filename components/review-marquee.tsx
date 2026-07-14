@@ -60,8 +60,8 @@ function ReviewMarqueeTrack({
     <Marquee
       pauseOnHover
       reverse={reverse}
-      repeat={3}
-      className="[--duration:55s] [--gap:1rem] py-2 sm:[--gap:1.25rem]"
+      repeat={2}
+      className="[--duration:45s] [--gap:1rem] py-2 sm:[--duration:55s] sm:[--gap:1.25rem]"
     >
       {reviews.map((review) => (
         <ReviewMarqueeCard key={review.id} review={review} />
