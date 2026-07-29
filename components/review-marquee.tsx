@@ -60,7 +60,7 @@ function ReviewMarqueeTrack({
     <Marquee
       pauseOnHover
       reverse={reverse}
-      repeat={2}
+      repeat={4}
       className="[--duration:45s] [--gap:1rem] py-2 sm:[--duration:55s] sm:[--gap:1.25rem]"
     >
       {reviews.map((review) => (

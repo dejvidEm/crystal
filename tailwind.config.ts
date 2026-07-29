@@ -77,11 +77,11 @@ const config = {
         },
         marquee: {
           from: { transform: "translate3d(0, 0, 0)" },
-          to: { transform: "translate3d(-50%, 0, 0)" },
+          to: { transform: "translate3d(calc(-100% - var(--gap, 1rem)), 0, 0)" },
         },
         "marquee-vertical": {
           from: { transform: "translate3d(0, 0, 0)" },
-          to: { transform: "translate3d(0, -50%, 0)" },
+          to: { transform: "translate3d(0, calc(-100% - var(--gap, 1rem)), 0)" },
         },
       },
       animation: {
