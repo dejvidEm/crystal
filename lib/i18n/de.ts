@@ -57,6 +57,9 @@ export const de = {
   },
   hero: {
     promoBadge: "Sommeraktion −10 % auf alle Pakete",
+    availabilityBadge: {
+      title: "Online und 24/7 erreichbar",
+    },
     title: "Mobile Autoreinigung bei Ihnen zu Hause",
     titleHighlight: "",
     subtitle:

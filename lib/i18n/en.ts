@@ -57,6 +57,9 @@ export const en = {
   },
   hero: {
     promoBadge: "Summer sale −10% on all packages",
+    availabilityBadge: {
+      title: "Online and available 24/7",
+    },
     title: "Mobile car cleaning at your home",
     titleHighlight: "",
     subtitle:

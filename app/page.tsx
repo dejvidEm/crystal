@@ -13,6 +13,7 @@ import { Footer } from "@/components/footer"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { VideoBackground } from "@/components/video-background"
 import { HeroStats } from "@/components/hero-stats"
+import { HeroAvailabilityBadge } from "@/components/hero-availability-badge"
 import { CarSizeSelector } from "@/components/car-size-selector"
 import { PricingPackageCard } from "@/components/pricing-package-card"
 import { PackagesTravelNote } from "@/components/pricing/packages-travel-note"
@@ -99,8 +100,8 @@ export default function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
                   >
-                    <span className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/15 px-4 py-2 text-sm font-semibold text-amber-100 backdrop-blur-sm shadow-[0_0_24px_-8px_rgba(251,191,36,0.45)]">
-                      <Sparkles className="h-4 w-4 shrink-0 text-amber-300" aria-hidden />
+                    <span className="inline-flex items-center gap-2.5 rounded-full border border-amber-400/40 bg-amber-500/15 px-5 py-2.5 text-sm font-semibold text-amber-100 backdrop-blur-sm shadow-[0_0_28px_-8px_rgba(251,191,36,0.5)] sm:px-6 sm:py-3 sm:text-base">
+                      <Sparkles className="h-4 w-4 shrink-0 text-amber-300 sm:h-5 sm:w-5" aria-hidden />
                       {t.hero.promoBadge}
                     </span>
                   </motion.div>
@@ -124,34 +125,37 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4"
+                className="flex flex-col items-center gap-4 md:gap-6"
               >
-                <div className="flex items-center justify-center gap-3 sm:contents">
-                  <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
-                    <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                      {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </a>
-                  <a href={CONTACT_PHONE_TEL} className="shrink-0 md:hidden" aria-label={t.common.callNow}>
+                <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
+                  <div className="flex items-center justify-center gap-3 sm:contents">
+                    <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+                      <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                        {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </a>
+                    <a href={CONTACT_PHONE_TEL} className="shrink-0 md:hidden" aria-label={t.common.callNow}>
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="h-11 w-11 shrink-0 border-white/25 bg-white/5 p-0 text-white hover:bg-white/10"
+                      >
+                        <Phone className="h-5 w-5" aria-hidden />
+                      </Button>
+                    </a>
+                  </div>
+                  <Link href="/calc" id="hero-get-quote">
                     <Button
                       size="lg"
                       variant="outline"
-                      className="h-11 w-11 shrink-0 border-white/25 bg-white/5 p-0 text-white hover:bg-white/10"
+                      className="border-primary text-primary hover:bg-primary/10"
                     >
-                      <Phone className="h-5 w-5" aria-hidden />
+                      <Calculator className="mr-2 h-4 w-4" />
+                      {t.common.getQuote || "Get Quote"}
                     </Button>
-                  </a>
+                  </Link>
                 </div>
-                <Link href="/calc" id="hero-get-quote">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-primary text-primary hover:bg-primary/10"
-                  >
-                    <Calculator className="mr-2 h-4 w-4" />
-                    {t.common.getQuote || "Get Quote"}
-                  </Button>
-                </Link>
+                <HeroAvailabilityBadge />
               </motion.div>
             </div>
             <HeroStats />

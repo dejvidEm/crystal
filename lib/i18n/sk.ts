@@ -57,6 +57,9 @@ export const sk = {
   },
   hero: {
     promoBadge: "Letná akcia −10 % na všetky balíky",
+    availabilityBadge: {
+      title: "Online a dostupní 24/7",
+    },
     title: "Mobilné čistenie auta priamo u vás doma",
     titleHighlight: "",
     subtitle:
