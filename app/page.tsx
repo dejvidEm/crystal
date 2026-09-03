@@ -94,7 +94,7 @@ export default function Home() {
                 transition={{ duration: 0.8 }}
                 className="mb-6"
               >
-                <div className="mb-6 flex flex-col items-center gap-3">
+                <div className="hidden flex-col items-center gap-3 md:mb-6 md:flex">
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
