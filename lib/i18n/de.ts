@@ -4,6 +4,7 @@ export const de = {
     bookNow: "Jetzt buchen",
     scrollToExplore: "Weiter scrollen",
     getQuote: "Unverbindliche Kalkulation",
+    whatsappAriaLabel: "Per WhatsApp schreiben",
   },
   cookieConsent: {
     message:

@@ -4,6 +4,7 @@ export const en = {
     bookNow: "Book Now",
     scrollToExplore: "Scroll to explore",
     getQuote: "Non-binding estimate",
+    whatsappAriaLabel: "Message us on WhatsApp",
   },
   cookieConsent: {
     message:
@@ -54,6 +55,7 @@ export const en = {
     bookNow: "Book now",
     getQuote: "Price calculator",
     callNow: "Call now",
+    whatsappAriaLabel: "Message us on WhatsApp",
   },
   hero: {
     promoBadge: "Summer sale −10% on all packages",

@@ -5,6 +5,7 @@ export const sk = {
     scrollToExplore: "Posunúť na preskúmanie",
     getQuote: "Nezáväzná kalkulácia",
     callNow: "Zavolať",
+    whatsappAriaLabel: "Napísať na WhatsApp",
   },
   cookieConsent: {
     message:
