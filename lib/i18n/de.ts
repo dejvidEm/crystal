@@ -23,6 +23,9 @@ export const de = {
     closeLabel: "Angebot schließen",
   },
   nav: {
+    brandTitle: "Mobile Autopflege Bratislava",
+    logoAlt: "Crystal Detailing – mobile Autopflege Bratislava",
+    homeAriaLabel: "Crystal Detailing – mobile Autopflege Bratislava, Startseite",
     aboutUs: "Über uns",
     services: "Leistungen",
     servicesMenu: "Leistungsmenü",
@@ -43,6 +46,9 @@ export const de = {
     backHome: "Zurück zur Startseite",
   },
   seo: {
+    homeTitle: "Mobile Autopflege Bratislava | Crystal Detailing",
+    homeDescription:
+      "Mobile Innen- und Außenreinigung in Bratislava. Wir kommen mit eigenem Wasser und Strom zu Ihnen nach Hause oder ins Büro.",
     breadcrumbAria: "Seitennavigation",
     breadcrumbHome: "Startseite",
     breadcrumbServices: "Leistungen",

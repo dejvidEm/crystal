@@ -2,6 +2,9 @@ import { SOCIAL_LINKS } from "@/lib/site-config"
 
 export const SITE_URL = "https://crystaldetailing.sk" as const
 export const SITE_NAME = "Crystal Detailing" as const
+export const DEFAULT_HOME_TITLE = "Mobilný detailing Bratislava | Crystal Detailing" as const
+export const DEFAULT_HOME_DESCRIPTION =
+  "Mobilné čistenie interiéru a exteriéru auta v Bratislave. Prídeme domov alebo do práce s vlastnou vodou a elektrinou." as const
 export const SITE_LOGO_URL = `${SITE_URL}/images/luxury_logo.png` as const
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/luxury-car.png` as const
 

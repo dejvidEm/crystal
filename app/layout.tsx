@@ -13,6 +13,7 @@ import { FirstVisitPromoModal } from "@/components/first-visit-promo-modal"
 import { SiteGraphJsonLd } from "@/components/seo/site-graph-json-ld"
 import { LocalBusinessStructuredData } from "@/components/structured-data"
 import { metaDescription } from "@/lib/seo-meta"
+import { DEFAULT_HOME_DESCRIPTION, DEFAULT_HOME_TITLE } from "@/lib/seo-site"
 import { Analytics } from "@vercel/analytics/next"
 import { GoogleAds } from "@/components/analytics/google-ads"
 
@@ -28,12 +29,10 @@ const baseUrl = 'https://crystaldetailing.sk' // Update with actual production d
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Crystal Detailing | Mobilný detailing",
+    default: DEFAULT_HOME_TITLE,
     template: "%s | Crystal Detailing",
   },
-  description: metaDescription(
-    "Prvá mobilná služba detailingu luxusných áut na Slovensku, ktorá príde k vám. Profesionálny detailing v Bratislave, Pezinoku, Senci a okolí.",
-  ),
+  description: metaDescription(DEFAULT_HOME_DESCRIPTION),
   keywords: [
     "mobilný detailing",
     "detailing auta",
@@ -77,10 +76,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Crystal Detailing | Mobilný detailing",
-    description: metaDescription(
-      "Prvá mobilná služba detailingu luxusných áut na Slovensku, ktorá príde k vám. Profesionálny detailing v Bratislave a okolí.",
-    ),
+    title: DEFAULT_HOME_TITLE,
+    description: metaDescription(DEFAULT_HOME_DESCRIPTION),
     url: baseUrl,
     siteName: "Crystal Detailing",
     locale: "sk_SK",
@@ -90,14 +87,14 @@ export const metadata: Metadata = {
         url: `${baseUrl}/images/luxury-car.png`,
         width: 1200,
         height: 630,
-        alt: "Crystal Detailing - Prémiový mobilný detailing",
+        alt: "Mobilný detailing Bratislava – Crystal Detailing",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Crystal Detailing | Mobilný detailing",
-    description: "Prvá mobilná služba detailingu luxusných áut na Slovensku, ktorá príde k vám.",
+    title: DEFAULT_HOME_TITLE,
+    description: metaDescription(DEFAULT_HOME_DESCRIPTION),
     images: [`${baseUrl}/images/luxury-car.png`],
   },
   robots: {

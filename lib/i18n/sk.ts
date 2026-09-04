@@ -24,6 +24,9 @@ export const sk = {
     closeLabel: "Zavrieť ponuku",
   },
   nav: {
+    brandTitle: "Mobilný detailing Bratislava",
+    logoAlt: "Crystal Detailing – mobilný detailing Bratislava",
+    homeAriaLabel: "Crystal Detailing – mobilný detailing Bratislava, domov",
     aboutUs: "O\u00A0nás",
     services: "Služby",
     servicesMenu: "Menu služieb",
@@ -44,6 +47,9 @@ export const sk = {
     backHome: "Späť na úvod",
   },
   seo: {
+    homeTitle: "Mobilný detailing Bratislava | Crystal Detailing",
+    homeDescription:
+      "Mobilné čistenie interiéru a exteriéru auta v Bratislave. Prídeme domov alebo do práce s vlastnou vodou a elektrinou.",
     breadcrumbAria: "Navigácia stránky",
     breadcrumbHome: "Domov",
     breadcrumbServices: "Služby",

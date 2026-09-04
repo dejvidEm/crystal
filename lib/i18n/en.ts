@@ -23,6 +23,9 @@ export const en = {
     closeLabel: "Close offer",
   },
   nav: {
+    brandTitle: "Mobile Car Detailing Bratislava",
+    logoAlt: "Crystal Detailing – mobile car detailing Bratislava",
+    homeAriaLabel: "Crystal Detailing – mobile car detailing Bratislava, home",
     aboutUs: "About Us",
     services: "Services",
     servicesMenu: "Services menu",
@@ -43,6 +46,9 @@ export const en = {
     backHome: "Back to home",
   },
   seo: {
+    homeTitle: "Mobile Car Detailing Bratislava | Crystal Detailing",
+    homeDescription:
+      "Mobile interior and exterior car cleaning in Bratislava. We come to your home or office with our own water and power.",
     breadcrumbAria: "Page navigation",
     breadcrumbHome: "Home",
     breadcrumbServices: "Services",
