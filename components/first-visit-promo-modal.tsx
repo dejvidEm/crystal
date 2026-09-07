@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { ArrowRight, X } from "lucide-react"
 import { Dialog, DialogOverlay, DialogPortal, DialogTitle } from "@/components/ui/dialog"
@@ -11,8 +12,10 @@ import { cn } from "@/lib/utils"
 const STORAGE_KEY = "crystal_first_visit_promo_seen"
 
 export function FirstVisitPromoModal() {
+  const pathname = usePathname()
   const { language, t } = useLanguage()
   const [open, setOpen] = useState(false)
+  const hideOnPage = pathname === "/rezervacia" || pathname?.startsWith("/admin")
 
   const dismiss = useCallback(() => {
     try {
@@ -24,6 +27,7 @@ export function FirstVisitPromoModal() {
   }, [])
 
   useEffect(() => {
+    if (hideOnPage) return
     try {
       if (localStorage.getItem(STORAGE_KEY)) return
       const timer = window.setTimeout(() => setOpen(true), 600)
@@ -31,9 +35,10 @@ export function FirstVisitPromoModal() {
     } catch (error) {
       console.error("Error reading welcome promo state:", error)
     }
-  }, [])
+  }, [hideOnPage])
 
   const promo = t.welcomePromo
+  if (hideOnPage) return null
 
   return (
     <Dialog

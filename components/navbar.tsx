@@ -235,7 +235,11 @@ export function Navbar() {
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-500 ${
-        scrolled ? "bg-black/80 backdrop-blur-md py-7 shadow-xl" : "bg-transparent py-11"
+        isCalcPage
+          ? "bg-black/80 py-4 shadow-xl backdrop-blur-md sm:py-5"
+          : scrolled
+            ? "bg-black/80 py-7 shadow-xl backdrop-blur-md"
+            : "bg-transparent py-11"
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-10">

@@ -67,23 +67,23 @@ export function BookingMonthCalendar({
         <button
           type="button"
           onClick={() => shiftMonth(-1)}
-          className="rounded-md border border-white/10 p-2 text-zinc-300 hover:border-primary/40 hover:text-primary"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/10 text-zinc-300 touch-manipulation hover:border-primary/40 hover:text-primary"
           aria-label={prevLabel}
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="h-5 w-5" />
         </button>
-        <p className="text-sm font-medium capitalize tracking-wide text-white">{label}</p>
+        <p className="px-2 text-center text-sm font-medium capitalize tracking-wide text-white">{label}</p>
         <button
           type="button"
           onClick={() => shiftMonth(1)}
-          className="rounded-md border border-white/10 p-2 text-zinc-300 hover:border-primary/40 hover:text-primary"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/10 text-zinc-300 touch-manipulation hover:border-primary/40 hover:text-primary"
           aria-label={nextLabel}
         >
           <ChevronRight className="h-4 w-4" />
         </button>
       </div>
 
-      <div className="grid grid-cols-7 gap-1.5 text-center text-[11px] uppercase tracking-wider text-zinc-500">
+      <div className="grid grid-cols-7 gap-1 text-center text-[11px] uppercase tracking-wider text-zinc-500 sm:gap-1.5">
         {WEEKDAY_SHORT.map((day) => (
           <div key={day} className="py-1">
             {day}
@@ -91,7 +91,7 @@ export function BookingMonthCalendar({
         ))}
       </div>
 
-      <div className="mt-1 grid grid-cols-7 gap-1.5">
+      <div className="mt-1 grid grid-cols-7 gap-1 sm:gap-1.5">
         {Array.from({ length: blanks }).map((_, index) => (
           <div key={`blank-${index}`} />
         ))}
@@ -105,7 +105,7 @@ export function BookingMonthCalendar({
               disabled={disabled}
               onClick={() => onSelectDate(day.date)}
               className={cn(
-                "aspect-square rounded-md border text-sm font-medium transition-colors",
+                "flex h-10 w-full items-center justify-center rounded-md border text-sm font-medium touch-manipulation transition-colors sm:h-11",
                 dayClass(byDate.get(day.date)?.status ?? day.status, selected),
                 disabled && "cursor-not-allowed",
               )}

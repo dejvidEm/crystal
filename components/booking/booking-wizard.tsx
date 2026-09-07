@@ -237,7 +237,7 @@ export function BookingWizard({
   if (submitted) {
     return (
       <Card>
-        <CardContent className="p-8 text-center">
+        <CardContent className="p-6 text-center sm:p-8">
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/15 text-primary">
             <Check className="h-6 w-6" />
           </div>
@@ -253,11 +253,11 @@ export function BookingWizard({
 
   return (
     <div>
-      <div className="mb-10 text-center">
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{copy.title}</h1>
-        <p className="mt-3 text-muted-foreground">{copy.subtitle}</p>
+      <div className="mb-6 text-center sm:mb-10">
+        <h1 className="text-2xl font-semibold tracking-tight sm:text-4xl">{copy.title}</h1>
+        <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base">{copy.subtitle}</p>
       </div>
-      <div className="mb-8">
+      <div className="mb-6 sm:mb-8">
         <div className="mb-2 flex items-center justify-between text-sm text-muted-foreground">
           <span>
             {copy.step} {step} {copy.of} {TOTAL_STEPS}
@@ -270,9 +270,9 @@ export function BookingWizard({
       {step === 1 && (
           <div>
             <Card>
-              <CardContent className="p-6">
-                <h2 className="mb-6 text-xl font-semibold">{copy.stepVehicle}</h2>
-                <div className="grid gap-4 sm:grid-cols-3">
+              <CardContent className="p-4 sm:p-6">
+                <h2 className="mb-4 text-lg font-semibold sm:mb-6 sm:text-xl">{copy.stepVehicle}</h2>
+                <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
                   <ChoiceCard
                     selected={form.vehicleSize === "small"}
                     title={copy.vehicleSmall}
@@ -300,9 +300,9 @@ export function BookingWizard({
         {step === 2 && (
           <div>
             <Card>
-              <CardContent className="p-6">
-                <h2 className="mb-6 text-xl font-semibold">{copy.stepService}</h2>
-                <div className="grid gap-4 sm:grid-cols-2">
+              <CardContent className="p-4 sm:p-6">
+                <h2 className="mb-4 text-lg font-semibold sm:mb-6 sm:text-xl">{copy.stepService}</h2>
+                <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
                   {SERVICE_OPTIONS.map((option) => {
                     const price = form.vehicleSize
                       ? formatEur(servicePriceEur(option.key, form.vehicleSize), locale)
@@ -327,9 +327,9 @@ export function BookingWizard({
         {step === 3 && (
           <div>
             <Card>
-              <CardContent className="p-6">
-                <h2 className="mb-2 text-xl font-semibold">{copy.stepExtras}</h2>
-                <p className="mb-6 text-sm text-muted-foreground">{copy.stepExtrasSubtitle}</p>
+              <CardContent className="p-4 sm:p-6">
+                <h2 className="mb-2 text-lg font-semibold sm:text-xl">{copy.stepExtras}</h2>
+                <p className="mb-4 text-sm text-muted-foreground sm:mb-6">{copy.stepExtrasSubtitle}</p>
                 <div className="space-y-3">
                   {visibleExtras.map((extra) => {
                     const meta = extraCopy(extra)
@@ -342,7 +342,7 @@ export function BookingWizard({
                         key={extra}
                         htmlFor={`extra-${extra}`}
                         className={cn(
-                          "flex cursor-pointer items-start gap-3 rounded-lg border p-4 transition-colors",
+                          "flex min-h-14 cursor-pointer items-start gap-3 rounded-lg border p-4 touch-manipulation transition-colors",
                           checked ? "border-primary bg-primary/10" : "border-white/10 hover:border-white/20",
                         )}
                       >
@@ -350,6 +350,7 @@ export function BookingWizard({
                           id={`extra-${extra}`}
                           checked={checked}
                           onCheckedChange={(value) => toggleExtra(extra, value === true)}
+                          className="mt-0.5 h-5 w-5"
                         />
                         <div className="flex-1">
                           <p className="font-medium">
@@ -370,13 +371,14 @@ export function BookingWizard({
         {step === 4 && (
           <div>
             <Card>
-              <CardContent className="space-y-4 p-6">
-                <h2 className="text-xl font-semibold">{copy.stepAddress}</h2>
+              <CardContent className="space-y-4 p-4 sm:p-6">
+                <h2 className="text-lg font-semibold sm:text-xl">{copy.stepAddress}</h2>
                 <div className="space-y-2">
                   <Label htmlFor="address">{copy.addressLabel}</Label>
                   <Textarea
                     id="address"
                     rows={3}
+                    autoComplete="street-address"
                     value={form.address}
                     onChange={(event) => setForm((prev) => ({ ...prev, address: event.target.value }))}
                     placeholder={copy.addressPlaceholder}
@@ -388,6 +390,7 @@ export function BookingWizard({
                     <Label htmlFor="name">{copy.nameLabel}</Label>
                     <Input
                       id="name"
+                      autoComplete="name"
                       value={form.customerName}
                       onChange={(event) => setForm((prev) => ({ ...prev, customerName: event.target.value }))}
                     />
@@ -397,6 +400,8 @@ export function BookingWizard({
                     <Input
                       id="phone"
                       type="tel"
+                      inputMode="tel"
+                      autoComplete="tel"
                       value={form.customerPhone}
                       onChange={(event) => setForm((prev) => ({ ...prev, customerPhone: event.target.value }))}
                     />
@@ -407,6 +412,7 @@ export function BookingWizard({
                   <Input
                     id="email"
                     type="email"
+                    autoComplete="email"
                     value={form.customerEmail}
                     onChange={(event) => setForm((prev) => ({ ...prev, customerEmail: event.target.value }))}
                   />
@@ -437,8 +443,8 @@ export function BookingWizard({
         {step === 5 && (
           <div>
             <Card>
-              <CardContent className="p-6">
-                <h2 className="mb-6 text-xl font-semibold">{copy.stepWhen}</h2>
+              <CardContent className="p-4 sm:p-6">
+                <h2 className="mb-4 text-lg font-semibold sm:mb-6 sm:text-xl">{copy.stepWhen}</h2>
                 {loadingDays ? (
                   <p className="text-sm text-muted-foreground">…</p>
                 ) : (
@@ -476,7 +482,7 @@ export function BookingWizard({
                           type="button"
                           onClick={() => setForm((prev) => ({ ...prev, bookingTime: slot }))}
                           className={cn(
-                            "rounded-md border px-3 py-2 text-sm transition-colors",
+                            "min-h-11 rounded-md border px-3 py-2 text-sm touch-manipulation transition-colors",
                             form.bookingTime === slot
                               ? "border-primary bg-primary text-black"
                               : "border-white/15 hover:border-primary/50",
@@ -503,19 +509,34 @@ export function BookingWizard({
 
       {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
 
-      <div className="mt-6 flex items-center justify-between gap-3">
-        <Button variant="outline" disabled={step === 1} onClick={() => setStep((value) => Math.max(1, value - 1))}>
-          {copy.back}
-        </Button>
-        {step < TOTAL_STEPS ? (
-          <Button disabled={!canNext} onClick={() => setStep((value) => Math.min(TOTAL_STEPS, value + 1))}>
-            {copy.next}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-background/95 px-4 pt-3 backdrop-blur-md pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:static sm:z-auto sm:mt-6 sm:border-0 sm:bg-transparent sm:px-0 sm:pt-0 sm:backdrop-blur-none sm:pb-0">
+        <div className="mx-auto flex max-w-3xl items-center gap-3">
+          <Button
+            variant="outline"
+            className="h-11 min-w-0 flex-1 touch-manipulation sm:flex-none sm:px-6"
+            disabled={step === 1}
+            onClick={() => setStep((value) => Math.max(1, value - 1))}
+          >
+            {copy.back}
           </Button>
-        ) : (
-          <Button disabled={!canNext || submitting} onClick={submit}>
-            {submitting ? copy.submitting : copy.submit}
-          </Button>
-        )}
+          {step < TOTAL_STEPS ? (
+            <Button
+              className="h-11 min-w-0 flex-1 touch-manipulation sm:flex-none sm:px-6"
+              disabled={!canNext}
+              onClick={() => setStep((value) => Math.min(TOTAL_STEPS, value + 1))}
+            >
+              {copy.next}
+            </Button>
+          ) : (
+            <Button
+              className="h-11 min-w-0 flex-1 touch-manipulation sm:flex-none sm:px-6"
+              disabled={!canNext || submitting}
+              onClick={submit}
+            >
+              {submitting ? copy.submitting : copy.submit}
+            </Button>
+          )}
+        </div>
       </div>
       {step === 5 && <p className="mt-3 text-xs text-muted-foreground">{copy.consent}</p>}
     </div>
@@ -540,7 +561,7 @@ function ChoiceCard({
       type="button"
       onClick={onClick}
       className={cn(
-        "relative rounded-lg border p-4 text-left transition-colors",
+        "relative w-full min-h-[4.5rem] touch-manipulation rounded-lg border p-4 text-left transition-colors",
         selected ? "border-primary bg-primary/10" : "border-white/10 hover:border-white/25",
       )}
     >
