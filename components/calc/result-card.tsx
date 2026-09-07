@@ -92,7 +92,11 @@ export function ResultCard({ priceRange, timeRange, data }: ResultCardProps) {
       event_label: "result_card",
     })
 
-    window.open(bookioUrl(language), "_blank", "noopener,noreferrer")
+    const href = bookioUrl(language, {
+      service: data.mainService ?? undefined,
+      vehicle: data.vehicleType ?? undefined,
+    })
+    window.location.assign(href)
   }
 
   const handleContactClick = () => {

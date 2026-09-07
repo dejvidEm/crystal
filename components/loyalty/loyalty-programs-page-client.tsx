@@ -118,7 +118,7 @@ export default function LoyaltyProgramsPageClient() {
                             : "border border-white/20 bg-white/10 text-white hover:bg-white/20"
                         }`}
                       >
-                        <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+                        <a href={bookioUrl(language)}>
                           {copy.ctaButton}
                         </a>
                       </Button>
@@ -159,7 +159,7 @@ export default function LoyaltyProgramsPageClient() {
               <h2 className="mb-4 text-3xl font-bold text-gradient">{copy.ctaTitle}</h2>
               <p className="mx-auto mb-8 max-w-2xl text-zinc-400">{copy.ctaBody}</p>
               <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+                <a href={bookioUrl(language)}>
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                     {copy.ctaButton} <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>

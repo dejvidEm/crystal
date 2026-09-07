@@ -42,7 +42,7 @@ export function ServiceLandingPage({ slug }: ServiceLandingPageProps) {
             <div className="mx-auto mb-6 h-1 w-24 bg-primary" />
             <p className="text-lg leading-relaxed text-zinc-300">{copy.lead}</p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+              <a href={bookioUrl(language)}>
                 <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                   {t.servicePage.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -118,7 +118,7 @@ export function ServiceLandingPage({ slug }: ServiceLandingPageProps) {
                   {t.nav.pricing}
                 </Button>
               </Link>
-              <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+              <a href={bookioUrl(language)}>
                 <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                   {t.servicePage.bookNow}
                 </Button>

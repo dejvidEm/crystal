@@ -129,7 +129,7 @@ export default function Home() {
               >
                 <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
                   <div className="flex items-center justify-center gap-3 sm:contents">
-                    <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+                    <a href={bookioUrl(language)}>
                       <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                         {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
@@ -605,9 +605,7 @@ export default function Home() {
                     </h2>
                     <p className="mb-8 text-zinc-400">{t.booking.description}</p>
                     <a
-                      target="_blank"
                       href={bookioUrl(language)}
-                      rel="noopener noreferrer"
                       className="inline-flex justify-center"
                     >
                       <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">

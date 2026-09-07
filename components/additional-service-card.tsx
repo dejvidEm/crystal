@@ -101,7 +101,13 @@ export function AdditionalServiceCard({ service }: AdditionalServiceCardProps) {
             size={compact ? "default" : "default"}
             className="w-full border border-white/20 bg-white/10 text-white hover:bg-white/20 max-md:h-9 max-md:text-sm"
           >
-            <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+            <a
+              href={bookioUrl(language, {
+                service: service.icon === "upholstery" ? "tepovanie" : undefined,
+                extra: service.icon === "headlights" ? "headlights" : service.icon === "engine" ? "engine" : undefined,
+                vehicle: carSize === "suv" ? "medium" : carSize === "van" ? "large" : "small",
+              })}
+            >
               {t.services.essential.selectPackage}
             </a>
           </Button>

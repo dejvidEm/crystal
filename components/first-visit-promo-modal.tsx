@@ -88,8 +88,6 @@ export function FirstVisitPromoModal() {
 
               <a
                 href={bookioUrl(language)}
-                target="_blank"
-                rel="noopener noreferrer"
                 onClick={dismiss}
                 className="mt-5 flex w-full items-center justify-center gap-2 bg-primary px-4 py-3 text-xs font-bold uppercase tracking-widest text-black transition-colors hover:bg-primary/90 sm:mt-8 sm:px-6 sm:py-4 sm:text-sm"
               >

@@ -111,7 +111,7 @@ export function DistrictSeoPage({ data }: { data: DistrictPageContent }) {
                   {page.ctaLead ?? ui.ctaLeadDefault}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+                  <a href={bookioUrl(language)}>
                     <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                       {ui.bookButton}
                     </Button>

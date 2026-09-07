@@ -33,14 +33,23 @@ export function whatsappQuoteUrl(lang?: string): string {
   return whatsappUrl(WHATSAPP_QUOTE_MESSAGES[normalized])
 }
 
-/** Bookio rezervačný widget */
-export const BOOKIO_WIDGET_BASE =
-  "https://services.bookio.com/crystal-detailing-ob6b7b8y/widget" as const
+/** Interný rezervačný tok (nahrádza Bookio). */
+export const BOOKING_PATH = "/rezervacia" as const
 
-/** Vytvorí Bookio odkaz so správnym jazykom (sk/en/de). */
-export function bookioUrl(lang?: string): string {
-  const normalized = lang === "en" ? "en" : lang === "de" ? "de" : "sk"
-  return `${BOOKIO_WIDGET_BASE}?lang=${normalized}`
+export type BookingPrefill = {
+  service?: string
+  vehicle?: string
+  extra?: string
+}
+
+/** Odkaz na vlastný rezervačný proces, voliteľne s predvyplnenou službou. */
+export function bookioUrl(_lang?: string, prefill?: BookingPrefill): string {
+  const params = new URLSearchParams()
+  if (prefill?.service) params.set("service", prefill.service)
+  if (prefill?.vehicle) params.set("vehicle", prefill.vehicle)
+  if (prefill?.extra) params.set("extra", prefill.extra)
+  const query = params.toString()
+  return query ? `${BOOKING_PATH}?${query}` : BOOKING_PATH
 }
 
 /** Sociálne siete */

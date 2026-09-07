@@ -8,11 +8,9 @@ import { Resend } from "resend"
  * - LEAD_INBOX_EMAIL      – príjemca dopytov (default: kontakt@crystaldetailing.sk)
  * - RESEND_FROM           – odosielateľ; po overení domény nastav napr.
  *                           "Crystal Detailing <kontakt@crystaldetailing.sk>"
- *                           Pred overením domény nechaj prázdne – použije sa
- *                           Resend test sender "onboarding@resend.dev".
  */
 
-const DEFAULT_FROM = "Crystal Detailing <onboarding@resend.dev>"
+const DEFAULT_FROM = "Crystal Detailing <kontakt@crystaldetailing.sk>"
 const DEFAULT_TO = "kontakt@crystaldetailing.sk"
 
 export function isEmailConfigured(): boolean {
@@ -47,11 +45,11 @@ export interface SendEmailOptions {
   to?: string
 }
 
-export async function sendEmail(options: SendEmailOptions): Promise<void> {
+export async function sendEmail(options: SendEmailOptions): Promise<boolean> {
   const client = getClient()
   if (!client) {
-    console.warn("[email] RESEND_API_KEY is not set – skipping send.")
-    return
+    console.error("[email] RESEND_API_KEY is not set – skipping send.")
+    return false
   }
   const { subject, html, text, replyTo, to } = options
   const result = await client.emails.send({
@@ -65,6 +63,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<void> {
   if (result.error) {
     throw new Error(`Resend send failed: ${result.error.message}`)
   }
+  return true
 }
 
 /** Escapovanie HTML pre bezpečné vloženie userom zadaných hodnôt. */

@@ -229,7 +229,7 @@ export default function BratislavaPage() {
                   Rezervujte si termín teraz a zažite prémiový mobilný detailing priamo u vás v Bratislave.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a href="https://services.bookio.com/crystal-detailing-ob6b7b8y/widget?lang=sk">
+                  <a href="/rezervacia">
                     <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                       Rezervovať termín
                     </Button>

@@ -18,7 +18,7 @@ const navLinkClass =
 export function Navbar() {
   const pathnameRaw = usePathname()
   const pathname = pathnameRaw ?? "/"
-  const isCalcPage = pathname === "/calc"
+  const isCalcPage = pathname === "/calc" || pathname === "/rezervacia"
   const { t, language } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
@@ -250,12 +250,7 @@ export function Navbar() {
             aria-label={t.nav.homeAriaLabel}
             title={t.nav.brandTitle}
           >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="flex items-center gap-2 sm:gap-3"
-            >
+            <div className="flex items-center gap-2 sm:gap-3">
               <Image
                 src="/images/luxury_logo.png"
                 alt={t.nav.logoAlt}
@@ -269,7 +264,7 @@ export function Navbar() {
                   {t.nav.brandTitle}
                 </span>
               </span>
-            </motion.div>
+            </div>
           </Link>
 
           {!isCalcPage && (
@@ -291,7 +286,7 @@ export function Navbar() {
             }`}
           >
             <LanguageSwitcher variant="minimal" />
-            <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+            <Link href={bookioUrl(language)}>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -299,7 +294,7 @@ export function Navbar() {
               >
                 {t.common.bookNow}
               </motion.button>
-            </a>
+            </Link>
           </div>
 
           {!isCalcPage && (
@@ -364,10 +359,8 @@ export function Navbar() {
                         {item.name}
                       </Link>
                     ))}
-                    <a
+                    <Link
                       href={bookioUrl(language)}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       onClick={handleLinkClick}
                     >
                       <motion.button
@@ -377,7 +370,7 @@ export function Navbar() {
                       >
                         {t.common.bookNow}
                       </motion.button>
-                    </a>
+                    </Link>
                   </nav>
                 </div>
               </motion.div>

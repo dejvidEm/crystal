@@ -76,7 +76,7 @@ export function BlogArticlePageClient({ post }: { post: BlogPost }) {
           {t.booking.title}
         </h2>
         <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+          <a href={bookioUrl(language)}>
             <Button size="lg" className="w-full min-w-[200px] bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
               {t.common.bookNow} <ArrowRight className="ml-2 h-4 w-4" />
             </Button>

@@ -74,7 +74,7 @@ export function PricingPackageCard({ packageKey, packageData, delay = 0 }: Prici
           asChild
           className={`w-full max-md:h-9 max-md:text-sm ${packageData.mostPopular ? "bg-primary text-primary-foreground hover:bg-primary/90" : "bg-white/10 hover:bg-white/20 text-white border border-white/20"}`}
         >
-          <a href={bookioUrl(language)} target="_blank" rel="noopener noreferrer">
+          <a href={bookioUrl(language, { service: packageKey, vehicle: carSize === "suv" ? "medium" : carSize === "van" ? "large" : "small" })}>
             {t.services.essential.selectPackage}
           </a>
         </Button>
