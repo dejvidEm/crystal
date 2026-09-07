@@ -75,6 +75,10 @@ export function formatSlovakDate(dateIso: string): string {
   return `${day}. ${month}. ${year}`
 }
 
+export function formatDisplayTime(time: string): string {
+  return normalizeTime(time)
+}
+
 export function formatSlovakDateTime(value: string | null): string {
   if (!value) return "—"
   const date = new Date(value)
