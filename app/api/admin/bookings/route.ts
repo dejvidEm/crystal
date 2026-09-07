@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     .order("booking_date", { ascending: true })
     .order("booking_time", { ascending: true })
 
-  if (status && ["pending", "confirmed", "rejected", "cancelled"].includes(status)) {
+  if (status && ["pending", "confirmed", "rejected", "cancelled", "completed"].includes(status)) {
     query = query.eq("status", status)
   }
   if (from) query = query.gte("booking_date", from)

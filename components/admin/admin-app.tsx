@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react"
 import { useRouter } from "next/navigation"
-import { CalendarDays, Clock3, Inbox, LogOut, Settings2 } from "lucide-react"
+import { CalendarDays, CalendarOff, ChevronDown, Clock3, Inbox, List, LogOut, Settings2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
@@ -14,12 +14,23 @@ import {
   VEHICLE_LABELS_SK,
   WEEKDAY_LABELS_SK,
 } from "@/lib/booking/catalog"
-import { formatDisplayTime, formatSlovakDate, monthKeyFromDate, formatDateInBratislava } from "@/lib/booking/datetime"
+import {
+  addMonths,
+  formatDateInBratislava,
+  formatDisplayTime,
+  formatSlovakDate,
+  formatSlovakDateTime,
+  isoWeekdayFromDate,
+  listMonthDates,
+  monthKeyFromDate,
+} from "@/lib/booking/datetime"
 import type { BookingRow, BookingStatus, WeeklyAvailabilityRow } from "@/lib/booking/types"
 import { createSupabaseBrowserClient } from "@/lib/supabase/client"
 import { cn } from "@/lib/utils"
 
-type Tab = "settings" | "calendar" | "requests"
+type Tab = "settings" | "calendar" | "requests" | "history"
+
+const CALENDAR_STATUSES: BookingStatus[] = ["pending", "confirmed"]
 
 export function AdminApp() {
   const router = useRouter()
@@ -29,30 +40,42 @@ export function AdminApp() {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [month, setMonth] = useState(() => monthKeyFromDate(formatDateInBratislava()))
   const [draftDays, setDraftDays] = useState<WeeklyAvailabilityRow[]>([])
+  const [closedDates, setClosedDates] = useState<string[]>([])
+  const [draftClosedDates, setDraftClosedDates] = useState<string[]>([])
+  const [vacationMonth, setVacationMonth] = useState(() => monthKeyFromDate(formatDateInBratislava()))
   const [loading, setLoading] = useState(true)
   const [savingSettings, setSavingSettings] = useState(false)
+  const [savingVacation, setSavingVacation] = useState(false)
   const [newSlot, setNewSlot] = useState<Record<number, string>>({})
   const [error, setError] = useState<string | null>(null)
   const [saveMessage, setSaveMessage] = useState<string | null>(null)
+  const [vacationMessage, setVacationMessage] = useState<string | null>(null)
 
   const load = useCallback(async () => {
     setError(null)
     try {
-      const [availabilityRes, bookingsRes] = await Promise.all([
+      const [availabilityRes, bookingsRes, closedRes] = await Promise.all([
         fetch("/api/admin/availability", { cache: "no-store" }),
         fetch("/api/admin/bookings", { cache: "no-store" }),
+        fetch("/api/admin/closed-dates", { cache: "no-store" }),
       ])
-      if (availabilityRes.status === 401 || bookingsRes.status === 401) {
+      if (availabilityRes.status === 401 || bookingsRes.status === 401 || closedRes.status === 401) {
         router.replace("/admin/login")
         return
       }
       const availabilityJson = await availabilityRes.json()
       const bookingsJson = await bookingsRes.json()
+      const closedJson = await closedRes.json()
       if (availabilityJson.ok) {
         setDays(availabilityJson.days)
         setDraftDays(availabilityJson.days)
       }
       if (bookingsJson.ok) setBookings(bookingsJson.bookings)
+      if (closedJson.ok) {
+        const dates = Array.isArray(closedJson.dates) ? closedJson.dates : []
+        setClosedDates(dates)
+        setDraftClosedDates(dates)
+      }
     } catch {
       setError("Dáta sa nepodarilo načítať.")
     } finally {
@@ -67,11 +90,24 @@ export function AdminApp() {
   const selected = bookings.find((row) => row.id === selectedId) ?? null
   const pending = bookings.filter((row) => row.status === "pending")
   const monthBookings = useMemo(() => {
-    return bookings.filter((row) => row.booking_date.startsWith(month) && row.status !== "rejected")
+    return bookings.filter(
+      (row) => row.booking_date.startsWith(month) && CALENDAR_STATUSES.includes(row.status),
+    )
   }, [bookings, month])
+  const historyBookings = useMemo(() => {
+    return [...bookings].sort((a, b) => {
+      const dateCmp = b.booking_date.localeCompare(a.booking_date)
+      if (dateCmp !== 0) return dateCmp
+      return String(b.booking_time).localeCompare(String(a.booking_time))
+    })
+  }, [bookings])
   const settingsDirty = useMemo(
     () => JSON.stringify(days) !== JSON.stringify(draftDays),
     [days, draftDays],
+  )
+  const vacationDirty = useMemo(
+    () => JSON.stringify([...closedDates].sort()) !== JSON.stringify([...draftClosedDates].sort()),
+    [closedDates, draftClosedDates],
   )
 
   const patchDraftDay = (weekday: number, patch: Partial<WeeklyAvailabilityRow>) => {
@@ -105,6 +141,34 @@ export function AdminApp() {
       setSaveMessage("Nastavenia sú uložené.")
     }
     setSavingSettings(false)
+  }
+
+  const toggleClosedDate = (date: string) => {
+    setDraftClosedDates((prev) =>
+      prev.includes(date) ? prev.filter((item) => item !== date) : [...prev, date].sort(),
+    )
+    setVacationMessage(null)
+  }
+
+  const saveVacation = async () => {
+    setSavingVacation(true)
+    setError(null)
+    setVacationMessage(null)
+    const response = await fetch("/api/admin/closed-dates", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ dates: draftClosedDates }),
+    })
+    const payload = await response.json()
+    if (!payload.ok) {
+      setError(payload.error || "Dovolenku sa nepodarilo uložiť.")
+    } else {
+      const saved = Array.isArray(payload.dates) ? payload.dates : draftClosedDates
+      setClosedDates(saved)
+      setDraftClosedDates(saved)
+      setVacationMessage("Dovolenka je uložená.")
+    }
+    setSavingVacation(false)
   }
 
   const setStatus = async (id: string, status: BookingStatus) => {
@@ -142,7 +206,7 @@ export function AdminApp() {
             Odhlásiť sa
           </Button>
         </div>
-        <div className="mx-auto flex max-w-6xl gap-2 px-4 pb-3">
+        <div className="mx-auto flex max-w-6xl flex-wrap gap-2 px-4 pb-3">
           <TabButton active={tab === "settings"} onClick={() => setTab("settings")} icon={<Settings2 className="h-4 w-4" />}>
             Nastavenia
           </TabButton>
@@ -156,6 +220,9 @@ export function AdminApp() {
                 {pending.length}
               </span>
             )}
+          </TabButton>
+          <TabButton active={tab === "history"} onClick={() => setTab("history")} icon={<List className="h-4 w-4" />}>
+            Rezervácie
           </TabButton>
         </div>
       </header>
@@ -172,6 +239,14 @@ export function AdminApp() {
               dirty={settingsDirty}
               saving={savingSettings}
               saveMessage={saveMessage}
+              closedDates={draftClosedDates}
+              vacationMonth={vacationMonth}
+              vacationDirty={vacationDirty}
+              vacationSaving={savingVacation}
+              vacationMessage={vacationMessage}
+              onVacationMonthChange={setVacationMonth}
+              onToggleClosedDate={toggleClosedDate}
+              onSaveVacation={saveVacation}
               onNewSlot={(weekday, value) => setNewSlot((prev) => ({ ...prev, [weekday]: value }))}
               onToggle={(day, enabled) =>
                 patchDraftDay(day.weekday, {
@@ -206,6 +281,8 @@ export function AdminApp() {
               selectedId={selectedId}
               onSelect={setSelectedId}
             />
+          ) : tab === "history" ? (
+            <HistoryPanel bookings={historyBookings} selectedId={selectedId} onSelect={setSelectedId} />
           ) : (
             <RequestsPanel bookings={pending} selectedId={selectedId} onSelect={setSelectedId} />
           )}
@@ -220,6 +297,256 @@ export function AdminApp() {
         </aside>
       </main>
     </div>
+  )
+}
+
+function VacationPicker({
+  month,
+  closedDates,
+  dirty,
+  saving,
+  saveMessage,
+  onMonthChange,
+  onToggleDate,
+  onSave,
+}: {
+  month: string
+  closedDates: string[]
+  dirty: boolean
+  saving: boolean
+  saveMessage: string | null
+  onMonthChange: (month: string) => void
+  onToggleDate: (date: string) => void
+  onSave: () => void
+}) {
+  const today = formatDateInBratislava()
+  const dates = listMonthDates(month)
+  const firstWeekday = isoWeekdayFromDate(`${month}-01`)
+  const blanks = firstWeekday - 1
+  const closed = new Set(closedDates)
+  const label = new Date(`${month}-01T12:00:00`).toLocaleDateString("sk-SK", {
+    month: "long",
+    year: "numeric",
+  })
+
+  return (
+    <div className="rounded-xl border border-white/10 p-4">
+      <div className="mb-3 flex items-start gap-2">
+        <CalendarOff className="mt-0.5 h-5 w-5 text-primary" />
+        <div>
+          <h3 className="text-lg font-semibold">Dovolenka</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Kliknite na konkrétne dni, kedy nebude rezervácia otvorená. Týka sa to len týchto dátumov, nie každého týždňa.
+          </p>
+        </div>
+      </div>
+      <div className="mb-3 flex items-center justify-between">
+        <p className="text-sm font-medium capitalize">{label}</p>
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => onMonthChange(monthKeyFromDate(addMonths(`${month}-01`, -1)))}
+          >
+            ←
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => onMonthChange(monthKeyFromDate(addMonths(`${month}-01`, 1)))}
+          >
+            →
+          </Button>
+        </div>
+      </div>
+      <div className="grid grid-cols-7 gap-1 text-center text-[11px] uppercase text-zinc-500">
+        {["Po", "Ut", "St", "Št", "Pi", "So", "Ne"].map((day) => (
+          <div key={day} className="py-1">
+            {day}
+          </div>
+        ))}
+      </div>
+      <div className="mt-1 grid grid-cols-7 gap-1">
+        {Array.from({ length: blanks }).map((_, index) => (
+          <div key={`vblank-${index}`} />
+        ))}
+        {dates.map((date) => {
+          const past = date < today
+          const selected = closed.has(date)
+          return (
+            <button
+              key={date}
+              type="button"
+              disabled={past}
+              onClick={() => onToggleDate(date)}
+              className={cn(
+                "flex h-10 items-center justify-center rounded-md border text-sm touch-manipulation",
+                past && "cursor-not-allowed border-transparent text-zinc-600",
+                !past && selected && "border-primary bg-primary/20 text-primary",
+                !past && !selected && "border-white/10 text-white hover:border-primary/40",
+              )}
+            >
+              {Number(date.slice(-2))}
+            </button>
+          )
+        })}
+      </div>
+      <p className="mt-3 text-xs text-muted-foreground">
+        Označené dni: {closedDates.filter((date) => date >= today).length || "žiadne"}
+      </p>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <Button type="button" disabled={!dirty || saving} onClick={onSave}>
+          {saving ? "Ukladám…" : "Uložiť dovolenku"}
+        </Button>
+        {dirty && <span className="text-sm text-amber-300">Máte neuložené dni</span>}
+        {saveMessage && <span className="text-sm text-primary">{saveMessage}</span>}
+      </div>
+    </div>
+  )
+}
+
+function HistoryPanel({
+  bookings,
+  selectedId,
+  onSelect,
+}: {
+  bookings: BookingRow[]
+  selectedId: string | null
+  onSelect: (id: string) => void
+}) {
+  const [openId, setOpenId] = useState<string | null>(null)
+
+  if (bookings.length === 0) {
+    return <p className="text-sm text-muted-foreground">Zatiaľ žiadne rezervácie.</p>
+  }
+
+  return (
+    <div className="space-y-3">
+      <div>
+        <h2 className="text-xl font-semibold">História rezervácií</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Tu ostane každá rezervácia. V kalendári sú len aktívne termíny.
+        </p>
+      </div>
+      {bookings.map((booking) => {
+        const open = openId === booking.id
+        return (
+          <div
+            key={booking.id}
+            className={cn(
+              "rounded-xl border transition-colors",
+              selectedId === booking.id ? "border-primary bg-primary/5" : "border-white/10",
+            )}
+          >
+            <button
+              type="button"
+              onClick={() => {
+                setOpenId(open ? null : booking.id)
+                onSelect(booking.id)
+              }}
+              className="flex w-full items-start gap-3 p-4 text-left"
+            >
+              <ChevronDown className={cn("mt-1 h-4 w-4 shrink-0 text-zinc-500 transition-transform", open && "rotate-180")} />
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="font-medium">{booking.customer_name}</p>
+                  <StatusBadge status={booking.status} />
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {formatSlovakDate(booking.booking_date)} · {formatDisplayTime(booking.booking_time)} ·{" "}
+                  {SERVICE_LABELS_SK[booking.service]}
+                </p>
+              </div>
+            </button>
+            {open && (
+              <div className="space-y-2 border-t border-white/10 px-4 py-3 text-sm">
+                <p>
+                  <span className="text-zinc-400">Stav: </span>
+                  {STATUS_LABELS_SK[booking.status]}
+                </p>
+                <p>
+                  <span className="text-zinc-400">Vozidlo: </span>
+                  {VEHICLE_LABELS_SK[booking.vehicle_size]}
+                </p>
+                <p>
+                  <span className="text-zinc-400">Doplnky: </span>
+                  {booking.extras.length
+                    ? booking.extras.map((extra) => EXTRA_LABELS_SK[extra] ?? extra).join(", ")
+                    : "žiadne"}
+                </p>
+                <p>
+                  <span className="text-zinc-400">Adresa: </span>
+                  {booking.address}
+                </p>
+                <p>
+                  <span className="text-zinc-400">Kontakt: </span>
+                  {booking.customer_phone} · {booking.customer_email}
+                </p>
+                {booking.notes && (
+                  <p>
+                    <span className="text-zinc-400">Poznámka: </span>
+                    {booking.notes}
+                  </p>
+                )}
+                {booking.estimated_price_eur != null && (
+                  <p>
+                    <span className="text-zinc-400">Odhad: </span>
+                    {booking.estimated_price_eur} €
+                  </p>
+                )}
+                <p>
+                  <span className="text-zinc-400">Odoslaná: </span>
+                  {formatSlovakDateTime(booking.created_at)}
+                </p>
+                {booking.confirmed_at && (
+                  <p>
+                    <span className="text-zinc-400">Potvrdená: </span>
+                    {formatSlovakDateTime(booking.confirmed_at)}
+                  </p>
+                )}
+                {booking.completed_at && (
+                  <p>
+                    <span className="text-zinc-400">Vykonaná: </span>
+                    {formatSlovakDateTime(booking.completed_at)}
+                  </p>
+                )}
+                {booking.status === "cancelled" && (
+                  <p>
+                    <span className="text-zinc-400">Zrušená: </span>
+                    {formatSlovakDateTime(booking.updated_at)}
+                  </p>
+                )}
+                {booking.status === "rejected" && (
+                  <p>
+                    <span className="text-zinc-400">Zamietnutá: </span>
+                    {formatSlovakDateTime(booking.updated_at)}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+function StatusBadge({ status }: { status: BookingStatus }) {
+  return (
+    <span
+      className={cn(
+        "rounded-full px-2 py-0.5 text-[11px] font-medium",
+        status === "pending" && "bg-amber-400/20 text-amber-200",
+        status === "confirmed" && "bg-primary/15 text-primary",
+        status === "completed" && "bg-emerald-400/15 text-emerald-300",
+        status === "cancelled" && "bg-zinc-500/20 text-zinc-300",
+        status === "rejected" && "bg-red-400/15 text-red-300",
+      )}
+    >
+      {STATUS_LABELS_SK[status]}
+    </span>
   )
 }
 
@@ -255,6 +582,14 @@ function SettingsPanel({
   dirty,
   saving,
   saveMessage,
+  closedDates,
+  vacationMonth,
+  vacationDirty,
+  vacationSaving,
+  vacationMessage,
+  onVacationMonthChange,
+  onToggleClosedDate,
+  onSaveVacation,
   onNewSlot,
   onToggle,
   onAddSlot,
@@ -266,6 +601,14 @@ function SettingsPanel({
   dirty: boolean
   saving: boolean
   saveMessage: string | null
+  closedDates: string[]
+  vacationMonth: string
+  vacationDirty: boolean
+  vacationSaving: boolean
+  vacationMessage: string | null
+  onVacationMonthChange: (month: string) => void
+  onToggleClosedDate: (date: string) => void
+  onSaveVacation: () => void
   onNewSlot: (weekday: number, value: string) => void
   onToggle: (day: WeeklyAvailabilityRow, enabled: boolean) => void
   onAddSlot: (day: WeeklyAvailabilityRow) => void
@@ -332,6 +675,17 @@ function SettingsPanel({
         {dirty && <span className="text-sm text-amber-300">Máte neuložené zmeny</span>}
         {saveMessage && <span className="text-sm text-primary">{saveMessage}</span>}
       </div>
+
+      <VacationPicker
+        month={vacationMonth}
+        closedDates={closedDates}
+        dirty={vacationDirty}
+        saving={vacationSaving}
+        saveMessage={vacationMessage}
+        onMonthChange={onVacationMonthChange}
+        onToggleDate={onToggleClosedDate}
+        onSave={onSaveVacation}
+      />
     </div>
   )
 }
@@ -534,9 +888,17 @@ function BookingDetail({
           </>
         )}
         {booking.status === "confirmed" && (
-          <Button variant="outline" onClick={() => onStatus(booking.id, "cancelled")}>
-            Zrušiť rezerváciu
-          </Button>
+          <>
+            <Button onClick={() => onStatus(booking.id, "completed")}>Označiť ako vykonanú</Button>
+            <Button variant="outline" onClick={() => onStatus(booking.id, "cancelled")}>
+              Zrušiť rezerváciu
+            </Button>
+          </>
+        )}
+        {(booking.status === "cancelled" || booking.status === "rejected" || booking.status === "completed") && (
+          <p className="text-sm text-muted-foreground">
+            Táto rezervácia už nie je v kalendári. Ostáva v histórii v záložke Rezervácie.
+          </p>
         )}
       </div>
     </div>

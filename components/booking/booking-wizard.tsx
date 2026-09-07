@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { Check } from "lucide-react"
 import { BookingMonthCalendar } from "@/components/booking/month-calendar"
@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label"
 import { Progress } from "@/components/ui/progress"
 import { Textarea } from "@/components/ui/textarea"
 import { estimateBookingPriceEur, extraPriceEur, servicePriceEur } from "@/lib/booking/catalog"
-import { formatDateInBratislava, monthKeyFromDate } from "@/lib/booking/datetime"
+import { addMonths, formatDateInBratislava, monthKeyFromDate } from "@/lib/booking/datetime"
 import type { BookingExtra, BookingService, MonthDayAvailability, VehicleSize } from "@/lib/booking/types"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { toContentLocale } from "@/lib/i18n/locale"
@@ -105,8 +105,9 @@ export function BookingWizard({
     return 1
   })
   const [month, setMonth] = useState(() => monthKeyFromDate(formatDateInBratislava()))
-  const [days, setDays] = useState<MonthDayAvailability[]>([])
-  const [loadingDays, setLoadingDays] = useState(false)
+  const [daysByMonth, setDaysByMonth] = useState<Record<string, MonthDayAvailability[]>>({})
+  const inflightMonths = useRef(new Set<string>())
+  const loadedMonths = useRef(new Set<string>())
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -118,26 +119,33 @@ export function BookingWizard({
   }))
 
   useEffect(() => {
-    if (step < 5) return
-    let cancelled = false
-    setLoadingDays(true)
-    fetch(`/api/booking/availability?month=${month}`)
-      .then((res) => res.json())
-      .then((payload) => {
-        if (!cancelled) setDays(Array.isArray(payload?.days) ? payload.days : [])
-      })
-      .catch(() => {
-        if (!cancelled) setDays([])
-      })
-      .finally(() => {
-        if (!cancelled) setLoadingDays(false)
-      })
-    return () => {
-      cancelled = true
+    const loadMonth = (key: string) => {
+      if (loadedMonths.current.has(key) || inflightMonths.current.has(key)) return
+      inflightMonths.current.add(key)
+      fetch(`/api/booking/availability?month=${key}`)
+        .then((res) => res.json())
+        .then((payload) => {
+          loadedMonths.current.add(key)
+          setDaysByMonth((prev) => ({
+            ...prev,
+            [key]: Array.isArray(payload?.days) ? payload.days : [],
+          }))
+        })
+        .catch(() => {
+          loadedMonths.current.add(key)
+          setDaysByMonth((prev) => ({ ...prev, [key]: [] }))
+        })
+        .finally(() => {
+          inflightMonths.current.delete(key)
+        })
     }
-  }, [month, step])
+
+    loadMonth(month)
+    loadMonth(monthKeyFromDate(addMonths(`${month}-01`, 1)))
+  }, [month])
 
   const extras = form.extras ?? []
+  const days = daysByMonth[month]
   const visibleExtras = EXTRA_OPTIONS.filter(
     (extra) => extra !== "tepovanie" || form.service !== "tepovanie",
   )
@@ -173,6 +181,11 @@ export function BookingWizard({
     }
     return titles[extra]
   }
+
+  const serviceTitle = (service: BookingService) =>
+    service === "tepovanie"
+      ? copy.serviceTepovanie
+      : (SERVICE_OPTIONS.find((option) => option.key === service)?.title ?? service)
 
   const selectVehicle = (value: VehicleSize) => {
     setForm((prev) => ({ ...prev, vehicleSize: value }))
@@ -445,12 +458,10 @@ export function BookingWizard({
             <Card>
               <CardContent className="p-4 sm:p-6">
                 <h2 className="mb-4 text-lg font-semibold sm:mb-6 sm:text-xl">{copy.stepWhen}</h2>
-                {loadingDays ? (
-                  <p className="text-sm text-muted-foreground">…</p>
-                ) : (
+                {days ? (
                   <BookingMonthCalendar
                     month={month}
-                    days={days ?? []}
+                    days={days}
                     selectedDate={form.bookingDate}
                     onMonthChange={(next) => {
                       setMonth(next)
@@ -460,6 +471,8 @@ export function BookingWizard({
                     prevLabel={copy.monthPrev}
                     nextLabel={copy.monthNext}
                   />
+                ) : (
+                  <p className="text-sm text-muted-foreground">…</p>
                 )}
 
                 <div className="mt-4 flex flex-wrap gap-3 text-xs text-muted-foreground">
@@ -495,11 +508,31 @@ export function BookingWizard({
                   )}
                 </div>
 
-                {estimate > 0 && (
-                  <div className="mt-6 rounded-lg border border-white/10 bg-white/5 p-4">
-                    <p className="text-sm text-muted-foreground">{copy.estimate}</p>
-                    <p className="text-2xl font-semibold text-primary">{formatEur(estimate, locale)}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">{copy.estimateNote}</p>
+                {form.vehicleSize && form.service && estimate > 0 && (
+                  <div className="mt-6 rounded-lg border border-white/10 bg-white/5 p-3 sm:p-4">
+                    <div className="space-y-1.5 text-sm">
+                      <div className="flex items-baseline justify-between gap-3">
+                        <span className="truncate">{serviceTitle(form.service)}</span>
+                        <span className="shrink-0 tabular-nums text-muted-foreground">
+                          {formatEur(servicePriceEur(form.service, form.vehicleSize), locale)}
+                        </span>
+                      </div>
+                      {extras.map((extra) => (
+                        <div key={extra} className="flex items-baseline justify-between gap-3">
+                          <span className="truncate text-muted-foreground">{extraCopy(extra).title}</span>
+                          <span className="shrink-0 tabular-nums text-muted-foreground">
+                            {formatEur(extraPriceEur(extra, form.vehicleSize!), locale)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-2.5 flex items-baseline justify-between gap-3 border-t border-white/10 pt-2.5">
+                      <span className="text-sm">{copy.estimate}</span>
+                      <span className="text-lg font-semibold tabular-nums text-primary sm:text-xl">
+                        {formatEur(estimate, locale)}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-[11px] leading-snug text-muted-foreground sm:text-xs">{copy.estimateNote}</p>
                   </div>
                 )}
               </CardContent>

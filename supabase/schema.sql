@@ -19,7 +19,7 @@ create table if not exists public.weekly_availability (
 create table if not exists public.bookings (
   id uuid primary key default gen_random_uuid(),
   status text not null default 'pending'
-    check (status in ('pending', 'confirmed', 'rejected', 'cancelled')),
+    check (status in ('pending', 'confirmed', 'rejected', 'cancelled', 'completed')),
   vehicle_size text not null
     check (vehicle_size in ('small', 'medium', 'large')),
   service text not null
@@ -38,6 +38,7 @@ create table if not exists public.bookings (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   confirmed_at timestamptz,
+  completed_at timestamptz,
   constraint bookings_address_len check (char_length(address) between 8 and 400),
   constraint bookings_name_len check (char_length(customer_name) between 2 and 80),
   constraint bookings_phone_len check (char_length(customer_phone) between 9 and 32),
@@ -108,6 +109,18 @@ values
   (6, true,  array['09:00', '11:00']),
   (7, false, array[]::text[])
 on conflict (weekday) do nothing;
+
+alter table public.bookings add column if not exists completed_at timestamptz;
+alter table public.bookings drop constraint if exists bookings_status_check;
+alter table public.bookings add constraint bookings_status_check
+  check (status in ('pending', 'confirmed', 'rejected', 'cancelled', 'completed'));
+
+create table if not exists public.closed_dates (
+  closed_date date primary key,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists closed_dates_date_idx on public.closed_dates (closed_date);
 
 create or replace function public.is_admin()
 returns boolean
@@ -290,6 +303,10 @@ begin
     raise exception 'slot_unavailable';
   end if;
 
+  if exists (select 1 from public.closed_dates where closed_date = p_booking_date) then
+    raise exception 'slot_unavailable';
+  end if;
+
   if exists (
     select 1
     from public.bookings
@@ -369,7 +386,7 @@ begin
     raise exception 'not_admin';
   end if;
 
-  if p_status not in ('pending', 'confirmed', 'rejected', 'cancelled') then
+  if p_status not in ('pending', 'confirmed', 'rejected', 'cancelled', 'completed') then
     raise exception 'invalid_status';
   end if;
 
@@ -394,7 +411,12 @@ begin
     admin_note = coalesce(nullif(trim(coalesce(p_admin_note, '')), ''), admin_note),
     confirmed_at = case
       when p_status = 'confirmed' then coalesce(confirmed_at, now())
-      else null
+      when p_status in ('rejected', 'cancelled') then confirmed_at
+      else confirmed_at
+    end,
+    completed_at = case
+      when p_status = 'completed' then coalesce(completed_at, now())
+      else completed_at
     end
   where id = p_id
   returning * into v_row;
@@ -407,9 +429,44 @@ begin
 end;
 $$;
 
+create or replace function public.admin_set_closed_dates(p_dates date[])
+returns date[]
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_dates date[];
+begin
+  if not public.is_admin() then
+    raise exception 'not_admin';
+  end if;
+
+  select array(
+    select distinct d
+    from unnest(coalesce(p_dates, '{}')) as d
+    where d is not null
+    order by d
+  ) into v_dates;
+
+  if cardinality(v_dates) > 400 then
+    raise exception 'too_many_dates';
+  end if;
+
+  delete from public.closed_dates;
+  if cardinality(v_dates) > 0 then
+    insert into public.closed_dates (closed_date)
+    select unnest(v_dates);
+  end if;
+
+  return v_dates;
+end;
+$$;
+
 alter table public.admin_users enable row level security;
 alter table public.weekly_availability enable row level security;
 alter table public.bookings enable row level security;
+alter table public.closed_dates enable row level security;
 
 drop policy if exists admin_users_self_read on public.admin_users;
 create policy admin_users_self_read
@@ -448,13 +505,30 @@ create policy bookings_admin_update
   using (public.is_admin())
   with check (public.is_admin());
 
+drop policy if exists closed_dates_public_read on public.closed_dates;
+create policy closed_dates_public_read
+  on public.closed_dates
+  for select
+  to anon, authenticated
+  using (true);
+
+drop policy if exists closed_dates_admin_write on public.closed_dates;
+create policy closed_dates_admin_write
+  on public.closed_dates
+  for all
+  to authenticated
+  using (public.is_admin())
+  with check (public.is_admin());
+
 revoke all on public.admin_users from anon, authenticated;
 revoke all on public.weekly_availability from anon, authenticated;
 revoke all on public.bookings from anon, authenticated;
+revoke all on public.closed_dates from anon, authenticated;
 
 grant select on public.admin_users to authenticated;
 grant select on public.weekly_availability to anon, authenticated;
 grant select on public.bookings to authenticated;
+grant select on public.closed_dates to anon, authenticated;
 
 grant execute on function public.is_admin() to anon, authenticated;
 grant execute on function public.has_any_admin() to anon, authenticated;
@@ -463,3 +537,4 @@ grant execute on function public.admin_update_availability(smallint, boolean, te
 grant execute on function public.list_occupied_slots(date, date) to anon, authenticated;
 grant execute on function public.submit_booking(text, text, text[], text, text, text, text, text, date, time, numeric, text) to anon, authenticated;
 grant execute on function public.admin_set_booking_status(uuid, text, text) to authenticated;
+grant execute on function public.admin_set_closed_dates(date[]) to authenticated;

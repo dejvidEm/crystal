@@ -47,3 +47,7 @@ export const adminBookingStatusSchema = z.object({
   status: z.enum(BOOKING_STATUSES),
   adminNote: z.string().trim().max(400).optional(),
 })
+
+export const adminClosedDatesSchema = z.object({
+  dates: z.array(dateSchema).max(400),
+})

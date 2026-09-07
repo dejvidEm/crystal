@@ -20,7 +20,7 @@ export const BOOKING_EXTRAS = [
 ] as const
 export type BookingExtra = (typeof BOOKING_EXTRAS)[number]
 
-export const BOOKING_STATUSES = ["pending", "confirmed", "rejected", "cancelled"] as const
+export const BOOKING_STATUSES = ["pending", "confirmed", "rejected", "cancelled", "completed"] as const
 export type BookingStatus = (typeof BOOKING_STATUSES)[number]
 
 export const WEEKDAYS = [1, 2, 3, 4, 5, 6, 7] as const
@@ -51,6 +51,7 @@ export type BookingRow = {
   created_at: string
   updated_at: string
   confirmed_at: string | null
+  completed_at: string | null
 }
 
 export type MonthDayAvailability = {

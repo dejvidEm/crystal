@@ -75,6 +75,16 @@ export function formatSlovakDate(dateIso: string): string {
   return `${day}. ${month}. ${year}`
 }
 
-export function formatDisplayTime(time: string): string {
-  return normalizeTime(time)
+export function formatSlovakDateTime(value: string | null): string {
+  if (!value) return "—"
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return "—"
+  return new Intl.DateTimeFormat("sk-SK", {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: BOOKING_TIMEZONE,
+  }).format(date)
 }

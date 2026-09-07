@@ -90,4 +90,5 @@ export const STATUS_LABELS_SK: Record<string, string> = {
   confirmed: "Potvrdená",
   rejected: "Zamietnutá",
   cancelled: "Zrušená",
+  completed: "Vykonaná",
 }
