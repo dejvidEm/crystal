@@ -254,21 +254,14 @@ export function Navbar() {
             aria-label={t.nav.homeAriaLabel}
             title={t.nav.brandTitle}
           >
-            <div className="flex items-center gap-2 sm:gap-3">
-              <Image
-                src="/images/luxury_logo.png"
-                alt={t.nav.logoAlt}
-                width={200}
-                height={52}
-                className="h-9 w-auto sm:h-10"
-                priority
-              />
-              <span className="hidden max-w-[9.5rem] border-l border-white/15 pl-2 text-left leading-tight sm:block md:max-w-none md:pl-3">
-                <span className="block text-[10px] font-medium uppercase tracking-[0.16em] text-primary sm:text-[11px] lg:text-xs">
-                  {t.nav.brandTitle}
-                </span>
-              </span>
-            </div>
+            <Image
+              src="/images/luxury_logo.png"
+              alt={t.nav.logoAlt}
+              width={200}
+              height={52}
+              className="h-9 w-auto sm:h-10"
+              priority
+            />
           </Link>
 
           {!isCalcPage && (
