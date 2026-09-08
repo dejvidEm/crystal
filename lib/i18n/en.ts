@@ -8,7 +8,7 @@ export const en = {
   },
   cookieConsent: {
     message:
-      "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking \"Accept\", you consent to our use of cookies.",
+      "We use cookies and measure how you use the site – including session recordings – to see where visitors leave and what does not work. Details:",
     decline: "Decline",
     accept: "Accept",
   },

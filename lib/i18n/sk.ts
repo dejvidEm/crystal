@@ -9,7 +9,7 @@ export const sk = {
   },
   cookieConsent: {
     message:
-      "Používame cookies na zlepšenie vášho zážitku z prehliadania, personalizáciu obsahu a analýzu návštevnosti. Kliknutím na „Súhlasím“ súhlasíte s používaním cookies.",
+      "Používame cookies a meriame, ako sa na webe pohybujete – vrátane nahrávania priebehu návštevy – aby sme videli, kde ľudia odchádzajú a čo na stránke nefunguje. Podrobnosti:",
     decline: "Odmietnuť",
     accept: "Súhlasím",
   },

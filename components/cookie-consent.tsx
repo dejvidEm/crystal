@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "./ui/button"
 import { useLanguage } from "@/lib/i18n/language-context"
@@ -48,7 +49,16 @@ export function CookieConsent() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[110] border-t border-white/10 bg-black/95 p-4 shadow-lg backdrop-blur-md md:z-50">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
-        <p className="text-sm text-zinc-300">{copy.message}</p>
+        <p className="text-sm text-zinc-300">
+          {copy.message}{" "}
+          <Link
+            href="/ochrana-osobnych-udajov"
+            className="underline underline-offset-2 text-zinc-100 hover:text-white"
+          >
+            {t.footer.privacyPolicy}
+          </Link>
+          .
+        </p>
         <div className="flex shrink-0 gap-2">
           <Button
             variant="outline"
