@@ -1,22 +1,27 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
 import { Button } from "./ui/button"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { applyPostHogConsent, initPostHog } from "@/lib/posthog"
 
 export function CookieConsent() {
   const { t } = useLanguage()
+  const pathname = usePathname()
   const [showBanner, setShowBanner] = useState<boolean | null>(null)
 
   useEffect(() => {
     try {
+      initPostHog()
       const consent = localStorage.getItem("cookieConsent")
       setShowBanner(!consent)
+      applyPostHogConsent(consent === "accepted", pathname)
     } catch (error) {
       console.error("Error accessing localStorage:", error)
       setShowBanner(true)
     }
-  }, [])
+  }, [pathname])
 
   const handleAccept = () => {
     try {
@@ -24,6 +29,7 @@ export function CookieConsent() {
     } catch (error) {
       console.error("Error setting cookie consent:", error)
     }
+    applyPostHogConsent(true, pathname)
     setShowBanner(false)
   }
 
@@ -33,6 +39,7 @@ export function CookieConsent() {
     } catch (error) {
       console.error("Error setting cookie consent:", error)
     }
+    applyPostHogConsent(false, pathname)
     setShowBanner(false)
   }
 

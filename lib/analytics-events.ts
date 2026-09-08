@@ -1,4 +1,5 @@
 import { trackGoogleAdsEvent } from "@/lib/google-ads"
+import { capturePostHogEvent } from "@/lib/posthog"
 
 export type AnalyticsEventName =
   | "click_whatsapp"
@@ -31,4 +32,5 @@ export function trackAnalyticsEvent(
   params: AnalyticsEventParams,
 ): void {
   trackGoogleAdsEvent(eventName, params)
+  capturePostHogEvent(eventName, params)
 }
