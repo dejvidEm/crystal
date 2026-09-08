@@ -5,7 +5,7 @@ export function initPostHog() {
   if (!key || typeof window === "undefined") return
   if (posthog.__loaded) return
 
-  const host = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://eu.i.posthog.com"
+  const host = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com"
   const isEu = host.includes(".eu.") || host.includes("eu.")
 
   posthog.init(key, {
