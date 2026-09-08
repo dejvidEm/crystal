@@ -1,15 +1,5 @@
 import posthog from "posthog-js"
 
-const CONSENT_KEY = "cookieConsent"
-
-export function hasPostHogConsent(): boolean {
-  try {
-    return localStorage.getItem(CONSENT_KEY) === "accepted"
-  } catch {
-    return false
-  }
-}
-
 export function initPostHog() {
   const key = process.env.NEXT_PUBLIC_POSTHOG_KEY
   if (!key || typeof window === "undefined") return
@@ -25,29 +15,26 @@ export function initPostHog() {
     person_profiles: "identified_only",
     capture_pageview: true,
     capture_pageleave: true,
-    opt_out_capturing_by_default: true,
     session_recording: {
       maskAllInputs: true,
     },
-    loaded: () => {
-      applyPostHogConsent(hasPostHogConsent(), window.location.pathname)
+    loaded: (client) => {
+      syncSessionRecording(window.location.pathname)
+      client.onFeatureFlags(() => {
+        syncSessionRecording(window.location.pathname)
+      })
     },
   })
 }
 
-export function applyPostHogConsent(accepted: boolean, pathname?: string | null) {
+export function syncSessionRecording(pathname?: string | null) {
   if (typeof window === "undefined") return
 
-  if (!accepted) {
-    posthog.opt_out_capturing()
-    return
-  }
-
-  posthog.opt_in_capturing()
   if (pathname?.startsWith("/admin")) {
     posthog.stopSessionRecording()
     return
   }
+
   posthog.startSessionRecording()
 }
 
