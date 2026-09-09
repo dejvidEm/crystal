@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import { shouldLoadHeavyMedia } from "@/lib/connection"
 import { cn } from "@/lib/utils"
 
 type BentoVideoProps = {
@@ -23,6 +24,12 @@ export function BentoVideo({ src, fallbackImage, fallbackAlt, className, fallbac
   const [useFallback, setUseFallback] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!shouldLoadHeavyMedia()) {
+      setUseFallback(true)
+    }
+  }, [])
 
   useEffect(() => {
     if (useFallback) return

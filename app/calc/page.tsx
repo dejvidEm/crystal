@@ -38,6 +38,16 @@ import { useLanguage } from "@/lib/i18n/language-context"
 
 const TOTAL_STEPS = 5
 
+function scrollCalcToTop() {
+  const html = document.documentElement
+  const previous = html.style.scrollBehavior
+  html.style.scrollBehavior = "auto"
+  html.scrollTop = 0
+  document.body.scrollTop = 0
+  window.scrollTo(0, 0)
+  html.style.scrollBehavior = previous
+}
+
 export default function CalculatorPage() {
   const { language, t } = useLanguage()
   const [currentStep, setCurrentStep] = useState(1)
@@ -59,17 +69,33 @@ export default function CalculatorPage() {
     })
   }, [])
 
+  useEffect(() => {
+    if (currentStep === 1) return
+
+    scrollCalcToTop()
+    const timeout = window.setTimeout(() => {
+      const focused = document.activeElement
+      if (focused instanceof HTMLElement && focused.id === "city") {
+        focused.blur()
+      }
+      scrollCalcToTop()
+    }, 350)
+    return () => window.clearTimeout(timeout)
+  }, [currentStep])
+
   const progress = (currentStep / TOTAL_STEPS) * 100
 
   const handleNext = () => {
     if (currentStep < TOTAL_STEPS) {
       setCurrentStep(currentStep + 1)
+      scrollCalcToTop()
     }
   }
 
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
+      scrollCalcToTop()
     }
   }
 
@@ -173,7 +199,7 @@ export default function CalculatorPage() {
   }, [currentStep, data])
 
   return (
-        <div className="flex min-h-screen flex-col bg-background text-foreground">
+        <div className="flex min-h-screen flex-col bg-background text-foreground [overflow-anchor:none]">
           <Navbar />
           
           <div className="container mx-auto px-4 pt-24 pb-8 md:pt-28 md:pb-12">

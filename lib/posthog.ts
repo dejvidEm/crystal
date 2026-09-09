@@ -1,14 +1,28 @@
-import posthog from "posthog-js"
+let initScheduled = false
+let posthogClient: typeof import("posthog-js").default | null = null
 
-export function initPostHog() {
+function applyRecording(
+  client: typeof import("posthog-js").default,
+  pathname?: string | null,
+) {
+  if (pathname?.startsWith("/admin")) {
+    client.stopSessionRecording()
+    return
+  }
+  client.startSessionRecording()
+}
+
+function startClient(client: typeof import("posthog-js").default) {
   const key = process.env.NEXT_PUBLIC_POSTHOG_KEY
-  if (!key || typeof window === "undefined") return
-  if (posthog.__loaded) return
+  if (!key || client.__loaded) {
+    posthogClient = client
+    return
+  }
 
   const host = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com"
   const isEu = host.includes(".eu.") || host.includes("eu.")
 
-  posthog.init(key, {
+  client.init(key, {
     api_host: host,
     ui_host: isEu ? "https://eu.posthog.com" : "https://us.posthog.com",
     defaults: "2026-05-30",
@@ -18,24 +32,40 @@ export function initPostHog() {
     session_recording: {
       maskAllInputs: true,
     },
-    loaded: (client) => {
-      syncSessionRecording(window.location.pathname)
-      client.onFeatureFlags(() => {
-        syncSessionRecording(window.location.pathname)
+    loaded: (readyClient) => {
+      applyRecording(readyClient as typeof client, window.location.pathname)
+      readyClient.onFeatureFlags(() => {
+        applyRecording(readyClient as typeof client, window.location.pathname)
       })
     },
   })
+
+  posthogClient = client
+}
+
+export function initPostHog() {
+  if (typeof window === "undefined" || initScheduled) return
+  initScheduled = true
+
+  const run = () => {
+    void import("posthog-js").then(({ default: posthog }) => {
+      startClient(posthog)
+    })
+  }
+
+  const requestIdle = window.requestIdleCallback
+  if (typeof requestIdle === "function") {
+    requestIdle(run, { timeout: 4000 })
+    return
+  }
+
+  window.setTimeout(run, 2000)
 }
 
 export function syncSessionRecording(pathname?: string | null) {
   if (typeof window === "undefined") return
-
-  if (pathname?.startsWith("/admin")) {
-    posthog.stopSessionRecording()
-    return
-  }
-
-  posthog.startSessionRecording()
+  if (!posthogClient) return
+  applyRecording(posthogClient, pathname)
 }
 
 export function capturePostHogEvent(
@@ -43,5 +73,11 @@ export function capturePostHogEvent(
   properties?: Record<string, string | number | boolean | undefined>,
 ) {
   if (typeof window === "undefined") return
-  posthog.capture(eventName, properties)
+  if (posthogClient) {
+    posthogClient.capture(eventName, properties)
+    return
+  }
+  void import("posthog-js").then(({ default: posthog }) => {
+    posthog.capture(eventName, properties)
+  })
 }

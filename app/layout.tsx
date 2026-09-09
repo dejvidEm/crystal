@@ -3,7 +3,6 @@ import "./globals.css"
 import { Inter } from "next/font/google"
 import type { Metadata } from "next"
 import { cookies } from "next/headers"
-import { PageTransitions } from "@/components/page-transitions"
 import { LanguageProvider } from "@/lib/i18n/language-context"
 import { parseLanguage } from "@/lib/i18n/language-cookie"
 import { LanguageTransition } from "@/components/language-transition"
@@ -17,11 +16,11 @@ import { DEFAULT_HOME_DESCRIPTION, DEFAULT_HOME_TITLE } from "@/lib/seo-site"
 import { Analytics } from "@vercel/analytics/next"
 import { GoogleAds } from "@/components/analytics/google-ads"
 
-// Optimize font loading
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
   display: "swap",
   preload: true,
+  adjustFontFallback: true,
 })
 
 const baseUrl = 'https://crystaldetailing.sk' // Update with actual production domain
@@ -125,7 +124,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <LocalBusinessStructuredData />
         <LanguageProvider initialLanguage={initialLanguage}>
           <LanguageTransition />
-          <PageTransitions>{children}</PageTransitions>
+          {children}
           <WhatsAppFloatingButton />
           <FirstVisitPromoModal />
           <CookieConsent />

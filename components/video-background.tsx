@@ -1,77 +1,90 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import { motion } from "framer-motion"
+import { shouldLoadHeavyMedia } from "@/lib/connection"
 
 export function VideoBackground() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [loadVideo, setLoadVideo] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
+    if (!shouldLoadHeavyMedia()) return
 
-    // Use loadedmetadata event - fires when metadata is loaded (much faster than canplay)
-    // This allows the video to start playing without downloading the full file
-    const handleLoadedMetadata = () => {
+    const enableVideo = () => setLoadVideo(true)
+    const requestIdle = window.requestIdleCallback
+    if (typeof requestIdle === "function") {
+      const idleId = requestIdle(enableVideo, { timeout: 1800 })
+      return () => window.cancelIdleCallback(idleId)
+    }
+
+    const timeoutId = window.setTimeout(enableVideo, 400)
+    return () => window.clearTimeout(timeoutId)
+  }, [])
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video || !loadVideo) return
+
+    const playVideo = () => {
       setIsLoaded(true)
-      // Attempt to play - browser will stream the video as needed
-      video.play().catch((error) => {
-        console.error("Error playing video:", error)
-        // If play fails, still show the video (might be autoplay policy)
+      video.play().catch(() => {
         setIsLoaded(true)
       })
     }
 
-    // Also listen for canplay as fallback
-    const handleCanPlay = () => {
-      setIsLoaded(true)
-    }
-
-    // Check if metadata is already loaded
     if (video.readyState >= 1) {
-      setIsLoaded(true)
-      video.play().catch(() => {})
-    } else {
-      video.addEventListener("loadedmetadata", handleLoadedMetadata)
-      video.addEventListener("canplay", handleCanPlay)
+      playVideo()
+      return
     }
 
+    video.addEventListener("loadedmetadata", playVideo)
+    video.addEventListener("canplay", playVideo)
     return () => {
-      video.removeEventListener("loadedmetadata", handleLoadedMetadata)
-      video.removeEventListener("canplay", handleCanPlay)
+      video.removeEventListener("loadedmetadata", playVideo)
+      video.removeEventListener("canplay", playVideo)
     }
-  }, [])
+  }, [loadVideo])
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
-      {/* Show background immediately - don't wait for video */}
-      <div className="absolute inset-0 bg-black"></div>
+      <Image
+        src="/images/hero-poster.jpg"
+        alt=""
+        fill
+        priority
+        quality={75}
+        sizes="100vw"
+        className="object-cover"
+      />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
         transition={{ duration: 1.5 }}
         className="relative h-full w-full"
       >
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover"
-          preload="metadata"
-          disablePictureInPicture
-          disableRemotePlayback
-        >
-          <source src="/two.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        {/* Overlay layers for text readability */}
-        <div className="absolute inset-0 bg-black opacity-70"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/65 md:to-black/80"></div>
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-black/70 via-black/35 to-transparent md:hidden"></div>
+        {loadVideo ? (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/images/hero-poster.jpg"
+            className="absolute inset-0 h-full w-full object-cover"
+            preload="none"
+            disablePictureInPicture
+            disableRemotePlayback
+          >
+            <source src="/two.mp4" type="video/mp4" />
+          </video>
+        ) : null}
       </motion.div>
+      <div className="absolute inset-0 bg-black/35" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/50 md:to-black/60" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-black/45 via-black/20 to-transparent md:hidden" />
     </div>
   )
 }
