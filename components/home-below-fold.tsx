@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ArrowRight, Clock, Instagram, MapPin, Truck } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { LazyLoadSection } from "@/components/lazy-section"
 import { Footer } from "@/components/footer"
@@ -68,8 +69,8 @@ export function HomeBelowFold() {
             transition={{ duration: 0.6, delay: 0.08 }}
           >
             <BeforeAfterSlider
-              beforeSrc="/images/handover-before.png"
-              afterSrc="/images/handover-after.png"
+              beforeSrc="/images/desktop-ba-interior-before.jpg"
+              afterSrc="/images/desktop-ba-interior-after.jpg"
               beforeLabel={t.handoverShowcase.beforeLabel}
               afterLabel={t.handoverShowcase.afterLabel}
               beforeImageAlt={t.handoverShowcase.beforeImageAlt}
@@ -77,6 +78,169 @@ export function HomeBelowFold() {
               dragHint={t.handoverShowcase.dragHint}
             />
           </motion.div>
+
+          <div className="mt-8 flex justify-center">
+            <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <Link href={bookioUrl(language)}>
+                {t.handoverShowcase.sameResultCta}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section id="handover-showcase-desktop" className="relative hidden w-full overflow-hidden py-20 md:block">
+        <div className="pointer-events-none absolute inset-0">
+          <Image
+            src="/images/handover-after.png"
+            alt={t.handoverShowcase.decorativeBackgroundAlt}
+            fill
+            className="object-cover opacity-[0.22]"
+            sizes="100vw"
+            quality={70}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/92 to-background" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55 }}
+            className="mb-12 text-center"
+          >
+            <h2 className="text-balance text-4xl font-bold tracking-tight text-gradient md:text-5xl">
+              {t.handoverShowcase.title}
+            </h2>
+            <div className="mx-auto mt-5 h-1 w-24 bg-primary" />
+          </motion.div>
+
+          <div className="grid grid-cols-2 gap-6 lg:gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: 0.08 }}
+            >
+              <BeforeAfterSlider
+                beforeSrc="/images/desktop-ba-trunk-before.jpg"
+                afterSrc="/images/desktop-ba-trunk-after.jpg"
+                beforeLabel={t.handoverShowcase.beforeLabel}
+                afterLabel={t.handoverShowcase.afterLabel}
+                beforeImageAlt={t.handoverShowcase.beforeImageAlt}
+                afterImageAlt={t.handoverShowcase.afterImageAlt}
+                className="aspect-[16/10] max-h-[min(42vh,440px)]"
+                sizes="(min-width: 768px) 46vw, 100vw"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: 0.16 }}
+            >
+              <BeforeAfterSlider
+                beforeSrc="/images/desktop-ba-interior-before.jpg"
+                afterSrc="/images/desktop-ba-interior-after.jpg"
+                beforeLabel={t.handoverShowcase.beforeLabel}
+                afterLabel={t.handoverShowcase.afterLabel}
+                beforeImageAlt={t.handoverShowcase.beforeImageAlt}
+                afterImageAlt={t.handoverShowcase.afterImageAlt}
+                className="aspect-[16/10] max-h-[min(42vh,440px)]"
+                sizes="(min-width: 768px) 46vw, 100vw"
+              />
+            </motion.div>
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <Link href={bookioUrl(language)}>
+                {t.handoverShowcase.sameResultCta}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <ReviewsSection />
+
+      <section id="services" className="relative py-24">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background" />
+        <div className="container relative z-10 mx-auto px-4">
+          <LazyLoadSection>
+            <div className="mb-16 text-center">
+              <PackagesAvailabilityBadge />
+              <h2 className="mb-4 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">{t.services.title}</h2>
+              <div className="mx-auto h-1 w-24 bg-primary" />
+              <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.services.subtitle}</p>
+              <CarSizeSelector />
+            </div>
+          </LazyLoadSection>
+
+          <div className="grid gap-6 overflow-visible pt-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+            <LazyLoadSection delay={0.1} className="h-full">
+              <PricingPackageCard packageKey="refresh" packageData={pkgs.refresh} />
+            </LazyLoadSection>
+            <LazyLoadSection delay={0.2} className="h-full">
+              <PricingPackageCard packageKey="essential" packageData={pkgs.essential} />
+            </LazyLoadSection>
+            <LazyLoadSection delay={0.3} className="h-full">
+              <PricingPackageCard packageKey="exterior" packageData={pkgs.exterior} />
+            </LazyLoadSection>
+            <LazyLoadSection delay={0.4} className="h-full">
+              <PricingPackageCard packageKey="premium" packageData={pkgs.premium} />
+            </LazyLoadSection>
+          </div>
+          <PackagesTravelNote />
+        </div>
+      </section>
+
+      <section id="additional-services" className="py-24">
+        <div className="container mx-auto px-4">
+          <LazyLoadSection>
+            <div className="mb-16 text-center">
+              <h2 className="mb-4 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">
+                {t.additionalServices.title}
+              </h2>
+              <div className="mx-auto h-1 w-24 bg-primary" />
+              <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.additionalServices.subtitle}</p>
+            </div>
+          </LazyLoadSection>
+          <LazyLoadSection delay={0.2}>
+            <AdditionalServicesTable />
+            <p className="mt-6 text-center text-sm text-zinc-400">{t.additionalServices.note}</p>
+          </LazyLoadSection>
+        </div>
+      </section>
+
+      <section id="media-bento" className="relative py-24">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background" />
+        <div className="container relative z-10 mx-auto px-4">
+          <LazyLoadSection>
+            <div className="mb-8 text-center md:mb-16">
+              <h2 className="mb-4 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">
+                {t.mediaBento?.title || "Výsledky v detailoch"}
+              </h2>
+              <div className="mx-auto h-1 w-24 bg-primary" />
+              <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
+                {t.mediaBento?.subtitle || "Viac z našej práce si môžete pozrieť na našom Instagrame."}
+              </p>
+              <div className="mt-8 flex justify-center">
+                <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+                    <Instagram className="mr-2 h-5 w-5" />
+                    {t.mediaBento?.instagramCta || "Sledujte nás na Instagrame"}
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </LazyLoadSection>
+          <LazyLoadSection delay={0.2}>
+            <MediaGallery />
+          </LazyLoadSection>
         </div>
       </section>
 
@@ -157,85 +321,7 @@ export function HomeBelowFold() {
         </div>
       </section>
 
-      <ReviewsSection />
       <WhyChooseUsSection />
-
-      <section id="services" className="relative py-24">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background" />
-        <div className="container relative z-10 mx-auto px-4">
-          <LazyLoadSection>
-            <div className="mb-16 text-center">
-              <PackagesAvailabilityBadge />
-              <h2 className="mb-4 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">{t.services.title}</h2>
-              <div className="mx-auto h-1 w-24 bg-primary" />
-              <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.services.subtitle}</p>
-              <CarSizeSelector />
-            </div>
-          </LazyLoadSection>
-
-          <div className="grid gap-6 overflow-visible pt-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-            <LazyLoadSection delay={0.1} className="h-full">
-              <PricingPackageCard packageKey="refresh" packageData={pkgs.refresh} />
-            </LazyLoadSection>
-            <LazyLoadSection delay={0.2} className="h-full">
-              <PricingPackageCard packageKey="essential" packageData={pkgs.essential} />
-            </LazyLoadSection>
-            <LazyLoadSection delay={0.3} className="h-full">
-              <PricingPackageCard packageKey="exterior" packageData={pkgs.exterior} />
-            </LazyLoadSection>
-            <LazyLoadSection delay={0.4} className="h-full">
-              <PricingPackageCard packageKey="premium" packageData={pkgs.premium} />
-            </LazyLoadSection>
-          </div>
-          <PackagesTravelNote />
-        </div>
-      </section>
-
-      <section id="additional-services" className="py-24">
-        <div className="container mx-auto px-4">
-          <LazyLoadSection>
-            <div className="mb-16 text-center">
-              <h2 className="mb-4 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">
-                {t.additionalServices.title}
-              </h2>
-              <div className="mx-auto h-1 w-24 bg-primary" />
-              <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.additionalServices.subtitle}</p>
-            </div>
-          </LazyLoadSection>
-          <LazyLoadSection delay={0.2}>
-            <AdditionalServicesTable />
-            <p className="mt-6 text-center text-sm text-zinc-400">{t.additionalServices.note}</p>
-          </LazyLoadSection>
-        </div>
-      </section>
-
-      <section id="media-bento" className="relative py-24">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background" />
-        <div className="container relative z-10 mx-auto px-4">
-          <LazyLoadSection>
-            <div className="mb-8 text-center md:mb-16">
-              <h2 className="mb-4 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">
-                {t.mediaBento?.title || "Výsledky v detailoch"}
-              </h2>
-              <div className="mx-auto h-1 w-24 bg-primary" />
-              <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
-                {t.mediaBento?.subtitle || "Viac z našej práce si môžete pozrieť na našom Instagrame."}
-              </p>
-              <div className="mt-8 flex justify-center">
-                <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
-                    <Instagram className="mr-2 h-5 w-5" />
-                    {t.mediaBento?.instagramCta || "Sledujte nás na Instagrame"}
-                  </Button>
-                </a>
-              </div>
-            </div>
-          </LazyLoadSection>
-          <LazyLoadSection delay={0.2}>
-            <MediaGallery />
-          </LazyLoadSection>
-        </div>
-      </section>
 
       <BlogHomeSection />
 

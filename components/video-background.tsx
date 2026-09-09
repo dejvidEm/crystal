@@ -82,9 +82,9 @@ export function VideoBackground() {
           </video>
         ) : null}
       </motion.div>
-      <div className="absolute inset-0 bg-black/35" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/50 md:to-black/60" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-black/45 via-black/20 to-transparent md:hidden" />
+      <div className="absolute inset-0 bg-black/55" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/70" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-black/55 via-black/25 to-transparent md:hidden" />
     </div>
   )
 }

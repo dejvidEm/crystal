@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Check, ChevronLeft, ChevronRight, Sparkles } from "lucide-react"
+import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -33,6 +33,7 @@ import {
   type PackageKey,
   type CalculatorVehicleSize,
 } from "@/lib/pricing-data"
+import { PackageSelectCard } from "@/components/package-select-card"
 import { toContentLocale, type ContentLocale } from "@/lib/i18n/locale"
 import { useLanguage } from "@/lib/i18n/language-context"
 
@@ -587,48 +588,22 @@ function PackageOptionCard({
   language: ContentLocale
 }) {
   const carSize = vehicleType ? calculatorVehicleToCarSize(vehicleType) : "small"
-  const displayPrice = formatPriceLabel(packagePriceByCarSize(value, carSize), language)
-  const originalPrice = formatPriceLabel(packageOriginalPriceByCarSize(value, carSize), language)
 
   return (
-    <div className="relative">
-      <label
-        htmlFor={`${name}-${value}`}
-        className={`flex cursor-pointer flex-col rounded-lg border-2 p-4 text-left transition-all ${
-          selected ? "border-primary bg-primary/10" : "border-border bg-card hover:border-primary/50"
-        }`}
-      >
-        <div className="mb-3 flex items-start justify-between gap-2">
-          <RadioGroupItem value={value} id={`${name}-${value}`} className="mt-1 shrink-0" />
-          {packageData.mostPopular && (
-            <span className="shrink-0 rounded-full bg-primary px-2 py-0.5 text-xs font-medium text-primary-foreground">
-              {t?.calculator?.mostPopular || "Popular"}
-            </span>
-          )}
-        </div>
-        <div className="font-semibold tracking-tight">{packageData.title}</div>
-        <p className="mt-1 text-sm text-muted-foreground">{packageData.subtitle}</p>
-        <div className="mt-3 flex flex-wrap items-baseline gap-3">
-          <span className="text-xl font-semibold text-zinc-400 line-through decoration-primary decoration-2">
-            {originalPrice}
-          </span>
-          <span className="text-2xl font-bold text-primary">{displayPrice}</span>
-        </div>
-        <ul className="mt-4 space-y-2 border-t border-border pt-4">
-          {packageData.features.map((feature, index) => (
-            <li key={index} className="flex items-start gap-2 text-sm text-foreground/90">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
-              <span>{feature}</span>
-            </li>
-          ))}
-        </ul>
-        {packageData.footerNote && (
-          <p className="mt-4 border-t border-border pt-3 text-xs leading-relaxed text-muted-foreground">
-            {packageData.footerNote}
-          </p>
-        )}
-      </label>
-    </div>
+    <label htmlFor={`${name}-${value}`} className="block h-full cursor-pointer">
+      <PackageSelectCard
+        selected={selected}
+        title={packageData.title}
+        subtitle={packageData.subtitle}
+        displayPrice={formatPriceLabel(packagePriceByCarSize(value, carSize), language)}
+        originalPrice={formatPriceLabel(packageOriginalPriceByCarSize(value, carSize), language)}
+        features={packageData.features}
+        footerNote={packageData.footerNote}
+        mostPopular={packageData.mostPopular}
+        popularLabel={t?.calculator?.mostPopular || "Popular"}
+        leading={<RadioGroupItem value={value} id={`${name}-${value}`} className="mt-1 shrink-0" />}
+      />
+    </label>
   )
 }
 

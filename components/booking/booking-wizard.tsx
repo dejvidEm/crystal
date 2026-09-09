@@ -11,7 +11,23 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Progress } from "@/components/ui/progress"
 import { Textarea } from "@/components/ui/textarea"
-import { estimateBookingPriceEur, extraPriceEur, servicePriceEur } from "@/lib/booking/catalog"
+import { PackageSelectCard } from "@/components/package-select-card"
+import {
+  BOOKING_PACKAGE_SERVICES,
+  estimateBookingPriceEur,
+  extraPriceEur,
+  servicePriceEur,
+} from "@/lib/booking/catalog"
+import {
+  calculatorVehicleToCarSize,
+  formatPriceLabel,
+  getAdditionalServices,
+  getPackages,
+  packageOriginalPriceByCarSize,
+  packagePriceByCarSize,
+  upholsteryOriginalPriceByCarSize,
+  upholsteryPriceByCarSize,
+} from "@/lib/pricing-data"
 import { addMonths, formatDateInBratislava, monthKeyFromDate } from "@/lib/booking/datetime"
 import type { BookingExtra, BookingService, MonthDayAvailability, VehicleSize } from "@/lib/booking/types"
 import { useLanguage } from "@/lib/i18n/language-context"
@@ -19,14 +35,6 @@ import { toContentLocale } from "@/lib/i18n/locale"
 import { cn } from "@/lib/utils"
 
 const TOTAL_STEPS = 5
-
-const SERVICE_OPTIONS: { key: BookingService; title: string; popular?: boolean }[] = [
-  { key: "refresh", title: "REFRESH" },
-  { key: "essential", title: "INTERIÉR" },
-  { key: "exterior", title: "EXTERIÉR" },
-  { key: "premium", title: "KOMPLET", popular: true },
-  { key: "tepovanie", title: "Tepovanie" },
-]
 
 const EXTRA_OPTIONS: BookingExtra[] = [
   "tepovanie",
@@ -146,6 +154,9 @@ export function BookingWizard({
 
   const extras = form.extras ?? []
   const days = daysByMonth[month]
+  const packages = getPackages(locale)
+  const upholsteryService = getAdditionalServices(locale).find((service) => service.icon === "upholstery")
+  const selectedCarSize = form.vehicleSize ? calculatorVehicleToCarSize(form.vehicleSize) : "small"
   const visibleExtras = EXTRA_OPTIONS.filter(
     (extra) => extra !== "tepovanie" || form.service !== "tepovanie",
   )
@@ -183,9 +194,7 @@ export function BookingWizard({
   }
 
   const serviceTitle = (service: BookingService) =>
-    service === "tepovanie"
-      ? copy.serviceTepovanie
-      : (SERVICE_OPTIONS.find((option) => option.key === service)?.title ?? service)
+    service === "tepovanie" ? (upholsteryService?.name ?? copy.serviceTepovanie) : packages[service].title
 
   const selectVehicle = (value: VehicleSize) => {
     setForm((prev) => ({ ...prev, vehicleSize: value }))
@@ -265,7 +274,7 @@ export function BookingWizard({
   }
 
   return (
-    <div>
+    <div className="pb-24 sm:pb-0">
       <div className="mb-6 text-center sm:mb-10">
         <h1 className="text-2xl font-semibold tracking-tight sm:text-4xl">{copy.title}</h1>
         <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base">{copy.subtitle}</p>
@@ -316,21 +325,37 @@ export function BookingWizard({
               <CardContent className="p-4 sm:p-6">
                 <h2 className="mb-4 text-lg font-semibold sm:mb-6 sm:text-xl">{copy.stepService}</h2>
                 <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
-                  {SERVICE_OPTIONS.map((option) => {
-                    const price = form.vehicleSize
-                      ? formatEur(servicePriceEur(option.key, form.vehicleSize), locale)
-                      : ""
+                  {BOOKING_PACKAGE_SERVICES.map((key) => {
+                    const pkg = packages[key]
                     return (
-                      <ChoiceCard
-                        key={option.key}
-                        selected={form.service === option.key}
-                        title={option.key === "tepovanie" ? copy.serviceTepovanie : option.title}
-                        description={option.key === "tepovanie" ? `${copy.serviceTepovanieDesc}${price ? ` · ${price}` : ""}` : price}
-                        popular={option.popular}
-                        onClick={() => selectService(option.key)}
+                      <PackageSelectCard
+                        key={key}
+                        selected={form.service === key}
+                        title={pkg.title}
+                        subtitle={pkg.subtitle}
+                        displayPrice={formatPriceLabel(packagePriceByCarSize(key, selectedCarSize), locale)}
+                        originalPrice={formatPriceLabel(packageOriginalPriceByCarSize(key, selectedCarSize), locale)}
+                        features={pkg.features}
+                        footerNote={pkg.footerNote}
+                        mostPopular={pkg.mostPopular}
+                        popularLabel={t.calculator.mostPopular}
+                        onSelect={() => selectService(key)}
                       />
                     )
                   })}
+                  {upholsteryService ? (
+                    <PackageSelectCard
+                      selected={form.service === "tepovanie"}
+                      title={upholsteryService.name}
+                      subtitle={upholsteryService.description}
+                      displayPrice={formatPriceLabel(upholsteryPriceByCarSize(selectedCarSize), locale)}
+                      originalPrice={formatPriceLabel(upholsteryOriginalPriceByCarSize(selectedCarSize), locale)}
+                      features={upholsteryService.features}
+                      footerNote={upholsteryService.footerNote}
+                      popularLabel={t.calculator.mostPopular}
+                      onSelect={() => selectService("tepovanie")}
+                    />
+                  ) : null}
                 </div>
               </CardContent>
             </Card>

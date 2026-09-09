@@ -73,15 +73,15 @@ const EXTRA_LABELS_DE: Record<BookingExtra, string> = {
 }
 
 const VEHICLE_LABELS_EN: Record<VehicleSize, string> = {
-  small: "Small (hatchback, sedan)",
-  medium: "Medium (estate, small SUV)",
-  large: "Large (full-size SUV)",
+  small: "Small (Hatchback / Sedan)",
+  medium: "Medium (Estate / Small SUV)",
+  large: "Large (Large SUV / Van)",
 }
 
 const VEHICLE_LABELS_DE: Record<VehicleSize, string> = {
-  small: "Klein (Hatchback, Limousine)",
-  medium: "Mittel (Kombi, kleines SUV)",
-  large: "Groß (Fullsize-SUV)",
+  small: "Klein (Kleinwagen / Limousine)",
+  medium: "Mittel (Kombi / Kompakt-SUV)",
+  large: "Groß (Groß-SUV / Van)",
 }
 
 const COPY: Record<EmailLocale, EmailCopy> = {

@@ -220,7 +220,7 @@ const loyaltySk: LoyaltyProgramsCopy = {
   ctaButton: "Rezervovať termín",
   ctaSecondary: "Kontaktovať nás",
   breadcrumb: "Vernostné programy",
-  carSizeNote: "Cena pre malé vozidlo · SUV +5 € · Dodávka +10 €",
+  carSizeNote: "Cena pre malé vozidlo · Stredné (Kombi / Malé SUV) +5 € · Veľké (Veľké SUV / Dodávka) +10 €",
 }
 
 const loyaltyEn: LoyaltyProgramsCopy = {
@@ -329,7 +329,7 @@ const loyaltyEn: LoyaltyProgramsCopy = {
   ctaButton: "Book an appointment",
   ctaSecondary: "Contact us",
   breadcrumb: "Loyalty programs",
-  carSizeNote: "Price for small car · SUV +€5 · Van +€10",
+  carSizeNote: "Price for small car · Medium (Estate / Small SUV) +€5 · Large (Large SUV / Van) +€10",
 }
 
 const loyaltyDe: LoyaltyProgramsCopy = {
@@ -438,7 +438,7 @@ const loyaltyDe: LoyaltyProgramsCopy = {
   ctaButton: "Termin buchen",
   ctaSecondary: "Kontakt aufnehmen",
   breadcrumb: "Treueprogramme",
-  carSizeNote: "Preis für Kleinwagen · SUV +5 € · Transporter +10 €",
+  carSizeNote: "Preis für Kleinwagen · Mittel (Kombi / Kompakt-SUV) +5 € · Groß (Groß-SUV / Van) +10 €",
 }
 
 const loyaltyCopyByLocale: Record<ContentLocale, LoyaltyProgramsCopy> = {

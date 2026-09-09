@@ -70,9 +70,9 @@ export const EXTRA_LABELS_SK: Record<BookingExtra, string> = {
 }
 
 export const VEHICLE_LABELS_SK: Record<VehicleSize, string> = {
-  small: "Malé (hatchback, sedan)",
-  medium: "Stredné (kombi, malé SUV)",
-  large: "Veľké (Fullsize SUV)",
+  small: "Malé (Hatchback / Sedan)",
+  medium: "Stredné (Kombi / Malé SUV)",
+  large: "Veľké (Veľké SUV / Dodávka)",
 }
 
 export const WEEKDAY_LABELS_SK: Record<1 | 2 | 3 | 4 | 5 | 6 | 7, string> = {

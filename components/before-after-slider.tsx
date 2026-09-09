@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { useCallback, useRef, useState } from "react"
 import { GripVertical } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 type BeforeAfterSliderProps = {
   beforeSrc: string
@@ -12,6 +13,8 @@ type BeforeAfterSliderProps = {
   beforeImageAlt: string
   afterImageAlt: string
   dragHint?: string
+  className?: string
+  sizes?: string
 }
 
 export function BeforeAfterSlider({
@@ -22,6 +25,8 @@ export function BeforeAfterSlider({
   beforeImageAlt,
   afterImageAlt,
   dragHint,
+  className,
+  sizes = "(max-width: 768px) 100vw, min(1152px, 92vw)",
 }: BeforeAfterSliderProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [positionPct, setPositionPct] = useState(50)
@@ -39,7 +44,10 @@ export function BeforeAfterSlider({
     <div className="w-full">
       <div
         ref={containerRef}
-        className="relative aspect-[16/10] w-full max-h-[min(70vh,820px)] cursor-ew-resize select-none touch-none overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl ring-1 ring-white/5 md:rounded-3xl"
+        className={cn(
+          "relative aspect-[16/10] w-full max-h-[min(70vh,820px)] cursor-ew-resize select-none touch-none overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl ring-1 ring-white/5 md:rounded-3xl",
+          className,
+        )}
         onPointerDown={(e) => {
           updateFromClientX(e.clientX)
           ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
@@ -66,7 +74,7 @@ export function BeforeAfterSlider({
           alt={afterImageAlt}
           fill
           className="absolute inset-0 object-cover"
-          sizes="(max-width: 768px) 100vw, min(1152px, 92vw)"
+          sizes={sizes}
           quality={75}
           draggable={false}
         />
@@ -76,7 +84,7 @@ export function BeforeAfterSlider({
           alt={beforeImageAlt}
           fill
           className="absolute inset-0 object-cover"
-          sizes="(max-width: 768px) 100vw, min(1152px, 92vw)"
+          sizes={sizes}
           quality={75}
           draggable={false}
           style={{

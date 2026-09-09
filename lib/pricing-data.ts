@@ -75,8 +75,8 @@ export const PACKAGE_BASE_PRICE_EUR: Record<PackageKey, number> = {
 
 /**
  * Prirážka oproti malej kategórii:
- * - SUV/Crossover: REFRESH, INTERIÉR, EXTERIÉR +5 €; KOMPLET +10 €
- * - Dodávka/Pickup: REFRESH, INTERIÉR, EXTERIÉR +10 €; KOMPLET +10 €
+ * - Stredné (Kombi / Malé SUV): REFRESH, INTERIÉR, EXTERIÉR +5 €; KOMPLET +10 €
+ * - Veľké (Veľké SUV / Dodávka): +10 €
  */
 export function packageSurchargeByCarSize(key: PackageKey, size: CarSize): number {
   if (size === "small") return 0
