@@ -103,7 +103,7 @@ export const sk = {
     messageLabel: "Popíšte, čo potrebujete",
     messagePlaceholder: "Napr. čistenie interiéru, tepovanie sedačiek",
     cityLabel: "Lokalita",
-    citySelectedPrefix: "Vybrané mesto:",
+    citySelectedPrefix: "Lokalita:",
     otherCity: "Iné / mimo zoznamu",
     discountLabel: "Mám zľavový kód",
     discountPlaceholder: "Zadajte kód",

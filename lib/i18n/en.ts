@@ -105,7 +105,7 @@ export const en = {
     messageLabel: "Tell us what you need",
     messagePlaceholder: "e.g. interior cleaning, seat shampooing",
     cityLabel: "Location",
-    citySelectedPrefix: "Selected city:",
+    citySelectedPrefix: "Location:",
     otherCity: "Other / not listed",
     discountLabel: "I have a discount code",
     discountPlaceholder: "Enter the code",

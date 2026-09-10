@@ -104,7 +104,7 @@ export const de = {
     messageLabel: "Beschreiben Sie, was Sie brauchen",
     messagePlaceholder: "z. B. Innenreinigung, Sitzpolsterwäsche",
     cityLabel: "Standort",
-    citySelectedPrefix: "Ausgewählte Stadt:",
+    citySelectedPrefix: "Standort:",
     otherCity: "Andere / nicht in der Liste",
     discountLabel: "Ich habe einen Rabattcode",
     discountPlaceholder: "Code eingeben",

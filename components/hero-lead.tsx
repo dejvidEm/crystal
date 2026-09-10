@@ -24,7 +24,7 @@ export function HeroLead() {
       <VideoBackground />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-black/45 via-black/25 to-black/55" />
 
-      <div className="relative z-10 mx-auto grid min-h-screen max-w-[1400px] items-center gap-10 px-4 pb-16 pt-28 md:grid-cols-[minmax(0,1fr)_minmax(380px,520px)] md:gap-10 md:pb-20 md:pt-32 lg:grid-cols-[minmax(0,1fr)_minmax(420px,560px)] lg:gap-14">
+      <div className="relative z-10 mx-auto grid min-h-screen max-w-[1400px] items-start gap-10 px-4 pb-16 pt-[calc(9rem+env(safe-area-inset-top,0px))] md:grid-cols-[minmax(0,1fr)_minmax(380px,520px)] md:items-center md:gap-10 md:pb-20 md:pt-32 lg:grid-cols-[minmax(0,1fr)_minmax(420px,560px)] lg:gap-14">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
