@@ -5,6 +5,7 @@ import { ArrowRight, Star } from "lucide-react"
 import { GoogleLogo } from "@/components/google-logo"
 import { LazyLoadSection } from "@/components/lazy-section"
 import { ReviewMarquee } from "@/components/review-marquee"
+import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { GOOGLE_REVIEWS_URL } from "@/lib/site-config"
 
@@ -17,7 +18,9 @@ export function ReviewsSection() {
       <div className="container relative z-10 mx-auto px-4">
         <LazyLoadSection>
           <div className="mb-12 text-center md:mb-16">
-            <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">{t.reviews.title}</h2>
+            <h2 className="mx-auto mb-4 max-w-4xl text-balance text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">
+              {t.reviews.title}
+            </h2>
             <div className="mx-auto mb-6 h-1 w-24 bg-primary" />
 
             <div className="mx-auto flex max-w-md flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-3">
@@ -47,15 +50,12 @@ export function ReviewsSection() {
 
         <LazyLoadSection delay={0.3}>
           <div className="mt-10 flex justify-center">
-            <Link
-              href={GOOGLE_REVIEWS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80 sm:text-base"
-            >
-              {t.reviews.viewAllGoogleReviews}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+            <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <Link href={GOOGLE_REVIEWS_URL} target="_blank" rel="noopener noreferrer">
+                {t.reviews.viewAllGoogleReviews}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </LazyLoadSection>
       </div>

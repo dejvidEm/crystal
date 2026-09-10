@@ -16,6 +16,9 @@ type ContactPayload = {
   phone?: unknown
   message?: unknown
   fleetSize?: unknown
+  source?: unknown
+  city?: unknown
+  discountCode?: unknown
 }
 
 function isString(value: unknown): value is string {
@@ -34,6 +37,12 @@ const COMPANY_MAX = 160
 const INDUSTRY_MAX = 160
 const FLEET_MIN = 1
 const FLEET_MAX = 9999
+const CITY_MAX = 120
+const DISCOUNT_MAX = 40
+
+function isHeroPayload(body: ContactPayload): boolean {
+  return body.source === "hero"
+}
 
 function parseFleetSize(value: unknown): number | null {
   if (value === undefined || value === null || value === "") return null
@@ -128,6 +137,40 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true })
   }
 
+  if (isHeroPayload(body)) {
+    if (isString(body.message) && body.message.length > MESSAGE_MAX) {
+      return NextResponse.json({ ok: false, error: "Poznámka je príliš dlhá." }, { status: 422 })
+    }
+    if (isString(body.city) && body.city.length > CITY_MAX) {
+      return NextResponse.json({ ok: false, error: "Lokalita je príliš dlhá." }, { status: 422 })
+    }
+    if (isString(body.discountCode) && body.discountCode.length > DISCOUNT_MAX) {
+      return NextResponse.json({ ok: false, error: "Zľavový kód je príliš dlhý." }, { status: 422 })
+    }
+
+    const lead = {
+      name: body.name.trim(),
+      email: body.email.trim(),
+      phone: body.phone.trim(),
+      city: isString(body.city) ? body.city.trim() : "",
+      message: isString(body.message) ? body.message.trim() : "",
+      discountCode: isString(body.discountCode) ? body.discountCode.trim() : "",
+      receivedAt: new Date().toISOString(),
+    }
+
+    console.info("[contact/hero]", lead)
+
+    after(async () => {
+      try {
+        await sendHeroLeadNotification(lead)
+      } catch (err) {
+        console.error("[contact/hero] notification failed:", err)
+      }
+    })
+
+    return NextResponse.json({ ok: true })
+  }
+
   if (!isNonEmptyString(body.message) || body.message.length > MESSAGE_MAX) {
     return NextResponse.json({ ok: false, error: "Napíšte krátku správu." }, { status: 422 })
   }
@@ -177,6 +220,16 @@ type BusinessMessage = {
   receivedAt: string
 }
 
+type HeroLeadMessage = {
+  name: string
+  email: string
+  phone: string
+  city: string
+  message: string
+  discountCode: string
+  receivedAt: string
+}
+
 async function sendContactNotification(msg: ContactMessage): Promise<void> {
   const { html, text } = renderKeyValueEmail({
     heading: "Nová správa z kontaktného formulára",
@@ -217,6 +270,29 @@ async function sendBusinessNotification(msg: BusinessMessage): Promise<void> {
 
   await sendEmail({
     subject: `Firemný dopyt – ${msg.company}`,
+    html,
+    text,
+    replyTo: msg.email,
+  })
+}
+
+async function sendHeroLeadNotification(msg: HeroLeadMessage): Promise<void> {
+  const { html, text } = renderKeyValueEmail({
+    heading: "Nový dopyt z homepage",
+    intro: "Odoslané z konverzného hero formulára na crystaldetailing.sk.",
+    rows: [
+      { label: "Meno", value: msg.name },
+      { label: "E-mail", value: msg.email },
+      { label: "Mobil", value: msg.phone },
+      { label: "Lokalita", value: msg.city || null },
+      { label: "Čo potrebuje", value: msg.message || null },
+      { label: "Zľavový kód", value: msg.discountCode || null },
+    ],
+    footnote: `Prijaté: ${msg.receivedAt}`,
+  })
+
+  await sendEmail({
+    subject: `Dopyt z webu – ${msg.name}`,
     html,
     text,
     replyTo: msg.email,

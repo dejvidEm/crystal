@@ -180,7 +180,7 @@ export function HomeBelowFold() {
             </div>
           </LazyLoadSection>
 
-          <div className="grid gap-6 overflow-visible pt-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+          <div className="grid gap-4 overflow-visible pt-3 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
             <LazyLoadSection delay={0.1} className="h-full">
               <PricingPackageCard packageKey="refresh" packageData={pkgs.refresh} />
             </LazyLoadSection>

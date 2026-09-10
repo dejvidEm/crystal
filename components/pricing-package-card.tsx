@@ -29,7 +29,7 @@ export function PricingPackageCard({ packageKey, packageData, delay = 0 }: Prici
   const originalPrice = formatPriceLabel(packageOriginalPriceByCarSize(packageKey, carSize), lang)
 
   return (
-    <div className="relative mx-auto h-full w-full max-md:max-w-[92%] max-md:origin-top max-md:scale-[0.96]">
+    <div className="relative mx-auto h-full w-full">
       <Card
         className={`glass-card relative flex h-full flex-col overflow-visible max-md:rounded-lg ${
           packageData.mostPopular
