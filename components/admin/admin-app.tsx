@@ -248,6 +248,7 @@ export function AdminApp() {
               vacationDirty={vacationDirty}
               vacationSaving={savingVacation}
               vacationMessage={vacationMessage}
+              vacationError={error}
               onVacationMonthChange={setVacationMonth}
               onToggleClosedDate={toggleClosedDate}
               onSaveVacation={saveVacation}
@@ -310,6 +311,7 @@ function VacationPicker({
   dirty,
   saving,
   saveMessage,
+  errorText,
   onMonthChange,
   onToggleDate,
   onSave,
@@ -319,6 +321,7 @@ function VacationPicker({
   dirty: boolean
   saving: boolean
   saveMessage: string | null
+  errorText: string | null
   onMonthChange: (month: string) => void
   onToggleDate: (date: string) => void
   onSave: () => void
@@ -407,6 +410,7 @@ function VacationPicker({
         {dirty && <span className="text-sm text-amber-300">Máte neuložené dni</span>}
         {saveMessage && <span className="text-sm text-primary">{saveMessage}</span>}
       </div>
+      {errorText && <p className="mt-3 text-sm text-red-400">{errorText}</p>}
     </div>
   )
 }
@@ -591,6 +595,7 @@ function SettingsPanel({
   vacationDirty,
   vacationSaving,
   vacationMessage,
+  vacationError,
   onVacationMonthChange,
   onToggleClosedDate,
   onSaveVacation,
@@ -610,6 +615,7 @@ function SettingsPanel({
   vacationDirty: boolean
   vacationSaving: boolean
   vacationMessage: string | null
+  vacationError: string | null
   onVacationMonthChange: (month: string) => void
   onToggleClosedDate: (date: string) => void
   onSaveVacation: () => void
@@ -686,6 +692,7 @@ function SettingsPanel({
         dirty={vacationDirty}
         saving={vacationSaving}
         saveMessage={vacationMessage}
+        errorText={vacationError}
         onMonthChange={onVacationMonthChange}
         onToggleDate={onToggleClosedDate}
         onSave={onSaveVacation}

@@ -10,6 +10,9 @@ function supabaseMessage(error: unknown, fallback: string) {
     const message = String((error as { message?: unknown }).message || "").trim()
     if (message) return `${fallback} (${message})`
   }
+  if (error instanceof Error && error.message) {
+    return `${fallback} (${error.message})`
+  }
   return fallback
 }
 
@@ -29,45 +32,71 @@ function normalizeDates(values: unknown): string[] {
   ].sort()
 }
 
+function sameDates(left: string[], right: string[]) {
+  return JSON.stringify([...left].sort()) === JSON.stringify([...right].sort())
+}
+
 async function readClosedDates(supabase: Awaited<ReturnType<typeof requireAdmin>>["supabase"]) {
   const { data, error } = await supabase.from("closed_dates").select("closed_date").order("closed_date")
   if (error) throw error
   return normalizeDates(data)
 }
 
-function sameDates(left: string[], right: string[]) {
-  return JSON.stringify([...left].sort()) === JSON.stringify([...right].sort())
+async function tryRpc(
+  supabase: Awaited<ReturnType<typeof requireAdmin>>["supabase"],
+  name: string,
+  args: Record<string, unknown>,
+) {
+  const result = await supabase.rpc(name, args)
+  if (result.error) return { ok: false as const, error: result.error, dates: [] as string[] }
+  return { ok: true as const, error: null, dates: normalizeDates(result.data) }
 }
 
 async function replaceClosedDates(
   supabase: Awaited<ReturnType<typeof requireAdmin>>["supabase"],
   dates: string[],
 ) {
-  const rpc = await supabase.rpc("admin_replace_closed_dates", { p_dates: dates })
-  if (!rpc.error) {
-    const saved = normalizeDates(rpc.data)
-    if (sameDates(saved, dates)) return saved
+  const attempts = [
+    () => tryRpc(supabase, "admin_replace_closed_dates", { p_dates: dates }),
+    () => tryRpc(supabase, "admin_set_closed_dates", { p_dates: dates }),
+    () => tryRpc(supabase, "admin_set_closed_dates", { p_dates: `{${dates.join(",")}}` }),
+    () =>
+      tryRpc(supabase, "admin_set_closed_dates", {
+        p_dates: `{${dates.map((date) => `"${date}"`).join(",")}}`,
+      }),
+  ]
+
+  let lastError: unknown = null
+
+  for (const attempt of attempts) {
+    const result = await attempt()
+    if (!result.ok) {
+      lastError = result.error
+      continue
+    }
+    if (sameDates(result.dates, dates)) return result.dates
     const verified = await readClosedDates(supabase)
     if (sameDates(verified, dates)) return verified
+    lastError = new Error("RPC vrátila iné dni, než sme ukladali.")
   }
 
   const { error: deleteError } = await supabase.from("closed_dates").delete().gte("closed_date", "1900-01-01")
-  if (deleteError && dates.length === 0) {
-    throw deleteError
-  }
+  if (deleteError) lastError = deleteError
 
   if (dates.length > 0) {
     const { error: insertError } = await supabase
       .from("closed_dates")
       .insert(dates.map((closed_date) => ({ closed_date })))
     if (insertError) {
-      throw rpc.error ?? insertError
+      throw lastError ?? insertError
     }
+  } else if (deleteError) {
+    throw deleteError
   }
 
   const verified = await readClosedDates(supabase)
   if (!sameDates(verified, dates)) {
-    throw rpc.error ?? new Error("Dni sa po uložení nenašli v databáze. Spusti supabase/patch-closed-dates.sql.")
+    throw lastError ?? new Error("Dni sa neuložili. V Supabase spusti supabase/patch-closed-dates.sql.")
   }
   return verified
 }
