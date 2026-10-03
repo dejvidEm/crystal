@@ -38,6 +38,13 @@ export function monthKeyFromDate(dateIso: string): string {
   return dateIso.slice(0, 7)
 }
 
+/** Postgres `date` / ISO string → `YYYY-MM-DD`, inak null. */
+export function normalizeIsoDate(value: unknown): string | null {
+  if (value == null) return null
+  const match = String(value).trim().match(/^(\d{4}-\d{2}-\d{2})/)
+  return match?.[1] ?? null
+}
+
 export function daysInMonth(year: number, monthIndex: number): number {
   return new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate()
 }

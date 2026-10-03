@@ -1,10 +1,20 @@
 import type { SupabaseClient } from "@supabase/supabase-js"
-import { isTimeAtLeastMinutesAhead, isoWeekdayFromDate, listMonthDates, normalizeTime } from "@/lib/booking/datetime"
+import {
+  isTimeAtLeastMinutesAhead,
+  isoWeekdayFromDate,
+  listMonthDates,
+  normalizeIsoDate,
+  normalizeTime,
+} from "@/lib/booking/datetime"
 import type { MonthDayAvailability, WeeklyAvailabilityRow, Weekday } from "@/lib/booking/types"
 
 type OccupiedSlot = {
   booking_date: string
   booking_time: string
+}
+
+function collectIsoDates(values: unknown[]): string[] {
+  return [...new Set(values.map(normalizeIsoDate).filter((value): value is string => Boolean(value)))].sort()
 }
 
 export function buildMonthAvailability(input: {
@@ -19,13 +29,14 @@ export function buildMonthAvailability(input: {
   )
   const occupiedByDate = new Map<string, Set<string>>()
   for (const row of input.occupied) {
-    const date = row.booking_date
+    const date = normalizeIsoDate(row.booking_date)
+    if (!date) continue
     const time = normalizeTime(String(row.booking_time).slice(0, 5))
     const set = occupiedByDate.get(date) ?? new Set<string>()
     set.add(time)
     occupiedByDate.set(date, set)
   }
-  const closed = new Set((input.closedDates ?? []).map((date) => date.slice(0, 10)))
+  const closed = new Set(collectIsoDates(input.closedDates ?? []))
 
   return listMonthDates(input.month).map((date) => {
     const weekday = isoWeekdayFromDate(date)
@@ -54,6 +65,21 @@ export function buildMonthAvailability(input: {
   })
 }
 
+async function fetchClosedDates(supabase: SupabaseClient, from: string, to: string): Promise<string[]> {
+  const rpc = await supabase.rpc("list_closed_dates", { p_from: from, p_to: to })
+  if (!rpc.error) {
+    const rows = (rpc.data ?? []) as { closed_date?: unknown }[]
+    return collectIsoDates(rows.map((row) => row.closed_date ?? row))
+  }
+
+  const table = await supabase.from("closed_dates").select("closed_date").gte("closed_date", from).lte("closed_date", to)
+  if (table.error) {
+    throw table.error
+  }
+
+  return collectIsoDates(((table.data ?? []) as { closed_date: unknown }[]).map((row) => row.closed_date))
+}
+
 export async function fetchPublicAvailability(
   supabase: SupabaseClient,
   month: string,
@@ -63,11 +89,11 @@ export async function fetchPublicAvailability(
   const from = dates[0]
   const to = dates[dates.length - 1]
 
-  const [{ data: weekly, error: weeklyError }, { data: occupied, error: occupiedError }, { data: closed, error: closedError }] =
+  const [{ data: weekly, error: weeklyError }, { data: occupied, error: occupiedError }, closedDates] =
     await Promise.all([
       supabase.from("weekly_availability").select("weekday, enabled, slots").order("weekday"),
       supabase.rpc("list_occupied_slots", { p_from: from, p_to: to }),
-      supabase.from("closed_dates").select("closed_date").gte("closed_date", from).lte("closed_date", to),
+      fetchClosedDates(supabase, from, to),
     ])
 
   if (weeklyError) {
@@ -78,17 +104,10 @@ export async function fetchPublicAvailability(
     throw occupiedError
   }
 
-  if (closedError) {
-    throw closedError
-  }
-
-  const occupiedRows = (occupied ?? []) as OccupiedSlot[]
-  const closedDates = ((closed ?? []) as { closed_date: string }[]).map((row) => String(row.closed_date).slice(0, 10))
-
   return buildMonthAvailability({
     month,
     weekly: (weekly ?? []) as WeeklyAvailabilityRow[],
-    occupied: occupiedRows,
+    occupied: (occupied ?? []) as OccupiedSlot[],
     closedDates,
     todayIso,
   })

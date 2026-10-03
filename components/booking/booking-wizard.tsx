@@ -130,7 +130,7 @@ export function BookingWizard({
     const loadMonth = (key: string) => {
       if (loadedMonths.current.has(key) || inflightMonths.current.has(key)) return
       inflightMonths.current.add(key)
-      fetch(`/api/booking/availability?month=${key}`)
+      fetch(`/api/booking/availability?month=${key}`, { cache: "no-store" })
         .then((res) => res.json())
         .then((payload) => {
           loadedMonths.current.add(key)

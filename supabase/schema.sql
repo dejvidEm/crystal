@@ -429,6 +429,19 @@ begin
 end;
 $$;
 
+create or replace function public.list_closed_dates(p_from date, p_to date)
+returns table (closed_date date)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select c.closed_date
+  from public.closed_dates c
+  where c.closed_date between p_from and p_to
+  order by c.closed_date;
+$$;
+
 create or replace function public.admin_set_closed_dates(p_dates date[])
 returns date[]
 language plpgsql
@@ -535,6 +548,7 @@ grant execute on function public.has_any_admin() to anon, authenticated;
 revoke execute on function public.claim_first_admin() from anon, authenticated, public;
 grant execute on function public.admin_update_availability(smallint, boolean, text[]) to authenticated;
 grant execute on function public.list_occupied_slots(date, date) to anon, authenticated;
+grant execute on function public.list_closed_dates(date, date) to anon, authenticated;
 grant execute on function public.submit_booking(text, text, text[], text, text, text, text, text, date, time, numeric, text) to anon, authenticated;
 grant execute on function public.admin_set_booking_status(uuid, text, text) to authenticated;
 grant execute on function public.admin_set_closed_dates(date[]) to authenticated;

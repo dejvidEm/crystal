@@ -1,11 +1,62 @@
 import { NextResponse } from "next/server"
 import { requireAdmin } from "@/lib/booking/admin"
+import { normalizeIsoDate } from "@/lib/booking/datetime"
 import { adminClosedDatesSchema } from "@/lib/booking/schemas"
 
 export const runtime = "nodejs"
 
-function normalizeDates(rows: { closed_date: string }[] | null): string[] {
-  return (rows ?? []).map((row) => String(row.closed_date).slice(0, 10)).sort()
+function normalizeDates(values: unknown): string[] {
+  if (!Array.isArray(values)) return []
+  return [
+    ...new Set(
+      values
+        .map((value) => {
+          if (value && typeof value === "object" && "closed_date" in value) {
+            return normalizeIsoDate((value as { closed_date: unknown }).closed_date)
+          }
+          return normalizeIsoDate(value)
+        })
+        .filter((value): value is string => Boolean(value)),
+    ),
+  ].sort()
+}
+
+async function readClosedDates(supabase: Awaited<ReturnType<typeof requireAdmin>>["supabase"]) {
+  const { data, error } = await supabase.from("closed_dates").select("closed_date").order("closed_date")
+  if (error) throw error
+  return normalizeDates(data)
+}
+
+async function replaceClosedDates(
+  supabase: Awaited<ReturnType<typeof requireAdmin>>["supabase"],
+  dates: string[],
+) {
+  const { error: rpcError, data: rpcData } = await supabase.rpc("admin_set_closed_dates", {
+    p_dates: dates,
+  })
+
+  if (!rpcError) {
+    const saved = normalizeDates(rpcData)
+    if (dates.length === 0 || saved.length === dates.length) {
+      return saved.length ? saved : dates
+    }
+  }
+
+  const { error: deleteError } = await supabase.from("closed_dates").delete().gte("closed_date", "1900-01-01")
+  if (deleteError) {
+    throw rpcError ?? deleteError
+  }
+
+  if (dates.length > 0) {
+    const { error: insertError } = await supabase
+      .from("closed_dates")
+      .insert(dates.map((closed_date) => ({ closed_date })))
+    if (insertError) {
+      throw insertError
+    }
+  }
+
+  return readClosedDates(supabase)
 }
 
 export async function GET() {
@@ -14,19 +65,12 @@ export async function GET() {
     return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: auth.status })
   }
 
-  const { data, error } = await auth.supabase
-    .from("closed_dates")
-    .select("closed_date")
-    .order("closed_date")
-
-  if (error) {
+  try {
+    const dates = await readClosedDates(auth.supabase)
+    return NextResponse.json({ ok: true, dates }, { headers: { "Cache-Control": "no-store" } })
+  } catch {
     return NextResponse.json({ ok: false, error: "Dovolenku sa nepodarilo načítať." }, { status: 500 })
   }
-
-  return NextResponse.json(
-    { ok: true, dates: normalizeDates(data) },
-    { headers: { "Cache-Control": "no-store" } },
-  )
 }
 
 export async function PUT(request: Request) {
@@ -47,17 +91,10 @@ export async function PUT(request: Request) {
     return NextResponse.json({ ok: false, error: "Neplatné dátumy dovolenky." }, { status: 422 })
   }
 
-  const { data, error } = await auth.supabase.rpc("admin_set_closed_dates", {
-    p_dates: parsed.data.dates,
-  })
-
-  if (error) {
+  try {
+    const dates = await replaceClosedDates(auth.supabase, parsed.data.dates)
+    return NextResponse.json({ ok: true, dates })
+  } catch {
     return NextResponse.json({ ok: false, error: "Dovolenku sa nepodarilo uložiť." }, { status: 400 })
   }
-
-  const dates = Array.isArray(data)
-    ? data.map((value) => String(value).slice(0, 10)).sort()
-    : parsed.data.dates
-
-  return NextResponse.json({ ok: true, dates })
 }
