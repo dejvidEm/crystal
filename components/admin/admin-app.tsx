@@ -166,7 +166,11 @@ export function AdminApp() {
       const saved = Array.isArray(payload.dates) ? payload.dates : draftClosedDates
       setClosedDates(saved)
       setDraftClosedDates(saved)
-      setVacationMessage("Dovolenka je uložená.")
+      setVacationMessage(
+        saved.length
+          ? `Dovolenka je uložená (${saved.length} ${saved.length === 1 ? "deň" : saved.length < 5 ? "dni" : "dní"}).`
+          : "Dovolenka je uložená (žiadne zatvorené dni).",
+      )
     }
     setSavingVacation(false)
   }

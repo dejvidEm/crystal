@@ -476,6 +476,36 @@ begin
 end;
 $$;
 
+drop function if exists public.admin_replace_closed_dates(text[]);
+create or replace function public.admin_replace_closed_dates(p_dates text[])
+returns table (closed_date date)
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if not public.is_admin() then
+    raise exception 'not_admin';
+  end if;
+
+  if coalesce(cardinality(p_dates), 0) > 400 then
+    raise exception 'too_many_dates';
+  end if;
+
+  delete from public.closed_dates;
+
+  insert into public.closed_dates (closed_date)
+  select distinct d::date
+  from unnest(coalesce(p_dates, '{}')) as d
+  where d ~ '^\d{4}-\d{2}-\d{2}$';
+
+  return query
+    select c.closed_date
+    from public.closed_dates c
+    order by c.closed_date;
+end;
+$$;
+
 alter table public.admin_users enable row level security;
 alter table public.weekly_availability enable row level security;
 alter table public.bookings enable row level security;
@@ -552,3 +582,4 @@ grant execute on function public.list_closed_dates(date, date) to anon, authenti
 grant execute on function public.submit_booking(text, text, text[], text, text, text, text, text, date, time, numeric, text) to anon, authenticated;
 grant execute on function public.admin_set_booking_status(uuid, text, text) to authenticated;
 grant execute on function public.admin_set_closed_dates(date[]) to authenticated;
+grant execute on function public.admin_replace_closed_dates(text[]) to authenticated;
