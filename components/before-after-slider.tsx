@@ -75,7 +75,8 @@ export function BeforeAfterSlider({
           fill
           className="absolute inset-0 object-cover"
           sizes={sizes}
-          quality={75}
+          quality={70}
+          loading="lazy"
           draggable={false}
         />
 
@@ -85,7 +86,8 @@ export function BeforeAfterSlider({
           fill
           className="absolute inset-0 object-cover"
           sizes={sizes}
-          quality={75}
+          quality={70}
+          loading="lazy"
           draggable={false}
           style={{
             clipPath: `inset(0 ${100 - positionPct}% 0 0)`,

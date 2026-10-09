@@ -55,8 +55,8 @@ export function VideoBackground() {
         alt=""
         fill
         priority
-        quality={75}
-        sizes="100vw"
+        quality={60}
+        sizes="(max-width: 768px) 828px, 100vw"
         className="object-cover"
       />
       <motion.div

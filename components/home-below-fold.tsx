@@ -44,6 +44,7 @@ export function HomeBelowFold() {
             className="object-cover opacity-[0.22]"
             sizes="100vw"
             quality={70}
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/92 to-background" />
         </div>
@@ -99,6 +100,7 @@ export function HomeBelowFold() {
             className="object-cover opacity-[0.22]"
             sizes="100vw"
             quality={70}
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/92 to-background" />
         </div>

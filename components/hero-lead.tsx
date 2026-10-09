@@ -1,6 +1,5 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { CheckCircle2, Sparkles, Star } from "lucide-react"
 import Image from "next/image"
 import { VideoBackground } from "@/components/video-background"
@@ -25,12 +24,7 @@ export function HeroLead() {
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-black/45 via-black/25 to-black/55" />
 
       <div className="relative z-10 mx-auto grid min-h-screen max-w-[1400px] items-start gap-10 px-4 pb-16 pt-[calc(9rem+env(safe-area-inset-top,0px))] md:grid-cols-[minmax(0,1fr)_minmax(380px,520px)] md:items-center md:gap-10 md:pb-20 md:pt-32 lg:grid-cols-[minmax(0,1fr)_minmax(420px,560px)] lg:gap-14">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65 }}
-          className="max-w-2xl"
-        >
+        <div className="max-w-2xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/15 px-4 py-2 text-sm font-semibold text-amber-100 shadow-[0_0_28px_-8px_rgba(251,191,36,0.5)] backdrop-blur-sm">
             <Sparkles className="h-4 w-4 shrink-0 text-amber-300" aria-hidden />
             {copy.badge}
@@ -79,16 +73,11 @@ export function HeroLead() {
               </li>
             ))}
           </ul>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.12 }}
-          className="w-full"
-        >
+        <div className="w-full">
           <HeroLeadForm />
-        </motion.div>
+        </div>
       </div>
     </section>
   )

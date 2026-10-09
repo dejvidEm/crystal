@@ -23,12 +23,7 @@ export function HeroClassic() {
       <VideoBackground />
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 pb-44 text-center md:pb-0">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-6"
-        >
+        <div className="mb-6">
           <div className="hidden flex-col items-center gap-3 md:mb-6 md:flex">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -54,14 +49,9 @@ export function HeroClassic() {
             </span>
           </h1>
           <p className="mx-auto max-w-2xl text-lg text-zinc-300 sm:text-xl">{t.hero.subtitle}</p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="flex flex-col items-center gap-4 md:gap-6"
-        >
+        <div className="flex flex-col items-center gap-4 md:gap-6">
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
             <div className="flex items-center justify-center gap-3 sm:contents">
               <a href={bookioUrl(language)}>
@@ -87,7 +77,7 @@ export function HeroClassic() {
             </Link>
           </div>
           <HeroAvailabilityBadge />
-        </motion.div>
+        </div>
       </div>
       <HeroStats />
       <div className="absolute bottom-8 left-0 right-0 z-10 flex justify-center">

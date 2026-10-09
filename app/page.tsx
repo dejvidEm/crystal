@@ -1,11 +1,13 @@
-"use client"
-
+import dynamic from "next/dynamic"
 import { Navbar } from "@/components/navbar"
-import { HomeBelowFold } from "@/components/home-below-fold"
 import { HeroClassic } from "@/components/hero-classic"
 import { HeroLead } from "@/components/hero-lead"
 import { ServiceStructuredData } from "@/components/structured-data"
 import { HOME_HERO_VARIANT } from "@/lib/site-config"
+
+const HomeBelowFold = dynamic(() =>
+  import("@/components/home-below-fold").then((mod) => mod.HomeBelowFold),
+)
 
 export default function Home() {
   const serviceAreas = [

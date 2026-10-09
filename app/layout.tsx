@@ -3,12 +3,9 @@ import "./globals.css"
 import { Inter } from "next/font/google"
 import type { Metadata } from "next"
 import { cookies } from "next/headers"
+import { DeferredSiteChrome } from "@/components/deferred-site-chrome"
 import { LanguageProvider } from "@/lib/i18n/language-context"
 import { parseLanguage } from "@/lib/i18n/language-cookie"
-import { LanguageTransition } from "@/components/language-transition"
-import { CookieConsent } from "@/components/cookie-consent"
-import { WhatsAppFloatingButton } from "@/components/whatsapp-floating-button"
-import { FirstVisitPromoModal } from "@/components/first-visit-promo-modal"
 import { SiteGraphJsonLd } from "@/components/seo/site-graph-json-ld"
 import { LocalBusinessStructuredData } from "@/components/structured-data"
 import { metaDescription } from "@/lib/seo-meta"
@@ -17,7 +14,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { GoogleAds } from "@/components/analytics/google-ads"
 
 const inter = Inter({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin-ext"],
   display: "swap",
   preload: true,
   adjustFontFallback: true,
@@ -123,11 +120,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <SiteGraphJsonLd />
         <LocalBusinessStructuredData />
         <LanguageProvider initialLanguage={initialLanguage}>
-          <LanguageTransition />
           {children}
-          <WhatsAppFloatingButton />
-          <FirstVisitPromoModal />
-          <CookieConsent />
+          <DeferredSiteChrome />
         </LanguageProvider>
         <Analytics />
         <GoogleAds />

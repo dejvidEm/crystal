@@ -30,7 +30,7 @@ export function FirstVisitPromoModal() {
     if (hideOnPage) return
     try {
       if (localStorage.getItem(STORAGE_KEY)) return
-      const timer = window.setTimeout(() => setOpen(true), 600)
+      const timer = window.setTimeout(() => setOpen(true), 4000)
       return () => window.clearTimeout(timer)
     } catch (error) {
       console.error("Error reading welcome promo state:", error)

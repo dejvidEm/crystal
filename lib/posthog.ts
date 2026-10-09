@@ -55,11 +55,11 @@ export function initPostHog() {
 
   const requestIdle = window.requestIdleCallback
   if (typeof requestIdle === "function") {
-    requestIdle(run, { timeout: 4000 })
+    requestIdle(run, { timeout: 8000 })
     return
   }
 
-  window.setTimeout(run, 2000)
+  window.setTimeout(run, 4000)
 }
 
 export function syncSessionRecording(pathname?: string | null) {
