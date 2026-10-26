@@ -8,12 +8,17 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { toContentLocale } from "@/lib/i18n/locale"
+import { useIsHomeUpholstery } from "@/components/site-vertical-context"
+import { getHomeUpholsteryCopy, HOME_UPHOLSTERY_SOURCE } from "@/lib/home-upholstery-copy"
 import { createConversionTransactionId, trackGoogleAdsPurchaseConversion } from "@/lib/google-ads"
 
 type Status = "idle" | "submitting" | "success" | "error"
 
 export function ContactForm() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const isHome = useIsHomeUpholstery()
+  const homeCopy = getHomeUpholsteryCopy(toContentLocale(language))
   const [name, setName] = useState("")
   const [company, setCompany] = useState("")
   const [email, setEmail] = useState("")
@@ -32,7 +37,14 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, company, email, phone, message }),
+        body: JSON.stringify({
+          name,
+          company,
+          email,
+          phone,
+          message,
+          source: isHome ? HOME_UPHOLSTERY_SOURCE : undefined,
+        }),
       })
       const json = (await res.json().catch(() => ({}))) as {
         ok?: boolean
@@ -74,12 +86,19 @@ export function ContactForm() {
 
   return (
     <div className="glass-card h-full rounded-md p-8 shadow-2xl sm:p-10">
+      {isHome ? (
+        <span className="mb-3 inline-flex rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-black">
+          {homeCopy.pageBadge}
+        </span>
+      ) : null}
       <h3 className="mb-2 text-2xl font-bold text-gradient sm:text-3xl">
-        {t.contactForm?.title || "Napíšte nám"}
+        {isHome ? homeCopy.contactTitle : t.contactForm?.title || "Napíšte nám"}
       </h3>
       <p className="mb-6 text-sm text-zinc-400">
-        {t.contactForm?.subtitle ||
-          "Máte otázku alebo špecifickú požiadavku? Pošlite správu a my sa vám ozveme."}
+        {isHome
+          ? homeCopy.contactSubtitle
+          : t.contactForm?.subtitle ||
+            "Máte otázku alebo špecifickú požiadavku? Pošlite správu a my sa vám ozveme."}
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -177,7 +196,9 @@ export function ContactForm() {
               onChange={(e) => setMessage(e.target.value)}
               disabled={status === "submitting"}
               placeholder={
-                t.contactForm?.messagePlaceholder ||
+                isHome
+                  ? homeCopy.contactPlaceholder
+                  : t.contactForm?.messagePlaceholder ||
                 "Stručne nám napíšte, čo potrebujete..."
               }
               className="pl-9"

@@ -36,11 +36,13 @@ export function Navbar() {
         slug,
         href: `/${slug}`,
         label: getServicePageCopy(slug, lang)?.h1 ?? slug,
+        isNew: slug === "tepovanie-domacnosti",
       })),
       {
         slug: "pre-firmy",
         href: "/pre-firmy",
         label: t.nav.forBusiness,
+        isNew: false,
       },
     ],
     [lang, t.nav.forBusiness],
@@ -150,7 +152,7 @@ export function Navbar() {
         </Link>
 
         <div
-          className={`absolute left-1/2 top-full z-50 w-[14rem] -translate-x-1/2 pt-2 transition-opacity duration-200 ${
+          className={`absolute left-1/2 top-full z-50 w-[19rem] -translate-x-1/2 pt-2 transition-opacity duration-200 ${
             showServicesDropdown
               ? "pointer-events-auto opacity-100"
               : "pointer-events-none opacity-0"
@@ -164,11 +166,16 @@ export function Navbar() {
                 href={link.href}
                 role="menuitem"
                 onClick={handleLinkClick}
-                className={`block px-4 py-2.5 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary focus:outline-none ${
+                className={`flex items-center justify-between gap-2 px-4 py-2.5 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary focus:outline-none ${
                   pathname === link.href ? "text-primary" : ""
                 }`}
               >
-                {link.label}
+                <span>{link.label}</span>
+                {link.isNew ? (
+                  <span className="shrink-0 rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black">
+                    {t.nav.newBadge}
+                  </span>
+                ) : null}
               </Link>
             ))}
           </div>
@@ -215,7 +222,7 @@ export function Navbar() {
                 <Link
                   key={link.slug}
                   href={link.href}
-                  className={`text-base uppercase tracking-widest transition-colors ${
+                  className={`inline-flex items-center gap-2 text-base uppercase tracking-widest transition-colors ${
                     pathname === link.href
                       ? "text-primary"
                       : "text-zinc-400 hover:text-primary"
@@ -223,6 +230,11 @@ export function Navbar() {
                   onClick={handleLinkClick}
                 >
                   {link.label}
+                  {link.isNew ? (
+                    <span className="rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black">
+                      {t.nav.newBadge}
+                    </span>
+                  ) : null}
                 </Link>
               ))}
             </motion.div>

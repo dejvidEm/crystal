@@ -24,13 +24,20 @@ import { BlogHomeSection } from "@/components/blog/blog-home-section"
 import { ContactForm } from "@/components/contact-form"
 import { bookioUrl, SOCIAL_LINKS } from "@/lib/site-config"
 import { ReviewsSection } from "@/components/reviews/reviews-section"
+import { useIsHomeUpholstery } from "@/components/site-vertical-context"
+import { HomeUpholsteryAddons, HomeUpholsteryPackages } from "@/components/home-upholstery-packages"
+import { VerticalSectionBadge } from "@/components/vertical-section-badge"
+import { getHomeUpholsteryCopy } from "@/lib/home-upholstery-copy"
 
 export function HomeBelowFold() {
   const { language, t } = useLanguage()
+  const isHome = useIsHomeUpholstery()
+  const homeCopy = getHomeUpholsteryCopy(toContentLocale(language))
   const pkgs = getPackages(toContentLocale(language))
+  const quoteHref = isHome ? "#hero" : bookioUrl(language)
 
   const scrollToBooking = () => {
-    document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })
+    document.getElementById(isHome ? "hero" : "booking")?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
@@ -57,8 +64,9 @@ export function HomeBelowFold() {
             transition={{ duration: 0.55 }}
             className="mb-10 text-center md:mb-14"
           >
+            <VerticalSectionBadge />
             <h2 className="text-balance text-3xl font-bold tracking-tight text-gradient sm:text-4xl md:text-5xl">
-              {t.handoverShowcase.title}
+              {isHome ? homeCopy.handoverTitle : t.handoverShowcase.title}
             </h2>
             <div className="mx-auto mt-5 h-1 w-24 bg-primary" />
           </motion.div>
@@ -82,8 +90,8 @@ export function HomeBelowFold() {
 
           <div className="mt-8 flex justify-center">
             <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-              <Link href={bookioUrl(language)}>
-                {t.handoverShowcase.sameResultCta}
+              <Link href={quoteHref}>
+                {isHome ? homeCopy.handoverCta : t.handoverShowcase.sameResultCta}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -113,8 +121,9 @@ export function HomeBelowFold() {
             transition={{ duration: 0.55 }}
             className="mb-12 text-center"
           >
+            <VerticalSectionBadge />
             <h2 className="text-balance text-4xl font-bold tracking-tight text-gradient md:text-5xl">
-              {t.handoverShowcase.title}
+              {isHome ? homeCopy.handoverTitle : t.handoverShowcase.title}
             </h2>
             <div className="mx-auto mt-5 h-1 w-24 bg-primary" />
           </motion.div>
@@ -158,8 +167,8 @@ export function HomeBelowFold() {
 
           <div className="mt-10 flex justify-center">
             <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-              <Link href={bookioUrl(language)}>
-                {t.handoverShowcase.sameResultCta}
+              <Link href={quoteHref}>
+                {isHome ? homeCopy.handoverCta : t.handoverShowcase.sameResultCta}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -174,29 +183,38 @@ export function HomeBelowFold() {
         <div className="container relative z-10 mx-auto px-4">
           <LazyLoadSection>
             <div className="mb-16 text-center">
-              <PackagesAvailabilityBadge />
-              <h2 className="mb-4 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">{t.services.title}</h2>
+              {isHome ? null : <PackagesAvailabilityBadge />}
+              <VerticalSectionBadge />
+              <h2 className="mb-4 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">
+                {isHome ? homeCopy.servicesTitle : t.services.title}
+              </h2>
               <div className="mx-auto h-1 w-24 bg-primary" />
-              <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.services.subtitle}</p>
-              <CarSizeSelector />
+              <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
+                {isHome ? homeCopy.servicesSubtitle : t.services.subtitle}
+              </p>
+              {isHome ? null : <CarSizeSelector />}
             </div>
           </LazyLoadSection>
 
-          <div className="grid gap-4 overflow-visible pt-3 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-            <LazyLoadSection delay={0.1} className="h-full">
-              <PricingPackageCard packageKey="refresh" packageData={pkgs.refresh} />
-            </LazyLoadSection>
-            <LazyLoadSection delay={0.2} className="h-full">
-              <PricingPackageCard packageKey="essential" packageData={pkgs.essential} />
-            </LazyLoadSection>
-            <LazyLoadSection delay={0.3} className="h-full">
-              <PricingPackageCard packageKey="exterior" packageData={pkgs.exterior} />
-            </LazyLoadSection>
-            <LazyLoadSection delay={0.4} className="h-full">
-              <PricingPackageCard packageKey="premium" packageData={pkgs.premium} />
-            </LazyLoadSection>
-          </div>
-          <PackagesTravelNote />
+          {isHome ? (
+            <HomeUpholsteryPackages />
+          ) : (
+            <div className="grid gap-4 overflow-visible pt-3 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+              <LazyLoadSection delay={0.1} className="h-full">
+                <PricingPackageCard packageKey="refresh" packageData={pkgs.refresh} />
+              </LazyLoadSection>
+              <LazyLoadSection delay={0.2} className="h-full">
+                <PricingPackageCard packageKey="essential" packageData={pkgs.essential} />
+              </LazyLoadSection>
+              <LazyLoadSection delay={0.3} className="h-full">
+                <PricingPackageCard packageKey="exterior" packageData={pkgs.exterior} />
+              </LazyLoadSection>
+              <LazyLoadSection delay={0.4} className="h-full">
+                <PricingPackageCard packageKey="premium" packageData={pkgs.premium} />
+              </LazyLoadSection>
+            </div>
+          )}
+          {isHome ? null : <PackagesTravelNote />}
         </div>
       </section>
 
@@ -204,16 +222,21 @@ export function HomeBelowFold() {
         <div className="container mx-auto px-4">
           <LazyLoadSection>
             <div className="mb-16 text-center">
+              <VerticalSectionBadge />
               <h2 className="mb-4 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">
-                {t.additionalServices.title}
+                {isHome ? homeCopy.additionalTitle : t.additionalServices.title}
               </h2>
               <div className="mx-auto h-1 w-24 bg-primary" />
-              <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.additionalServices.subtitle}</p>
+              <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
+                {isHome ? homeCopy.additionalSubtitle : t.additionalServices.subtitle}
+              </p>
             </div>
           </LazyLoadSection>
           <LazyLoadSection delay={0.2}>
-            <AdditionalServicesTable />
-            <p className="mt-6 text-center text-sm text-zinc-400">{t.additionalServices.note}</p>
+            {isHome ? <HomeUpholsteryAddons /> : <AdditionalServicesTable />}
+            <p className="mt-6 text-center text-sm text-zinc-400">
+              {isHome ? homeCopy.additionalNote : t.additionalServices.note}
+            </p>
           </LazyLoadSection>
         </div>
       </section>
@@ -223,12 +246,15 @@ export function HomeBelowFold() {
         <div className="container relative z-10 mx-auto px-4">
           <LazyLoadSection>
             <div className="mb-8 text-center md:mb-16">
+              <VerticalSectionBadge />
               <h2 className="mb-4 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">
-                {t.mediaBento?.title || "Výsledky v detailoch"}
+                {isHome ? homeCopy.mediaTitle : t.mediaBento?.title || "Výsledky v detailoch"}
               </h2>
               <div className="mx-auto h-1 w-24 bg-primary" />
               <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
-                {t.mediaBento?.subtitle || "Viac z našej práce si môžete pozrieť na našom Instagrame."}
+                {isHome
+                  ? homeCopy.mediaSubtitle
+                  : t.mediaBento?.subtitle || "Viac z našej práce si môžete pozrieť na našom Instagrame."}
               </p>
               <div className="mt-8 flex justify-center">
                 <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer">
@@ -250,11 +276,14 @@ export function HomeBelowFold() {
         <div className="container mx-auto px-4">
           <LazyLoadSection>
             <div className="mb-16 text-center">
+              <VerticalSectionBadge />
               <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
-                {t.howItWorks.title}
+                {isHome ? homeCopy.howItWorksTitle : t.howItWorks.title}
               </h2>
               <div className="mx-auto h-1 w-24 bg-primary" />
-              <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.howItWorks.subtitle}</p>
+              <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
+                {isHome ? homeCopy.howItWorksSubtitle : t.howItWorks.subtitle}
+              </p>
             </div>
           </LazyLoadSection>
 
@@ -272,8 +301,12 @@ export function HomeBelowFold() {
                   <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Clock className="h-10 w-10" aria-hidden="true" />
                   </div>
-                  <h3 className="mb-3 text-xl font-bold">{t.howItWorks.step1Title}</h3>
-                  <p className="text-zinc-400">{t.howItWorks.step1Description}</p>
+                  <h3 className="mb-3 text-xl font-bold">
+                    {isHome ? homeCopy.step1Title : t.howItWorks.step1Title}
+                  </h3>
+                  <p className="text-zinc-400">
+                    {isHome ? homeCopy.step1Description : t.howItWorks.step1Description}
+                  </p>
                 </div>
               </div>
             </LazyLoadSection>
@@ -287,8 +320,12 @@ export function HomeBelowFold() {
                   <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <MapPin className="h-10 w-10" aria-hidden="true" />
                   </div>
-                  <h3 className="mb-3 text-xl font-bold">{t.howItWorks.step2Title}</h3>
-                  <p className="text-zinc-400">{t.howItWorks.step2Description}</p>
+                  <h3 className="mb-3 text-xl font-bold">
+                    {isHome ? homeCopy.step2Title : t.howItWorks.step2Title}
+                  </h3>
+                  <p className="text-zinc-400">
+                    {isHome ? homeCopy.step2Description : t.howItWorks.step2Description}
+                  </p>
                 </div>
               </div>
             </LazyLoadSection>
@@ -302,8 +339,12 @@ export function HomeBelowFold() {
                   <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Truck className="h-10 w-10" aria-hidden="true" />
                   </div>
-                  <h3 className="mb-3 text-xl font-bold">{t.howItWorks.step3Title}</h3>
-                  <p className="text-zinc-400">{t.howItWorks.step3Description}</p>
+                  <h3 className="mb-3 text-xl font-bold">
+                    {isHome ? homeCopy.step3Title : t.howItWorks.step3Title}
+                  </h3>
+                  <p className="text-zinc-400">
+                    {isHome ? homeCopy.step3Description : t.howItWorks.step3Description}
+                  </p>
                 </div>
               </div>
             </LazyLoadSection>
@@ -316,7 +357,7 @@ export function HomeBelowFold() {
                 className="bg-primary text-primary-foreground hover:bg-primary/90"
                 onClick={scrollToBooking}
               >
-                {t.howItWorks.bookAppointment} <ArrowRight className="ml-2 h-4 w-4" />
+                {isHome ? homeCopy.bookCta : t.howItWorks.bookAppointment} <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </LazyLoadSection>
@@ -332,12 +373,15 @@ export function HomeBelowFold() {
         <div className="container relative z-10 mx-auto px-4">
           <LazyLoadSection>
             <div className="mb-16 text-center">
+              <VerticalSectionBadge />
               <h2 className="mb-4 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">
-                {t.faq?.title || "Často kladené otázky"}
+                {isHome ? homeCopy.faqTitle : t.faq?.title || "Často kladené otázky"}
               </h2>
               <div className="mx-auto h-1 w-24 bg-primary" />
               <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
-                {t.faq?.subtitle || "Všetko dôležité o našom mobilnom detailingu na jednom mieste"}
+                {isHome
+                  ? homeCopy.faqSubtitle
+                  : t.faq?.subtitle || "Všetko dôležité o našom mobilnom detailingu na jednom mieste"}
               </p>
             </div>
           </LazyLoadSection>
@@ -348,7 +392,7 @@ export function HomeBelowFold() {
               defaultValue="faq-item-0"
               className="mx-auto flex w-full max-w-4xl flex-col gap-3"
             >
-              {(t.faq?.items || []).map((item: { question: string; answer: string }, index: number) => (
+              {(isHome ? homeCopy.faqItems : t.faq?.items || []).map((item: { question: string; answer: string }, index: number) => (
                 <AccordionItem
                   key={index}
                   value={`faq-item-${index}`}
@@ -372,11 +416,16 @@ export function HomeBelowFold() {
           <LazyLoadSection>
             <div className="mx-auto grid max-w-6xl items-stretch gap-8 lg:grid-cols-2">
               <div className="glass-card flex flex-col justify-center rounded-md p-8 text-center shadow-2xl sm:p-12">
-                <h2 className="mb-6 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">{t.booking.title}</h2>
-                <p className="mb-8 text-zinc-400">{t.booking.description}</p>
-                <a href={bookioUrl(language)} className="inline-flex justify-center">
+                <VerticalSectionBadge />
+                <h2 className="mb-6 text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">
+                  {isHome ? homeCopy.bookingTitle : t.booking.title}
+                </h2>
+                <p className="mb-8 text-zinc-400">
+                  {isHome ? homeCopy.bookingDescription : t.booking.description}
+                </p>
+                <a href={quoteHref} className="inline-flex justify-center">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                    {t.booking.bookAppointment} <ArrowRight className="ml-2 h-4 w-4" />
+                    {isHome ? homeCopy.bookCta : t.booking.bookAppointment} <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </a>
               </div>
@@ -387,7 +436,7 @@ export function HomeBelowFold() {
       </section>
 
       <Footer />
-      <FloatingCalcButton />
+      {isHome ? null : <FloatingCalcButton />}
     </>
   )
 }

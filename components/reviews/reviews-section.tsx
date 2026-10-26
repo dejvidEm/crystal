@@ -7,10 +7,16 @@ import { LazyLoadSection } from "@/components/lazy-section"
 import { ReviewMarquee } from "@/components/review-marquee"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { toContentLocale } from "@/lib/i18n/locale"
+import { VerticalSectionBadge } from "@/components/vertical-section-badge"
+import { useIsHomeUpholstery } from "@/components/site-vertical-context"
+import { getHomeUpholsteryCopy } from "@/lib/home-upholstery-copy"
 import { GOOGLE_REVIEWS_URL } from "@/lib/site-config"
 
 export function ReviewsSection() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const isHome = useIsHomeUpholstery()
+  const homeCopy = getHomeUpholsteryCopy(toContentLocale(language))
 
   return (
     <section id="reviews" className="relative py-24">
@@ -18,8 +24,9 @@ export function ReviewsSection() {
       <div className="container relative z-10 mx-auto px-4">
         <LazyLoadSection>
           <div className="mb-12 text-center md:mb-16">
+            <VerticalSectionBadge />
             <h2 className="mx-auto mb-4 max-w-4xl text-balance text-3xl font-bold text-gradient sm:text-4xl md:text-5xl">
-              {t.reviews.title}
+              {isHome ? homeCopy.reviewsTitle : t.reviews.title}
             </h2>
             <div className="mx-auto mb-6 h-1 w-24 bg-primary" />
 
@@ -40,7 +47,9 @@ export function ReviewsSection() {
               </div>
             </div>
 
-            <p className="mx-auto mt-6 max-w-2xl text-zinc-400">{t.reviews.subtitle}</p>
+            <p className="mx-auto mt-6 max-w-2xl text-zinc-400">
+              {isHome ? homeCopy.reviewsSubtitle : t.reviews.subtitle}
+            </p>
           </div>
         </LazyLoadSection>
 

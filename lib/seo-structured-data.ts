@@ -146,7 +146,7 @@ export function buildServiceJsonLd(slug: ServicePageSlug) {
     areaServed: AREA_SERVED_CITIES.map((name) => ({ "@type": "City", name })),
     offers: {
       "@type": "Offer",
-      url: absoluteUrl("/cennik"),
+      url: slug === "tepovanie-domacnosti" ? url : absoluteUrl("/cennik"),
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
     },

@@ -3,17 +3,25 @@
 import { LazyLoadSection } from "@/components/lazy-section"
 import { OptimizedImage } from "@/components/optimized-image"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { toContentLocale } from "@/lib/i18n/locale"
+import { VerticalSectionBadge } from "@/components/vertical-section-badge"
+import { useIsHomeUpholstery } from "@/components/site-vertical-context"
+import { getHomeUpholsteryCopy } from "@/lib/home-upholstery-copy"
 
 export function WhyChooseUsSection() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const isHome = useIsHomeUpholstery()
+  const homeCopy = getHomeUpholsteryCopy(toContentLocale(language))
+  const items = isHome ? homeCopy.whyItems : t.whyChooseUs.items
 
   return (
     <section id="why-choose-us" className="relative overflow-hidden py-24">
       <div className="container relative z-10 mx-auto px-4">
         <LazyLoadSection>
           <div className="mb-16 text-center md:mb-20">
+            <VerticalSectionBadge />
             <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gradient">
-              {t.whyChooseUs.title}
+              {isHome ? homeCopy.whyTitle : t.whyChooseUs.title}
             </h2>
             <div className="mx-auto h-1 w-24 bg-primary"></div>
           </div>
@@ -41,7 +49,7 @@ export function WhyChooseUsSection() {
           </LazyLoadSection>
 
           <div className="min-w-0 flex-1 space-y-12 md:pl-4 lg:pl-6">
-            {t.whyChooseUs.items.map((item, index) => (
+            {items.map((item, index) => (
               <LazyLoadSection key={item.title} delay={0.15 + index * 0.08}>
                 <div className="relative">
                   <span

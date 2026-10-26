@@ -90,6 +90,9 @@ export function Footer() {
                   <Link href="/tepovanie" className="text-zinc-400 hover:text-primary transition-colors">
                     {t.footer.serviceTepovanie}
                   </Link>
+                  <Link href="/tepovanie-domacnosti" className="text-zinc-400 hover:text-primary transition-colors">
+                    {t.footer.serviceHomeUpholstery}
+                  </Link>
                   <Link href="/renovacia-svetlometov" className="text-zinc-400 hover:text-primary transition-colors">
                     {t.footer.serviceRenovaciaSvetlometov}
                   </Link>

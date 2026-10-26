@@ -19,6 +19,12 @@ export const SITELINK_PAGES = [
   },
   { pathname: "/tepovanie", name: "Tepovanie auta", priority: 0.9, changeFrequency: "monthly" as const },
   {
+    pathname: "/tepovanie-domacnosti",
+    name: "Tepovanie domácností",
+    priority: 0.9,
+    changeFrequency: "monthly" as const,
+  },
+  {
     pathname: "/renovacia-svetlometov",
     name: "Renovácia svetlometov",
     priority: 0.9,

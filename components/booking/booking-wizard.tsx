@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { Check } from "lucide-react"
 import { BookingMonthCalendar } from "@/components/booking/month-calendar"
@@ -35,6 +36,15 @@ import { toContentLocale } from "@/lib/i18n/locale"
 import { cn } from "@/lib/utils"
 
 const TOTAL_STEPS = 5
+
+const VEHICLE_IMAGES: Record<
+  VehicleSize,
+  { src: string; scale: string }
+> = {
+  small: { src: "/images/booking/vehicle-small.webp", scale: "max-sm:scale-[0.86] sm:scale-[0.76]" },
+  medium: { src: "/images/booking/vehicle-medium.webp", scale: "max-sm:scale-[0.94] sm:scale-[0.88]" },
+  large: { src: "/images/booking/vehicle-large.webp", scale: "scale-100" },
+}
 
 const EXTRA_OPTIONS: BookingExtra[] = [
   "tepovanie",
@@ -299,18 +309,24 @@ export function BookingWizard({
                     selected={form.vehicleSize === "small"}
                     title={copy.vehicleSmall}
                     description={copy.vehicleSmallDesc}
+                    imageSrc={VEHICLE_IMAGES.small.src}
+                    imageScale={VEHICLE_IMAGES.small.scale}
                     onClick={() => selectVehicle("small")}
                   />
                   <ChoiceCard
                     selected={form.vehicleSize === "medium"}
                     title={copy.vehicleMedium}
                     description={copy.vehicleMediumDesc}
+                    imageSrc={VEHICLE_IMAGES.medium.src}
+                    imageScale={VEHICLE_IMAGES.medium.scale}
                     onClick={() => selectVehicle("medium")}
                   />
                   <ChoiceCard
                     selected={form.vehicleSize === "large"}
                     title={copy.vehicleLarge}
                     description={copy.vehicleLargeDesc}
+                    imageSrc={VEHICLE_IMAGES.large.src}
+                    imageScale={VEHICLE_IMAGES.large.scale}
                     onClick={() => selectVehicle("large")}
                   />
                 </div>
@@ -606,12 +622,16 @@ function ChoiceCard({
   description,
   selected,
   popular,
+  imageSrc,
+  imageScale,
   onClick,
 }: {
   title: string
   description: string
   selected: boolean
   popular?: boolean
+  imageSrc?: string
+  imageScale?: string
   onClick: () => void
 }) {
   return (
@@ -619,7 +639,7 @@ function ChoiceCard({
       type="button"
       onClick={onClick}
       className={cn(
-        "relative w-full min-h-[4.5rem] touch-manipulation rounded-lg border p-4 text-left transition-colors",
+        "relative flex w-full min-h-[4.5rem] touch-manipulation items-center gap-3 rounded-lg border p-3 text-left transition-colors sm:flex-col sm:items-stretch sm:gap-2 sm:p-4",
         selected ? "border-primary bg-primary/10" : "border-white/10 hover:border-white/25",
       )}
     >
@@ -628,8 +648,29 @@ function ChoiceCard({
           ★
         </span>
       )}
-      <p className="font-semibold">{title}</p>
-      <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+      {imageSrc && (
+        <div
+          className="flex h-[4.75rem] w-[7.25rem] shrink-0 items-end justify-center overflow-hidden sm:h-[7.75rem] sm:w-full"
+          aria-hidden
+        >
+          <Image
+            src={imageSrc}
+            alt=""
+            width={800}
+            height={533}
+            unoptimized
+            decoding="async"
+            className={cn(
+              "pointer-events-none h-full w-auto origin-bottom select-none object-contain object-bottom",
+              imageScale,
+            )}
+          />
+        </div>
+      )}
+      <div className="min-w-0 flex-1 sm:text-center">
+        <p className="font-semibold leading-snug">{title}</p>
+        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+      </div>
     </button>
   )
 }

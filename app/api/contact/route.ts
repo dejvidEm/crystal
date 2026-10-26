@@ -19,6 +19,7 @@ type ContactPayload = {
   source?: unknown
   city?: unknown
   discountCode?: unknown
+  itemType?: unknown
 }
 
 function isString(value: unknown): value is string {
@@ -42,6 +43,10 @@ const DISCOUNT_MAX = 40
 
 function isHeroPayload(body: ContactPayload): boolean {
   return body.source === "hero"
+}
+
+function isHomeUpholsteryPayload(body: ContactPayload): boolean {
+  return body.source === "home-upholstery"
 }
 
 function parseFleetSize(value: unknown): number | null {
@@ -137,7 +142,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true })
   }
 
-  if (isHeroPayload(body)) {
+  if (isHomeUpholsteryPayload(body) || isHeroPayload(body)) {
     if (isString(body.message) && body.message.length > MESSAGE_MAX) {
       return NextResponse.json({ ok: false, error: "Poznámka je príliš dlhá." }, { status: 422 })
     }
@@ -148,23 +153,32 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "Zľavový kód je príliš dlhý." }, { status: 422 })
     }
 
+    const isHomeUpholstery = isHomeUpholsteryPayload(body)
     const lead = {
       name: body.name.trim(),
       email: body.email.trim(),
       phone: body.phone.trim(),
       city: isString(body.city) ? body.city.trim() : "",
       message: isString(body.message) ? body.message.trim() : "",
+      itemType: isString(body.itemType) ? body.itemType.trim() : "",
       discountCode: isString(body.discountCode) ? body.discountCode.trim() : "",
       receivedAt: new Date().toISOString(),
     }
 
-    console.info("[contact/hero]", lead)
+    console.info(isHomeUpholstery ? "[contact/home-upholstery]" : "[contact/hero]", lead)
 
     after(async () => {
       try {
-        await sendHeroLeadNotification(lead)
+        if (isHomeUpholstery) {
+          await sendHomeUpholsteryNotification(lead)
+        } else {
+          await sendHeroLeadNotification(lead)
+        }
       } catch (err) {
-        console.error("[contact/hero] notification failed:", err)
+        console.error(
+          isHomeUpholstery ? "[contact/home-upholstery] notification failed:" : "[contact/hero] notification failed:",
+          err,
+        )
       }
     })
 
@@ -230,6 +244,10 @@ type HeroLeadMessage = {
   receivedAt: string
 }
 
+type HomeUpholsteryMessage = HeroLeadMessage & {
+  itemType: string
+}
+
 async function sendContactNotification(msg: ContactMessage): Promise<void> {
   const { html, text } = renderKeyValueEmail({
     heading: "Nová správa z kontaktného formulára",
@@ -270,6 +288,32 @@ async function sendBusinessNotification(msg: BusinessMessage): Promise<void> {
 
   await sendEmail({
     subject: `Firemný dopyt – ${msg.company}`,
+    html,
+    text,
+    replyTo: msg.email,
+  })
+}
+
+async function sendHomeUpholsteryNotification(msg: HomeUpholsteryMessage): Promise<void> {
+  const { html, text } = renderKeyValueEmail({
+    heading: "Nový dopyt – tepovanie domácností",
+    intro:
+      "Tento dopyt je označený ako TEPOVANIE DOMÁCNOSTÍ (nie mobilný detailing). Odoslané z /tepovanie-domacnosti.",
+    rows: [
+      { label: "Služba", value: "★ TEPOVANIE DOMÁCNOSTÍ (nie auto)" },
+      { label: "Čo tepovať", value: msg.itemType || null },
+      { label: "Meno", value: msg.name },
+      { label: "E-mail", value: msg.email },
+      { label: "Mobil", value: msg.phone },
+      { label: "Lokalita", value: msg.city || null },
+      { label: "Požiadavka", value: msg.message || null },
+      { label: "Zľavový kód", value: msg.discountCode || null },
+    ],
+    footnote: `Prijaté: ${msg.receivedAt}`,
+  })
+
+  await sendEmail({
+    subject: `[Tepovanie domácností] Dopyt – ${msg.name}`,
     html,
     text,
     replyTo: msg.email,

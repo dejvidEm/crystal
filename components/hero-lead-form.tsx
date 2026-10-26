@@ -9,6 +9,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { toContentLocale } from "@/lib/i18n/locale"
+import { useIsHomeUpholstery } from "@/components/site-vertical-context"
+import { getHomeUpholsteryCopy, HOME_UPHOLSTERY_SOURCE } from "@/lib/home-upholstery-copy"
 import { createConversionTransactionId, trackGoogleAdsPurchaseConversion } from "@/lib/google-ads"
 
 const HERO_CITIES = [
@@ -35,12 +38,15 @@ const fieldClass =
   "h-11 border-white/15 bg-zinc-950/60 text-white placeholder:text-zinc-500 focus-visible:ring-primary"
 
 export function HeroLeadForm() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const isHome = useIsHomeUpholstery()
+  const homeCopy = getHomeUpholsteryCopy(toContentLocale(language))
   const copy = t.heroLead
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
+  const [itemType, setItemType] = useState(homeCopy.hero.items[0])
   const [city, setCity] = useState<string>(HERO_CITIES[0])
   const [hasDiscount, setHasDiscount] = useState(false)
   const [discountCode, setDiscountCode] = useState("")
@@ -64,12 +70,13 @@ export function HeroLeadForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          source: "hero",
+          source: isHome ? HOME_UPHOLSTERY_SOURCE : "hero",
           name,
           email,
           phone,
           message,
           city,
+          itemType: isHome ? itemType : undefined,
           discountCode: hasDiscount ? discountCode : "",
         }),
       })
@@ -102,8 +109,17 @@ export function HeroLeadForm() {
 
   return (
     <div className="rounded-2xl border border-white/10 bg-zinc-950/35 p-5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.55)] backdrop-blur-sm sm:p-7">
-      <h2 className="text-xl font-bold text-white sm:text-2xl">{copy.formTitle}</h2>
-      <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">{copy.formSubtitle}</p>
+      {isHome ? (
+        <span className="mb-3 inline-flex rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-black">
+          {homeCopy.pageBadge}
+        </span>
+      ) : null}
+      <h2 className="text-xl font-bold text-white sm:text-2xl">
+        {isHome ? homeCopy.hero.formTitle : copy.formTitle}
+      </h2>
+      <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">
+        {isHome ? homeCopy.hero.formSubtitle : copy.formSubtitle}
+      </p>
 
       <form onSubmit={handleSubmit} className="mt-5 space-y-3.5">
         <Field id="hero-lead-name" label={copy.nameLabel} required>
@@ -149,6 +165,24 @@ export function HeroLeadForm() {
           />
         </Field>
 
+        {isHome ? (
+          <Field id="hero-lead-item" label={homeCopy.hero.itemLabel} required>
+            <select
+              id="hero-lead-item"
+              value={itemType}
+              onChange={(e) => setItemType(e.target.value)}
+              disabled={status === "submitting"}
+              className="flex h-11 w-full rounded-md border border-white/15 bg-zinc-950/60 px-3 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              {homeCopy.hero.items.map((option) => (
+                <option key={option} value={option} className="bg-zinc-950 text-white">
+                  {option}
+                </option>
+              ))}
+            </select>
+          </Field>
+        ) : null}
+
         <Field id="hero-lead-message" label={copy.messageLabel}>
           <Textarea
             id="hero-lead-message"
@@ -156,7 +190,7 @@ export function HeroLeadForm() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             disabled={status === "submitting"}
-            placeholder={copy.messagePlaceholder}
+            placeholder={isHome ? homeCopy.hero.messagePlaceholder : copy.messagePlaceholder}
             className="min-h-[84px] border-white/15 bg-zinc-950/60 text-white placeholder:text-zinc-500 focus-visible:ring-primary"
           />
         </Field>
@@ -242,7 +276,7 @@ export function HeroLeadForm() {
               {copy.submitting}
             </>
           ) : (
-            copy.submit
+            isHome ? homeCopy.hero.submit : copy.submit
           )}
         </Button>
 

@@ -24,6 +24,7 @@ const SERVICE_SITEMAP_PATHS = [
   "/cennik",
   "/mobilny-detailing",
   "/tepovanie",
+  "/tepovanie-domacnosti",
   "/renovacia-svetlometov",
   "/pre-firmy",
 ] as const

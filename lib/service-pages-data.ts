@@ -4,6 +4,7 @@ import { buildPageMetadata } from "@/lib/seo-metadata"
 export const SERVICE_PAGE_SLUGS = [
   "mobilny-detailing",
   "tepovanie",
+  "tepovanie-domacnosti",
   "renovacia-svetlometov",
 ] as const
 
@@ -126,6 +127,52 @@ export const servicePagesSk: Record<ServicePageSlug, ServicePageCopy> = {
       { href: "/cennik", label: "Cenník – balík TEPOVANIE" },
       { href: "/mobilny-detailing", label: "Mobilný detailing" },
       { href: "/calc", label: "Cenová kalkulačka" },
+    ],
+  },
+  "tepovanie-domacnosti": {
+    metaTitle: "Tepovanie domácností Bratislava – sedačky, koberce, matrace",
+    keywords: [
+      "tepovanie domácností",
+      "tepovanie sedačky",
+      "tepovanie koberca",
+      "tepovanie matraca",
+      "tepovanie nábytku Bratislava",
+      "čistenie sedačky doma",
+      "mobilné tepovanie domácnosti",
+    ],
+    metaDescription:
+      "Tepovanie domácností v Bratislave a okolí. Sedačky, koberce, matrace a kreslá priamo u vás doma. Crystal Detailing – dopyt a termín bez odvozu nábytku.",
+    h1: "Tepovanie domácností",
+    lead: "Hĺbkové tepovanie sedačiek, kobercov, matracov a kresiel priamo u vás. Bez sťahovania nábytku do čistiarne.",
+    highlights: [
+      "Prídeme k vám domov s extrakčným tepovaním",
+      "Sedačky, koberce, matrace a kreslá",
+      "Odstránenie škvŕn, zápachu a alergénov",
+      "Bratislava, Pezinok, Senec a okolie",
+    ],
+    sections: [
+      {
+        title: "Tepovanie domácností namiesto čistiarne",
+        paragraphs: [
+          "Nábytok ostáva u vás. Pracujeme v byte alebo dome s vlastnou technikou a chémiou určenou na textílie.",
+          "Vhodné pri deťoch, zvieratách, po oslavách alebo keď koberec a sedačka potrebujú hĺbkové čistenie, nie len vysatie.",
+        ],
+      },
+      {
+        title: "Ako objednať",
+        paragraphs: [
+          "Pošlite dopyt cez formulár na tejto stránke. V systéme ho evidujeme ako tepovanie domácností, oddelene od mobilného detailingu áut.",
+        ],
+      },
+    ],
+    includesTitle: "Čo tepujeme",
+    includes: ["Sedačky a rohové sedenia", "Kreslá", "Koberce a tapison", "Matrace", "Doplnkové ošetrenie škvŕn"],
+    ctaTitle: "Dopyt na tepovanie domácností",
+    ctaSubtitle: "Napíšte, čo treba vyčistiť. Ozveme sa s cenou a termínom.",
+    relatedLinks: [
+      { href: "/tepovanie", label: "Tepovanie auta" },
+      { href: "/mobilny-detailing", label: "Mobilný detailing" },
+      { href: "/lokality", label: "Oblasti pôsobnosti" },
     ],
   },
   "renovacia-svetlometov": {
@@ -279,6 +326,50 @@ export const servicePagesEn: Record<ServicePageSlug, ServicePageCopy> = {
       { href: "/calc", label: "Price calculator" },
     ],
   },
+  "tepovanie-domacnosti": {
+    metaTitle: "Home upholstery cleaning Bratislava – sofas, carpets, mattresses",
+    keywords: [
+      "home upholstery cleaning",
+      "sofa cleaning Bratislava",
+      "carpet cleaning at home",
+      "mattress cleaning",
+      "mobile sofa shampooing",
+    ],
+    metaDescription:
+      "Home upholstery cleaning in Bratislava. Sofas, carpets, mattresses and armchairs at your place. Crystal Detailing — quote and appointment, no furniture haul-away.",
+    h1: "Home upholstery cleaning",
+    lead: "Deep extraction cleaning of sofas, carpets, mattresses and armchairs in your home. No trip to a dry cleaner.",
+    highlights: [
+      "We come to your home with extraction machines",
+      "Sofas, carpets, mattresses and chairs",
+      "Stain, odour and allergen reduction",
+      "Bratislava, Pezinok, Senec and nearby",
+    ],
+    sections: [
+      {
+        title: "Home cleaning instead of a workshop",
+        paragraphs: [
+          "Furniture stays with you. We work in your flat or house with textile-safe chemistry.",
+          "A good fit with children, pets, after parties, or when a vacuum is no longer enough.",
+        ],
+      },
+      {
+        title: "How to book",
+        paragraphs: [
+          "Send a request on this page. We log it as home upholstery cleaning, separate from mobile car detailing.",
+        ],
+      },
+    ],
+    includesTitle: "What we clean",
+    includes: ["Sofas and corner units", "Armchairs", "Carpets and fitted flooring", "Mattresses", "Stain add-ons"],
+    ctaTitle: "Request home upholstery cleaning",
+    ctaSubtitle: "Tell us what to clean. We reply with a price and a slot.",
+    relatedLinks: [
+      { href: "/tepovanie", label: "Car upholstery cleaning" },
+      { href: "/mobilny-detailing", label: "Mobile detailing" },
+      { href: "/lokality", label: "Service areas" },
+    ],
+  },
   "renovacia-svetlometov": {
     metaTitle: "Mobile headlight restoration Bratislava",
     keywords: [
@@ -426,6 +517,50 @@ export const servicePagesDe: Record<ServicePageSlug, ServicePageCopy> = {
       { href: "/cennik", label: "Preisliste – POLSTERREINIGUNG" },
       { href: "/mobilny-detailing", label: "Mobile Autopflege" },
       { href: "/calc", label: "Preisrechner" },
+    ],
+  },
+  "tepovanie-domacnosti": {
+    metaTitle: "Polsterreinigung Zuhause Bratislava – Sofa, Teppich, Matratze",
+    keywords: [
+      "Polsterreinigung Zuhause",
+      "Sofa reinigen Bratislava",
+      "Teppichreinigung zu Hause",
+      "Matratzenreinigung",
+      "mobile Polsterreinigung",
+    ],
+    metaDescription:
+      "Polsterreinigung Zuhause in Bratislava. Sofas, Teppiche, Matratzen und Sessel bei Ihnen. Crystal Detailing — Anfrage und Termin ohne Möbelabtransport.",
+    h1: "Polsterreinigung Zuhause",
+    lead: "Tiefenreinigung von Sofas, Teppichen, Matratzen und Sesseln bei Ihnen zu Hause. Ohne Fahrt zur Reinigung.",
+    highlights: [
+      "Wir kommen mit Extraktionsgeräten zu Ihnen",
+      "Sofas, Teppiche, Matratzen und Sessel",
+      "Flecken, Gerüche und Allergene reduzieren",
+      "Bratislava, Pezinok, Senec und Umgebung",
+    ],
+    sections: [
+      {
+        title: "Reinigung Zuhause statt Werkstatt",
+        paragraphs: [
+          "Die Möbel bleiben bei Ihnen. Wir arbeiten in Wohnung oder Haus mit textilgeeigneter Chemie.",
+          "Sinnvoll bei Kindern, Tieren, nach Feiern oder wenn Staubsaugen nicht mehr reicht.",
+        ],
+      },
+      {
+        title: "So buchen Sie",
+        paragraphs: [
+          "Senden Sie die Anfrage auf dieser Seite. Im System läuft sie als Polsterreinigung Zuhause, getrennt vom Auto-Detailing.",
+        ],
+      },
+    ],
+    includesTitle: "Was wir reinigen",
+    includes: ["Sofas und Ecklandschaften", "Sessel", "Teppiche und Auslegeware", "Matratzen", "Fleckenbehandlung"],
+    ctaTitle: "Anfrage Polsterreinigung Zuhause",
+    ctaSubtitle: "Schreiben Sie, was gereinigt werden soll. Sie erhalten Preis und Termin.",
+    relatedLinks: [
+      { href: "/tepovanie", label: "Polsterreinigung Auto" },
+      { href: "/mobilny-detailing", label: "Mobile Autopflege" },
+      { href: "/lokality", label: "Einsatzgebiete" },
     ],
   },
   "renovacia-svetlometov": {
