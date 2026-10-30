@@ -36,13 +36,11 @@ export function Navbar() {
         slug,
         href: `/${slug}`,
         label: getServicePageCopy(slug, lang)?.h1 ?? slug,
-        isNew: slug === "tepovanie-domacnosti",
       })),
       {
         slug: "pre-firmy",
         href: "/pre-firmy",
         label: t.nav.forBusiness,
-        isNew: false,
       },
     ],
     [lang, t.nav.forBusiness],
@@ -166,16 +164,11 @@ export function Navbar() {
                 href={link.href}
                 role="menuitem"
                 onClick={handleLinkClick}
-                className={`flex items-center justify-between gap-2 px-4 py-2.5 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary focus:outline-none ${
+                className={`block px-4 py-2.5 text-sm uppercase tracking-widest text-zinc-300 transition-colors hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary focus:outline-none ${
                   pathname === link.href ? "text-primary" : ""
                 }`}
               >
-                <span>{link.label}</span>
-                {link.isNew ? (
-                  <span className="shrink-0 rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black">
-                    {t.nav.newBadge}
-                  </span>
-                ) : null}
+                {link.label}
               </Link>
             ))}
           </div>
@@ -222,7 +215,7 @@ export function Navbar() {
                 <Link
                   key={link.slug}
                   href={link.href}
-                  className={`inline-flex items-center gap-2 text-base uppercase tracking-widest transition-colors ${
+                  className={`text-base uppercase tracking-widest transition-colors ${
                     pathname === link.href
                       ? "text-primary"
                       : "text-zinc-400 hover:text-primary"
@@ -230,11 +223,6 @@ export function Navbar() {
                   onClick={handleLinkClick}
                 >
                   {link.label}
-                  {link.isNew ? (
-                    <span className="rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black">
-                      {t.nav.newBadge}
-                    </span>
-                  ) : null}
                 </Link>
               ))}
             </motion.div>
@@ -307,8 +295,14 @@ export function Navbar() {
           </div>
 
           {!isCalcPage && (
-            <div className="z-20 flex items-center gap-4 lg:hidden">
+            <div className="z-20 flex items-center gap-2 sm:gap-3 lg:hidden">
               <LanguageSwitcher variant="icon" />
+              <Link
+                href={bookioUrl(language)}
+                className="shrink-0 border border-primary px-3 py-2 text-[11px] uppercase tracking-wider text-primary transition-colors duration-300 hover:bg-primary/10 sm:px-4 sm:py-2.5 sm:text-xs"
+              >
+                {t.common.bookNow}
+              </Link>
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-white focus:outline-none"

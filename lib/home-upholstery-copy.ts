@@ -17,8 +17,6 @@ type HomeAddon = {
 
 export type HomeUpholsteryCopy = {
   pageBadge: string
-  newBadge: string
-  launchChip: string
   priceOnRequest: string
   selectPackage: string
   hero: {
@@ -71,8 +69,6 @@ export type HomeUpholsteryCopy = {
 
 const sk: HomeUpholsteryCopy = {
   pageBadge: "Tepovanie domácností",
-  newBadge: "Novinka",
-  launchChip: "Tepovanie domácností",
   priceOnRequest: "Cena na dopyt",
   selectPackage: "Chcem dopyt",
   hero: {
@@ -205,8 +201,6 @@ const sk: HomeUpholsteryCopy = {
 
 const en: HomeUpholsteryCopy = {
   pageBadge: "Home upholstery cleaning",
-  newBadge: "New",
-  launchChip: "Home upholstery cleaning",
   priceOnRequest: "Quote on request",
   selectPackage: "Request a quote",
   hero: {
@@ -320,8 +314,6 @@ const en: HomeUpholsteryCopy = {
 
 const de: HomeUpholsteryCopy = {
   pageBadge: "Polsterreinigung Zuhause",
-  newBadge: "Neu",
-  launchChip: "Polsterreinigung Zuhause",
   priceOnRequest: "Preis auf Anfrage",
   selectPackage: "Anfrage senden",
   hero: {

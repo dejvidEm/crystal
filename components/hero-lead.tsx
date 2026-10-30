@@ -2,12 +2,11 @@
 
 import { CheckCircle2, Sparkles, Star } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
 import { VideoBackground } from "@/components/video-background"
 import { HeroLeadForm } from "@/components/hero-lead-form"
 import { GoogleLogo } from "@/components/google-logo"
 import { useIsHomeUpholstery } from "@/components/site-vertical-context"
-import { getHomeUpholsteryCopy, HOME_UPHOLSTERY_PATH } from "@/lib/home-upholstery-copy"
+import { getHomeUpholsteryCopy } from "@/lib/home-upholstery-copy"
 import { toContentLocale } from "@/lib/i18n/locale"
 import { useLanguage } from "@/lib/i18n/language-context"
 
@@ -36,25 +35,10 @@ export function HeroLead() {
 
       <div className="relative z-10 mx-auto grid min-h-screen max-w-[1400px] items-start gap-10 px-4 pb-16 pt-[calc(9rem+env(safe-area-inset-top,0px))] md:grid-cols-[minmax(0,1fr)_minmax(380px,520px)] md:items-center md:gap-10 md:pb-20 md:pt-32 lg:grid-cols-[minmax(0,1fr)_minmax(420px,560px)] lg:gap-14">
         <div className="max-w-2xl">
-          <div className="flex flex-col items-start gap-2">
-            <span className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/15 px-4 py-2 text-sm font-semibold text-amber-100 shadow-[0_0_28px_-8px_rgba(251,191,36,0.5)] backdrop-blur-sm">
-              <Sparkles className="h-4 w-4 shrink-0 text-amber-300" aria-hidden />
-              {badge}
-            </span>
-            {!isHome ? (
-              <Link
-                href={HOME_UPHOLSTERY_PATH}
-                className="relative inline-flex max-w-full items-center"
-              >
-                <span className="relative z-10 -mr-3 shrink-0 rounded-full bg-primary px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-black shadow-md sm:px-3.5 sm:py-2 sm:text-sm">
-                  {homeCopy.newBadge}
-                </span>
-                <span className="truncate rounded-full border border-primary/50 bg-black/70 py-1 pl-5 pr-2.5 text-[10px] font-semibold uppercase tracking-wide text-white shadow-[0_8px_30px_-12px_rgba(0,0,0,0.8)] backdrop-blur-md sm:py-1 sm:pl-6 sm:pr-3 sm:text-[11px]">
-                  {homeCopy.launchChip}
-                </span>
-              </Link>
-            ) : null}
-          </div>
+          <span className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/15 px-4 py-2 text-sm font-semibold text-amber-100 shadow-[0_0_28px_-8px_rgba(251,191,36,0.5)] backdrop-blur-sm">
+            <Sparkles className="h-4 w-4 shrink-0 text-amber-300" aria-hidden />
+            {badge}
+          </span>
 
           <h1 className="mt-6 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
             <span className="text-gradient">{title}</span>

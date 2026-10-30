@@ -10,10 +10,6 @@ const WhatsAppFloatingButton = dynamic(
   () => import("@/components/whatsapp-floating-button").then((mod) => mod.WhatsAppFloatingButton),
   { ssr: false },
 )
-const FirstVisitPromoModal = dynamic(
-  () => import("@/components/first-visit-promo-modal").then((mod) => mod.FirstVisitPromoModal),
-  { ssr: false },
-)
 const CookieConsent = dynamic(
   () => import("@/components/cookie-consent").then((mod) => mod.CookieConsent),
   { ssr: false },
@@ -24,7 +20,6 @@ export function DeferredSiteChrome() {
     <>
       <LanguageTransition />
       <WhatsAppFloatingButton />
-      <FirstVisitPromoModal />
       <CookieConsent />
     </>
   )
